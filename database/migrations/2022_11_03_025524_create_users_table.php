@@ -19,9 +19,17 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('tipo_usuario')->default(0); // 0 = suscriptor && 1 = administrador
+            $table->unsignedBigInteger('idempleado');
+            $table->string('estado_user',1)->default(0); ;
+            //$table->boolean('tipo_usuario')->default(0); // 0 = suscriptor && 1 = administrador
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('idempleado')->references('id')
+                ->on('tblempleados');
+
+            
+   
+
         });
     }
 

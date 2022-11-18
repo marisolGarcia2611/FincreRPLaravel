@@ -36,6 +36,8 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+   Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+   Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos');
+
 
   });

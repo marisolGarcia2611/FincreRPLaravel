@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vistas extends Model
+class usuario_pantallas extends Model
 {
     use HasFactory;
 
-    public $table='tblvistas';
+    public $table='tblusuario_pantallas';
 }

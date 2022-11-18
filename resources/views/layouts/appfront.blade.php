@@ -57,30 +57,9 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav">
-    @php($varcontador=1)
-    <li class="nav-item dropdown">
-    @foreach($varpantallas as $vis)
-  
-    <a class="nav-link dropdown-toggle" href="#" id="$varcontador}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{$vis->nombre_departamento}}
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="{{$varcontador}}">
-    @foreach($varsubmenus as $submenus)
-    @if($vis->nombre_departamento == $submenus->nombre_departamento)
-    <li><a class="dropdown-item" href="#">{{$submenus->nombre_vista}}</a></li>
-    @else
-    @endif
-    @php($varcontador++)
-    @endforeach
-    </ul>
-    
-    @endforeach
-    </ul>
-
-  
-  
                     <!-- Left Side Of Navbar -->
+                    
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->

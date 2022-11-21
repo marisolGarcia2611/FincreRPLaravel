@@ -17,7 +17,9 @@ class Vistas extends Migration
             $table->id();
             $table->string('nombre_vista',50);
             $table->string('descripcion_vista',50);
-            $table->string('estado_vista',1)->default(0); ;
+            $table->string('estado_vista',1)->default(0); 
+            $table->unsignedBigInteger('iddepartamento');
+             $table->foreign('iddepartamento')->references('id')->on('tbldepartamentos');
            $table->timestamps();
         });
     }

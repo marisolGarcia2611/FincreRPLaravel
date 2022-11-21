@@ -9,6 +9,7 @@ class Vistas extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD
     public $table = "tblvistas";
   
     protected $fillable = [
@@ -17,4 +18,7 @@ class Vistas extends Model
         'descripcion_vista',
         'estado_vista',
     ];
+=======
+    public $table='tblvistas';
+>>>>>>> origin/gil
 }

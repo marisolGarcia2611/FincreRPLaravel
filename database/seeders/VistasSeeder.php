@@ -17,6 +17,7 @@ class VistasSeeder extends Seeder
             'nombre_vista' => 'Principal',
             'descripcion_vista'=>'prueba',
             'estado_vista'=>'1',
+            'iddepartamento'=>'1',
         ]);
     }
 }

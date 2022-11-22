@@ -197,6 +197,8 @@
                             </a>
 
 
+                            @php($varRecursostmp='')
+                            @php($VAR='')
                             <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#"> <i class="fas fa-home icon"></i>Home</a>
                             @php($varcontador=1)
                             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -205,13 +207,23 @@
                                 <div class="accordion-item">
                                     @foreach($varpantallas as $vis)
                                   <h2 class="accordion-header" id="{{$varcontador}}">
-                                    <button style="border-radius:20px;margin-top:5px;" class=" accordion-button collapsed e__sidebar" type="button"  data-bs-toggle="collapse" data-bs-target="#{{$vis->nombre_departamento}}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    @if($vis->nombre_departamento=='Recursos Humanos')
+                                  @php( $varRecursostmp = $vis->nombre_departamento)
+                                
+                                  @php($VAR = str_replace(' ','',$varRecursostmp))
+                                    @else
+                                    @php( $VAR = $vis->nombre_departamento)
+                                    @endif
+                                    <button style="border-radius:20px;margin-top:5px;" class=" accordion-button collapsed e__sidebar" type="button"  data-bs-toggle="collapse" data-bs-target="#{{$VAR}}" aria-expanded="false" aria-controls="flush-collapseOne">
                                         <i class="fas fa-folder-open icon"></i>{{$vis->nombre_departamento}}
                                     </button>
                                   </h2>
+                                  
 
-                                  <div id="{{$vis->nombre_departamento}}" class="accordion-collapse collapse" aria-labelledby="{{$varcontador}}" data-bs-parent="#accordionFlushExample">
+                                  <div id="{{$VAR}}" class="accordion-collapse collapse" aria-labelledby="{{$varcontador}}" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
+                                 
+
                                         @foreach($varsubmenus as $submenus)
                                         @if($vis->nombre_departamento == $submenus->nombre_departamento)
                                         <a class="nav-link e__sidebar2 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#">{{$submenus->nombre_vista}}</a><br/>

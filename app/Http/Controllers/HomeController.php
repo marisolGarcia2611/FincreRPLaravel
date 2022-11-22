@@ -25,10 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $Varusuario = Auth() ->user()->name;
         $varpantallas  = Vistas::join('tblusuario_pantallas','tblusuario_pantallas.idvista','=','tblvistas.id')
         ->join("users", "users.id", "=", "tblusuario_pantallas.idusuario")
         ->join("tbldepartamentos", "tbldepartamentos.id", "=", "tblusuario_pantallas.iddepartamento")
-        ->where("Users.name", "=", 'gmoreno')
+        ->where("Users.name", "=", $Varusuario)
         ->orderby('tbldepartamentos.nombre_departamento')
         ->select('tbldepartamentos.nombre_departamento' )
         ->distinct()->get();
@@ -36,7 +37,7 @@ class HomeController extends Controller
         $varsubmenus = Vistas::join('tblusuario_pantallas','tblusuario_pantallas.idvista','=','tblvistas.id')
         ->join("users", "users.id", "=", "tblusuario_pantallas.idusuario")
         ->join("tbldepartamentos", "tbldepartamentos.id", "=", "tblusuario_pantallas.iddepartamento")
-        ->where("Users.name", "=", 'gmoreno')
+        ->where("Users.name", "=", $Varusuario)
         ->orderby('tbldepartamentos.nombre_departamento')
         ->select('tbldepartamentos.nombre_departamento','tblvistas.nombre_vista' )
         ->get();

@@ -74,9 +74,8 @@
     @php($varcontador++)
     @endforeach
     </ul>
-    
-    @endforeach
     </ul>
+    @endforeach
 
   
   

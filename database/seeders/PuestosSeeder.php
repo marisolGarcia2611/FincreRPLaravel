@@ -16,6 +16,10 @@ class PuestosSeeder extends Seeder
         \DB::table('tblpuestos')->insert([
             'nombre_puesto' => 'Administrador',
             'descripcion_puesto'=>'prueba',
+        ],
+        [
+            'nombre_puesto' => 'Sistemas',
+            'descripcion_puesto'=>'...',
         ]);
     }
 }

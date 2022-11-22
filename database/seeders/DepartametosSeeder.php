@@ -15,6 +15,15 @@ class DepartametosSeeder extends Seeder
     {
         \DB::table('tbldepartamentos')->insert([
             'nombre_departamento' => 'Recursos Humanos',
-            'descripcion_departamento'=>'Area encargada del personal de la empresa',]);
+            'descripcion_departamento'=>'Area encargada de...'],
+        [
+            'nombre_departamento' => 'Sistemas',
+            'descripcion_departamento'=>'Area encargada de...'],
+        [
+            'nombre_departamento' => 'Sucursales',
+            'descripcion_departamento'=>'Area encargada de...'],
+        [
+            'nombre_departamento' => 'Contabilidad',
+            'descripcion_departamento'=>'Area encargada de...'],);
     }
 }

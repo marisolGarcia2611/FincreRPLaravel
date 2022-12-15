@@ -57,107 +57,188 @@
     --menuBag:rgb(1, 163, 237);
     --etiquetaSBprincipal:rgb(0, 109, 160);   
     --etiquetaSBdegradado:linear-gradient(270deg, #0bc8cb 0, #1fbae1 25%, #53bcf2 50%, #539dca 75%, #4f81a4 100%);
-    --etiquetaSBsecundario:rgba(101, 101, 101, 0.123);
+    --etiquetaSBsecundario:rgba(101, 101, 101, 0.281);
     --scrollColor:#05597d;
     --font: Montserrat, Roboto, Helvetica, Arial, sans-serif;
     --text-etiquetaP:rgb(0, 0, 0);
-    --text-etiquetaS:rgb(51, 51, 51);
+    --text-etiquetaS:rgb(45, 45, 45);
     --text-etiquetaPHover:#fff;
-    --text-etiquetaSHover:rgb(85, 85, 85);
+    --text-etiquetaSHover:rgb(34, 33, 33);
 
     /* background: var(--color); */
 }
+.nv__style{
+  height:5vh;
+  width: 100%;
+  z-index: 2;
+  top: 0vh;
+  position: fixed;
+  margin-top: -3px;
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px;
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
+
+}
+
+@media screen and (max-width:600px) {
+    /* #sidebar-nav {
+        
+        width: 150px;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right:20px ;
+    } */
     .nv__style{
-        background-color: var(--navBg);
-        height:6%;
+        height:60px;
         width: 100%;
-        margin-bottom: 20px;
+        z-index: 2;
+        top: 0vh;
+        position: fixed !important;
+        border-bottom-left-radius:10px;
+        border-bottom-right-radius:10px;
+        box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
+    
+    }
+    .font__cub{
+      font-size:50px;color: beige;
+      margin: 50px;
+    }
+    .cub__size{
+      height: 300px;
+    }
+
+  
+  }
+
+  @media screen and (max-width:1900px) {
+  
+    .nv__style{
+        background-color: nar(--navBg);
+        height:5vh;
+        width: 100%;
+        z-index: 2;
+        margin-top: -3px;
+        top: 0vh;
         position: fixed;
         border-bottom-left-radius:10px;
         border-bottom-right-radius:10px;
         box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
-
+    
     }
+  
+  
+  }
+/* -------------------Etiquetas de sidebar------------------ */
 
-    .e__sidebar {
-        float: none;
-        border-radius: 30px;
-        font-size: 13px;
-        -webkit-transition: all 0.3s ease;
-        color: var(--text-etiquetaP);
-        transition: all 0.3s ease;
-        border-radius: 20px;
-      }
-    
-       /* Add a background color on hover */
-       .e__sidebar:hover {
-        background-color: var(--etiquetaSBprincipal);   
-        color: var(--text-etiquetaPHover);
-        -webkit-transform: scale(1.1) !important;
-         transform: scale(1.04) !important;
-      }
-    
-      .e__sidebar1 {
-        float: none;
-        border-radius: 30px;
-        -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-        font-size:13px;
-        border-radius: 20px;
-        color: var(--text-etiquetaP);
-        padding: 20px;
-        padding-bottom: 16px;
-        padding-top: 16px;
-        text-decoration: none;
-        display: block;
-      }
-    
-      .e__sidebar1:hover {
-        background-color: var(--etiquetaSBprincipal);   
-        /* background-color: rgb(1, 163, 237);    */
-        color: var(--text-etiquetaPHover);
-        -webkit-transform: scale(1.1) !important;
-         transform: scale(1.04) !important;
-      }
-      .e__sidebar2 {
-        float: none;
-        border-radius: 30px;
-        -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-        font-size: 11px;
-        border-radius: 20px;
-        color: var(--text-etiquetaS);
-        text-decoration: none;
-        display: block;
-      }
-    
-      .e__sidebar2:hover {
-        background-color: var(--etiquetaSBsecundario);   
-        -webkit-transform: scale(1.1) !important;
-        color: var(--text-etiquetaSHover);
-         transform: scale(1.04) !important;
-      }
-    
-    
-      .a__state{
-        border-radius:20px;margin-top:5px;
-      }
-    
-    
-      .icon{
-        margin-right:10px;
-      }
-    
-      .b__lateral{
-        border-top-right-radius:20px;
-        border-bottom-right-radius:10px;
-        box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
-      }
-      .contenedorPrincipal{
-        padding-left:20px;
-        padding-left:20px;
-      }
+.e__sidebar {
+    float: none;
+    border-radius: 30px;
+    font-size: 13px;
+    -webkit-transition: all 0.3s ease;
+    color: var(--text-etiquetaP);
+    transition: all 0.3s ease;
+    border-radius: 20px;
+  }
+
+   /* Add a background color on hover */
+   .e__sidebar:hover {
+    background-color: #212529;   
+    color: var(--text-etiquetaPHover);
+    -webkit-transform: scale(1.1) !important;
+     transform: scale(1.04) !important;
+  }
+
+  .e__sidebar1 {
+    float: none;
+    border-radius: 30px;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    font-size:13px;
+    border-radius: 20px;
+    color: var(--text-etiquetaP);
+    padding: 20px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+
+  .e__sidebar1:hover {
+    background-color: #212529;   
+    /* background-color: rgb(1, 163, 237);    */
+    color: var(--text-etiquetaPHover);
+    -webkit-transform: scale(1.1) !important;
+     transform: scale(1.04) !important;
+  }
+  .e__sidebar2 {
+    float: none;
+    border-radius: 30px;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    border-radius: 20px;
+    color: var(--text-etiquetaS);
+    text-decoration: none;
+    display: block;
+  }
+
+  .e__sidebar2:hover {
+    background-color: var(--etiquetaSBsecundario);   
+    -webkit-transform: scale(1.1) !important;
+    color: var(--text-etiquetaSHover);
+     transform: scale(1.04) !important;
+  }
+
+
+  .a__state{
+    border-radius:20px;margin-top:5px;
+  }
+
+
+  .icon{
+    margin-right:10px;
+  }
+
+  .b__lateral{
+     border-top-right-radius:50px;
+   /* border-bottom-right-radius:10px; */
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
+  }
+  
+  .contenedorPrincipal{
+    /* padding-left:20px;
+    padding-left:20px; */
+  }
+
+  .font_little{
+    font-size: 11px;
+  }
+  .cont_1{
+    margin-top: 100px;
+  }
+
+  .p__little{
+    font-size: 11px;
+  }
+  .push{
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
       
+  .push:hover {
+      -webkit-transform: scale(1.1) !important;
+      transform: scale(1.04) !important;
+  }
+  .middle__font{
+    font-size: 14px;
+  }
+  .offcanvas-body input{
+    border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868
+  }
+  .offcanvas-body select{
+    border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868
+  }
+  .offcanvas-body label{
+    color: #575656;margin-top: 5px;font-size: 12px;
+  }
     </style>
 
 
@@ -166,7 +247,7 @@
 
     {{-- MENU DINAMICO INICIO --}}
     <main>
-        <nav class="navbar navbar nv__style" >
+        <nav class="navbar navbar-dark bg-dark  nv__style" >
             <div class="container-fluid" style="margin-top:-5px;">
                 <a class="navbar-brand">  
                      <button type="button" class="hamburger animated fadeInLeft is-closed" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
@@ -190,9 +271,11 @@
                 <div class="offcanvas-body contenedor-light">
                     <div class="list-group border-0 rounded-0 text-sm-start min-vh-100">
                         <nav class="nav flex-column">
-                            <a class="nav-link active " aria-current="page" href="#">
+                          <img src="{{ asset('Images/1.png') }}" style="width: 150px;height:150px;object-fit:cover;margin-bottom:40px;" class="rounded mx-auto d-block" alt="...">
+
+                            {{-- <a class="nav-link active " aria-current="page" href="#">
                                 <img src="{{ asset('Images/logo.png') }}" width="110px"  style="position: relative; margin-top: -28px;margin-left: 100px;margin-bottom: 30px;">
-                            </a>
+                            </a> --}}
                             @php($varRecursostmp='')
                             @php($VAR='')
                             <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#"> <i class="fas fa-home icon"></i>Home</a>
@@ -252,7 +335,7 @@
           
 
 
-          <div class="contenedorPrincipal" >
+          <div>
             @yield('content')
           </div>
         

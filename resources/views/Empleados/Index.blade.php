@@ -1,69 +1,90 @@
 @extends('layouts.app')
 @section('content')
-<div class="container mt-3">
-  <h2>Black/Dark Table</h2>      
-  <a href="/Empleados/create">Nuevo</a>
-    <button  type="button" class="btn btn-info" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Nuevo</button> 
-    <button  type="button" class="btn btn-success">Exportar</button>
-    <button  type="button" class="btn btn-warning">Grafica</button>      
-  <table class="table table-dark" id="tblempleados">
-    <thead>
+<div class="container mt-5 p__little">
+  
+ 
+
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="fw-light">Catalogo de Empleados</h1> 
+      </div>
+      <div class="col-md-6">
+        <div class="row text-center">
+          <div class="col-md-4">
+            <button  type="button" class="btn push" style="background-color: #00AB26;border-radius:100%;border:0px solid #00AB26;width:15vh;height:15vh;color:#fff;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><h2><i class="fas fa-plus"></i></h2></button> 
+          </div>
+          <div class="col-md-4">
+            <button  type="button" class="btn push" style="background-color: #A449FF;border-radius:100%;border:0px solid #A449FF;width:15vh;height:15vh;color:#fff;"><h2><i class="fas fa-download"></i></h2></button>
+          </div>
+          <div class="col-md-4">
+            <button  type="button" class="btn push" style="background-color: #0D42FF;border-radius:100%;border:0px solid #0D42FF;width:15vh;height:15vh;color:#fff;"><h2><i class="fas fa-chart-pie"></i></h2></button>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <br/>
+    <br/>
+          
+  <table class="table table-hover tl" id="tblempleados">
+    <thead class="table-dark">
       <tr>
-        <th>Primer Nombre</th>
-        <th>Segundo Nombre</th>
-        <th>Apelleido Paterno</th>
-        <th>Apellido Materno</th>
-        <th>Telefono</th>
-        <th>Correo</th>
-        <th>Puesto</th>
-        <th>Sucursal</th>
-        <th>Ciudad</th>
-        <th>Calle</th>
-        <th>Colonia</th>
-        <th>Numero Interior</th>
-        <th>Numero Exterior</th>
-        <th>Codigo Postal</th>
-        <th>Sexo</th>
-        <th>Fecha de Nacimiento</th>
-        <th>Salario Bruto</th>
-        <th>Salario Neto</th>
-        <th>Banco</th>
-        <th>Numero de Tarjeta</th>
-        <th>Numero de Cuenta</th>
-        <th>RFC</th>
-        <th>NSS</th>
-        <th>Tipo de Sangre</th>
-        <th>Contacto de Emergencia</th>
+        <th class="text-center fw-light">Herramientas</th>
+        <th  class="text-center fw-light">Primer Nombre</th>
+        <th  class="text-center fw-light">Segundo Nombre</th>
+        <th  class="text-center fw-light">Apelleido Paterno</th>
+        <th  class="text-center fw-light">Apellido Materno</th>
+        <th  class="text-center fw-light">Telefono</th>
+        <th  class="text-center fw-light">Correo</th>
+        <th  class="text-center fw-light">Puesto</th>
+        <th  class="text-center fw-light">Sucursal</th>
+        <th  class="text-center fw-light">Ciudad</th>
+        <th  class="text-center fw-light">Calle</th>
+        <th  class="text-center fw-light">Colonia</th>
+        <th  class="text-center fw-light">Numero Interior</th>
+        <th  class="text-center fw-light">Numero Exterior</th>
+        <th  class="text-center fw-light">Codigo Postal</th>
+        <th  class="text-center fw-light">Sexo</th>
+        <th  class="text-center fw-light">Fecha de Nacimiento</th>
+        <th  class="text-center fw-light">Salario Bruto</th>
+        <th  class="text-center fw-light">Salario Neto</th>
+        <th  class="text-center fw-light">Banco</th>
+        <th  class="text-center fw-light">Numero de Tarjeta</th>
+        <th  class="text-center fw-light">Numero de Cuenta</th>
+        <th  class="text-center fw-light">RFC</th>
+        <th  class="text-center fw-light">NSS</th>
+        <th  class="text-center fw-light">Tipo de Sangre</th>
+        <th  class="text-center fw-light">Contacto de Emergencia</th>
       </tr>
     </thead>
     <tbody>
     @foreach($varlistaempleados as $vis)
       <tr>
-        <td>{{$vis->primer_nombre}}</td>
-        <td>{{$vis->segundo_nombre}}</td>
-        <td>{{$vis->apellido_paterno}}</td>
-        <td>{{$vis->apellido_materno}}</td>
-        <td>{{$vis->telefono}}</td>
-        <td>{{$vis->correo}}</td>
-        <td>{{$vis->puesto}}</td>
-        <td>{{$vis->sucursal}}</td>
-        <td>{{$vis->ciudad}}</td>
-        <td>{{$vis->calle}}</td>
-        <td>{{$vis->colonia}}</td>
-        <td>{{$vis->numero_interior}}</td>
-        <td>{{$vis->numero_exterior}}</td>
-        <td>{{$vis->codigo_postal}}</td>
-        <td>{{$vis->sexo}}</td>
-        <td>{{$vis->fecha_nacimiento}}</td>
-        <td>{{$vis->salario_bruto}}</td>
-        <td>{{$vis->salario_neto}}</td>
-        <td>{{$vis->banco}}</td>
-        <td>{{$vis->numero_tarjeta}}</td>
-        <td>{{$vis->numero_cuenta}}</td>
-        <td>{{$vis->rfc}}</td>
-        <td>{{$vis->nss}}</td>
-        <td>{{$vis->tipo_sangre}}</td>
-        <td>{{$vis->contacto_emergencia}}</td>
+        <td class="table-light"><h6 style="color: rgb(76, 74, 74)"><i class="fas fa-eye"></i>&nbsp; &nbsp;<i class="fas fa-edit"></i>&nbsp; &nbsp;<i class="fas fa-trash"></i></h6></td>
+        <td class="table-info">{{$vis->primer_nombre}}</td>
+        <td class="table-info">{{$vis->segundo_nombre}}</td>
+        <td class="table-info">{{$vis->apellido_paterno}}</td>
+        <td class="table-info">{{$vis->apellido_materno}}</td>
+        <td class="table-primary">{{$vis->telefono}}</td>
+        <td class="table-primary">{{$vis->correo}}</td>
+        <td class="table-warning">{{$vis->puesto}}</td>
+        <td class="table-primary">{{$vis->sucursal}}</td>
+        <td class="table-primary">{{$vis->ciudad}}</td>
+        <td class="table-primary">{{$vis->calle}}</td>
+        <td class="table-primary">{{$vis->colonia}}</td>
+        <td class="table-primary">{{$vis->numero_interior}}</td>
+        <td class="table-primary">{{$vis->numero_exterior}}</td>
+        <td class="table-primary">{{$vis->codigo_postal}}</td>
+        <td class="table-primary">{{$vis->sexo}}</td>
+        <td class="table-primary">{{$vis->fecha_nacimiento}}</td>
+        <td class="table-warning">{{$vis->salario_bruto}}</td>
+        <td class="table-warning">{{$vis->salario_neto}}</td>
+        <td class="table-warning">{{$vis->banco}}</td>
+        <td class="table-warning">{{$vis->numero_tarjeta}}</td>
+        <td class="table-warning">{{$vis->numero_cuenta}}</td>
+        <td class="table-danger">{{$vis->rfc}}</td>
+        <td class="table-danger">{{$vis->nss}}</td>
+        <td class="table-primary">{{$vis->tipo_sangre}}</td>
+        <td class="table-info">{{$vis->contacto_emergencia}}</td>
       </tr>
       @endforeach
     </tbody>
@@ -75,7 +96,7 @@
         <div class="offcanvas-header">
           <nav id="navbar-example2" class="navbar navbar-light px-3">
             <a class="navbar-brand" href="#">Nuevo Empleado</a>
-            <ul class="nav nav-pills">
+            <ul class="nav nav-pills middle__font">
               <li class="nav-item">
                 <a class="nav-link" href="#scrollspyHeading1">General</a>
               </li>
@@ -96,7 +117,7 @@
               <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                 <form action="{{route('Empleados.store')}}" method="POST">
                 @csrf
-                    <h4 id="scrollspyHeading1">General</h4>
+                    <h5 id="scrollspyHeading1">General</h5>
                       <div class="row">
                         <div class="col">
                           <!-- Name input -->
@@ -148,7 +169,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Puesto</label>
-                          <select name="puesto">
+                          <select class="form-select" name="puesto">
                           @foreach($varpuestos as $puestos)
                           <option  value="{{$puestos->id}}">{{$puestos->nombre}}</option>
                         @endforeach
@@ -160,7 +181,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Sucursal</label>
-                          <select  name="sucursal" >
+                          <select class="form-select"  name="sucursal" >
                           @foreach($varsucursales as $sucursales)
                           <option value="{{$sucursales->id}}">{{$sucursales->nombre}}</option>
                         @endforeach
@@ -174,7 +195,7 @@
                           <!-- Name input -->
                           <div class="form-outline">
                           <label class="form-label" >Ciudad</label>
-                          <select   name="ciudad">
+                          <select class="form-select"  name="ciudad">
                           @foreach($varciudades as $ciudades)
                           <option value="{{$ciudades->id}}">{{$ciudades->nombre}}</option>
                         @endforeach
@@ -187,7 +208,7 @@
                           <!-- Name input -->
                           <div class="form-outline">
                           <label class="form-label" >Banco</label>
-                          <select   name="banco">
+                          <select  class="form-select" name="banco">
                           @foreach($varbancos as $banco)
                           <option value="{{$banco->id}}">{{$banco->nombre}}</option>
                         @endforeach
@@ -264,7 +285,7 @@
                       <br/>
                       <!-- aqui termina el primer insert -->
                       <br/>
-                      <h4 id="scrollspyHeading2">Detalles</h4>
+                      <h5 id="scrollspyHeading2">Detalles</h5>
 
                       <div class="row">
                         <div class="col">
@@ -357,7 +378,7 @@
                         <br/>
                       <!-- aqui termina el segundo insert -->
                       <br/>
-                      <h4 id="scrollspyHeading3">Razón Social</h4>
+                      <h5 id="scrollspyHeading3">Razón Social</h5>
 
                       <div class="row">
                         <div class="col">
@@ -412,7 +433,7 @@ $(document).ready(function() {
   $('#Efectivo').hide();
     var table = $('#tblempleados').DataTable( {
         responsive: true,
-        scrollY: 500,
+        scrollY: 450,
         scrollX: true,
     } );
     new $.fn.dataTable.FixedHeader( table );

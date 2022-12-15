@@ -15,18 +15,19 @@ class Sucursales extends Migration
     {
         Schema::create('tblsucursales', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_sucursal',60);
-            $table->string('telefono_sucursal',10);
+            $table->string('nombre',60);
+            $table->string('telefono',10);
             $table->unsignedBigInteger('idciudad');
-            $table->string('calle_sucursal',60);
-            $table->string('colonia_sucursal',60);
-            $table->string('numero_interior_sucursal',10);
-            $table->string('numero_exterior_sucursal',10);
-            $table->string('codigo_postal_sucursal',6);
+            $table->string('calle',60);
+            $table->string('colonia',60);
+            $table->string('numero_interior',10);
+            $table->string('numero_exterior',10);
+            $table->string('codigo_postal',6);
             $table->timestamps();
             $table->foreign('idciudad')->references('id')
                 ->on('tblciudades');
         });
+
     }
 
     /**
@@ -36,6 +37,6 @@ class Sucursales extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tblsucursales');
+        Schema::dropIfExists('tblsucursales'); 
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class Usuarios extends Migration
 {
     /**
      * Run the migrations.
@@ -21,18 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->unsignedBigInteger('idempleado');
             $table->string('estado_user',1)->default(0); ;
-            //$table->boolean('tipo_usuario')->default(0); // 0 = suscriptor && 1 = administrador
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('idempleado')->references('id')
                 ->on('tblempleados');
 
-            
-   
-
         });
     }
 
+    
     /**
      * Reverse the migrations.
      *

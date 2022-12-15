@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Acciones extends Migration
+class Puestos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class Acciones extends Migration
      */
     public function up()
     {
-        Schema::create('tblacciones', function (Blueprint $table) {
+        Schema::create('tblpuestos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_accion',50);
-            $table->string('descripcion_accion',45);
-            $table->timestamps();
+            $table->string('nombre',45);
+            $table->string('descripcion',45);
+           $table->timestamps();
         });
+
     }
 
     /**
@@ -28,7 +29,6 @@ class Acciones extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tblacciones');
-
+        Schema::dropIfExists('tblpuestos');
     }
 }

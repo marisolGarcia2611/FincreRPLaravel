@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UsuarioPantallas extends Migration
+class PermisosPantallas extends Migration
 {
     /**
      * Run the migrations.
@@ -24,6 +24,7 @@ class UsuarioPantallas extends Migration
             $table->foreign('idvista')->references('id')->on('tblvistas');
             $table->foreign('iddepartamento')->references('id')->on('tbldepartamentos');
         });
+
     }
 
     /**
@@ -33,6 +34,6 @@ class UsuarioPantallas extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tblusuario_pantallas');
     }
 }

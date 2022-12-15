@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Vistas;
 use App\Models\usuario_pantallas;
+use App\Traits\Menutrait;
 
 class HomeController extends Controller
 {
+    use MenuTrait;
     /**
      * Create a new controller instance.
      *
@@ -25,21 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $varpantallas  = Vistas::join('tblusuario_pantallas','tblusuario_pantallas.idvista','=','tblvistas.id')
-        ->join("users", "users.id", "=", "tblusuario_pantallas.idusuario")
-        ->join("tbldepartamentos", "tbldepartamentos.id", "=", "tblusuario_pantallas.iddepartamento")
-        ->where("Users.name", "=", 'gmoreno')
-        ->orderby('tbldepartamentos.nombre_departamento')
-        ->select('tbldepartamentos.nombre_departamento' )
-        ->distinct()->get();
 
-        $varsubmenus = Vistas::join('tblusuario_pantallas','tblusuario_pantallas.idvista','=','tblvistas.id')
-        ->join("users", "users.id", "=", "tblusuario_pantallas.idusuario")
-        ->join("tbldepartamentos", "tbldepartamentos.id", "=", "tblusuario_pantallas.iddepartamento")
-        ->where("Users.name", "=", 'gmoreno')
-        ->orderby('tbldepartamentos.nombre_departamento')
-        ->select('tbldepartamentos.nombre_departamento','tblvistas.nombre_vista' )
-        ->get();
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+       
         return view('home',compact('varpantallas','varsubmenus'));
     }
 

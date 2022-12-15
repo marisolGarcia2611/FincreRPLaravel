@@ -1,4 +1,4 @@
-@extends('layouts.appfront')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -16,11 +16,10 @@
 
                             <div class="col-md-6">
                                <select name="" id="">
-                               <option value=""></option>
+                                @foreach($varempleados as empleado)
+                               <option value=" {{empleado->id }}">  {{empleado->primer_nombre }}</option>
+                               @endforeach
                                </select> 
-                               
-                               
-
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

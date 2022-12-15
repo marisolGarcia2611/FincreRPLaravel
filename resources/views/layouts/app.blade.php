@@ -14,6 +14,7 @@
          <script src="{{ asset('js/app.js') }}"></script>
          <script src="{{ asset('resources.js') }}"></script>
          <link href="{{ asset('bootstrap-5.2.2-dist/js/bootstrap.min.js') }}" rel="stylesheet">
+         <link href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
  
          {{-- Styles --}}
          {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
@@ -23,6 +24,8 @@
          <link href="{{ asset('bootstrap-5.2.2-dist/css/bootstrap.min.css') }}" rel="stylesheet">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+         <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+         
 
          <!-- Icocnos -->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -184,49 +187,37 @@
                   <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                   <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
                 </div>
-
-
                 <div class="offcanvas-body contenedor-light">
-
                     <div class="list-group border-0 rounded-0 text-sm-start min-vh-100">
                         <nav class="nav flex-column">
-
-
                             <a class="nav-link active " aria-current="page" href="#">
                                 <img src="{{ asset('Images/logo.png') }}" width="110px"  style="position: relative; margin-top: -28px;margin-left: 100px;margin-bottom: 30px;">
                             </a>
-
-
                             @php($varRecursostmp='')
                             @php($VAR='')
                             <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#"> <i class="fas fa-home icon"></i>Home</a>
                             @php($varcontador=1)
                             <div class="accordion accordion-flush" id="accordionFlushExample">
-                               
-                           
                                 <div class="accordion-item">
                                     @foreach($varpantallas as $vis)
                                   <h2 class="accordion-header" id="{{$varcontador}}">
-                                    @if($vis->nombre_departamento=='Recursos Humanos')
-                                  @php( $varRecursostmp = $vis->nombre_departamento)
-                                
+                                    @if(strpos($vis->nombre, ' '))
+                                  @php( $varRecursostmp = $vis->nombre)
                                   @php($VAR = str_replace(' ','',$varRecursostmp))
-                                    @else
-                                    @php( $VAR = $vis->nombre_departamento)
-                                    @endif
+                                  @else
+                                  @php( $VAR = $vis->nombre)
+                                  @endif
                                     <button style="border-radius:20px;margin-top:5px;" class=" accordion-button collapsed e__sidebar" type="button"  data-bs-toggle="collapse" data-bs-target="#{{$VAR}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        <i class="fas fa-folder-open icon"></i>{{$vis->nombre_departamento}}
+                                        <i class="fas fa-folder-open icon"></i>{{$vis->nombre}}
                                     </button>
                                   </h2>
-                                  
-
                                   <div id="{{$VAR}}" class="accordion-collapse collapse" aria-labelledby="{{$varcontador}}" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
-                                 
-
+                                  
                                         @foreach($varsubmenus as $submenus)
-                                        @if($vis->nombre_departamento == $submenus->nombre_departamento)
-                                        <a class="nav-link e__sidebar2 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#">{{$submenus->nombre_vista}}</a><br/>
+                                       
+                                        @if($vis->nombre == $submenus->nombre)
+                                        <a class="nav-link e__sidebar2 d-inline-block text-truncate" data-bs-parent="#sidebar" href="{{ route('verempleados') }}">{{$submenus->nom}}</a><br/>
                                         @else
                                         @endif
                                         @php($varcontador++)
@@ -236,7 +227,6 @@
                                   @endforeach
                                 </div>
                             </div>
-                   
                         @guest
                         @else
                                 

@@ -3,25 +3,20 @@
 namespace App\Http\Controllers;
 use App\Models\Vistas;
 use Illuminate\Http\Request;
+use App\Traits\Menutrait;
 
 class RecursosController extends Controller
 {
+    use MenuTrait;
     public function __construct()
     {
         $this->middleware('auth');
     }
     
-
-
-
     public function index()
     { 
-        $varpantallas = Vistas::join('tblusuario_pantallas','tblusuario_pantallas.idvista','=','blvistas.id')
-        ->join("users", "users.id", "=", "tblusuario_pantallas.idusuario")
-        ->join("tbldepartamentos", "tbldepartamentos.id", "=", "tblusuario_pantallas.idusuario")
-        ->where("users.name", "=", 'gmoreno')
-        ->select("tblvistas.nombre_vista")
-        ->get();
-        return view('Recursos',compact('varpantallas'));
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        return view('Empleados.Index',compact('varpantallas','varsubmenus'));
     }
 }

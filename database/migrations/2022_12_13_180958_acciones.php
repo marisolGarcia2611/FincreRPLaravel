@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Ciudades extends Migration
+class Acciones extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class Ciudades extends Migration
      */
     public function up()
     {
-        Schema::create('tblciudades', function (Blueprint $table) {
+        Schema::create('tblacciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_ciudad',45);
-           $table->timestamps();
+            $table->string('nombre_accion',50);
+            $table->string('descripcion_accion',45);
+            $table->timestamps();
         });
+
     }
 
     /**
@@ -27,6 +29,6 @@ class Ciudades extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tblciudades');
+        Schema::dropIfExists('tblacciones'); 
     }
 }

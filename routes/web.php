@@ -13,31 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
-
-// ->middleware('auth')
-// Route::filter('auth', function()
-// {
-//     if (Auth::guest()) {
-//            return Redirect::guest('login');
-//     }
-// });
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::group(['middleware' => 'prevent-back-history'],function(){
-    // Auth::routes();
-    // Route::get('/home', 'HomeController@index');
+ 
     
     Route::get('/', function () {
         return view('welcome');
     });
+
    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
    Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos');
-
-
+   Route::get('/Empleados',[App\Http\Controllers\EmpleadosController::class, 'index'])->name('verempleados');
+   Route::get('/Empleados/create',[App\Http\Controllers\EmpleadosController::class, 'create'])->name('create');
+   Route::post('Empleados/store', 'App\Http\Controllers\EmpleadosController@store')->name('Empleados.store');  
+    
   });

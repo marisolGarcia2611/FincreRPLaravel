@@ -11,13 +11,13 @@
       <div class="col-md-6">
         <div class="row text-center">
           <div class="col-md-4">
-            <button  type="button" class="btn push" style="background-color: #00AB26;border-radius:100%;border:0px solid #00AB26;width:15vh;height:15vh;color:#fff;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><h2><i class="fas fa-plus"></i></h2></button> 
+            <button  type="button" class="btn push2" style="background-color: #00AB26;border-radius:100%;border:0px solid #00AB26;width:15vh;height:15vh;color:#fff;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><h2><i class="fas fa-plus"></i></h2></button> 
           </div>
           <div class="col-md-4">
-            <button  type="button" class="btn push" style="background-color: #A449FF;border-radius:100%;border:0px solid #A449FF;width:15vh;height:15vh;color:#fff;"><h2><i class="fas fa-download"></i></h2></button>
+            <button  type="button" class="btn push2" style="background-color: #A449FF;border-radius:100%;border:0px solid #A449FF;width:15vh;height:15vh;color:#fff;"><h2><i class="fas fa-download"></i></h2></button>
           </div>
           <div class="col-md-4">
-            <button  type="button" class="btn push" style="background-color: #0D42FF;border-radius:100%;border:0px solid #0D42FF;width:15vh;height:15vh;color:#fff;"><h2><i class="fas fa-chart-pie"></i></h2></button>
+            <button  type="button" class="btn push2" style="background-color: #0D42FF;border-radius:100%;border:0px solid #0D42FF;width:15vh;height:15vh;color:#fff;"><h2><i class="fas fa-chart-pie"></i></h2></button>
           </div>
         </div>
       </div>

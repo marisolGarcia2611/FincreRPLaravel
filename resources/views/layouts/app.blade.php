@@ -218,14 +218,14 @@
   .p__little{
     font-size: 11px;
   }
-  .push{
+  .push2{
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
   }
       
-  .push:hover {
+  .push2:hover {
       -webkit-transform: scale(1.1) !important;
-      transform: scale(1.04) !important;
+      transform: scale(1.06) !important;
   }
   .middle__font{
     font-size: 14px;

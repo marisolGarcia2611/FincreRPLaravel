@@ -106,6 +106,7 @@
     .cub__size{
       height: 300px;
     }
+ 
 
   
   }
@@ -239,6 +240,16 @@
   .offcanvas-body label{
     color: #575656;margin-top: 5px;font-size: 12px;
   }
+  /* ----------------------------------------------------------------------------------Buttoons tools ----------------------------------------------------------------*/
+  .bt_tool1{background-color: #00AB26;border-radius:100%;border:0px solid #00AB26;width:15vh;height:15vh;color:#fff;}
+  .bt_tool1:hover{background-color: #383838;border-radius:100%;border:0px solid #ffffff;width:15vh;height:15vh;color:#fff;}
+
+  .bt_tool2{background-color: #A449FF;border-radius:100%;border:0px solid #A449FF;width:15vh;height:15vh;color:#fff;}
+  .bt_tool2:hover{background-color: #383838;border-radius:100%;border:0px solid #ffffff;width:15vh;height:15vh;color:#fff;}
+
+  .bt_tool3{background-color: #0D42FF;border-radius:100%;border:0px solid #0D42FF;width:15vh;height:15vh;color:#fff;}
+  .bt_tool3:hover{background-color: #383838;border-radius:100%;border:0px solid #ffffff;width:15vh;height:15vh;color:#fff;}
+
     </style>
 
 
@@ -278,7 +289,7 @@
                             </a> --}}
                             @php($varRecursostmp='')
                             @php($VAR='')
-                            <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#"> <i class="fas fa-home icon"></i>Home</a>
+                            <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#"> <i class="fas fa-home icon"></i>Principal</a>
                             @php($varcontador=1)
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <div class="accordion-item">
@@ -316,7 +327,7 @@
                                     <a class="nav-link e__sidebar1 d-inline-block text-truncat" data-bs-parent="#sidebar" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fa fa-solid fa-arrow-right icon"></i>
-                                        {{ __('Logout') }}
+                                        Salir
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

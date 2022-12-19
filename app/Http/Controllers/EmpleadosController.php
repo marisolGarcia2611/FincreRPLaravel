@@ -123,6 +123,7 @@ class EmpleadosController extends Controller
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
             return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos'));
+            // ->with("success","Empleado creado correctamente")
     }
 
     /**

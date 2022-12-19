@@ -48,13 +48,13 @@
                         </button>
                         <div class="collapse navbar-collapse nav__responsive" id="navbarSupportedContent">
                              @auth
-                                <a href="{{ url('/home') }}" class="nav-link">Home</a>
+                                <a href="{{ url('/home') }}" class="nav-link text-light">Principal</a>
                             @else
-                                <a href="{{ route('login') }}" class="link__nav ">Log in</a>
+                                <a href="{{ route('login') }}" class="link__nav ">Incio de sesión</a>
 
                                 @if (Route::has('register'))
                                     <a class="btn__letter">|</a>
-                                    <a href="{{ route('register') }}" class="link__nav">Register</a>
+                                    <a href="{{ route('register') }}" class="link__nav">Registrar</a>
                                 @endif
                             @endauth
 

@@ -6,6 +6,7 @@ use App\Models\Empleados;
 use App\Models\Empresas;
 use App\Models\nominas;
 use App\Models\Vistas;
+use App\Models\empleados_bajas;
 use App\Http\Requests\StoreEmpleadosRequest;
 use App\Http\Requests\UpdateEmpleadosRequest;
 use App\Traits\Menutrait;
@@ -89,7 +90,11 @@ class EmpleadosController extends Controller
         $empleados->tipo_sangre = $request->get('tipo_sangre');
         $empleados->contacto_emergencia = $request->get('contacto_emergencias');
         $empleados->telefono_emergencia = $request->get('telefono_emergencia');
+        $empleados->estado = 'Activo';
+        $empleados->descripcion_estado = 'alta empleado';
         $empleados->created_at = $date;
+        $empleados->fecha_ingreso = $request->get('fecha_alta');
+        $empleados->fecha_baja = $date;
         $empleados->save();
 
 
@@ -169,5 +174,56 @@ class EmpleadosController extends Controller
     public function destroy(Empleados $empleados)
     {
         //
+    }
+
+
+    public function bajas(Request $request)
+    {
+        $date = Carbon::now();
+        $idempleado = $request->get('ids');
+        $descripcionbaja=$request->get('descripcion_baja');
+        $fecha = $date->format('Y-m-d');
+        $empleadosbaja = new empleados_bajas();
+        $empleadosbaja->idempleado=$idempleado;
+        $empleadosbaja->tipo_baja=$request->get('tipo_baja');
+        $empleadosbaja->descripcion=$descripcionbaja;
+        $empleadosbaja->fecha_baja=$request->get('fecha_baja');
+        $empleadosbaja->dias_gratificacion=$request->get('diasgratificacion');
+        $empleadosbaja->dias_aguinaldo=$request->get('dias_trabajados');
+        $empleadosbaja->dias_sueldo_a_deber=$request->get('dias_trabajadosa_deber');
+        $empleadosbaja->dias_vacaciones=$request->get('dias_vacaciones');
+        $empleadosbaja->cantidad_gratificacion=$request->get('gratificacion');
+        $empleadosbaja->cantidad_aguinaldo=$request->get('Aguinaldo_poporcional');
+        $empleadosbaja->cantidad_sueldo=$request->get('sueldo_poporcional');
+        $empleadosbaja->cantidad_vacaciones=$request->get('vacaciones_poporcionales');
+
+
+        $empleadosbaja->cantidaddeduccion_imms=$request->get('imms');
+        $empleadosbaja->cantidaddeduccion_infonavit=$request->get('infonavit');
+        $empleadosbaja->cantidaddeduccion_transporte=$request->get('transporte');
+        $empleadosbaja->cantidaddeduccion_prestamo=$request->get('prestamo');
+        $empleadosbaja->cantidaddeduccion_otros=$request->get('otras');
+        $empleadosbaja->cantidadtotal_entregada=$request->get('total_entregar');
+        $empleadosbaja->created_at = $fecha;
+        $empleadosbaja->save();
+
+
+        $empleado = empleados::find($idempleado);
+        $empleado->estado = 'Inactivo';
+        $empleado->descripcion_estado = $descripcionbaja;
+        $empleado->save();
+   
+
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        $varpuestos = $this->obtenerpuestos();
+        $varsucursales = $this->obtenersucursales();
+        $varciudades =  $this->obtenerciudades();
+        $varempresas = $this->obtenerempresas();
+        $varbancos = $this->obtenerbancos();
+        $varlistaempleados=  $this-> obtenerlistaempleados();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+            return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos'));
     }
 }

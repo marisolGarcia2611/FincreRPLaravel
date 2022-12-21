@@ -38,6 +38,9 @@ class Empleados extends Migration
             $table->string('tipo_sangre',10);
             $table->string('contacto_emergencia',50);
             $table->string('telefono_emergencia',10);
+            $table->string('estado',10);
+            $table->string('descripcion_estado',100);
+            $table->string('fecha_ingreso',12);
             $table->timestamps();
             $table->foreign('idpuesto')->references('id')
                 ->on('tblpuestos');
@@ -59,6 +62,9 @@ class Empleados extends Migration
      */
     public function down()
     {
+        $table->string('estado',10);
         Schema::dropIfExists('tblempleados'); 
     }
 }
+
+

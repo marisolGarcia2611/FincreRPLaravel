@@ -57,6 +57,7 @@ trait DatosimpleTraits
             ->join("tblciudades", "tblempleados.idciudad", "=", "tblciudades.id")
             ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
             ->select(
+            'tblempleados.id',
             'tblempleados.primer_nombre',
             'tblempleados.segundo_nombre',
             'tblempleados.apellido_paterno',
@@ -82,7 +83,10 @@ trait DatosimpleTraits
             'tblempleados.nss',
             'tblempleados.tipo_sangre',
             'tblempleados.contacto_emergencia',
-            'tblempleados.telefono_emergencia')
+            'tblempleados.telefono_emergencia',
+            'tblempleados.estado',
+            'tblempleados.descripcion_estado',
+            'tblempleados.fecha_ingreso')
             ->get();
 
             return $varlistaempleado;

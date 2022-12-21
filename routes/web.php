@@ -26,5 +26,6 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
    Route::get('/Empleados',[App\Http\Controllers\EmpleadosController::class, 'index'])->name('verempleados');
    Route::get('/Empleados/create',[App\Http\Controllers\EmpleadosController::class, 'create'])->name('create');
    Route::post('Empleados/store', 'App\Http\Controllers\EmpleadosController@store')->name('Empleados.store');  
+   Route::post('Empleados/bajas', 'App\Http\Controllers\EmpleadosController@bajas')->name('Empleados.bajas');  
     
   });

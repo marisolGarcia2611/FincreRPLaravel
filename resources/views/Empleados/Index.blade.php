@@ -57,12 +57,22 @@
         <th  class="text-center fw-light">NSS</th>
         <th  class="text-center fw-light">Tipo de Sangre</th>
         <th  class="text-center fw-light">Contacto de Emergencia</th>
+        <th  class="text-center fw-light">Esatdo del empleado</th>
+        <th  class="text-center fw-light">Descripcion de estado</th>
+        <th  class="text-center fw-light">Fecha Ingreso</th>
+        <th  class="text-center fw-light">ID</th>
       </tr>
     </thead>
     <tbody>
     @foreach($varlistaempleados as $vis)
       <tr>
-        <td class="table-light"><h6 style="color: rgb(76, 74, 74)"><i class="fas fa-eye"></i>&nbsp; &nbsp;<i class="fas fa-edit"></i>&nbsp; &nbsp;<i class="fas fa-trash"></i></h6></td>
+        <td class="table-light">
+            <h6 style="color: rgb(76, 74, 74)">
+             <button class="fas fa-trash" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button> </i>
+             <button class="fas fa-edit" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"  id="{{$vis->id}}" ></button> </i>
+
+            </h6>
+        </td>
         <td class="table-info">{{$vis->primer_nombre}}</td>
         <td class="table-info">{{$vis->segundo_nombre}}</td>
         <td class="table-info">{{$vis->apellido_paterno}}</td>
@@ -84,10 +94,18 @@
         <td class="table-warning">{{$vis->banco}}</td>
         <td class="table-warning">{{$vis->numero_tarjeta}}</td>
         <td class="table-warning">{{$vis->numero_cuenta}}</td>
-        <td class="table-danger">{{$vis->rfc}}</td>
-        <td class="table-danger">{{$vis->nss}}</td>
+        <td class="table-warning">{{$vis->rfc}}</td>
+        <td class="table-warning">{{$vis->nss}}</td>
         <td class="table-primary">{{$vis->tipo_sangre}}</td>
         <td class="table-info">{{$vis->contacto_emergencia}}</td>
+        @if($vis->estado=='Activo')
+        <td class="table-success">{{$vis->estado}}</td>
+        @else
+        <td class="table-danger">{{$vis->estado}}</td>
+        @endif
+        <td class="table-primary">{{$vis->descripcion_estado}}</td>
+        <td class="table-primary">{{$vis->fecha_ingreso}}</td>
+        <td class="table-primary">{{$vis->id}}</td>
       </tr>
       @endforeach
     </tbody>
@@ -395,6 +413,22 @@
                             </div>
                           </div>
                         </div>
+
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Fecha de alta</label>
+                            <input type="date" name="fecha_alta" class="form-control"  required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+                 
+
                       </div>
           
 
@@ -599,6 +633,7 @@
                             Por favor, completa la información requerida.
                           </div>
                       </div>
+
                       <div class="col-md-4" id="Efectivo">
                           <label class="form-label">Efectivo</label>
                           <input type="text" name="efectivo" class="form-control" placeholder="00.00" required />
@@ -609,6 +644,7 @@
                             Por favor, completa la información requerida.
                           </div>
                       </div>
+
                       </div>
 
 
@@ -625,7 +661,297 @@
   <br/>
   <br/>
 </div>
-  
+
+
+
+
+
+
+
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
+        <div class="offcanvas-header">
+          <nav id="navbar-example2" class="navbar navbar-light px-3">
+            <a class="navbar-brand" href="#">Baja Empleado</a>
+          </nav>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        
+        <div class="offcanvas-body small">
+            <div class="container">
+              <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                <form action="{{route('Empleados.bajas')}}" method="POST"  class="g-3 needs-validation" novalidate>
+                @csrf
+                    <h4 id="scrollspyHeading1">Detalles de baja</h4>
+               
+                    <input type="hidden"  id="ids" name="ids">
+                    <h5 id="nombre"></h5>
+                    <h5 id="salario"></h5>
+                    <h5 id="f_ingreso"></h5>
+                 
+                      <div class="row">
+                        <div class="col">
+                        <select name="tipo_baja" class="form-select" required>
+                            <option selected >Seleccionar el tipo de baja</option>
+                            <option  value="finiquito">Finquito</option>
+                            <option  value="liquidacion">Liquidacion</option>
+                        </select>
+                        <label class="form-label" for="form8Example4">Aplicar prima vacacional</label> 
+                        <br>   
+                        
+                        <LABEl>Si <input type="checkbox" id="terminos" value="1" onclick="terminos_cambio(this)" /></LABEl>
+                        <br> 
+                          <!-- Name input -->
+                          <div class="form-outline">
+                          <label class="form-label" for="form8Example4">Descripcion de la baja</label>         
+                            <textarea class="form-control" name="descripcion_baja" placeholder="Detalle el motivo de la baja del empleado" required>	</textarea>
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                            <div class="row">
+                        <div class="col">
+                          <!-- Name input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Dias de Gratificacion</label>
+                          <select name="diasgratificacion" id="diasgratificacion" class="form-select" required>
+                            <option selected value="0">Seleccionar los dias a Gratificar</option>
+                            <option  value="0">0</option>
+                            <option  value="10">10</option>
+                            <option  value="20">20</option>
+                            <option  value="30">30</option>
+                            <option  value="40">40</option>
+                            <option  value="50">50</option>
+                            <option  value="60">60</option>
+                            <option  value="70">70</option>
+                            <option  value="80">80</option>
+                            <option  value="90">90</option>
+                        </select>
+                          </div>
+                        </div>
+                 
+
+
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Dias trabajados Aguinaldo</label>
+                            <input type="text" Name="dias_trabajados" id="dias_trabajados" class="form-control" placeholder="10"   />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Dias trabajados a deber</label>
+                            <input type="text" Name="dias_trabajadosa_deber" id="dias_trabajadosa_deber" class="form-control" placeholder="10"   />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Dias de vacaciones a deber</label>
+                            <input type="text" Name="dias_vacaciones" id="dias_vacaciones" class="form-control" placeholder="0" value="0"  />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                
+
+                        <div class="row">
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Cantidad Gratificacion</label>
+                            <input type="text" Name="gratificacion" id="gratificacion" class="form-control" placeholder="00.00"  />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Sueldo proporcional</label>
+                            <input type="text" Name="sueldo_poporcional" id="sueldo_poporcional" class="form-control" placeholder="00.00"  />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+                      
+
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Aguinaldo proporcional</label>
+                            <input type="text" Name="Aguinaldo_poporcional" id="Aguinaldo_poporcional" class="form-control" placeholder="00.00"  />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Vacaciones Proporcionales</label>
+                            <input type="text" Name="vacaciones_poporcionales" id="vacaciones_poporcionales" class="form-control" placeholder="00.00" value="0.0" />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col-md-4" id="Efectivo">
+                          <label class="form-label">fecha de baja</label>
+                          <input type="date" name="fecha_baja" class="form-control" placeholder="00.00" required />
+                      </div>
+                   
+                        <br>
+                        <h1>Deducciones</h1>
+
+                        
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Imss</label>
+                            <input type="text" Name="imms" id="imms" class="form-control" placeholder="00.00" value="0" required/>
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+
+                        
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Infonavit</label>
+                            <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00" value="0" required/>
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Transporte</label>
+                            <input type="text" Name="transporte" id="transporte" class="form-control" placeholder="00.00" value="0" required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+
+                        
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Prestamo</label>
+                            <input type="text" Name="prestamo" id="prestamo" class="form-control" placeholder="00.00" value="0" required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Otras deducciones</label>
+                            <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00"  value="0"required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" > </label>
+                          <br>
+                            <button class="btn btn-success" type="button" onclick="operaciones()">Calcular</button>         
+                          </div>
+                        </div>
+                        </div>
+
+                        <hr>
+                        <br>
+                        <h1>Cantidad a entregar</h1>
+                        <input type="text" Name="total_entregar" id="total_entregar" class="form-control" placeholder="00.00" value="0" required />
+
+
+                            <div class="offcanvas-footer text-center" style="padding:10px;">
+                        <button class="btn btn-dark" type="submit">Guardar baja</button>
+                      </div>
+                          </form>
+                          </div>
+                        </div>
+        </div>
+
+
+ 
 
 
 
@@ -633,9 +959,62 @@
 
 <script>
 $(document).ready(function() {
+
+ 
+  $("table tbody tr").click(function() {
+  var salario = $(this).find("td:eq(17)").text();
+  var nombre = $(this).find("td:eq(1)").text();
+  var id = $(this).find("td:eq(29)").text();
+  var nombre2 = $(this).find("td:eq(2)").text();
+  var Apellido_p = $(this).find("td:eq(3)").text();
+  var Apellido_m = $(this).find("td:eq(4)").text();
+  var fecha_alta = $(this).find("td:eq(28)").text();
+  var nombrecompleto=document.getElementById('nombre');
+  var salariosoperaciones=document.getElementById('salario');
+  var fecha_ingreso=document.getElementById('f_ingreso');
+  nombrecompleto.innerText = nombre+' '+nombre2+' '+Apellido_p+' '+Apellido_m;
+  salariosoperaciones.innerText = salario;
+  fecha_ingreso.innerText =fecha_alta;
+    var fechaIni = new Date(fecha_ingreso.innerText);
+    var fechaFin = new Date();
+    const añoinicio = fechaIni.getFullYear();
+    const añoactual = fechaFin.getFullYear();
+    const diahoy = fechaFin.getDate();
+    const mes = fechaFin.getMonth()+1;
+    if (añoinicio == añoactual){
+ 
+    }
+    else{
+      fechaIni = new Date(añoactual+'-01-01');
+    }
+    var diff = fechaFin - fechaIni;
+    diferenciaDias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    $("#dias_trabajados").val(diferenciaDias);
+
+
+    if(diahoy >= 16 &&  diahoy <= 31){
+      var fecha_ini_sueldopropo = new Date(añoactual+'-'+mes+'-16');
+    }
+    if(diahoy >= 01 && diahoy <= 15)
+    {
+      var fecha_ini_sueldopropo = new Date(añoactual+'-'+mes+'-01');
+    }
+  
+    var diff = fechaFin - fecha_ini_sueldopropo;
+    diferenciaDias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    $("#dias_trabajadosa_deber").val(diferenciaDias);
+
+    $("#ids").val(id);
+});
+
   $('#nss').hide();
   $('#excedente').hide();
   $('#Efectivo').hide();
+  $('#vacaciones_poporcionales').hide();
+  $('#dias_vacaciones').hide();
+
+
+
     var table = $('#tblempleados').DataTable( {
         responsive: true,
         scrollY: 450,
@@ -690,4 +1069,54 @@ $("#cmbempresas").change(function(){
     })
 })()
 </script>
+
+<script>
+
+function terminos_cambio(checkbox){
+    //Si está marcada ejecuta la condición verdadera.
+    if(checkbox.checked){
+      $('#vacaciones_poporcionales').show();
+      $('#dias_vacaciones').show();
+ s
+    }
+    //Si se ha desmarcado se ejecuta el siguiente mensaje.
+    else{
+      $('#vacaciones_poporcionales').hide();
+      $('#dias_vacaciones').hide();
+      $("#vacaciones_poporcionales").val(0);
+      $("#dias_vacaciones").val(0);
+    }
+}
+  function operaciones()
+  {
+
+    var salario=document.getElementById('salario');
+    var salarioc = parseFloat(salario.innerHTML).toFixed(2);
+    var diagratificacion = document.getElementById("diasgratificacion").value;
+    var diastrabajados = $("#dias_trabajados").val();
+    var diastrabajadosdeber = $("#dias_trabajadosa_deber").val();
+    var diasvacaciones = $("#dias_vacaciones").val();
+    var deduccionimms =  $("#imms").val();
+    var deduccioninfonavit =  $("#infonavit").val();
+    var deducciontransporte =  $("#transporte").val();
+    var deduccionorestamo =  $("#prestamo").val();
+    var deducciootros =  $("#otras").val();
+
+
+  
+
+    var aguinaldo = 15/365*diastrabajados*salarioc;
+    var gratificacion = diagratificacion*salarioc;
+    var sueldopropo = salarioc*diastrabajadosdeber;
+    var vacacionesproporcional = diasvacaciones*salarioc*.25
+    var total = ((((((aguinaldo+gratificacion+sueldopropo+vacacionesproporcional)-parseFloat(deduccionimms).toFixed(2))-parseFloat(deduccioninfonavit).toFixed(2)-parseFloat(deducciontransporte).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2))-parseFloat(deducciootros).toFixed(2)));
+    $("#Aguinaldo_poporcional").val(parseFloat(aguinaldo).toFixed(2));
+    $("#gratificacion").val(parseFloat(gratificacion).toFixed(2));
+    $("#sueldo_poporcional").val(parseFloat(sueldopropo).toFixed(2));
+    $("#vacaciones_poporcionales").val(parseFloat(vacacionesproporcional).toFixed(2));
+    $("#total_entregar").val(parseFloat(total).toFixed(2));
+
+  }
+</script>
+
 @endsection

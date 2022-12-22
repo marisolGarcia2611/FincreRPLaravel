@@ -6,7 +6,7 @@
     <div class="login-page">
         <div class="form rounded__basic">
             <div class="login">
-            <div class="login-header">
+            <div class="login-header animate__animated animate__flip">
                 <img src="{{ asset('images/logo.png') }}" class="size__icon animate__animated animate__flip" alt="icon login">
             </div>
             </div>

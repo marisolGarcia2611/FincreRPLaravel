@@ -1,116 +1,135 @@
 @extends('layouts.app')
 @section('content')
 <div class="container mt-5 p__little">
-  <div class="row">
-    {{-- @if($mensaje = Session::get('success'))
-    <div class="alert alert-success" role="alert">
-        {{$mensaje}}
-    </div>
-  @endif --}}
-    <div class="col-md-6">
-      <h1 class="pt-5 text-center text-middle">Catalogo de Empleados</h1> 
-    </div>
-    <div class="card  bg-light col-md-6" style="padding: 30px">
-      <div class="row text-center">
-        <div class="col-md-4">
-          <button  type="button" class="btn push2 bt_tool1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><h2><i class="fas fa-plus"></i></h2></button> 
-        </div>
-        <div class="col-md-4">
-          <button  type="button" class="btn push2 bt_tool2"><h2><i class="fas fa-download"></i></h2></button>
-        </div>
-        <div class="col-md-4">
-          <button  type="button" class="btn push2 bt_tool3"><h2><i class="fas fa-chart-pie"></i></h2></button>
+  <div class="row" style="margin-left:10px; ">
+      {{-- @if($mensaje = Session::get('success'))
+      <div class="alert alert-success" role="alert">
+          {{$mensaje}}
+      </div>
+    @endif --}}
+      <div class="col-md-6">
+        <h4 class="mt-3 mb-3 animate__animated animate__backInLeft">Catalogo de Empleados</h4> 
+      </div>
+      <div class="col-md-6">
+        <div class="row mt-3 text-end">
+          <div class="col-md-3 d-md-block d-none"></div>
+          <div class="col-md-3">
+            <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i> Añadir </button> 
+          </div>
+          <div class="col-md-3">
+            <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i> Exportar </button> 
+          </div>
+          <div class="col-md-3">
+            <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i> Gráfica </button> 
+          </div>
+          {{-- <div class="col-md-4">
+            <button  type="button" class="btn push2 bt_tool1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><h2><i class="fas fa-plus"></i></h2></button> 
+          </div>
+          <div class="col-md-4">
+            <button  type="button" class="btn push2 bt_tool2"><h2><i class="fas fa-download"></i></h2></button>
+          </div>
+          <div class="col-md-4">
+            <button  type="button" class="btn push2 bt_tool3"><h2><i class="fas fa-chart-pie"></i></h2></button>
+          </div> --}}
         </div>
       </div>
-    </div>
   </div>  
-  <br/>
-  <br/>
   
- <div class="card  bg-light" style="padding: 30px" >     
-  <table class="table table-hover" id="tblempleados">
-    <thead class="table-light">
-      <tr>
-        <th class="text-center fw-light">Herramientas</th>
-        <th  class="text-center fw-light">Primer Nombre</th>
-        <th  class="text-center fw-light">Segundo Nombre</th>
-        <th  class="text-center fw-light">Apelleido Paterno</th>
-        <th  class="text-center fw-light">Apellido Materno</th>
-        <th  class="text-center fw-light">Telefono</th>
-        <th  class="text-center fw-light">Correo</th>
-        <th  class="text-center fw-light">Puesto</th>
-        <th  class="text-center fw-light">Sucursal</th>
-        <th  class="text-center fw-light">Ciudad</th>
-        <th  class="text-center fw-light">Calle</th>
-        <th  class="text-center fw-light">Colonia</th>
-        <th  class="text-center fw-light">Numero Interior</th>
-        <th  class="text-center fw-light">Numero Exterior</th>
-        <th  class="text-center fw-light">Codigo Postal</th>
-        <th  class="text-center fw-light">Sexo</th>
-        <th  class="text-center fw-light">Fecha de Nacimiento</th>
-        <th  class="text-center fw-light">Salario Bruto</th>
-        <th  class="text-center fw-light">Salario Neto</th>
-        <th  class="text-center fw-light">Banco</th>
-        <th  class="text-center fw-light">Numero de Tarjeta</th>
-        <th  class="text-center fw-light">Numero de Cuenta</th>
-        <th  class="text-center fw-light">RFC</th>
-        <th  class="text-center fw-light">NSS</th>
-        <th  class="text-center fw-light">Tipo de Sangre</th>
-        <th  class="text-center fw-light">Contacto de Emergencia</th>
-        <th  class="text-center fw-light">Esatdo del empleado</th>
-        <th  class="text-center fw-light">Descripcion de estado</th>
-        <th  class="text-center fw-light">Fecha Ingreso</th>
-        <th  class="text-center fw-light">ID</th>
-      </tr>
-    </thead>
-    <tbody>
-    @foreach($varlistaempleados as $vis)
-      <tr>
-        <td class="table-light">
-            <h6 style="color: rgb(76, 74, 74)">
-             <button class="fas fa-trash" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button> </i>
-             <button class="fas fa-edit" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"  id="{{$vis->id}}" ></button> </i>
-
-            </h6>
-        </td>
-        <td class="table-info">{{$vis->primer_nombre}}</td>
-        <td class="table-info">{{$vis->segundo_nombre}}</td>
-        <td class="table-info">{{$vis->apellido_paterno}}</td>
-        <td class="table-info">{{$vis->apellido_materno}}</td>
-        <td class="table-primary">{{$vis->telefono}}</td>
-        <td class="table-primary">{{$vis->correo}}</td>
-        <td class="table-warning">{{$vis->puesto}}</td>
-        <td class="table-primary">{{$vis->sucursal}}</td>
-        <td class="table-primary">{{$vis->ciudad}}</td>
-        <td class="table-primary">{{$vis->calle}}</td>
-        <td class="table-primary">{{$vis->colonia}}</td>
-        <td class="table-primary">{{$vis->numero_interior}}</td>
-        <td class="table-primary">{{$vis->numero_exterior}}</td>
-        <td class="table-primary">{{$vis->codigo_postal}}</td>
-        <td class="table-primary">{{$vis->sexo}}</td>
-        <td class="table-primary">{{$vis->fecha_nacimiento}}</td>
-        <td class="table-warning">{{$vis->salario_bruto}}</td>
-        <td class="table-warning">{{$vis->salario_neto}}</td>
-        <td class="table-warning">{{$vis->banco}}</td>
-        <td class="table-warning">{{$vis->numero_tarjeta}}</td>
-        <td class="table-warning">{{$vis->numero_cuenta}}</td>
-        <td class="table-warning">{{$vis->rfc}}</td>
-        <td class="table-warning">{{$vis->nss}}</td>
-        <td class="table-primary">{{$vis->tipo_sangre}}</td>
-        <td class="table-info">{{$vis->contacto_emergencia}}</td>
-        @if($vis->estado=='Activo')
-        <td class="table-success">{{$vis->estado}}</td>
-        @else
-        <td class="table-danger">{{$vis->estado}}</td>
-        @endif
-        <td class="table-primary">{{$vis->descripcion_estado}}</td>
-        <td class="table-primary">{{$vis->fecha_ingreso}}</td>
-        <td class="table-primary">{{$vis->id}}</td>
-      </tr>
-      @endforeach
+  
+  <div style="background-color: #fff;border-radius:30px;">
+    <div class="table-responsive" style="padding:30px;padding-bottom:10px;" id="mydatatable-container">     
+      <table class="table table-hover" id="tblempleados">
+        <thead class="table">
+          <tr>
+            <th class="text-center fw-light">Herramientas</th>
+            <th  class="text-center fw-light">Primer Nombre</th>
+            <th  class="text-center fw-light">Segundo Nombre</th>
+            <th  class="text-center fw-light">Apelleido Paterno</th>
+            <th  class="text-center fw-light">Apellido Materno</th>
+            <th  class="text-center fw-light">Telefono</th>
+            <th  class="text-center fw-light">Correo</th>
+            <th  class="text-center fw-light">Puesto</th>
+            <th  class="text-center fw-light">Sucursal</th>
+            <th  class="text-center fw-light">Ciudad</th>
+            <th  class="text-center fw-light">Calle</th>
+            <th  class="text-center fw-light">Colonia</th>
+            <th  class="text-center fw-light">Numero Interior</th>
+            <th  class="text-center fw-light">Numero Exterior</th>
+            <th  class="text-center fw-light">Codigo Postal</th>
+            <th  class="text-center fw-light">Sexo</th>
+            <th  class="text-center fw-light">Fecha de Nacimiento</th>
+            <th  class="text-center fw-light">Salario Bruto</th>
+            <th  class="text-center fw-light">Salario Neto</th>
+            <th  class="text-center fw-light">Banco</th>
+            <th  class="text-center fw-light">Numero de Tarjeta</th>
+            <th  class="text-center fw-light">Numero de Cuenta</th>
+            <th  class="text-center fw-light">RFC</th>
+            <th  class="text-center fw-light">NSS</th>
+            <th  class="text-center fw-light">Tipo de Sangre</th>
+            <th  class="text-center fw-light">Contacto de Emergencia</th>
+            <th  class="text-center fw-light">Esatdo del empleado</th>
+            <th  class="text-center fw-light">Descripcion de estado</th>
+            <th  class="text-center fw-light">Fecha Ingreso</th>
+            <th  class="text-center fw-light">ID</th>
+          </tr>
+        </thead>
+        <tbody>
+        @foreach($varlistaempleados as $vis)
+          <tr>
+            <td class="table-light">
+                <div class="row">
+                  <div class="col-md-6 text-start">
+                    <button class="btn fas fa-trash text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
+                  </div>
+                  <div class="col-md-6 text-start">
+                    <button class="btn fas fa-edit text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"  id="{{$vis->id}}" ></button> 
+                  </div>
+                </div> 
+            </td>
+            <td class="table-info">{{$vis->primer_nombre}}</td>
+            <td class="table-info">{{$vis->segundo_nombre}}</td>
+            <td class="table-info">{{$vis->apellido_paterno}}</td>
+            <td class="table-info">{{$vis->apellido_materno}}</td>
+            <td class="table-primary">{{$vis->telefono}}</td>
+            <td class="table-primary">{{$vis->correo}}</td>
+            <td class="table-warning">{{$vis->puesto}}</td>
+            <td class="table-primary">{{$vis->sucursal}}</td>
+            <td class="table-primary">{{$vis->ciudad}}</td>
+            <td class="table-primary">{{$vis->calle}}</td>
+            <td class="table-primary">{{$vis->colonia}}</td>
+            <td class="table-primary">{{$vis->numero_interior}}</td>
+            <td class="table-primary">{{$vis->numero_exterior}}</td>
+            <td class="table-primary">{{$vis->codigo_postal}}</td>
+            <td class="table-primary">{{$vis->sexo}}</td>
+            <td class="table-primary">{{$vis->fecha_nacimiento}}</td>
+            <td class="table-warning">{{$vis->salario_bruto}}</td>
+            <td class="table-warning">{{$vis->salario_neto}}</td>
+            <td class="table-warning">{{$vis->banco}}</td>
+            <td class="table-warning">{{$vis->numero_tarjeta}}</td>
+            <td class="table-warning">{{$vis->numero_cuenta}}</td>
+            <td class="table-warning">{{$vis->rfc}}</td>
+            <td class="table-warning">{{$vis->nss}}</td>
+            <td class="table-primary">{{$vis->tipo_sangre}}</td>
+            <td class="table-info">{{$vis->contacto_emergencia}}</td>
+            @if($vis->estado=='Activo')
+            <td class="table-success">{{$vis->estado}}</td>
+            @else
+            <td class="table-danger">{{$vis->estado}}</td>
+            @endif
+            <td class="table-primary">{{$vis->descripcion_estado}}</td>
+            <td class="table-primary">{{$vis->fecha_ingreso}}</td>
+            <td class="table-primary">{{$vis->id}}</td>
+          </tr>
+          @endforeach
     </tbody>
-  </table>
-</div>  
+    </table>
+    </div>  
+  </div>
+  <br/>
+  <br/>
+
+
+
 
   <!-- Modal para insertar-->
   <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
@@ -658,13 +677,6 @@
         </div>
   </div>
 
-  <br/>
-  <br/>
-</div>
-
-
-
-
 
 
 
@@ -681,24 +693,51 @@
               <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                 <form action="{{route('Empleados.bajas')}}" method="POST"  class="g-3 needs-validation" novalidate>
                 @csrf
-                    <h4 id="scrollspyHeading1">Detalles de baja</h4>
-               
+                    
+                    <hr/>
+                    <h5 class="text-center" id="scrollspyHeading1">Detalles de baja</h5>
+                    <br/>
                     <input type="hidden"  id="ids" name="ids">
-                    <h5 id="nombre"></h5>
-                    <h5 id="salario"></h5>
-                    <h5 id="f_ingreso"></h5>
+                      <div class="text-center">
+                        <div class="row text-center">
+                          <div class="col-md-3">
+                            <div class="row">
+                              <p class="fs-6 col-md-4 fw-bold">Empleado</p>
+                              <p class="fs-6 fw-light col-md-6" id="nombre"></p>
+                            </div>
+                            
+                          </div>
+                          <div class="col-md-2">
+                            <div class="row">
+                              <p class="fs-6 col-md-4 fw-bold">Salario</p>
+                              <p class="fs-6 col-md-2 fw-light" id="salario"></p>
+                            </div>
+                            
+                          </div>
+                          <div class="col-md-2">
+                            <div class="row">
+                              <p class="fs-6 col-md-6 fw-bold">Fecha de Ingreso</p>
+                              <p class="fs-6 col-md-6 fw-light" id="f_ingreso"></p>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <hr/>
+                      <br/>
                  
                       <div class="row">
                         <div class="col">
+                        <label class="form-label" for="form8Example4">Tipo de Baja</label> 
                         <select name="tipo_baja" class="form-select" required>
-                            <option selected >Seleccionar el tipo de baja</option>
+                            <option selected >Seleccionar</option>
                             <option  value="finiquito">Finquito</option>
                             <option  value="liquidacion">Liquidacion</option>
                         </select>
                         <label class="form-label" for="form8Example4">Aplicar prima vacacional</label> 
                         <br>   
                         
-                        <LABEl>Si <input type="checkbox" id="terminos" value="1" onclick="terminos_cambio(this)" /></LABEl>
+                        <LABEl style="font-size: 15px;">Si <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox" id="terminos" value="1" onclick="terminos_cambio(this)" /></LABEl>
                         <br> 
                           <!-- Name input -->
                           <div class="form-outline">
@@ -847,8 +886,8 @@
                           <input type="date" name="fecha_baja" class="form-control" placeholder="00.00" required />
                       </div>
                    
-                        <br>
-                        <h1>Deducciones</h1>
+                        
+                        <h5 class="mt-3">Deducciones</h5>
 
                         
                         <div class="col">
@@ -927,18 +966,15 @@
                           </div>
                         </div>
                         <div class="col">
-                          <!-- Email input -->
                           <div class="form-outline">
-                          <label class="form-label" > </label>
                           <br>
-                            <button class="btn btn-success" type="button" onclick="operaciones()">Calcular</button>         
+                            <button class="btn btn-success push2" type="button" onclick="operaciones()"><i class="fas fa-calculator"></i>&nbsp;Calcular</button>         
                           </div>
                         </div>
                         </div>
-
-                        <hr>
-                        <br>
-                        <h1>Cantidad a entregar</h1>
+                        <br/>
+                        <br/>
+                        <h5 class="mt-3">Cantidad a entregar</h5>
                         <input type="text" Name="total_entregar" id="total_entregar" class="form-control" placeholder="00.00" value="0" required />
 
 
@@ -949,6 +985,7 @@
                           </div>
                         </div>
         </div>
+</div>
 
 
  
@@ -1015,9 +1052,10 @@ $(document).ready(function() {
 
 
 
-    var table = $('#tblempleados').DataTable( {
+  var table = $('#tblempleados').DataTable( {
+        "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
         responsive: true,
-        scrollY: 450,
+        scrollY: 500,
         scrollX: true,
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"

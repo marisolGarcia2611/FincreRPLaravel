@@ -7,10 +7,10 @@
   --etiquetaSBsecundario:rgba(101, 101, 101, 0.281);
   --scrollColor:#05597d;
   --font: Montserrat, Roboto, Helvetica, Arial, sans-serif;
-  --text-etiquetaP:rgb(0, 0, 0);
-  --text-etiquetaS:rgb(45, 45, 45);
+  --text-etiquetaP:#32394B;
+  --text-etiquetaS:#32394B;
   --text-etiquetaPHover:#fff;
-  --text-etiquetaSHover:rgb(34, 33, 33);
+  --text-etiquetaSHover:#32394B;
 
   /* background: var(--color); */
 }
@@ -22,7 +22,7 @@ font-size:100px;color: beige;
 }
 
 .img__site{
-margin-bottom: 200px;margin-top: 200px;
+margin-bottom: 100px;margin-top: 100px;
 }
 
 
@@ -108,7 +108,7 @@ width: 25px;
 height: 25px;
 margin-left: -2px;
 border: none;
-background-color:#212529 ;
+background-color:#32394B;
 
 }
 .hamburger:hover,
@@ -226,7 +226,8 @@ display: block;
 
  /* Add a background color on hover */
  .e__sidebar:hover {
-  background-color: #212529;   
+  background-color: #2E3192;
+background-image: linear-gradient(45deg,#2E3192,#0095D9);  
   color: var(--text-etiquetaPHover);
   -webkit-transform: scale(1.1) !important;
    transform: scale(1.04) !important;
@@ -246,7 +247,8 @@ display: block;
 }
 
 .e__sidebar1:hover {
-  background-color: #212529;   
+  background-color: #2E3192;
+background-image: linear-gradient(45deg,#2E3192,#0095D9); 
   /* background-color: rgb(1, 163, 237);    */
   color: var(--text-etiquetaPHover);
   -webkit-transform: scale(1.1) !important;

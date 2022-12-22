@@ -9,22 +9,28 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="{{ asset('Images/1.png') }}" class="d-block w-100 carrusel__site" alt="...">
-        <div class="carousel-caption text-start d-none d-md-block">
-          <h5>Etiqueta de la primera diapositiva</h5>
+        <img src="{{ asset('Images/6.png') }}" class="d-block w-100 carrusel__site" alt="...">
+        <div class="carousel-caption text-start d-none d-md-block animate__animated animate__backInLeft">
+          <div class="animate__animated animate__flip">
+              <img src="{{ asset('images/logo.png') }}" class="size__icon animate__animated animate__flip" width="400px" alt="icon login">
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <h5>Bienvenidos</h5>
           <p>Algún contenido placeholder representativo para la primera diapositiva.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="{{ asset('Images/2.png') }}" class="d-block w-100 carrusel__site" alt="...">
-        <div class="carousel-caption text-start  d-none d-md-block">
+        <img src="{{ asset('Images/5.png') }}" class="d-block w-100 carrusel__site" alt="...">
+        <div class="carousel-caption text-start  d-none d-md-block animate__animated animate__backInLeft">
           <h5>Etiqueta de la segunda diapositiva</h5>
           <p>Algún contenido placeholder representativo para la segunda diapositiva.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="{{ asset('Images/3.png') }}" class="d-block w-100 carrusel__site" alt="...">
-        <div class="carousel-caption text-start d-none d-md-block">
+        <img src="{{ asset('Images/4.png') }}" class="d-block w-100 carrusel__site" alt="...">
+        <div class="carousel-caption text-start d-none d-md-block animate__animated animate__backInLeft">
           <h5>Etiqueta de la tercera diapositiva</h5>
           <p>Algún contenido placeholder representativo para la tercera diapositiva.</p>
         </div>
@@ -38,34 +44,34 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Siguiente</span>
     </button>
-  </div>
+</div>
 
 
 
-  <div class="text-center img__site">
-    <img src="images/logo.png" width="350px" class="rounded" alt="...">
+  <div class="text-center img__site animate__animated animate__flipInY">
+    <img src="images/logo2.png" width="350px" class="rounded" alt="...">
   </div>
  
 
 
 
 
-  <div class="">
-    <div class="container" >
-
-
+  <div>
+    <div class="container">
 
 
      <div class="row" style="margin-bottom: 200px;">
-      <div class="col-md-4">
+      <div class="col-md-4 push2 card-flat ">
         <center>
           <h1><i class="fas fa-building"></i></h1>
           <br/>
           <h1>Misión</h1>
-          <p>Fomentar el desarrollo económico y social integral de nuestros clientes y colaboradores a través de servicios financieros creados a la medida de sus necesidades</p>
+          <p class="align-middle">Fomentar el desarrollo económico y social integral de nuestros clientes y colaboradores a través de servicios financieros creados a la medida de sus necesidades</p>
         </center>
       </div>
-      <div class="col-md-4">
+
+
+      <div class="col-md-4 push2 card-flat">
         <center>
           <h1><i class="fas fa-pen-nib"></i></h1>
           <br/>
@@ -75,7 +81,9 @@
             Liderazgo:<br/>Innovación, constante mejora, organización y motivación nos permiten marcar la diferencia.</p>
         </center>
       </div>
-      <div class="col-md-4">
+
+
+      <div class="col-md-4 push2 card-flat">
         <center>
           <h1><i class="fas fa-briefcase"></i></h1>
           <br/>
@@ -90,46 +98,37 @@
 
      <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 200px;">
       
-      <div class="bg-dark push cub__size">
+      <div class="push cub__size " style="background-color: #32394B;">
         <h1 class="fw-light font__cub " >Área Informativa</h1>
       </div>
      
       <div class="col">
         <div class="card push">
-          <img src="{{ asset('Images/3.png') }}" class="card-img-top" alt="...">
+          <img src="{{ asset('Images/post1.jpeg') }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Card title </h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <h5 class="card-title">Festejados </h5>
+            <p class="card-text">Este Diciembre Fincre Laguna felicta a los cumpleañeros de este mes.</p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card push">
-          <img src="{{ asset('Images/1.png') }}" class="card-img-top" alt="...">
+          <img src="{{ asset('Images/post2.jpeg') }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <h5 class="card-title">Aviso Importante</h5>
+            <p class="card-text">Días de descanso para el mes de Diciembre.</p>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card push">
-          <img src="{{ asset('Images/2.png') }}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
+      {{-- <div class="col">
         <div class="card push">
           <img src="{{ asset('Images/flayer.jpg') }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <h5 class="card-title">Anuncio</h5>
+            <p class="card-text">Ya contamos con pagina oficial de facebook, busca la como: "Fincre Laguna"</p>
           </div>
         </div>
-      </div>
+      </div> --}}
       </div>
 
 
@@ -142,47 +141,45 @@
   
 <div class="d-md-block d-none">
   <div class="card-group text-center">
-    <div class="card bg-dark text-white" >
-      <img src="{{ asset('Images/3.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
+    <div class="card text-white" style="background-color: #55728400;" >
+      <img src="{{ asset('Images/7.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
       <div class="card-img-overlay" style="transform: translateY(40%);">
-        {{-- <h5 class="card-title">Título de la tarjeta</h5>
-        <p class="card-text">Esta es una tarjeta más amplia con texto de apoyo a continuación como introducción natural a contenido adicional.</p>
-        <span class="card-text text-secondary fst-italic">Última actualización hace 3 minutos</span> --}}
-        <figure>
+
+        <figure class="animate__animated animate__backInDown">
             <blockquote class="blockquote">
-              <p>Una cita conocida, contenida en un elemento blockquote.</p>
+              <h2 class="fw-bold">CONSTRUYE</h2>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            {{-- <figcaption class="blockquote-footer">
               Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
-            </figcaption>
+            </figcaption> --}}
           </figure>
       </div>
     </div>
 
-  <div class="card bg-dark text-white">
-    <img src="{{ asset('Images/1.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
+  <div class="card text-white" style="background-color: #55728400;">
+    <img src="{{ asset('Images/8.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
     <div class="card-img-overlay" style="transform: translateY(40%);">
-        <figure>
+        <figure class="animate__animated animate__backInDown">
             <blockquote class="blockquote">
-              <p>Una cita conocida, contenida en un elemento blockquote.</p>
+              <h2 class="fw-bold">CONQUISTA</h2>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            {{-- <figcaption class="blockquote-footer">
               Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
-            </figcaption>
+            </figcaption> --}}
           </figure>
     </div>
   </div>
 
-  <div class="card bg-dark text-white">
-    <img src="{{ asset('Images/2.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
+  <div class="card text-white" style="background-color: #55728400;">
+    <img src="{{ asset('Images/9.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
     <div class="card-img-overlay" style="transform: translateY(40%);">
-        <figure>
+        <figure class="animate__animated animate__backInDown">
             <blockquote class="blockquote">
-              <p>Una cita conocida, contenida en un elemento blockquote.</p>
+              <h2 class="fw-bold">GANA</h2>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            {{-- <figcaption class="blockquote-footer">
               Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
-            </figcaption>
+            </figcaption> --}}
         </figure>
     </div>
   </div>
@@ -190,46 +187,32 @@
 </div>
 
 
-<div class="container-fluid bg-dark" style="height:500px;padding-top: 20px;">
-
+<div class="container-fluid footer__size" style="background-color:#32394B;">
   <div class="container text-light">
+
     <div class="row">
-      <div class="col-2">
-        <h6>Lorem ipsum dolor, sit amet</h6>
-        <p class="font_little">Lorem ipsum dolor sit amet, consectet</p>
+      <div class="col-3">
+        <h5>Contactanos</h5>
+        <a class="nav-link active fw-light fs-6" aria-current="page" href="https://www.facebook.com/FincreFinanciera"><i class="fab fa-facebook-f"></i> &nbsp;Fincre Laguna</a>
+        <a class="nav-link active fw-light fs-6" aria-current="page" href="#"><i class="fas fa-envelope"></i> &nbsp;paginaweb@fincrelaguna.com</a>
+      </div>
+      
+      <div class="col-6">
+        <h5>Dirección</h5>
+        <p class="font_little fs-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti fugiat laudantium dicta architecto officia amet. Labore, eum sit. Ipsa dicta corrupti aut iste iure commodi veniam nam fugit eaque exercitationem!</p>
       </div>
 
-      <div class="col-2">
-        <h6>Lorem ipsum dolor, sit amet</h6>
-        <p class="font_little">Lorem ipsum dolor sit amet, consectet</p>
+      <div class="col-md-3">
+        <h5>Telefonos</h5>
+        <p class="font_little fs-8"><b>Corporativo</b>733-00-00</p>
+        <p class="font_little fs-8"><b>Suc. Torreón</b>733-00-00</p>
+        <p class="font_little fs-8"><b>Suc. Goméz</b>733-00-00</p>
+        <p class="font_little fs-8"><b>Suc. Allende</b>733-00-00</p>
       </div>
-
-      <div class="col-2">
-        <h6>Lorem ipsum dolor, sit amet</h6>
-        <p class="font_little">Lorem ipsum dolor sit amet, consectet</p>
-      </div>
-
-      <div class="col-2">
-        <h6>Lorem ipsum dolor, sit amet</h6>
-        <p class="font_little">Lorem ipsum dolor sit amet, consectet</p>
-      </div>
-
-      <div class="col-2">
-        <h6>Lorem ipsum dolor, sit amet</h6>
-        <p class="font_little">Lorem ipsum dolor sit amet, consectet</p>
-      </div>
-
-      <div class="col-2">
-        <h6>Lorem ipsum dolor, sit amet</h6>
-        <p class="font_little">Lorem ipsum dolor sit amet, consectet</p>
-      </div>
-
     </div>
+
   </div>
 </div>
-
-
-
 
 
 

@@ -730,7 +730,7 @@
                           <!-- Name input -->
                           <div class="form-outline">
                           <label class="form-label" for="form8Example4">Descripcion de la baja</label>         
-                            <textarea class="form-control" name="descripcion_baja" placeholder="Detalle el motivo de la baja del empleado" required>	</textarea>
+                            <textarea class="form-control" name="descripcion_baja"  placeholder="Escriba..." required>	</textarea>
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>

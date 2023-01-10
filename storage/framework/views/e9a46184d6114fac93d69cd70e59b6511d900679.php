@@ -147,33 +147,33 @@
       /* Add a background color on hover */
       .e__sidebar:hover {
         background-color: #2E3192;
-background-image: linear-gradient(45deg,#2E3192,#0095D9);
-        color: var(--text-etiquetaPHover);
-        -webkit-transform: scale(1.1) !important;
-        transform: scale(1.04) !important;
-      }
+  background-image: linear-gradient(45deg,#2E3192,#0095D9);
+          color: var(--text-etiquetaPHover);
+          -webkit-transform: scale(1.1) !important;
+          transform: scale(1.04) !important;
+        }
 
-      .e__sidebar1 {
-        float: none;
-        border-radius: 30px;
-        -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-        font-size:13px;
-        border-radius: 20px;
-        color: var(--text-etiquetaP);
-        padding: 20px;
-        padding-bottom: 16px;
-        padding-top: 16px;
-      }
+        .e__sidebar1 {
+          float: none;
+          border-radius: 30px;
+          -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+          font-size:13px;
+          border-radius: 20px;
+          color: var(--text-etiquetaP);
+          padding: 20px;
+          padding-bottom: 16px;
+          padding-top: 16px;
+        }
 
-      .e__sidebar1:hover {
-        background-color: #2E3192;
-background-image: linear-gradient(45deg,#2E3192,#0095D9);
-        /* background-color: rgb(1, 163, 237);    */
-        color: var(--text-etiquetaPHover);
-        -webkit-transform: scale(1.1) !important;
-        transform: scale(1.04) !important;
-      }
+        .e__sidebar1:hover {
+          background-color: #2E3192;
+  background-image: linear-gradient(45deg,#2E3192,#0095D9);
+          /* background-color: rgb(1, 163, 237);    */
+          color: var(--text-etiquetaPHover);
+          -webkit-transform: scale(1.1) !important;
+          transform: scale(1.04) !important;
+        }
       .e__sidebar2 {
         float: none;
         border-radius: 30px;
@@ -260,7 +260,7 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
 
       body{
         background-color: #557284;
-        background-image: linear-gradient(341deg, #557284 0%, #e9f7fe 100%);
+        background-image: linear-gradient(341deg, #8ea1ac 0%, #e9f7fe 100%);
 
 
         /* background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%); */
@@ -361,10 +361,10 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
                 <div class="offcanvas-body contenedor-light">
                     <div class="list-group border-0 rounded-0 text-sm-start min-vh-100">
                         <nav class="nav flex-column">
-                          <img src="<?php echo e(asset('Images/1.png')); ?>" style="width: 150px;height:150px;object-fit:cover;margin-bottom:40px;" class="rounded mx-auto d-block" alt="...">
+                          <img src="<?php echo e(asset('Images/p1.jpeg')); ?>" style="width: 150px;height:150px;object-fit:cover;margin-bottom:40px;" class="rounded mx-auto d-block" alt="...">
                             <?php ($varRecursostmp=''); ?>
                             <?php ($VAR=''); ?>
-                            <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="#"> <i class="fas fa-home icon"></i>Principal</a>
+                            <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="<?php echo e(route('home')); ?>"> <i class="fas fa-home icon"></i>Principal</a>
                             <?php ($varcontador=1); ?>
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <div class="accordion-item">

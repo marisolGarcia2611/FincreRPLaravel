@@ -261,7 +261,9 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
       body{
         background-color: #557284;
         background-image: linear-gradient(341deg, #557284 0%, #e9f7fe 100%);
-
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
 
         /* background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%); */
         /* background-color: #D9AFD9;

@@ -86,7 +86,10 @@ trait DatosimpleTraits
             'tblempleados.telefono_emergencia',
             'tblempleados.estado',
             'tblempleados.descripcion_estado',
-            'tblempleados.fecha_ingreso')
+            'tblempleados.fecha_ingreso',
+            'tblnominas.pago_imss',
+            'tblnominas.excedente',
+            'tblnominas.efectivo')
             ->get();
 
             return $varlistaempleado;

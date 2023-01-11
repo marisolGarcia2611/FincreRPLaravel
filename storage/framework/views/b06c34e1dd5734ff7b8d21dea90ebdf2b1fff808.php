@@ -6,7 +6,7 @@
     <div class="login-page">
         <div class="form rounded__basic">
             <div class="login">
-            <div class="login-header">
+            <div class="login-header animate__animated animate__flip">
                 <img src="<?php echo e(asset('images/logo.png')); ?>" class="size__icon animate__animated animate__flip" alt="icon login">
             </div>
             </div>
@@ -109,5 +109,4 @@ unset($__errorArgs, $__bag); ?>
 
 </div>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('layouts.appfront', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Codigo Fuente laravel\fincreerplaravel\FincreRPLaravel\resources\views/auth/login.blade.php ENDPATH**/ ?>

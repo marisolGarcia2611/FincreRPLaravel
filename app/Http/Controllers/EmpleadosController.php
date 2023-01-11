@@ -150,7 +150,7 @@ class EmpleadosController extends Controller
      */
     public function edit(Empleados $empleados)
     {
-        //
+   
     }
 
     /**

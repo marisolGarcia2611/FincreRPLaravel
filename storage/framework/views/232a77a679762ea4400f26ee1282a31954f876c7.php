@@ -68,6 +68,7 @@
             <th  class="text-center fw-light">foto</th>
             <th  class="text-center fw-light">empresa</th>
             <th  class="text-center fw-light">salario_fijo</th>
+            <th  class="text-center fw-light">Puesto del empleado</th>
 
           
 
@@ -127,6 +128,7 @@
               <td class="table-primary"><?php echo e($vis->foto); ?></td>
               <td class="table-primary"><?php echo e($vis->nombre_empresa); ?></td>
               <td class="table-primary"><?php echo e($vis->salario_fijo); ?></td>
+              <td class="table-primary"><?php echo e($vis->puesto); ?></td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>

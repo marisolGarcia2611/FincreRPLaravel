@@ -59,6 +59,7 @@ trait DatosimpleTraits
             ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
             ->select(
             'tblempleados.id as idempleado',
+            'tblpuestos.id as idpuesto',
             'tblempleados.primer_nombre',
             'tblempleados.segundo_nombre',
             'tblempleados.apellido_paterno',
@@ -110,7 +111,7 @@ trait DatosimpleTraits
             ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
             ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
             ->select(
-            'tblempleados.id',
+            'tblempleados.id as idempleado',
             'tblpuestos.id as idpuesto',
             'tblsucursales.id as idsucursal',
             'tblciudades.id as idciudad',
@@ -151,7 +152,6 @@ trait DatosimpleTraits
             'tblnominas.efectivo' ,
             'tblempresas.id',
             'tblempresas.nombre_empresa')
-            
             ->where('tblempleados.id','=',$id)
             ->get();
 

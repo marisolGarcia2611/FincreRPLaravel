@@ -13,7 +13,7 @@
                         <div class="form-outline">
                         @foreach($obtenerempleado as $empleado)
                         <label class="form-label" for="form8Example4">Primer Nombre</label>
-                     
+                        <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"  value="{{$empleado->idempleado}}"required />
                           <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"  value="{{$empleado->primer_nombre}}"required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
@@ -93,20 +93,17 @@
                           </div>
                         </div>
                       </div>
-
+             
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Puesto</label>
                         <select name="puesto" id="puesto" class="form-select"  required>
-                         // aqui me quede
-                          @foreach($varpuestos as $obtenerpues)
-                          @if($empleado->puestos = $obtenerpues->nombre)
-                          <option value="{{$empleado->idpuesto}}" selected>{{$empleado->puesto}}</option>
-                          @else
-                        <option value="{{$obtenerpues->id}}">{{$obtenerpues->nombre}}</option>
-                        @endif
-                        @endforeach
+             
+                        <option value="{{$empleado->idpuesto}}" selected>{{$empleado->puesto}}</option>
+                          @foreach($varpuestos as $obtenerpuesto)
+                          <option value="{{$obtenerpuesto->id}}">{{$obtenerpuesto->nombre}}</option>
+                          @endforeach
 
                       </select>
                       <div class="valid-feedback">
@@ -173,9 +170,13 @@
                         <div class="form-outline">
                         <label class="form-label" >Banco</label>
                         <select   name="banco" id="banco" class="form-select" required>
-                          <option value="{{$empleado->idbanco}}" selected>{{$empleado->banco}}</option>
+                    
                           @foreach($varbancos as $obtenerbancos)
-                        <option value="{{$obtenerbancos->id}}">{{$obtenerbancos->nombre}}</option>
+                          @if($empleado->banco = $obtenerbancos->nombre)
+                          <option value="{{$empleado->idbanco}}" selected>{{$empleado->banco}}</option>
+                        @else
+                        <option value="{{$obtenerbancos->id}}" selected>{{$obtenerbancos->nombre}}</option>
+                        @endif
                         @endforeach
                       </select>
                       <div class="valid-feedback">
@@ -277,7 +278,8 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Fecha de Nacimiento</label>
-                          <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$empleado->fecha_de_nacimiento}}" required />
+                          <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{$empleado->fecha_nacimiento}}" required />
+                          
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -305,7 +307,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Fecha de alta</label>
-                          <input type="date" name="fecha_alta" id="fecha_alta" class="form-control"  value="{{$empleado->fecha_alta}}"  required />
+                          <input type="date" name="fecha_alta" id="fecha_alta" class="form-control"  value="{{$empleado->fecha_ingreso}}"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>

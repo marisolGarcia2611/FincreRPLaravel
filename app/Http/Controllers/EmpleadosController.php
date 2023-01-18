@@ -173,9 +173,16 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEmpleadosRequest $request)
+    public function update(request $request, $id)
     {
-        //
+        $articulo =  Articulo::find($id);
+        $articulo->codigo = $request->get('codigo');
+        $articulo->descripcion = $request->get('descripcion');
+        $articulo->cantidad = $request->get('cantidad');
+        $articulo->precio = $request->get('precio');
+        $articulo->save();
+
+        return redirect('/articulos');
     }
 
     /**

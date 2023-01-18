@@ -76,6 +76,7 @@
             <th  class="text-center fw-light">foto</th>
             <th  class="text-center fw-light">empresa</th>
             <th  class="text-center fw-light">salario_fijo</th>
+            <th  class="text-center fw-light">Puesto del empleado</th>
 
           
 
@@ -135,6 +136,7 @@
               <td class="table-primary">{{$vis->foto}}</td>
               <td class="table-primary">{{$vis->nombre_empresa}}</td>
               <td class="table-primary">{{$vis->salario_fijo}}</td>
+              <td class="table-primary">{{$vis->puesto}}</td>
             </tr>
             @endforeach
         </tbody>

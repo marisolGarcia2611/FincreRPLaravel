@@ -31,7 +31,11 @@
         </div>
       </div>
   </div>  
-  
+  @if ($mensaje = Session::get('success'))
+  <div class="alert alert-success" role="alert">
+      {{ $mensaje }}
+  </div>
+@endif
   
   
   <div style="background-color: #fff;border-radius:30px;">

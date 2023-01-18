@@ -23,7 +23,12 @@
         </div>
       </div>
   </div>  
-  
+  <?php if($mensaje = Session::get('success')): ?>
+  <div class="alert alert-success" role="alert">
+      <?php echo e($mensaje); ?>
+
+  </div>
+<?php endif; ?>
   
   
   <div style="background-color: #fff;border-radius:30px;">

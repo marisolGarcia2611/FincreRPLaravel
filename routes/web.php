@@ -28,6 +28,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
    Route::post('Empleados/store', 'App\Http\Controllers\EmpleadosController@store')->name('Empleados.store');  
    Route::post('Empleados/bajas', 'App\Http\Controllers\EmpleadosController@bajas')->name('Empleados.bajas');  
    Route::resource('/Empleados\edit','App\Http\Controllers\EmpleadosController@edit');
+   Route::put('/Empleados/Update/{id}','App\Http\Controllers\EmpleadosController@update')->name('update');
 
 
     

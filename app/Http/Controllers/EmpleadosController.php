@@ -162,9 +162,7 @@ class EmpleadosController extends Controller
 
     }
     
-    public function traerempleados(int $id)
-    {
-    }
+  
 
     /**
      * Update the specified resource in storage.
@@ -175,14 +173,59 @@ class EmpleadosController extends Controller
      */
     public function update(request $request, $id)
     {
-        $articulo =  Articulo::find($id);
-        $articulo->codigo = $request->get('codigo');
-        $articulo->descripcion = $request->get('descripcion');
-        $articulo->cantidad = $request->get('cantidad');
-        $articulo->precio = $request->get('precio');
-        $articulo->save();
+           // $ultimoemple =$this->obtenerultimoempleado();
+           $date = Carbon::now();
+           $fecha = $date->format('Y-m-d');
+     
+           $empleados = Empleados::find($id);
+           $empleados->primer_nombre = $request->post('primer_nombre');
+           $empleados->segundo_nombre = $request->post('segundo_nombre');
+           $empleados->apellido_paterno = $request->post('apellido_paterno');
+           $empleados->apellido_materno = $request->post('apellido_materno');
+           $empleados->telefono = $request->post('telefono');
+           $empleados->correo = $request->post('correo');
+           $empleados->idpuesto = $request->post('puesto');
+           $empleados->idsucursal = $request->post('sucursal');
+           $empleados->idciudad = $request->post('ciudad');
+           $empleados->idbanco = $request->post('banco');
+           $empleados->calle = $request->post('calle');
+           $empleados->colonia = $request->post('colonia');
+           $empleados->numero_interior = $request->post('numero_interior');
+           $empleados->numero_exterior = $request->post('numero_exterior');
+           $empleados->codigo_postal = $request->post('codigo_postal');
+           $empleados->sexo = $request->post('sexo');
+           $empleados->fecha_nacimiento = $request->post('fecha_nacimiento');
+           $empleados->foto = $request->post('foto');
+           $empleados->rfc = $request->post('rfc');
+           $empleados->nss = $request->post('nss');
+           $empleados->tipo_sangre = $request->post('tipo_sangre');
+           $empleados->contacto_emergencia = $request->post('contacto_emergencias');
+           $empleados->telefono_emergencia = $request->post('telefono_emergencia');
+           $empleados->estado = 'Activo';
+           $empleados->descripcion_estado = 'alta empleado';
+           $empleados->created_at = $date;
+           $empleados->fecha_ingreso = $request->post('fecha_alta');
+           $empleados->fecha_baja = $date;
+           $empleados->save();
 
-        return redirect('/articulos');
+           $idnomina = $request->post('idnomina');
+           $nominas =  nominas::find($idnomina);
+           $nominas->idempresa=$request->post('cmbempresas');
+           $nominas->idbancos=$request->post('banco');
+           $nominas->salario_bruto=$request->post('salario_bruto');
+           $nominas->salario_neto=$request->post('salario_neto');
+           $nominas->salario_fijo=$request->post('salario_fijo');
+           $nominas->pago_imss=$request->post('pago_IMSS');
+           $nominas->excedente=$request->post('excedente');
+           $nominas->efectivo=$request->post('efectivo');
+           $nominas->numero_tarjeta=$request->post('numero_tarjeta');
+           $nominas->numero_cuenta=$request->post('numero_cuenta');
+           $nominas->created_at = $fecha;
+           $nominas->save();
+
+           $date = $date->format('Y-m-d');
+           return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+
     }
 
     /**

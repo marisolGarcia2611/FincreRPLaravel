@@ -4,16 +4,18 @@
       <div class="offcanvas-body small">
           <div class="container">
             <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-              <form action="" method="POST"  class="g-3 needs-validation" novalidate>
-              @csrf
+            @foreach($obtenerempleado as $empleado)
+              <form  action="{{ route('update', $empleado->idempleado) }}" method="POST"  class="g-3 needs-validation" novalidate> 
+                @csrf
+                @method('PUT')
                   <h4 id="scrollspyHeading1">General</h4>
                     <div class="row">
                       <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
-                        @foreach($obtenerempleado as $empleado)
+                 
                         <label class="form-label" for="form8Example4">Primer Nombre</label>
-                        <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"  value="{{$empleado->idempleado}}"required />
+                        <input type="text" hidden class="form-control" name="idnomina"  value="{{$empleado->idnom}}"required />
                           <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"  value="{{$empleado->primer_nombre}}"required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
@@ -485,8 +487,8 @@
                       <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
-                        <select class="form-select form-select mb-3" id="cmbempresas" name="cmbempresas" aria-label="Ejemplo de .form-select-lg"  value="{{$empleado->razon_social}}" required>
-                          <option selected > {{$empleado->nombre_empresa}}</option>
+                        <select class="form-select form-select mb-3" id="cmbempresas" name="cmbempresas"    required>
+                          <option value=" {{$empleado->id}}" selected > {{$empleado->nombre_empresa}}</option>
                           @foreach($varempresas as $obtenerempresa)
                         <option value="{{$obtenerempresa->id}}">{{$obtenerempresa->nombre_empresa}}</option>
                         @endforeach

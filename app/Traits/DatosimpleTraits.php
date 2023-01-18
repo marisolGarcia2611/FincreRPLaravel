@@ -56,8 +56,9 @@ trait DatosimpleTraits
             ->join("tblsucursales", "tblempleados.idsucursal", "=", "tblsucursales.id")
             ->join("tblciudades", "tblempleados.idciudad", "=", "tblciudades.id")
             ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
+            ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
             ->select(
-            'tblempleados.id',
+            'tblempleados.id as idempleado',
             'tblempleados.primer_nombre',
             'tblempleados.segundo_nombre',
             'tblempleados.apellido_paterno',
@@ -74,7 +75,9 @@ trait DatosimpleTraits
             'tblempleados.codigo_postal',
             'tblempleados.sexo',
             'tblempleados.fecha_nacimiento',
+            'tblempleados.foto',
             'tblnominas.salario_bruto',
+            'tblnominas.salario_fijo',
             'tblnominas.salario_neto',
             'tblbancos.nombre as banco',
             'tblnominas.numero_tarjeta',
@@ -89,7 +92,67 @@ trait DatosimpleTraits
             'tblempleados.fecha_ingreso',
             'tblnominas.pago_imss',
             'tblnominas.excedente',
-            'tblnominas.efectivo')
+            'tblnominas.efectivo',
+            'tblempresas.id',
+            'tblempresas.nombre_empresa')
+            ->get();
+
+            return $varlistaempleado;
+
+    }
+
+    public  function obtenerlistaempleadoid(int $id){
+        $varlistaempleado = Empleados::join(
+            'tblnominas','tblempleados.id','=','tblnominas.idempleado')
+            ->join("tblpuestos", "tblempleados.idpuesto", "=", "tblpuestos.id")
+            ->join("tblsucursales", "tblempleados.idsucursal", "=", "tblsucursales.id")
+            ->join("tblciudades", "tblempleados.idciudad", "=", "tblciudades.id")
+            ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
+            ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
+            ->select(
+            'tblempleados.id',
+            'tblpuestos.id as idpuesto',
+            'tblsucursales.id as idsucursal',
+            'tblciudades.id as idciudad',
+            'tblbancos.id as idbanco',
+            'tblempleados.primer_nombre',
+            'tblempleados.segundo_nombre',
+            'tblempleados.apellido_paterno',
+            'tblempleados.apellido_materno',
+            'tblempleados.telefono',
+            'tblempleados.correo',
+            'tblpuestos.nombre as puesto',
+            'tblsucursales.nombre as sucursal',
+            'tblciudades.nombre as ciudad',
+            'tblempleados.calle',
+            'tblempleados.colonia',
+            'tblempleados.numero_interior',
+            'tblempleados.numero_exterior',
+            'tblempleados.codigo_postal',
+            'tblempleados.sexo',
+            'tblempleados.fecha_nacimiento',
+            'tblempleados.foto',
+            'tblnominas.salario_bruto',
+            'tblnominas.salario_neto',
+            'tblnominas.salario_fijo',
+            'tblbancos.nombre as banco',
+            'tblnominas.numero_tarjeta',
+            'tblnominas.numero_cuenta',
+            'tblempleados.rfc',
+            'tblempleados.nss',
+            'tblempleados.tipo_sangre',
+            'tblempleados.contacto_emergencia',
+            'tblempleados.telefono_emergencia',
+            'tblempleados.estado',
+            'tblempleados.descripcion_estado',
+            'tblempleados.fecha_ingreso',
+            'tblnominas.pago_imss',
+            'tblnominas.excedente',
+            'tblnominas.efectivo' ,
+            'tblempresas.id',
+            'tblempresas.nombre_empresa')
+            
+            ->where('tblempleados.id','=',$id)
             ->get();
 
             return $varlistaempleado;

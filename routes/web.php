@@ -20,12 +20,15 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/', function () {
         return view('welcome');
     });
-
+    Route::resource('/Empleados','App\Http\Controllers\EmpleadosController');
    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
    Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos');
    Route::get('/Empleados',[App\Http\Controllers\EmpleadosController::class, 'index'])->name('verempleados');
    Route::get('/Empleados/create',[App\Http\Controllers\EmpleadosController::class, 'create'])->name('create');
    Route::post('Empleados/store', 'App\Http\Controllers\EmpleadosController@store')->name('Empleados.store');  
    Route::post('Empleados/bajas', 'App\Http\Controllers\EmpleadosController@bajas')->name('Empleados.bajas');  
+   Route::resource('/Empleados\edit','App\Http\Controllers\EmpleadosController@edit');
+
+
     
   });

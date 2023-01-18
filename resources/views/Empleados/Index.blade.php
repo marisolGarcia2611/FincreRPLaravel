@@ -73,6 +73,9 @@
             <th  class="text-center fw-light">Pago imss</th>
             <th  class="text-center fw-light">Pago excedente</th>
             <th  class="text-center fw-light">Pago efectivo</th>
+            <th  class="text-center fw-light">foto</th>
+            <th  class="text-center fw-light">empresa</th>
+            <th  class="text-center fw-light">salario_fijo</th>
 
           
 
@@ -88,8 +91,8 @@
                       <button class="btn fas fa-trash text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
                     </div>
                     <div class="col-md-6 text-start">
-                      <button class="btn fas fa-edit text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2" aria-controls="offcanvasBottom" id="offcanvasBottom4" ></button> 
-                    </div>
+                <a href="/Empleados/{{$vis->idempleado}}/edit" class="btn btn-info">Editar</a>
+               
                   </div> 
               </td>
               <td class="table-info">{{$vis->primer_nombre}}</td>
@@ -129,6 +132,9 @@
               <td class="table-primary">{{$vis->pago_imss}}</td>
               <td class="table-primary">{{$vis->excedente}}</td>
               <td class="table-primary">{{$vis->efectivo}}</td>
+              <td class="table-primary">{{$vis->foto}}</td>
+              <td class="table-primary">{{$vis->nombre_empresa}}</td>
+              <td class="table-primary">{{$vis->salario_fijo}}</td>
             </tr>
             @endforeach
         </tbody>
@@ -138,53 +144,45 @@
   <br/>
   <br/>
 
+  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
 
+<div class="offcanvas-header">
+  <nav id="navbar-example2" class="navbar navbar-light px-3">
+    <a class="navbar-brand" href="#">Nuevo Empleado</a>
+  </nav>
+  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
 
 <!-- Insertar Modal-->
-<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
-      <div class="offcanvas-header">
-        <nav id="navbar-example2" class="navbar navbar-light px-3">
-          <a class="navbar-brand" href="#">Agregar Empleado</a>
-          <ul class="nav nav-pills middle__font">
-            <li class="nav-item">
-              <a class="nav-link" href="#scrollspyHeading1">General</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#scrollspyHeading2">Detalles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#scrollspyHeading3">Razón Social</a>
-            </li>
-          </ul>
-        </nav>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-
-      <div class="offcanvas-body small">
+<div class="offcanvas-body small">
           <div class="container">
             <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-              <form action="{{route('Empleados.store')}}" method="POST"  class="g-3 needs-validation" novalidate>
+              <form action="" method="POST"  class="g-3 needs-validation" novalidate>
               @csrf
                   <h4 id="scrollspyHeading1">General</h4>
                     <div class="row">
                       <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
+                
                         <label class="form-label" for="form8Example4">Primer Nombre</label>
-                          <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre" placeholder="Introduzca el primer nombre" required />
+                     
+                          <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"   required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
                           <div class="invalid-feedback">
                             Por favor, completa la información requerida.
                           </div>
+
+                        
                         </div>
                       </div>
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label">Segundo Nombre</label>
-                          <input type="text" id="segundo_nombre"  name="segundo_nombre" class="form-control" placeholder="Introduzca el segundo nombre"  required />
+                          <input type="text" id="segundo_nombre"  name="segundo_nombre" class="form-control"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -198,7 +196,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Apellido Paterno</label>
-                          <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control" placeholder="Introduzca el apellido parterno" required />
+                          <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -211,7 +209,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Apellido Materno</label>
-                          <input type="text" name="apellido_materno" id="apellido_materno" class="form-control" placeholder="Introduzca el apellido materno" required />
+                          <input type="text" name="apellido_materno" id="apellido_materno" class="form-control" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -226,7 +224,7 @@
                         <!-- Name input -->
                         <div class="form-outline">
                         <label class="form-label" for="form8Example4">Telefono</label>
-                          <input type="numeric" name="telefono" id="telefono" class="form-control" placeholder="0000000000"   required />
+                          <input type="numeric" name="telefono" id="telefono" class="form-control"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -239,7 +237,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label">Correo</label>
-                          <input type="text"  name="correo" id="correo" class="form-control" placeholder="name@exmple.com" required />
+                          <input type="text"  name="correo" id="correo" class="form-control"   required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -253,11 +251,11 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Puesto</label>
-                        <select name="puesto" id="puesto" class="form-select" required>
-                          <option selected >Seleccionar</option>
-                        @foreach($varpuestos as $puestos)
-                        <option  value="{{$puestos->id}}">{{$puestos->nombre}}</option>
-                      @endforeach
+                        <select name="puesto" id="puesto" class="form-select"  required>
+                        @foreach($varpuestos as $obtenerpuestos)
+                        <option value="{{$obtenerpuestos->id}}">{{$obtenerpuestos->nombre}}</option>
+                        @endforeach
+                        
                       </select>
                       <div class="valid-feedback">
                         ¡Se ve bien!
@@ -273,10 +271,9 @@
                         <div class="form-outline">
                         <label class="form-label" >Sucursal</label>
                         <select  name="sucursal" id="sucursal" class="form-select" required>
-                          <option selected >Seleccionar</option>
-                        @foreach($varsucursales as $sucursales)
-                        <option value="{{$sucursales->id}}">{{$sucursales->nombre}}</option>
-                      @endforeach
+                        @foreach($varsucursales as $obtenersucursal)
+                        <option value="{{$obtenersucursal->id}}">{{$obtenersucursal->nombre}}</option>
+                        @endforeach
                       </select>
                       <div class="valid-feedback">
                         ¡Se ve bien!
@@ -294,10 +291,9 @@
                         <div class="form-outline">
                         <label class="form-label" >Ciudad</label>
                         <select   name="ciudad" id="ciudad" class="form-select" required>
-                          <option selected >Seleccionar</option>
-                        @foreach($varciudades as $ciudades)
-                        <option value="{{$ciudades->id}}">{{$ciudades->nombre}}</option>
-                      @endforeach
+                        @foreach($varciudades as $obtenerciudad)
+                        <option value="{{$obtenerciudad->id}}">{{$obtenerciudad->nombre}}</option>
+                        @endforeach
                       </select>
                       <div class="valid-feedback">
                         ¡Se ve bien!
@@ -314,10 +310,9 @@
                         <div class="form-outline">
                         <label class="form-label" >Banco</label>
                         <select   name="banco" id="banco" class="form-select" required>
-                          <option selected >Seleccionar</option>
-                        @foreach($varbancos as $banco)
-                        <option value="{{$banco->id}}">{{$banco->nombre}}</option>
-                      @endforeach
+                        @foreach($varbancos as $obtenerbanco)
+                        <option value="{{$obtenerbanco->id}}">{{$obtenerbanco->nombre}}</option>
+                        @endforeach
                       </select>
                       <div class="valid-feedback">
                         ¡Se ve bien!
@@ -472,7 +467,7 @@
                         <!-- Name input -->
                         <div class="form-outline">
                         <label class="form-label" >Salario Bruto</label>
-                          <input type="text" name="salario_bruto" id="salario_bruto" class="form-control" placeholder="00.00" required />
+                          <input type="text" name="salario_bruto" id="salario_bruto" class="form-control"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -626,10 +621,11 @@
                         <div class="form-outline">
                         <select class="form-select form-select mb-3" id="cmbempresas" name="cmbempresas" aria-label="Ejemplo de .form-select-lg" required>
                           <option selected >Seleccionar Empresa</option>
-                        @foreach($varempresas as $empresa)
-                        <option value="{{$empresa->id}}">{{$empresa->nombre_empresa}}</option>
-                        @endforeach
+                          @foreach($varempresas as $obtenerempresa)
+                          <option value="{{$obtenerempresa->id}}">{{$obtenerempresa->nombre_empresa}}</option>
+                          @endforeach
                         </select>
+
                         <div class="valid-feedback">
                           ¡Se ve bien!
                         </div>
@@ -684,547 +680,9 @@
 </div>
 <!-- Fin Insertar Modal-->
 
-<!-- Editar modal -->
 
-  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
-      <div class="offcanvas-header">
-        <nav id="navbar-example2" class="navbar navbar-light px-3">
-          <a class="navbar-brand" href="#">Editar Empleado</a>
-          <ul class="nav nav-pills middle__font">
-            <li class="nav-item">
-              <a class="nav-link" href="#scrollspyHeading1">General</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#scrollspyHeading2">Detalles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#scrollspyHeading3">Razón Social</a>
-            </li>
-          </ul>
-        </nav>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
+  
 
-      <div class="offcanvas-body small">
-          <div class="container">
-            <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-              <form action="" method=""  class="g-3 needs-validation" novalidate>
-              @csrf
-                  <h4 id="scrollspyHeading1">General</h4>
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" for="form8Example4">Primer Nombre</label>
-                          <input type="text"  class="form-control" name="primer_nombre" id="primer_nombres" placeholder="Introduzca el primer nombre" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label">Segundo Nombre</label>
-                          <input type="text" id="segundo_nombres"  name="segundo_nombre" class="form-control" placeholder="Introduzca el segundo nombre"  required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Apellido Paterno</label>
-                          <input type="text" name="apellido_paterno" id="apellido_paternos" class="form-control" placeholder="Introduzca el apellido parterno" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Apellido Materno</label>
-                          <input type="text" name="apellido_materno" id="apellido_maternos" class="form-control" placeholder="Introduzca el apellido materno" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" for="form8Example4">Telefono</label>
-                          <input type="numeric" name="telefono" id="telefonos" class="form-control" placeholder="0000000000"   required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label">Correo</label>
-                          <input type="text"  name="correo" id="correos" class="form-control" placeholder="name@exmple.com" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Puesto</label>
-                        <select name="puesto" id="puestos" class="form-select" required>
-                        @foreach($varpuestos as $puestos)
-                        <option  value="{{$puestos->id}}">{{$puestos->nombre}}</option>
-                      @endforeach
-                      </select>
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                        
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Sucursal</label>
-                        <select  name="sucursal" id="sucursals" class="form-select" required>
-                         
-                        @foreach($varsucursales as $sucursales)
-                        <option value="{{$sucursales->id}}">{{$sucursales->nombre}}</option>
-                      @endforeach
-                      </select>
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Ciudad</label>
-                        <select   name="ciudad" id="ciudads" class="form-select" required>
-                        
-                        @foreach($varciudades as $ciudades)
-                        <option value="{{$ciudades->id}}">{{$ciudades->nombre}}</option>
-                      @endforeach
-                      </select>
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Banco</label>
-                        <select   name="banco" id="bancos" class="form-select" required>
-                        
-                        @foreach($varbancos as $banco)
-                        <option value="{{$banco->id}}">{{$banco->nombre}}</option>
-                      @endforeach
-                      </select>
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" for="form8Example4">Calle</label>
-                          <input type="text" name="calle" id="calles" class="form-control" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" for="form8Example4">Colonia</label>
-                          <input type="text" name="colonia" id="colonias" class="form-control" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Numero Interior</label>
-                          <input type="text" name="numero_interior" id="numero_interiors" class="form-control" placeholder="00" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Numero Exterior</label>
-                          <input type="text" class="form-control" name="numero_exteriors" id="numero_exterior" placeholder="00" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label">Codigo Postal</label>
-                          <input type="text"  name="codigo_postal" id="codigo_postals"  class="form-control"  placeholder="00000" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Sexo</label>
-                          <select  class="form-select" id="sexos" name="sexo"  required >
-                            <option  selected>Seleccionar</option>
-                            <option value="M">M</option>
-                            <option value="F">F</option>
-                          </select>
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Fecha de Nacimiento</label>
-                          <input type="date" name="fecha_nacimiento" id="fecha_nacimientos" class="form-control"  required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Foto</label>
-                          <input type="text" name="foto" id="fotos" class="form-control"  required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Fecha de alta</label>
-                          <input type="date" name="fecha_alta" id="fecha_altas" class="form-control"  required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                
-
-                    </div>
-        
-
-                      
-                    </div>
-                    <br/>
-                    <!-- aqui termina el primer insert -->
-                    <br/>
-                    <h4 id="scrollspyHeading2">Detalles</h4>
-
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Salario Bruto</label>
-                          <input type="text" name="salario_bruto" id="salario_brutos" class="form-control" placeholder="00.00" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Salario Fijo</label>
-                          <input type="text" name="salario_fijo" id="salario_fijos" class="form-control" placeholder="00.00" required/>
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Salario Neto</label>
-                          <input type="text" Name="salario_neto" id="salario_netos" class="form-control" placeholder="00.00" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Numero de Tarjeta</label>
-                          <input type="text" name="numero_tarjeta" id="numero_tarjetas" class="form-control" placeholder="000000000000000" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                    
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" for="form8Example4">Numero de Cuenta</label>
-                          <input type="text" name="numero_cuenta" id="numero_cuentas" class="form-control" required  placeholder="0000000000" />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >rfc</label>
-                          <input type="text" name="rfc" id="rfcs" class="form-control" placeholder="0000000000000"  required/>
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                      
-                        </div>
-                      </div>
-
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Numero de Seguro Social</label>
-                          <input type="text" name="nss" id="nsss" class="form-control" placeholder="000000000000" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Tipo de Sangre</label>
-                          <input type="text" name="tipo_sangre" id="tipo_sangres" class="form-control" placeholder="+" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label">Contacto de Emergencias</label>
-                          <input type="text" name="contacto_emergencias" id="contacto_emergenciass" class="form-control" placeholder="Nombre de la persona"  required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        
-                        </div>
-                      </div>
-                    </div>
-
-                    
-                      
-                    <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Telefono de emergencia </label>
-                          <input type="text" name="telefono_emergencia" id="telefono_emergencias" class="form-control" placeholder="00000000000" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <br/>
-                    <!-- aqui termina el segundo insert -->
-                    <br/>
-                    <h4 id="scrollspyHeading3">Razón Social</h4>
-
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <select class="form-select form-select mb-3" id="cmbempresas" name="cmbempresass" aria-label="Ejemplo de .form-select-lg" required>
-                          <option selected >Seleccionar Empresa</option>
-                        @foreach($varempresas as $empresa)
-                        <option value="{{$empresa->id}}">{{$empresa->nombre_empresa}}</option>
-                        @endforeach
-                        </select>
-                        <div class="valid-feedback">
-                          ¡Se ve bien!
-                        </div>
-                        <div class="invalid-feedback">
-                          Por favor, completa la información requerida.
-                        </div>
-                        
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4" id="nss">
-                        <label class="form-label">Desglose de IMSS</label>
-                        <input type="text" name="pago_IMSS" id="pago_IMSSS" class="form-control" placeholder="00.00"  required />
-                        <div class="valid-feedback">
-                          ¡Se ve bien!
-                        </div>
-                        <div class="invalid-feedback">
-                          Por favor, completa la información requerida.
-                        </div>
-                      </div>
-                      <div class="col-md-4" id="excedente">
-                        <label class="form-label">Excedente</label>
-                        <input type="text" name="excedente" id="excedentes" class="form-control" placeholder="00.00"  required />
-                        <div class="valid-feedback">
-                          ¡Se ve bien!
-                        </div>
-                        <div class="invalid-feedback">
-                          Por favor, completa la información requerida.
-                        </div>
-                    </div>
-
-                    <div class="col-md-4" id="Efectivo">
-                        <label class="form-label">Efectivo</label>
-                        <input type="text" name="efectivo" id="efectivos" class="form-control" placeholder="00.00" required />
-                        <div class="valid-feedback">
-                          ¡Se ve bien!
-                        </div>
-                        <div class="invalid-feedback">
-                          Por favor, completa la información requerida.
-                        </div>
-                    </div>
-
-                    </div>
-                    <div class="offcanvas-footer text-center" style="padding:10px;">
-                      <button class="btn btn-dark" type="submit">Editar empleado</button>
-                    </div>
-              </form>
-            </div>
-          </div> 
-      </div>
-</div>
 <!-- Fin Editar modal -->
 
 <!-- Eliminar Modal-->
@@ -1582,95 +1040,7 @@ $(document).ready(function() {
     $("#ids").val(id);
 
 
-    //Formulario de editar
-    $("#primer_nombres").val(nombre);
-
-    $("#segundo_nombres").val(nombre2);
-
-    $("#apellido_paternos").val(Apellido_p);
-
-    $("#apellido_maternos").val(Apellido_m);
-    var telefono = $(this).find("td:eq(5)").text();
-    $("#telefonos").val(telefono);
-
-    var correo = $(this).find("td:eq(6)").text();
-    
-    $("#correos").val(correo);
-
-    var puesto = $(this).find("td:eq(7)").text();
-    $("#puestos option[value='"+ puesto +"']").attr("selected",true);
-
-    var sucursal = $(this).find("td:eq(8)").text();
-    $("#sucursals option[value='"+ sucursal +"']").attr("selected",true);
-  
-    var ciudad = $(this).find("td:eq(9)").text();
-    $("#ciudads option[value='"+ ciudad +"']").attr("selected",true);
-  
-    var calle = $(this).find("td:eq(10)").text();
-    $("#calles").val(calle);
-
-    var colonia = $(this).find("td:eq(11)").text();
-    $("#colonias").val(colonia);
-
-    var numero_int = $(this).find("td:eq(12)").text();
-    $("#numero_interiors").val(numero_int);
-
-    var numero_ext = $(this).find("td:eq(13)").text();
-    $("#numero_exteriors").val(numero_ext);
-
-    var codigo_postal = $(this).find("td:eq(14)").text();
-    $("#codigo_postals").val(codigo_postal);
-
-    var sexo = $(this).find("td:eq(15)").text();
-    $("#sexos").val(sexo);
-
-    var fecha_nacimiento = $(this).find("td:eq(16)").text();
-    $("#fecha_nacimientos").val(fecha_nacimiento);
-
-    var salario_bruto = $(this).find("td:eq(17)").text();
-    $("#salario_brutos").val(salario_bruto);
-
-    var salario_fijo = $(this).find("td:eq(18)").text();
-    $("#salario_fijos").val(salario_fijo);
-
-    var salario_neto = $(this).find("td:eq(19)").text();
-    $("#salario_netos").val(salario);
-
-    var banco = $(this).find("td:eq(20)").text();
-    $("#bancos option[value='"+ banco +"']").attr("selected",true);
-  
-    var numero_tarjeta = $(this).find("td:eq(20)").text();
-    $("#numero_tarjetas").val(numero_tarjeta);
-
-    var numero_cuenta = $(this).find("td:eq(21)").text();
-    $("#numero_cuentas").val(numero_cuenta);
-
-    var rfc = $(this).find("td:eq(22)").text();
-    $("#rfcs").val(rfc);
-
-    var nss = $(this).find("td:eq(23)").text();
-    $("#nsss").val(nss);
-
-    var tipo_sangre = $(this).find("td:eq(24)").text();
-    $("#tipo_sangres").val(tipo_sangre);
-
-    var contacto_emergencias = $(this).find("td:eq(25)").text();
-    $("#contacto_emergenciass").val(contacto_emergencias);
-
-    var telefono_emergencia = $(this).find("td:eq(26)").text();
-    $("#telefono_emergencias").val(telefono_emergencia);
-
-    var cmbempresas = $(this).find("td:eq(27)").text();
-    $("#cmbempresass").val(cmbempresas);
-
-    var pago_IMSS = $(this).find("td:eq(31)").text();
-    $("#pago_IMSSS").val(pago_IMSS);
-
-    var excedente = $(this).find("td:eq(32)").text();
-    $("#excedentes").val(excedente);
-
-    var efectivo = $(this).find("td:eq(33)").text();
-    $("#efectivos").val(efectivo);  
+   
 });
 
   $('#nss').hide();

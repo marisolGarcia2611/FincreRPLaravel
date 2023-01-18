@@ -137,10 +137,7 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function show(Empleados $empleados)
-    {
-        //
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -148,9 +145,25 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleados $empleados)
+    public function edit($id)
     {
-   
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        $varpuestos = $this->obtenerpuestos();
+        $varsucursales = $this->obtenersucursales();
+        $varciudades =  $this->obtenerciudades();
+        $varempresas = $this->obtenerempresas();
+        $varbancos = $this->obtenerbancos();
+        $varlistaempleados=  $this-> obtenerlistaempleados();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        $obtenerempleado = $this->obtenerlistaempleadoid($id);
+            return view('Empleados.edit',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado'));
+
+    }
+    
+    public function traerempleados(int $id)
+    {
     }
 
     /**
@@ -160,7 +173,7 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEmpleadosRequest $request, Empleados $empleados)
+    public function update(UpdateEmpleadosRequest $request)
     {
         //
     }

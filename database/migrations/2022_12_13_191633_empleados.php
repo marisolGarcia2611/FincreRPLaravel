@@ -62,7 +62,7 @@ class Empleados extends Migration
      */
     public function down()
     {
-        $table->string('estado',10);
+     
         Schema::dropIfExists('tblempleados'); 
     }
 }

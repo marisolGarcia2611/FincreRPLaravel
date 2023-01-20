@@ -13,6 +13,8 @@ use App\Traits\Menutrait;
 use App\Traits\DatosimpleTraits;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmpleadosController extends Controller
 {
@@ -40,10 +42,13 @@ class EmpleadosController extends Controller
     $varempresas = $this->obtenerempresas();
     $varbancos = $this->obtenerbancos();
     $varlistaempleados=  $this-> obtenerlistaempleados();
+    $vartipodescinfo= $this->obtenertipodescinfonavit();
     $date = Carbon::now();
     $date = $date->format('Y-m-d');
-        return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos'));
+        return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +57,7 @@ class EmpleadosController extends Controller
      */
     public function create()
     {
-     
+        
     }
     /**
      * Store a newly created resource in storage.
@@ -92,6 +97,7 @@ class EmpleadosController extends Controller
         $empleados->telefono_emergencia = $request->get('telefono_emergencia');
         $empleados->estado = 'Activo';
         $empleados->descripcion_estado = 'alta empleado';
+        $empleados->estado_civil = $request->post('estado_civil');
         $empleados->created_at = $date;
         $empleados->fecha_ingreso = $request->get('fecha_alta');
         $empleados->fecha_baja = $date;
@@ -111,6 +117,11 @@ class EmpleadosController extends Controller
         $nominas->efectivo=$request->get('efectivo');
         $nominas->numero_tarjeta=$request->get('numero_tarjeta');
         $nominas->numero_cuenta=$request->get('numero_cuenta');
+        $nominas->tipo_descuento_infonavit = $request->post('tipo_infonavit');
+        $nominas->factor_sua = $request->post('factor_sua');
+        $nominas->descuento_quincenal = $request->post('descuento_quincenal');
+        $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');
+//checar id para que no fallen
         $nominas->created_at = $fecha;
         $nominas->save();
 
@@ -155,10 +166,11 @@ class EmpleadosController extends Controller
         $varempresas = $this->obtenerempresas();
         $varbancos = $this->obtenerbancos();
         $varlistaempleados=  $this-> obtenerlistaempleados();
+        $vartipodescinfo= $this->obtenertipodescinfonavit();
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
         $obtenerempleado = $this->obtenerlistaempleadoid($id);
-            return view('Empleados.edit',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado'));
+            return view('Empleados.edit',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
 
     }
     
@@ -203,8 +215,10 @@ class EmpleadosController extends Controller
            $empleados->telefono_emergencia = $request->post('telefono_emergencia');
            $empleados->estado = 'Activo';
            $empleados->descripcion_estado = 'alta empleado';
+           $empleados->estado_civil = $request->post('estado_civil');
            $empleados->created_at = $date;
            $empleados->fecha_ingreso = $request->post('fecha_alta');
+           $empleados->estado_civil = $request->post('estado_civil');
            $empleados->fecha_baja = $date;
            $empleados->save();
 
@@ -220,6 +234,11 @@ class EmpleadosController extends Controller
            $nominas->efectivo=$request->post('efectivo');
            $nominas->numero_tarjeta=$request->post('numero_tarjeta');
            $nominas->numero_cuenta=$request->post('numero_cuenta');
+           $nominas->tipo_descuento_infonavit = $request->post('tipo_infonavit');
+           $nominas->factor_sua = $request->post('factor_sua');
+           $nominas->descuento_quincenal = $request->post('descuento_quincenal');
+           $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');
+   
            $nominas->created_at = $fecha;
            $nominas->save();
 
@@ -277,6 +296,18 @@ class EmpleadosController extends Controller
         $empleado->save();
    
 
+        return redirect()->route('verempleados')->with("success","¡Se Realizo la baja del empleado!");
+    }
+
+
+    public function exportar_excel(){
+      
+        return Excel::download(new UsersExport, 'exportando.xlsx');
+
+    }
+
+
+    public function grafica_empleados(){
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         $varpuestos = $this->obtenerpuestos();
@@ -285,8 +316,10 @@ class EmpleadosController extends Controller
         $varempresas = $this->obtenerempresas();
         $varbancos = $this->obtenerbancos();
         $varlistaempleados=  $this-> obtenerlistaempleados();
-        $date = Carbon::now();
-        $date = $date->format('Y-m-d');
-            return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos'));
+        foreach($varlistaempleados as $articulo){
+            $puntos[] = ['name'=>$articulo['primer_nombre'],'y'=>floatval($articulo['idpuesto'])];
+        }
+        return view('Empleados.graficaempleados',['data'=> json_encode($puntos)],compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos',));
     }
+
 }

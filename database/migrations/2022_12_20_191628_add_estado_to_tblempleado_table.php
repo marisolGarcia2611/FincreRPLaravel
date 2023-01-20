@@ -14,9 +14,8 @@ class AddEstadoToTblempleadoTable extends Migration
     public function up()
     {
         Schema::table('tblempleados', function (Blueprint $table) {
-            $table->string("fecha_ingreso");
-            $table->string("fecha_baja");
-
+            $table->string("estado_civil");
+    
         });
     }
 

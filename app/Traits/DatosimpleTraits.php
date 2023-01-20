@@ -6,7 +6,7 @@ use App\Models\Ciudades;
 use App\Models\Empresas;
 use App\Models\empleados;
 use App\Models\bancos;
-
+use App\Models\tipo_descuento_infonavit;
 
 use Illuminate\Support\Facades\Request;
 trait DatosimpleTraits
@@ -49,6 +49,12 @@ trait DatosimpleTraits
         return $varultimoempleado;
 
     }
+    public  function obtenertipodescinfonavit(){
+        $vartipodescuentoinfonavit = tipo_descuento_infonavit::select('tbltipoinfonavit.id','tbltipoinfonavit.Nombre' )
+        ->get();
+        return $vartipodescuentoinfonavit;
+
+    }
     public  function obtenerlistaempleados(){
         $varlistaempleado = Empleados::join(
             'tblnominas','tblempleados.id','=','tblnominas.idempleado')
@@ -57,8 +63,11 @@ trait DatosimpleTraits
             ->join("tblciudades", "tblempleados.idciudad", "=", "tblciudades.id")
             ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
             ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
+            ->join("tbltipoinfonavit", "tbltipoinfonavit.id", "=", "tblnominas.id_tipoinfonavit")
             ->select(
-
+            'tbltipoinfonavit.id as idinfonavit',
+            'tbltipoinfonavit.Nombre as nombreinfonavit',
+            'tblnominas.pago_imss',
             'tblnominas.id as idnomina',
             'tblempleados.id as idempleado',
             'tblpuestos.id as idpuesto',
@@ -91,11 +100,15 @@ trait DatosimpleTraits
             'tblempleados.contacto_emergencia',
             'tblempleados.telefono_emergencia',
             'tblempleados.estado',
+            'tblempleados.estado_civil',
             'tblempleados.descripcion_estado',
             'tblempleados.fecha_ingreso',
             'tblnominas.pago_imss',
             'tblnominas.excedente',
             'tblnominas.efectivo',
+            'tblnominas.factor_sua',
+            'tblnominas.descuento_quincenal',
+            'tblnominas.numero_credito_infonavit',
             'tblempresas.id',
             'tblempresas.nombre_empresa')
             ->get();
@@ -112,8 +125,12 @@ trait DatosimpleTraits
             ->join("tblciudades", "tblempleados.idciudad", "=", "tblciudades.id")
             ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
             ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
+            ->join("tbltipoinfonavit", "tbltipoinfonavit.id", "=", "tblnominas.id_tipoinfonavit")
             ->select(
-             'tblnominas.id as idnom',
+            'tbltipoinfonavit.id as idinfonavit',
+            'tbltipoinfonavit.Nombre as nombreinfonavit',
+            'tblnominas.pago_imss',
+            'tblnominas.id as idnom',
             'tblempleados.id as idempleado',
             'tblpuestos.id as idpuesto',
             'tblsucursales.id as idsucursal',
@@ -148,11 +165,15 @@ trait DatosimpleTraits
             'tblempleados.contacto_emergencia',
             'tblempleados.telefono_emergencia',
             'tblempleados.estado',
+            'tblempleados.estado_civil',
             'tblempleados.descripcion_estado',
             'tblempleados.fecha_ingreso',
             'tblnominas.pago_imss',
             'tblnominas.excedente',
             'tblnominas.efectivo' ,
+            'tblnominas.factor_sua',
+            'tblnominas.descuento_quincenal',
+            'tblnominas.numero_credito_infonavit',
             'tblempresas.id',
             'tblempresas.nombre_empresa')
             ->where('tblempleados.id','=',$id)

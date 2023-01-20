@@ -20,7 +20,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::resource('/Empleados','App\Http\Controllers\EmpleadosController');
+   Route::resource('/Empleados','App\Http\Controllers\EmpleadosController');
    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
    Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos');
    Route::get('/Empleados',[App\Http\Controllers\EmpleadosController::class, 'index'])->name('verempleados');
@@ -29,6 +29,11 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
    Route::post('Empleados/bajas', 'App\Http\Controllers\EmpleadosController@bajas')->name('Empleados.bajas');  
    Route::resource('/Empleados\edit','App\Http\Controllers\EmpleadosController@edit');
    Route::put('/Empleados/Update/{id}','App\Http\Controllers\EmpleadosController@update')->name('update');
+   Route::get('exportar_excel', 'App\Http\Controllers\EmpleadosController@exportar_excel')->name('Empleados.exportar_excel'); 
+   Route::get('grafica', 'App\Http\Controllers\EmpleadosController@grafica_empleados')->name('Empleados.grafica_empleados'); 
+
+
+
 
 
     

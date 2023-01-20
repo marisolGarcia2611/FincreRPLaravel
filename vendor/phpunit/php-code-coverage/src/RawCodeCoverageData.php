@@ -15,12 +15,8 @@ use function array_flip;
 use function array_intersect;
 use function array_intersect_key;
 use function count;
-use function explode;
-use function file_get_contents;
 use function in_array;
-use function is_file;
 use function range;
-use function trim;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\StaticAnalysis\FileAnalyser;
 

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="container mt-5 p__little">
   <div class="row" style="margin-left:10px; ">
 
@@ -14,10 +15,12 @@
             <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
           </div>
           <div class="col-md-3">
-            <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp;Exportar </button> 
+       
+        <a href="{{ route('Empleados.exportar_excel') }}">Exportar</a>
+        
           </div>
           <div class="col-md-3">
-            <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp; Gráfica </button> 
+          <a href="{{ route('Empleados.grafica_empleados') }}">Grafica</a>
           </div>
           {{-- <div class="col-md-4">
             <button  type="button" class="btn push2 bt_tool1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><h2><i class="fas fa-plus"></i></h2></button> 
@@ -36,32 +39,45 @@
       {{ $mensaje }}
   </div>
 @endif
-  
+@csrf
   
   <div style="background-color: #fff;border-radius:30px;">
     <div class="table-responsive" style="padding:30px;padding-bottom:10px;" id="mydatatable-container">     
       <table class="table table-hover" id="tblempleados">
         <thead class="table">
-          <tr>
-            <th class="text-center fw-light">Herramientas</th>
+          <tr>   
+            <th class="text-center fw-light">Baja</th>
+            <th class="text-center fw-light">Editar</th>
+            <th  class="text-center fw-light">Numero de Empleado</th>
             <th  class="text-center fw-light">Primer Nombre</th>
             <th  class="text-center fw-light">Segundo Nombre</th>
-            <th  class="text-center fw-light">Apelleido Paterno</th>
+            <th  class="text-center fw-light">Apellido Paterno</th>
             <th  class="text-center fw-light">Apellido Materno</th>
+            <th  class="text-center fw-light">Estado</th>   
+            <th  class="text-center fw-light">Descripción</th>
+            <th  class="text-center fw-light">Estado Civil</th>
             <th  class="text-center fw-light">Telefono</th>
+            <th  class="text-center fw-light">Empresa</th>
             <th  class="text-center fw-light">Correo</th>
-            <th  class="text-center fw-light">Puesto</th>
             <th  class="text-center fw-light">Sucursal</th>
             <th  class="text-center fw-light">Ciudad</th>
             <th  class="text-center fw-light">Calle</th>
             <th  class="text-center fw-light">Colonia</th>
             <th  class="text-center fw-light">Numero Interior</th>
             <th  class="text-center fw-light">Numero Exterior</th>
-            <th  class="text-center fw-light">Codigo Postal</th>
+            <th  class="text-center fw-light">CP</th>
             <th  class="text-center fw-light">Sexo</th>
             <th  class="text-center fw-light">Fecha de Nacimiento</th>
+            <th  class="text-center fw-light">Fecha Ingreso</th>
+            <th  class="text-center fw-light">Puesto</th>
             <th  class="text-center fw-light">Salario Bruto</th>
             <th  class="text-center fw-light">Salario Neto</th>
+            <th  class="text-center fw-light">Salario fijo</th>
+            <th  class="text-center fw-light" hidden >ID INFONAVIT</th>
+            <th  class="text-center fw-light"># Credito infonavit</th>
+            <th  class="text-center fw-light">Descuento infonavit</th>
+            <th  class="text-center fw-light">Factor sua</th>
+            <th  class="text-center fw-light">Descuento Quincenal</th>
             <th  class="text-center fw-light">Banco</th>
             <th  class="text-center fw-light">Numero de Tarjeta</th>
             <th  class="text-center fw-light">Numero de Cuenta</th>
@@ -70,20 +86,11 @@
             <th  class="text-center fw-light">Tipo de Sangre</th>
             <th  class="text-center fw-light">Contacto de Emergencia</th>
             <th  class="text-center fw-light">Telefono de Emergencia</th>
-            <th  class="text-center fw-light">Estado del empleado</th>
-            <th  class="text-center fw-light">Descripcion de estado</th>
-            <th  class="text-center fw-light">Fecha Ingreso</th>
-            <th  class="text-center fw-light">ID</th>
             <th  class="text-center fw-light">Pago imss</th>
             <th  class="text-center fw-light">Pago excedente</th>
             <th  class="text-center fw-light">Pago efectivo</th>
-            <th  class="text-center fw-light">foto</th>
-            <th  class="text-center fw-light">empresa</th>
-            <th  class="text-center fw-light">salario_fijo</th>
-            <th  class="text-center fw-light">Puesto del empleado</th>
-
-          
-
+            <th  class="text-center fw-light">Ruta foto</th>
+        
           </tr>
         </thead>
         
@@ -95,18 +102,23 @@
                     <div class="col-md-6 text-start">
                       <button class="btn fas fa-trash text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
                     </div>
-                    <div class="col-md-6 text-start">
-                <a href="/Empleados/{{$vis->idempleado}}/edit" class="btn btn-info">Editar</a>
-               
-                  </div> 
               </td>
+              <td><a href="/Empleados/{{$vis->idempleado}}/edit" class="btn btn-info">Editar</a></td>
+              <td class="table-primary">{{$vis->idempleado}}</td>
               <td class="table-info">{{$vis->primer_nombre}}</td>
               <td class="table-info">{{$vis->segundo_nombre}}</td>
               <td class="table-info">{{$vis->apellido_paterno}}</td>
               <td class="table-info">{{$vis->apellido_materno}}</td>
+              @if($vis->estado=='Activo')
+              <td class="table-success">{{$vis->estado}}</td>
+              @else
+              <td class="table-danger">{{$vis->estado}}</td>
+              @endif
+              <td class="table-primary">{{$vis->descripcion_estado}}</td>
+              <td class="table-primary">{{$vis->estado_civil}}</td>
               <td class="table-primary">{{$vis->telefono}}</td>
+              <td class="table-primary">{{$vis->nombre_empresa}}</td>
               <td class="table-primary">{{$vis->correo}}</td>
-              <td class="table-warning">{{$vis->puesto}}</td>
               <td class="table-primary">{{$vis->sucursal}}</td>
               <td class="table-primary">{{$vis->ciudad}}</td>
               <td class="table-primary">{{$vis->calle}}</td>
@@ -116,8 +128,16 @@
               <td class="table-primary">{{$vis->codigo_postal}}</td>
               <td class="table-primary">{{$vis->sexo}}</td>
               <td class="table-primary">{{$vis->fecha_nacimiento}}</td>
+              <td class="table-primary">{{$vis->fecha_ingreso}}</td>
+              <td class="table-warning">{{$vis->puesto}}</td>
               <td class="table-warning">{{$vis->salario_bruto}}</td>
               <td class="table-warning">{{$vis->salario_neto}}</td>
+              <td class="table-primary">{{$vis->salario_fijo}}</td>
+              <td class="table-primary" hidden>{{$vis->idinfonavit}}</td>
+              <td class="table-primary" >{{$vis->numero_credito_infonavit}}</td>
+              <td class="table-primary" >{{$vis->nombreinfonavit}}</td>
+              <td class="table-primary">{{$vis->factor_sua}}</td>
+              <td class="table-primary">{{$vis->descuento_quincenal}}</td>
               <td class="table-warning">{{$vis->banco}}</td>
               <td class="table-warning">{{$vis->numero_tarjeta}}</td>
               <td class="table-warning">{{$vis->numero_cuenta}}</td>
@@ -126,21 +146,10 @@
               <td class="table-primary">{{$vis->tipo_sangre}}</td>
               <td class="table-info">{{$vis->contacto_emergencia}}</td>
               <td class="table-info">{{$vis->telefono_emergencia}}</td>
-              @if($vis->estado=='Activo')
-              <td class="table-success">{{$vis->estado}}</td>
-              @else
-              <td class="table-danger">{{$vis->estado}}</td>
-              @endif
-              <td class="table-primary">{{$vis->descripcion_estado}}</td>
-              <td class="table-primary">{{$vis->fecha_ingreso}}</td>
-              <td class="table-primary">{{$vis->id}}</td>
               <td class="table-primary">{{$vis->pago_imss}}</td>
               <td class="table-primary">{{$vis->excedente}}</td>
               <td class="table-primary">{{$vis->efectivo}}</td>
               <td class="table-primary">{{$vis->foto}}</td>
-              <td class="table-primary">{{$vis->nombre_empresa}}</td>
-              <td class="table-primary">{{$vis->salario_fijo}}</td>
-              <td class="table-primary">{{$vis->puesto}}</td>
             </tr>
             @endforeach
         </tbody>
@@ -557,7 +566,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Numero de Seguro Social</label>
-                          <input type="text" name="nss" id="nss" class="form-control" placeholder="000000000000" required />
+                          <input type="text" name="nss" id="numero_seguro_social" class="form-control" placeholder="xxxxxxxxxx" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -626,7 +635,7 @@
                         <!-- Name input -->
                         <div class="form-outline">
                         <select class="form-select form-select mb-3" id="cmbempresas" name="cmbempresas" aria-label="Ejemplo de .form-select-lg" required>
-                          <option selected >Seleccionar Empresa</option>
+                    
                           @foreach($varempresas as $obtenerempresa)
                           <option value="{{$obtenerempresa->id}}">{{$obtenerempresa->nombre_empresa}}</option>
                           @endforeach
@@ -674,7 +683,58 @@
                           Por favor, completa la información requerida.
                         </div>
                     </div>
+                    <label class="form-label" for="form8Example4">Credito Infonavit</label> 
+                        <br>   
+                        <LABEl style="font-size: 15px;">Si 
+                        <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox" id="terminos" value="1" onclick="chekinfonavit(this)" />
+                      </LABEl>
+                        <br>
+                  
+                          <div class="col-md-6" id="tipo_descuento_infonavit">
+                            <div class="row" >
+                            <label class="form-label">Tipo de descuento infonavit</label>
 
+                            <select name="tipo_infonavit" >
+                              @foreach($vartipodescinfo as $obtenertipo)
+                               <option value=" {{$obtenertipo->id}}">{{$obtenertipo->Nombre}}</option>
+                             @endforeach
+                            </select>
+                          
+                            </div>
+                          </div>
+
+                          <div class="col-md-6"  id="factor_sua">
+                            <div class="row">
+                              <label class="form-label">Factor SUA</label>
+                               <input type="text" name="factor_sua" class="form-control"  required />
+                            </div>
+                          </div>
+
+                          <div class="col-md-6"  id="descuento_quincenal">
+                            <div class="row">
+                              <label class="form-label">Descuento quincenal</label>
+                               <input type="text" name="descuento_quincenal" class="form-control"  required />
+                            </div>
+                          </div>
+
+                          <div class="col-md-6"  id="numero_credito_infonavit">
+                            <div class="row">
+                                      <label class="form-label">Numero de credito infoanvit</label>
+                               <input type="text" name="numero_credito_infonavit" class="form-control"  required />
+                            </div>
+                          </div>
+
+                          <div class="col-md-6"  id="numero_credito_infonavit">
+                            <div class="row">
+                            <label class="form-label">Estado Civil</label>
+                            <select name="estado_civil" id="estado_civil">
+                              <option value="soltero">Soltero</option>
+                              <option value="casado">Casado</option>
+                              <option value="union_libre">Union Libre</option>
+                            </select>
+                            </div>
+                          </div>
+              
                     </div>
                     <div class="offcanvas-footer text-center" style="padding:10px;">
                       <button class="btn btn-dark" type="submit">Guardar empleado</button>
@@ -687,9 +747,7 @@
 <!-- Fin Insertar Modal-->
 
 
-  
-
-<!-- Fin Editar modal -->
+<!-- ................................................................................................................................................-->
 
 <!-- Eliminar Modal-->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
@@ -732,7 +790,6 @@
                               <p class="fs-6 col-md-6 fw-bold">Fecha de Ingreso</p>
                               <p class="fs-6 col-md-6 fw-light" id="f_ingreso"></p>
                             </div>
-                            
                           </div>
                         </div>
                       </div>
@@ -753,6 +810,8 @@
                         <LABEl style="font-size: 15px;">Si <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox" id="terminos" value="1" onclick="terminos_cambio(this)" /></LABEl>
                         <br> 
                           <!-- Name input -->
+                     
+
                           <div class="form-outline">
                           <label class="form-label" for="form8Example4">Descripcion de la baja</label>         
                             <textarea class="form-control" name="descripcion_baja" placeholder="Detalle el motivo de la baja del empleado" required>	</textarea>
@@ -1003,6 +1062,18 @@
 
 <script>
 $(document).ready(function() {
+  $('#nss').hide();
+  $('#excedente').hide();
+  $('#Efectivo').hide();
+  $('#vacaciones_poporcionales').hide();
+  $('#dias_vacaciones').hide();
+  $('#vacaciones_poporcionales').hide();
+  $('#dias_vacaciones').hide();
+  $('#tipo_descuento_infonavit').hide();
+  $('#factor_sua').hide();
+  $('#descuento_quincenal').hide();
+  $('#numero_credito_infonavit').hide();
+
   $("table tbody tr").click(function() {
   var salario = $(this).find("td:eq(17)").text();
   var nombre = $(this).find("td:eq(1)").text();
@@ -1010,7 +1081,7 @@ $(document).ready(function() {
   var nombre2 = $(this).find("td:eq(2)").text();
   var Apellido_p = $(this).find("td:eq(3)").text();
   var Apellido_m = $(this).find("td:eq(4)").text();
-  var fecha_alta = $(this).find("td:eq(28)").text();
+  var fecha_alta = $(this).find("td:eq(29)").text();
   var nombrecompleto=document.getElementById('nombre');
   var salariosoperaciones=document.getElementById('salario');
   var fecha_ingreso=document.getElementById('f_ingreso');
@@ -1049,11 +1120,7 @@ $(document).ready(function() {
    
 });
 
-  $('#nss').hide();
-  $('#excedente').hide();
-  $('#Efectivo').hide();
-  $('#vacaciones_poporcionales').hide();
-  $('#dias_vacaciones').hide();
+
   var table = $('#tblempleados').DataTable( {
         "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
         responsive: true,
@@ -1072,7 +1139,7 @@ $(document).ready(function() {
 $("#cmbempresas").change(function(){
   var id = $(this).val(); 
   var empresa = $(this).find('option:selected').text(); 
-  if(empresa == "KAGDA" || empresa == "CREDILAGUNA")
+  if(empresa == "CREDILAGUNA")
   {
       $('#nss').hide();
       $('#excedente').hide();
@@ -1093,7 +1160,6 @@ $("#cmbempresas").change(function(){
 
   // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
   var forms = document.querySelectorAll('.needs-validation')
-
   // Bucle sobre ellos y evitar el envío
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
@@ -1116,6 +1182,8 @@ function terminos_cambio(checkbox){
     if(checkbox.checked){
       $('#vacaciones_poporcionales').show();
       $('#dias_vacaciones').show();
+
+
     }
     //Si se ha desmarcado se ejecuta el siguiente mensaje.
     else{
@@ -1123,6 +1191,27 @@ function terminos_cambio(checkbox){
       $('#dias_vacaciones').hide();
       $("#vacaciones_poporcionales").val(0);
       $("#dias_vacaciones").val(0);
+    }
+}
+
+function chekinfonavit(checkbox){
+    //Si está marcada ejecuta la condición verdadera.
+    if(checkbox.checked){
+      $('#tipo_descuento_infonavit').show();
+      $('#factor_sua').show();
+      $('#descuento_quincenal').show();
+      $('#numero_credito_infonavit').show();
+
+    }
+    //Si se ha desmarcado se ejecuta el siguiente mensaje.
+    else{
+      $('#tipo_descuento_infonavit').hide();
+      $('#factor_sua').hide();
+      $('#descuento_quincenal').hide();
+      $('#numero_credito_infonavit').hide();
+      $("#descuento_quincenal").val(0);
+      $("#factor_sua").val(0);
+     
     }
 }
   function operaciones()

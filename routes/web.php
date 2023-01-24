@@ -35,6 +35,5 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 
 
 
-
     
   });

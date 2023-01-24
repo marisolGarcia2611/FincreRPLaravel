@@ -117,7 +117,7 @@ class EmpleadosController extends Controller
         $nominas->efectivo=$request->get('efectivo');
         $nominas->numero_tarjeta=$request->get('numero_tarjeta');
         $nominas->numero_cuenta=$request->get('numero_cuenta');
-        $nominas->tipo_descuento_infonavit = $request->post('tipo_infonavit');
+        $nominas->id_tipoinfonavit = $request->post('tipo_infonavit');
         $nominas->factor_sua = $request->post('factor_sua');
         $nominas->descuento_quincenal = $request->post('descuento_quincenal');
         $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');
@@ -136,9 +136,10 @@ class EmpleadosController extends Controller
         $varempresas = $this->obtenerempresas();
         $varbancos = $this->obtenerbancos();
         $varlistaempleados=  $this-> obtenerlistaempleados();
+        $vartipodescinfo= $this->obtenertipodescinfonavit();
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
-            return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos'));
+            return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo'));
             // ->with("success","Empleado creado correctamente")
     }
 
@@ -243,7 +244,11 @@ class EmpleadosController extends Controller
            $nominas->save();
 
            $date = $date->format('Y-m-d');
-           return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+        //    return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+             if($empleados->save() && $nominas->save()){
+                return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+            }
+            return redirect()->route('verempleados')->with("warning","No se logro");
 
     }
 
@@ -294,9 +299,29 @@ class EmpleadosController extends Controller
         $empleado->estado = 'Inactivo';
         $empleado->descripcion_estado = $descripcionbaja;
         $empleado->save();
-   
+ 
 
-        return redirect()->route('verempleados')->with("success","¡Se Realizo la baja del empleado!");
+        $idempleado = $request->get('ids');
+        $rptvardiasgratificacion=  $request->get('gratificacion');
+        $rtpvaraguinaldoporporcional =$request->get('Aguinaldo_poporcional');
+        $rptvarsueldoporporcional =$request->get('sueldo_poporcional');
+        $rptvarvacacionesporporcionales = $request->get('vacaciones_poporcionales');
+
+        $rptvardeudaimms =$request->get('imms');
+        $rptvardeduedainfonavit = $request->get('infonavit');
+        $rptvardeudatransporte = $request->get('transporte');
+        $rptvardeudaprestamo =$request->get('prestamo');
+        $rptvarotrasdeudas = $request->get('otras');
+
+        $rpttotalentregar =$request->get('total_entregar');
+
+
+        $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas','rpttotalentregar'));
+       
+        return  $pdf->download("finiquito_empleado$idempleado.pdf");
+        redirect()->route('verempleados')->with("success","¡Se Realizo la baja del empleado!");
+
+
     }
 
 
@@ -321,5 +346,7 @@ class EmpleadosController extends Controller
         }
         return view('Empleados.graficaempleados',['data'=> json_encode($puntos)],compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos',));
     }
+    
+
 
 }

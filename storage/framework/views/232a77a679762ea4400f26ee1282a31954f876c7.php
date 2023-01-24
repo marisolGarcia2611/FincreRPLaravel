@@ -1,44 +1,132 @@
 
 <?php $__env->startSection('content'); ?>
 
-<div class="container mt-5 p__little">
-  <div class="row" style="margin-left:10px; ">
 
-     
-      <div class="col-md-6">
-        <h4 class="mt-3 mb-3 animate__animated animate__backInLeft">Catalogo de Empleados</h4> 
-      </div>
-      <div class="col-md-6">
-        <div class="row mt-3 text-end">
-          <div class="col-md-3 d-md-block d-none"></div>
-          <div class="col-md-3">
-            <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
-          </div>
-          <div class="col-md-3">
-       
-        <a href="<?php echo e(route('Empleados.exportar_excel')); ?>">Exportar</a>
+<style>
+  .swal-overlay {
+  background-color: rgba(70, 71, 95, 0.45);
+  }
+  .bor{
+    border: none;
+    -webkit-transition: all 0.3s ease;
+     transition: all 0.3s ease;
+  }
+
+  .bor:hover {
+  -webkit-transform: scale(1.1) !important;
+  transform: scale(1.09) !important;
+ }
+
+ .nav-float{
+    position: fixed;border-top-right-radius:30px;border-bottom-right-radius:30px;z-index:2;
+  }
+
+  .nav-it:hover{
+    background-color: #33acce;border-radius:20px;
+    color: #fff;
+  }
+  .cartaForm{
+   border-radius: 30px;box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+
+ .bg-p{
+  color: #32394B;
+ }
+ .mar-l{
+  margin-left: 40px;
+ }
+ .bg-table{
+  background-color:  #32394B;border-radius:18px;color:#fff; width:95%;
+ }
+
+ .bg-1{
+    background-color: #6e7994;border:0px solid rgba(255, 255, 255, 0);
+
+  }
+
+  .bg-2{
+    background-color: #525b72;border:0px solid rgba(255, 255, 255, 0);
+  }
+
+  .bg-3{
+    background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);
+  }
+
+  .bg-4{
+    background-color: #33ce64;border:0px solid rgba(255, 255, 255, 0);
+  }
+
+  .bg-5{
+    background-color: #ffa200;border:0px solid rgba(255, 255, 255, 0);
+  }
+
+  .bg-6{
+    background-color: #aab6dd;border:0px solid rgba(255, 255, 255, 0);
+  }
+
+ 
+ @media  screen and (max-width:900px) {
+
+  .mar-l{
+  margin-left: 0px;
+ }
+
+ }
+</style>
+<?php if($mensaje = Session::get('success')): ?>
+  <?php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡Acción exitosa!","Empleado editado correctamente","success", {buttons: false,timer: 1500});';
+          echo '</script>';  
+  ?>
+
+<?php elseif($mensaje = Session::get('warning')): ?>
+  <?php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Intente despues","warning", {buttons: false,timer: 1500});';
+          echo '</script>';  
+  ?>
+
+<?php endif; ?>
+
+
+
+<div class="mt-5 p__little">
+<br/>
+<br/>
+  <center class="container bg-p">
+        <div class="col-md-12">
+          <h2 class="mt-3 mb-3 fw-light animate_animated animate_backInLeft">Catalogo de Empleados</h2> 
+        </div>
+        <div class="col-md-12">
+          <div class="row mt-3 text-end">
+            <div class="col-md-2 d-md-block d-none"></div>
+            <div class="col-md-2 mar-l">
+              <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
+            </div>
+            <div class="col-md-2">
+              <form action="<?php echo e(route('Empleados.exportar_excel')); ?>">
+              <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp; Exportar </button> 
+              </form>            
+            </div>
+            <div class="col-md-2">
+              <form action="<?php echo e(route('Empleados.grafica_empleados')); ?>">
+              <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficar </button> 
+              </form>
+            </div>
+            <div class="col-md-4 d-md-block d-none">
         
           </div>
-          <div class="col-md-3">
-          <a href="<?php echo e(route('Empleados.grafica_empleados')); ?>">Grafica</a>
-          </div>
-          
         </div>
-      </div>
-  </div>  
-  <?php if($mensaje = Session::get('success')): ?>
-  <div class="alert alert-success" role="alert">
-      <?php echo e($mensaje); ?>
-
-  </div>
-<?php endif; ?>
-<?php echo csrf_field(); ?>
-  
-  <div style="background-color: #fff;border-radius:30px;">
+    </center> 
+  <br/>
+  <?php echo csrf_field(); ?>
+ <center>
+  <div class="bg-table">
     <div class="table-responsive" style="padding:30px;padding-bottom:10px;" id="mydatatable-container">     
       <table class="table table-hover" id="tblempleados">
-        <thead class="table">
-          <tr>   
+      <thead class="table" style="border:0px solid rgba(255, 255, 255, 0);">
+            <tr style="background-color: #32394B;color:#fff;border:0px solid rgba(255, 255, 255, 0);"> 
             <th class="text-center fw-light">Baja</th>
             <th class="text-center fw-light">Editar</th>
             <th  class="text-center fw-light">Numero de Empleado</th>
@@ -66,7 +154,7 @@
             <th  class="text-center fw-light">Salario Bruto</th>
             <th  class="text-center fw-light">Salario Neto</th>
             <th  class="text-center fw-light">Salario fijo</th>
-            <th  class="text-center fw-light" hidden >ID INFONAVIT</th>
+            <th  class="text-center fw-light" >ID INFONAVIT</th>
             <th  class="text-center fw-light"># Credito infonavit</th>
             <th  class="text-center fw-light">Descuento infonavit</th>
             <th  class="text-center fw-light">Factor sua</th>
@@ -90,74 +178,93 @@
         <tbody>
           <?php $__currentLoopData = $varlistaempleados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $vis): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-              <td class="table-light">
+              <td class="table-dark" style="background-color: #32394B;">
                   <div class="row">
                     <div class="col-md-6 text-start">
-                      <button class="btn fas fa-trash text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" ></button>
+                      <button class="btn fas fa-trash" style="color:#bfc6d4;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" ></button>
                     </div>
               </td>
-              <td><a href="/Empleados/<?php echo e($vis->idempleado); ?>/edit" class="btn btn-info">Editar</a></td>
-              <td class="table-primary"><?php echo e($vis->idempleado); ?></td>
-              <td class="table-info"><?php echo e($vis->primer_nombre); ?></td>
-              <td class="table-info"><?php echo e($vis->segundo_nombre); ?></td>
-              <td class="table-info"><?php echo e($vis->apellido_paterno); ?></td>
-              <td class="table-info"><?php echo e($vis->apellido_materno); ?></td>
+              <td class="table-dark" style="background-color: #32394B;">
+                <form action="/Empleados/<?php echo e($vis->idempleado); ?>/edit">
+                          <button class="btn fas fa-edit bor" style="color:#bfc6d4;" type="submit"></button>
+                </form>
+              </td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->idempleado); ?></td>
+              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->primer_nombre); ?></td>
+              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->segundo_nombre); ?></td>
+              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->apellido_paterno); ?></td>
+              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->apellido_materno); ?></td>
               <?php if($vis->estado=='Activo'): ?>
-              <td class="table-success"><?php echo e($vis->estado); ?></td>
+              <td class="bg-4" style="background-color: #33ce64;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->estado); ?></td>
               <?php else: ?>
-              <td class="table-danger"><?php echo e($vis->estado); ?></td>
+              <td class="bg-5" style="background-color: #ffa200;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->estado); ?></td>
               <?php endif; ?>
-              <td class="table-primary"><?php echo e($vis->descripcion_estado); ?></td>
-              <td class="table-primary"><?php echo e($vis->estado_civil); ?></td>
-              <td class="table-primary"><?php echo e($vis->telefono); ?></td>
-              <td class="table-primary"><?php echo e($vis->nombre_empresa); ?></td>
-              <td class="table-primary"><?php echo e($vis->correo); ?></td>
-              <td class="table-primary"><?php echo e($vis->sucursal); ?></td>
-              <td class="table-primary"><?php echo e($vis->ciudad); ?></td>
-              <td class="table-primary"><?php echo e($vis->calle); ?></td>
-              <td class="table-primary"><?php echo e($vis->colonia); ?></td>
-              <td class="table-primary"><?php echo e($vis->numero_interior); ?></td>
-              <td class="table-primary"><?php echo e($vis->numero_exterior); ?></td>
-              <td class="table-primary"><?php echo e($vis->codigo_postal); ?></td>
-              <td class="table-primary"><?php echo e($vis->sexo); ?></td>
-              <td class="table-primary"><?php echo e($vis->fecha_nacimiento); ?></td>
-              <td class="table-primary"><?php echo e($vis->fecha_ingreso); ?></td>
-              <td class="table-warning"><?php echo e($vis->puesto); ?></td>
-              <td class="table-warning"><?php echo e($vis->salario_bruto); ?></td>
-              <td class="table-warning"><?php echo e($vis->salario_neto); ?></td>
-              <td class="table-primary"><?php echo e($vis->salario_fijo); ?></td>
-              <td class="table-primary" hidden><?php echo e($vis->idinfonavit); ?></td>
-              <td class="table-primary" ><?php echo e($vis->numero_credito_infonavit); ?></td>
-              <td class="table-primary" ><?php echo e($vis->nombreinfonavit); ?></td>
-              <td class="table-primary"><?php echo e($vis->factor_sua); ?></td>
-              <td class="table-primary"><?php echo e($vis->descuento_quincenal); ?></td>
-              <td class="table-warning"><?php echo e($vis->banco); ?></td>
-              <td class="table-warning"><?php echo e($vis->numero_tarjeta); ?></td>
-              <td class="table-warning"><?php echo e($vis->numero_cuenta); ?></td>
-              <td class="table-warning"><?php echo e($vis->rfc); ?></td>
-              <td class="table-warning"><?php echo e($vis->nss); ?></td>
-              <td class="table-primary"><?php echo e($vis->tipo_sangre); ?></td>
-              <td class="table-info"><?php echo e($vis->contacto_emergencia); ?></td>
-              <td class="table-info"><?php echo e($vis->telefono_emergencia); ?></td>
-              <td class="table-primary"><?php echo e($vis->pago_imss); ?></td>
-              <td class="table-primary"><?php echo e($vis->excedente); ?></td>
-              <td class="table-primary"><?php echo e($vis->efectivo); ?></td>
-              <td class="table-primary"><?php echo e($vis->foto); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->descripcion_estado); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->estado_civil); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->telefono); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->nombre_empresa); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->correo); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->sucursal); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->ciudad); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->calle); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->colonia); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->numero_interior); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->numero_exterior); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->codigo_postal); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->sexo); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->fecha_nacimiento); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->fecha_ingreso); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->puesto); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->salario_bruto); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->salario_neto); ?></td>
+              <td class="bg-1" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->salario_fijo); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);" ><?php echo e($vis->idinfonavit); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);" ><?php echo e($vis->numero_credito_infonavit); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);" ><?php echo e($vis->nombreinfonavit); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->factor_sua); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->descuento_quincenal); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->banco); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->numero_tarjeta); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->numero_cuenta); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->rfc); ?></td>
+              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->nss); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->tipo_sangre); ?></td>
+              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->contacto_emergencia); ?></td>
+              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->telefono_emergencia); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->pago_imss); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->excedente); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->efectivo); ?></td>
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->foto); ?></td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
       </table>
     </div>  
   </div>
+</center> 
+
+
   <br/>
   <br/>
 
-  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
 
 <div class="offcanvas-header">
-  <nav id="navbar-example2" class="navbar navbar-light px-3">
-    <a class="navbar-brand" href="#">Nuevo Empleado</a>
-  </nav>
+<nav id="navbar-example2" class="navbar navbar-light px-3">
+      <a class="navbar-brand">Nuevo Empleado</a>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link nav-it" href="#paso1">Paso 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-it" href="#paso2">Paso 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-it" href="#paso3">Paso 3</a>
+          </li>
+        
+        </ul>
+    </nav>
   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 
@@ -167,7 +274,9 @@
             <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
               <form action="" method="POST"  class="g-3 needs-validation" novalidate>
               <?php echo csrf_field(); ?>
-                  <h4 id="scrollspyHeading1">General</h4>
+
+              <div class="card p-5 cartaForm">
+                  <h4 id="paso1">Paso 1. General</h4>
                     <div class="row">
                       <div class="col">
                         <!-- Name input -->
@@ -461,15 +570,14 @@
                 
 
                     </div>
-        
-
-                      
-                    </div>
+                    </div> 
+              </div>
                     <br/>
                     <!-- aqui termina el primer insert -->
                     <br/>
-                    <h4 id="scrollspyHeading2">Detalles</h4>
-
+              
+              <div class="card p-5 cartaForm">
+                    <h4 id="paso2">Paso 2. Salario</h4>
                     <div class="row">
                       <div class="col">
                         <!-- Name input -->
@@ -600,9 +708,6 @@
                         </div>
                       </div>
                     </div>
-
-                    
-                      
                     <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
@@ -615,13 +720,16 @@
                             Por favor, completa la información requerida.
                           </div>
                         </div>
-                      </div>
+                    </div>
+              </div>
 
 
-                      <br/>
+                    <br/>
                     <!-- aqui termina el segundo insert -->
                     <br/>
-                    <h4 id="scrollspyHeading3">Razón Social</h4>
+
+               <div class="card p-5 cartaForm">
+                    <h4 id="scrollspyHeading3">Paso 3. Razón Social</h4>
 
                     <div class="row">
                       <div class="col">
@@ -665,7 +773,6 @@
                           Por favor, completa la información requerida.
                         </div>
                     </div>
-
                     <div class="col-md-4" id="Efectivo">
                         <label class="form-label">Efectivo</label>
                         <input type="text" name="efectivo" id="efectivo" class="form-control" placeholder="00.00" required />
@@ -729,9 +836,16 @@
                           </div>
               
                     </div>
+               </div>
+
+                
+                     <br/>
+                    <!-- Guardar empleado -->
                     <div class="offcanvas-footer text-center" style="padding:10px;">
-                      <button class="btn btn-dark" type="submit">Guardar empleado</button>
+                      <button class="btn btn-dark" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar empleado</button>
                     </div>
+
+
               </form>
             </div>
           </div> 
@@ -781,7 +895,15 @@
                           <div class="col-md-2">
                             <div class="row">
                               <p class="fs-6 col-md-6 fw-bold">Fecha de Ingreso</p>
-                              <p class="fs-6 col-md-6 fw-light" id="f_ingreso"></p>
+                              <p class="fs-6 col-md-6 fw-light" id="fecha_ingreso_empelado"></p>
+                            </div>
+                          </div>
+
+                          <div class="col-md-2">
+                            <div class="row">
+                              <p class="fs-6 col-md-6 fw-bold">Tipo infonavit</p>
+                              <p class="fs-6 col-md-2 fw-light" id="t_infonavit"></p>
+                       
                             </div>
                           </div>
                         </div>
@@ -959,7 +1081,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Imss</label>
-                            <input type="text" Name="imms" id="imms" class="form-control" placeholder="00.00" value="0" required/>
+                            <input type="text" Name="imms" id="imms" class="form-control"  required/>
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -975,7 +1097,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Infonavit</label>
-                            <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00" value="0" required/>
+                            <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00"  required/>
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -1067,34 +1189,73 @@ $(document).ready(function() {
   $('#descuento_quincenal').hide();
   $('#numero_credito_infonavit').hide();
 
+
+
   $("table tbody tr").click(function() {
-  var salario = $(this).find("td:eq(17)").text();
-  var nombre = $(this).find("td:eq(1)").text();
-  var id = $(this).find("td:eq(29)").text();
-  var nombre2 = $(this).find("td:eq(2)").text();
-  var Apellido_p = $(this).find("td:eq(3)").text();
-  var Apellido_m = $(this).find("td:eq(4)").text();
-  var fecha_alta = $(this).find("td:eq(29)").text();
+
+    //obtenemos el id del empleado
+    var id = $(this).find("td:eq(2)").text();
+
+    //obtenemos el nombre completo mediante la tabla
+    var nombre = $(this).find("td:eq(3)").text();
+    var nombre2 = $(this).find("td:eq(4)").text();
+    var Apellido_p = $(this).find("td:eq(5)").text();
+    var Apellido_m = $(this).find("td:eq(6)").text();
+    var pago_imms =  $(this).find("td:eq(40)").text();
+    var tipo_descuentoinfo = $(this).find("td:eq(29)").text();
+    var factorsua = $(this).find("td:eq(30)").text();
+
+    //obtenemos el salario del empleado
+    var salario = $(this).find("td:eq(24)").text();
+    //obtenemos la fecha de alta del empleado
+   var fecha_ingreso_empelado = $(this).find("td:eq(22)").text();
+   //obtenemos el imput que llenaremos mediante javascript
+
+
   var nombrecompleto=document.getElementById('nombre');
   var salariosoperaciones=document.getElementById('salario');
-  var fecha_ingreso=document.getElementById('f_ingreso');
+  var fecha_ingreso=document.getElementById('fecha_ingreso_empelado');
+  var tipoinfo=document.getElementById('t_infonavit');
+
+
+  //llenamos los imput mediante javascript
   nombrecompleto.innerText = nombre+' '+nombre2+' '+Apellido_p+' '+Apellido_m;
   salariosoperaciones.innerText = salario;
-  fecha_ingreso.innerText = fecha_alta;
+  fecha_ingreso.innerText = fecha_ingreso_empelado;
+  tipoinfo.innerText = tipo_descuentoinfo;
+
+
+
+ $("#imms").val(parseFloat(pago_imms).toFixed(2));
+$("#infonavit").val(parseFloat(factorsua).toFixed(2));
+$("#t_infonavit2").val(tipo_descuentoinfo);
+
+
+
+
+  //obtenemos los datos para calcular dias de aguinaldo del empleado
     var fechaIni = new Date(fecha_ingreso.innerText);
     var fechaFin = new Date();
     const añoinicio = fechaIni.getFullYear();
+    const mesinicio = fechaIni.getMonth()+1;
+    const diainicio = fechaIni.getDate();
     const añoactual = fechaFin.getFullYear();
     const diahoy = fechaFin.getDate();
     const mes = fechaFin.getMonth()+1;
+    var diff = fechaFin - fechaIni;
+
     if (añoinicio == añoactual){
+
+      fechaIni = new Date(añoinicio+'-'+mesinicio+'-'+diainicio);
     }
     else{
       fechaIni = new Date(añoactual+'-01-01');
     }
-    var diff = fechaFin - fechaIni;
-    diferenciaDias = Math.floor(diff / (1000 * 60 * 60 * 24));
+   diff = fechaFin - fechaIni;
+   diferenciaDias = Math.floor(diff / (1000 * 60 * 60 * 24));
     $("#dias_trabajados").val(diferenciaDias);
+
+
 
     if(diahoy >= 16 &&  diahoy <= 31){
       var fecha_ini_sueldopropo = new Date(añoactual+'-'+mes+'-16');
@@ -1103,16 +1264,22 @@ $(document).ready(function() {
     {
       var fecha_ini_sueldopropo = new Date(añoactual+'-'+mes+'-01');
     }
-  
+   
     var diff = fechaFin - fecha_ini_sueldopropo;
-    diferenciaDias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    $("#dias_trabajadosa_deber").val(diferenciaDias);
+    diferenciaDiass = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  if(diferenciaDiass >diferenciaDias ){
+    
+    $("#dias_trabajadosa_deber").val(diferenciaDiass-1);
+  }
+  else{
+    
+    $("#dias_trabajadosa_deber").val(diferenciaDiass+1);
+  }
+  
     $("#ids").val(id);
-
-
    
 });
-
 
   var table = $('#tblempleados').DataTable( {
         "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
@@ -1207,6 +1374,8 @@ function chekinfonavit(checkbox){
      
     }
 }
+
+
   function operaciones()
   {
     var salario=document.getElementById('salario');
@@ -1219,17 +1388,45 @@ function chekinfonavit(checkbox){
     var deduccioninfonavit =  $("#infonavit").val();
     var deducciontransporte =  $("#transporte").val();
     var deduccionorestamo =  $("#prestamo").val();
-    var deducciootros =  $("#otras").val();
+    var deduccionotroa =  $("#otras").val();
+
+   
+
+    //en este apartado vamos a calcular lo que debe de infonavit segun su credito
+    tipopago = document.getElementById('t_infonavit').innerHTML;
+
+    var pagosuainfonavit =  $("#t_infonavit").val();
+    var saldoadeberinfonavit=0;
+    if(tipopago == 'CF')
+    {
+      pagosuainfonavit =  $("#infonavit").val();
+      saldoadeberinfonavit = (pagosuainfonavit*2)/61*(diastrabajadosdeber)+15;
+    }
+    if(tipopago == 'VSM')
+    {
+      pagosuainfonavit =  $("#infonavit").val();
+      saldoadeberinfonavit = (pagosuainfonavit*103.74*2)/61*(diastrabajadosdeber)+15;
+    }
+
+
     var aguinaldo = 15/365*diastrabajados*salarioc;
     var gratificacion = diagratificacion*salarioc;
     var sueldopropo = salarioc*diastrabajadosdeber;
     var vacacionesproporcional = diasvacaciones*salarioc*.25
-    var total = ((((((aguinaldo+gratificacion+sueldopropo+vacacionesproporcional)-parseFloat(deduccionimms).toFixed(2))-parseFloat(deduccioninfonavit).toFixed(2)-parseFloat(deducciontransporte).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2))-parseFloat(deducciootros).toFixed(2)));
+    var total = ((((((aguinaldo+gratificacion+sueldopropo+vacacionesproporcional)-parseFloat(deduccionimms).toFixed(2))-parseFloat(saldoadeberinfonavit).toFixed(2)-parseFloat(deducciontransporte).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2)));
+
+
+
+  // calculamos el aguinaldo del empleado a deber segun la fecha de ingreso
     $("#Aguinaldo_poporcional").val(parseFloat(aguinaldo).toFixed(2));
     $("#gratificacion").val(parseFloat(gratificacion).toFixed(2));
     $("#sueldo_poporcional").val(parseFloat(sueldopropo).toFixed(2));
     $("#vacaciones_poporcionales").val(parseFloat(vacacionesproporcional).toFixed(2));
+    $("#infonavit").val(parseFloat(saldoadeberinfonavit).toFixed(2));
     $("#total_entregar").val(parseFloat(total).toFixed(2));
+  
+ //sumamos el total de dinero a otorgar al trabajador
+  
   }
 </script>
 

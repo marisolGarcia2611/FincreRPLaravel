@@ -27,8 +27,10 @@
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
          <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-         
 
+         <!-- Alerts -->
+         
+         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
          
 
          <!-- Icocnos -->
@@ -90,12 +92,30 @@
       background-color: #32394B;
 
     }
+    @media screen and (max-width:450px) {
+     
+     .nv__style{
+         height:2vh;
+         width: 100%;
+         z-index: 2;
+         top: 0vh;
+         margin-top: -6px;
+         position: fixed !important;
+         border-bottom-left-radius:10px;
+         border-bottom-right-radius:10px;
+         box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
+         background-color: #32394B;
+     
+     }
+      
+   }
+
 
 
     @media screen and (max-width:600px) {
      
         .nv__style{
-            height:60px;
+            height:5vh;
             width: 100%;
             z-index: 2;
             top: 0vh;
@@ -120,7 +140,7 @@
       
         .nv__style{
             background-color: nar(--navBg);
-            height:5vh;
+            height:6vh;
             width: 100%;
             z-index: 2;
             margin-top: -3px;
@@ -134,6 +154,44 @@
         }
        
       }
+
+      @media screen and (max-height:600px) {
+      
+      .nv__style{
+          background-color: nar(--navBg);
+          height:10vh;
+          width: 100%;
+          z-index: 2;
+          margin-top: -3px;
+          top: 0vh;
+          position: fixed;
+          border-bottom-left-radius:10px;
+          border-bottom-right-radius:10px;
+          box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
+          background-color: #32394B;
+      
+      }
+     
+    }
+    @media screen and (min-height:700px) {
+      
+      .nv__style{
+          background-color: nar(--navBg);
+          height:5vh;
+          width: 100%;
+          z-index: 2;
+          margin-top: -3px;
+          top: 0vh;
+          position: fixed;
+          border-bottom-left-radius:10px;
+          border-bottom-right-radius:10px;
+          box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);
+          background-color: #32394B;
+      
+      }
+     
+    }
+    
     /* -------------------Etiquetas de sidebar------------------ */
 
     .e__sidebar {
@@ -149,7 +207,7 @@
       /* Add a background color on hover */
       .e__sidebar:hover {
         background-color: #2E3192;
-background-image: linear-gradient(45deg,#2E3192,#0095D9);
+  background-image: linear-gradient(45deg,#2E3192,#0095D9);
         color: var(--text-etiquetaPHover);
         -webkit-transform: scale(1.1) !important;
         transform: scale(1.04) !important;
@@ -170,7 +228,7 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
 
       .e__sidebar1:hover {
         background-color: #2E3192;
-background-image: linear-gradient(45deg,#2E3192,#0095D9);
+  background-image: linear-gradient(45deg,#2E3192,#0095D9);
         /* background-color: rgb(1, 163, 237);    */
         color: var(--text-etiquetaPHover);
         -webkit-transform: scale(1.1) !important;

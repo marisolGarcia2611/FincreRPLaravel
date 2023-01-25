@@ -753,9 +753,9 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-4" id="nss">
+                      <div class="col-md-3" id="nss">
                         <label class="form-label">Desglose de IMSS</label>
-                        <input type="text" name="pago_IMSS" id="pago_IMSS" class="form-control" placeholder="00.00"  required />
+                        <input type="text" name="pago_IMSS" id="pago_IMSS" class="form-control" placeholder="00.00" value="0.00" required />
                         <div class="valid-feedback">
                           ¡Se ve bien!
                         </div>
@@ -763,9 +763,9 @@
                           Por favor, completa la información requerida.
                         </div>
                       </div>
-                      <div class="col-md-4" id="excedente">
-                        <label class="form-label">Excedente</label>
-                        <input type="text" name="excedente" id="excedente" class="form-control" placeholder="00.00"  required />
+                      <div class="col-md-3" id="sueldo_fiscal">
+                        <label class="form-label">Sueldo fiscal</label>
+                        <input type="text" name="sueldo_fiscal" id="sueldo_fiscal" class="form-control" placeholder="00.00" value="0.00" required />
                         <div class="valid-feedback">
                           ¡Se ve bien!
                         </div>
@@ -773,7 +773,18 @@
                           Por favor, completa la información requerida.
                         </div>
                     </div>
-                    <div class="col-md-4" id="Efectivo">
+
+                      <div class="col-md-3" id="excedente">
+                        <label class="form-label">Excedente</label>
+                        <input type="text" name="excedente" id="excedente" class="form-control" placeholder="00.00" value="0.00" required />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="Efectivo">
                         <label class="form-label">Efectivo</label>
                         <input type="text" name="efectivo" id="efectivo" class="form-control" placeholder="00.00" required />
                         <div class="valid-feedback">
@@ -1361,12 +1372,15 @@ $("#cmbempresas").change(function(){
       $('#nss').hide();
       $('#excedente').hide();
       $('#Efectivo').hide();
+      $('#sueldo_fiscal').hide();
+   
   }
   else
   {
       $('#nss').show();
       $('#excedente').show();
       $('#Efectivo').show();
+      $('#sueldo_fiscal').show();
   }
     });
 </script>

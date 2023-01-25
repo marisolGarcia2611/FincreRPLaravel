@@ -114,6 +114,7 @@ class EmpleadosController extends Controller
         $nominas->salario_fijo=$request->get('salario_fijo');
         $nominas->pago_imss=$request->get('pago_IMSS');
         $nominas->excedente=$request->get('excedente');
+        $nominas->sueldo_fiscal=$request->get('sueldo_fiscal');
         $nominas->efectivo=$request->get('efectivo');
         $nominas->numero_tarjeta=$request->get('numero_tarjeta');
         $nominas->numero_cuenta=$request->get('numero_cuenta');
@@ -231,11 +232,12 @@ class EmpleadosController extends Controller
            $nominas->salario_neto=$request->post('salario_neto');
            $nominas->salario_fijo=$request->post('salario_fijo');
            $nominas->pago_imss=$request->post('pago_IMSS');
+           $nominas->sueldo_fiscal=$request->get('sueldo_fiscal');
            $nominas->excedente=$request->post('excedente');
            $nominas->efectivo=$request->post('efectivo');
            $nominas->numero_tarjeta=$request->post('numero_tarjeta');
            $nominas->numero_cuenta=$request->post('numero_cuenta');
-           $nominas->tipo_descuento_infonavit = $request->post('tipo_infonavit');
+           $nominas->id_tipoinfonavit = $request->post('tipo_infonavit');
            $nominas->factor_sua = $request->post('factor_sua');
            $nominas->descuento_quincenal = $request->post('descuento_quincenal');
            $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');

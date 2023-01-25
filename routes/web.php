@@ -20,6 +20,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/', function () {
         return view('welcome');
     });
+    //ruta de el modulo de empleados
    Route::resource('/Empleados','App\Http\Controllers\EmpleadosController');
    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
    Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos');
@@ -32,8 +33,8 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
    Route::get('exportar_excel', 'App\Http\Controllers\EmpleadosController@exportar_excel')->name('Empleados.exportar_excel'); 
    Route::get('grafica', 'App\Http\Controllers\EmpleadosController@grafica_empleados')->name('Empleados.grafica_empleados'); 
 
+    //ruta de modulo de nominas
 
+   
 
-
-    
   });

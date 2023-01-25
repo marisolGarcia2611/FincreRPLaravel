@@ -266,62 +266,34 @@ class EmpleadosController extends Controller
 
     public function bajas(Request $request)
     {
-        $date = Carbon::now();
-        $idempleado = $request->get('ids');
-        $descripcionbaja=$request->get('descripcion_baja');
-        $fecha = $date->format('Y-m-d');
-        $empleadosbaja = new empleados_bajas();
-        $empleadosbaja->idempleado=$idempleado;
-        $empleadosbaja->tipo_baja=$request->get('tipo_baja');
-        $empleadosbaja->descripcion=$descripcionbaja;
-        $empleadosbaja->fecha_baja=$request->get('fecha_baja');
-        $empleadosbaja->dias_gratificacion=$request->get('diasgratificacion');
-        $empleadosbaja->dias_aguinaldo=$request->get('dias_trabajados');
-        $empleadosbaja->dias_sueldo_a_deber=$request->get('dias_trabajadosa_deber');
-        $empleadosbaja->dias_vacaciones=$request->get('dias_vacaciones');
-        $empleadosbaja->cantidad_gratificacion=$request->get('gratificacion');
-        $empleadosbaja->cantidad_aguinaldo=$request->get('Aguinaldo_poporcional');
-        $empleadosbaja->cantidad_sueldo=$request->get('sueldo_poporcional');
-        $empleadosbaja->cantidad_vacaciones=$request->get('vacaciones_poporcionales');
 
-
-        $empleadosbaja->cantidaddeduccion_imms=$request->get('imms');
-        $empleadosbaja->cantidaddeduccion_infonavit=$request->get('infonavit');
-        $empleadosbaja->cantidaddeduccion_transporte=$request->get('transporte');
-        $empleadosbaja->cantidaddeduccion_prestamo=$request->get('prestamo');
-        $empleadosbaja->cantidaddeduccion_otros=$request->get('otras');
-        $empleadosbaja->cantidadtotal_entregada=$request->get('total_entregar');
-        $empleadosbaja->created_at = $fecha;
-        $empleadosbaja->save();
-
-
-        $empleado = empleados::find($idempleado);
-        $empleado->estado = 'Inactivo';
-        $empleado->descripcion_estado = $descripcionbaja;
-        $empleado->save();
  
 
         $idempleado = $request->get('ids');
+        $nombreemplado=$request->get('nombre');
+        $puesto=$request->get('ids');
+        $fecha_baja=$request->get('fecha_baja');
+        $fecha_ingreso=$request->get('fecha_ingresoe');
+        $salario=$request->get('salario');
+        $puesto=$request->get('t_puesto');
         $rptvardiasgratificacion=  $request->get('gratificacion');
         $rtpvaraguinaldoporporcional =$request->get('Aguinaldo_poporcional');
         $rptvarsueldoporporcional =$request->get('sueldo_poporcional');
         $rptvarvacacionesporporcionales = $request->get('vacaciones_poporcionales');
-
         $rptvardeudaimms =$request->get('imms');
         $rptvardeduedainfonavit = $request->get('infonavit');
         $rptvardeudatransporte = $request->get('transporte');
         $rptvardeudaprestamo =$request->get('prestamo');
         $rptvarotrasdeudas = $request->get('otras');
-
+        $totalper =$request->get('total_p');
+        $rptotaldeducciones =$request->get('total_d');
         $rpttotalentregar =$request->get('total_entregar');
+        $rptfechaactual=$request->get('fecha_baja');
 
 
-        $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas','rpttotalentregar'));
-       
-        return  $pdf->download("finiquito_empleado$idempleado.pdf");
-        redirect()->route('verempleados')->with("success","¡Se Realizo la baja del empleado!");
-
-
+        $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','nombreemplado','fecha_baja','fecha_ingreso','salario','puesto','rpttotalentregar','totalper','rptotaldeducciones','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas',));
+        return $pdf->download("finiquito_empleado$idempleado.pdf",);
+          
     }
 
 

@@ -64,19 +64,17 @@
     </style>
     <body>
     
-    <div class="border"> 
-        <img src="../../../../public/Images/logo.png" alt=""><h1>Fincre Laguna</h1> 
-    </div>
+    
 
     <div class="txt-r">
-        <p><b>Torreón Coah, A 24 Enero 2023</b></p>
+        <p><b>Torreón Coah, A {{$fecha_baja}}</b></p>
     </div>
 
     <br/>
 
     <div>
-        <p class="text1"><b>EMPLEADO: </b>Marisol Garcia Gonzalez</p>
-        <p class="text1"><b>PUESTO: </b>Auxiliar de Ssitemas</p>
+        <p class="text1"><b>EMPLEADO: </b>{{$nombreemplado}}</p>
+        <p class="text1"><b>PUESTO: </b>{{$puesto}}</p>
     </div>
 
 
@@ -85,11 +83,11 @@
         <table class="default">
                     <br/>
                         <tr>
-                            <td class="text1"><b>FECHA INGRESO:</b> </td><td class="text1">00/00/000</td>
+                            <td class="text1"><b>FECHA INGRESO:</b> </td><td class="text1">{{$fecha_ingreso}}</td>
 
                         </tr>
                         <tr>
-                           <td class="text1"><b>FECHA BAJA:</b> </td><td class="text1">00/00/000</td>
+                           <td class="text1"><b>FECHA BAJA:</b> </td><td class="text1">{{$fecha_baja}}</td>
                         </tr>
                        
                         <tr>
@@ -132,7 +130,7 @@
                     <tr class="txt-c"> 
                         
                         <td><b>Total de Percepciones</b></td>
-                        <td> 875.71</td>
+                        <td>{{$totalper}}</td>
                         
                     </tr>
 
@@ -168,8 +166,8 @@
                         <br/>
                         <tr class="txt-c"> 
                             
-                            <td><b>Total a entregar</b></td>
-                            <td> {{$rpttotalentregar}}</td>
+                            <td><b>Total de deducciones</b></td>
+                            <td> {{$rptotaldeducciones}}</td>
                             
                         </tr>
 
@@ -183,7 +181,7 @@
 
     <div class="border2">
         <p class="p1"> <b >TOTAL A PAGAR </b></p>
-        <p class=" p1"> $876.71</p>
+        <p class=" p1">{{$rpttotalentregar}}</p>
     </div>
  
     <br/>
@@ -191,7 +189,10 @@
     <br/>
     <br/>
     <div class="border2" style="border-top: .5px solid #000000;" width:200px;>
-        <h4 >Nombre completo de la persona</h4>
+        <h4 >{{$nombreemplado}}</h4>
+
+
+
         <p>FIRMA DE CONFORMIDAD</p>
     </div>
   

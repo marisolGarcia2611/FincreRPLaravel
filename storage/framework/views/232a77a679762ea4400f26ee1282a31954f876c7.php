@@ -195,9 +195,9 @@
               <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->apellido_paterno); ?></td>
               <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->apellido_materno); ?></td>
               <?php if($vis->estado=='Activo'): ?>
-              <td class="bg-4" style="background-color: #33ce64;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->estado); ?></td>
+              <td class="table-success" ><?php echo e($vis->estado); ?></td>
               <?php else: ?>
-              <td class="bg-5" style="background-color: #ffa200;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->estado); ?></td>
+              <td class="table-danger" ><?php echo e($vis->estado); ?></td>
               <?php endif; ?>
               <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->descripcion_estado); ?></td>
               <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);"><?php echo e($vis->estado_civil); ?></td>
@@ -796,7 +796,12 @@
 
                             <select name="tipo_infonavit" >
                               <?php $__currentLoopData = $vartipodescinfo; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obtenertipo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                               <option value=" <?php echo e($obtenertipo->id); ?>"><?php echo e($obtenertipo->Nombre); ?></option>
+                              <?php if($obtenertipo->Nombre=="N/D"): ?>
+                              <option value=" <?php echo e($obtenertipo->id); ?>" selected><?php echo e($obtenertipo->Nombre); ?></option>
+                              <?php else: ?>
+                              <option value=" <?php echo e($obtenertipo->id); ?>"><?php echo e($obtenertipo->Nombre); ?></option>
+                              <?php endif; ?>
+                              
                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                           
@@ -806,21 +811,21 @@
                           <div class="col-md-6"  id="factor_sua">
                             <div class="row">
                               <label class="form-label">Factor SUA</label>
-                               <input type="text" name="factor_sua" class="form-control"  required />
+                               <input type="text" name="factor_sua" class="form-control" value="0.00" required />
                             </div>
                           </div>
 
                           <div class="col-md-6"  id="descuento_quincenal">
                             <div class="row">
                               <label class="form-label">Descuento quincenal</label>
-                               <input type="text" name="descuento_quincenal" class="form-control"  required />
+                               <input type="text" name="descuento_quincenal" class="form-control" value="0.00" required />
                             </div>
                           </div>
 
                           <div class="col-md-6"  id="numero_credito_infonavit">
                             <div class="row">
                                       <label class="form-label">Numero de credito infoanvit</label>
-                               <input type="text" name="numero_credito_infonavit" class="form-control"  required />
+                               <input type="text" name="numero_credito_infonavit" class="form-control" value="0.00" required />
                             </div>
                           </div>
 
@@ -880,30 +885,42 @@
                         <div class="row text-center">
                           <div class="col-md-3">
                             <div class="row">
-                              <p class="fs-6 col-md-4 fw-bold">Empleado</p>
-                              <p class="fs-6 fw-light col-md-6" id="nombre"></p>
+                              <p class="fs-6 col-md-4 fw-bold">Nombre Empleado</p>
+                              <input type="text" name="nombre" id="nombre" >
+               
                             </div>
                             
                           </div>
                           <div class="col-md-2">
                             <div class="row">
-                              <p class="fs-6 col-md-4 fw-bold">Salario</p>
-                              <p class="fs-6 col-md-2 fw-light" id="salario"></p>
+                              <p class="fs-6 col-md-4 fw-bold">Salario Empleado</p>
+                              <input type="text" name="salario" id="salario" >
+                             
                             </div>
                             
                           </div>
                           <div class="col-md-2">
                             <div class="row">
                               <p class="fs-6 col-md-6 fw-bold">Fecha de Ingreso</p>
-                              <p class="fs-6 col-md-6 fw-light" id="fecha_ingreso_empelado"></p>
+                              <input type="text" name="fecha_ingresoe" id="fecha_ingreso_empelado" >
+                             
+                 
                             </div>
                           </div>
 
                           <div class="col-md-2">
                             <div class="row">
                               <p class="fs-6 col-md-6 fw-bold">Tipo infonavit</p>
-                              <p class="fs-6 col-md-2 fw-light" id="t_infonavit"></p>
-                       
+                              <input type="text" name="t_infonavit" id="t_infonavit" >
+                         
+                            </div>
+                          </div>
+
+                          <div class="col-md-2">
+                            <div class="row">
+                              <p class="fs-6 col-md-6 fw-bold">Puesto Empleado</p>
+                              <input type="text"  name="t_puesto" id="t_puesto" >
+                    
                             </div>
                           </div>
                         </div>
@@ -915,9 +932,7 @@
                         <div class="col">
                         <label class="form-label" for="form8Example4">Tipo de Baja</label> 
                         <select name="tipo_baja" class="form-select" required>
-                            <option selected >Seleccionar</option>
-                            <option  value="finiquito">Finquito</option>
-                            <option  value="liquidacion">Liquidacion</option>
+                            <option  selected value="finiquito">Finquito</option>
                         </select>
                         <label class="form-label" for="form8Example4">Aplicar prima vacacional</label> 
                         <br>   
@@ -945,6 +960,7 @@
                             <option selected value="0">Seleccionar los dias a Gratificar</option>
                             <option  value="0">0</option>
                             <option  value="10">10</option>
+                            <option  value="15">15</option>
                             <option  value="20">20</option>
                             <option  value="30">30</option>
                             <option  value="40">40</option>
@@ -963,7 +979,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Dias trabajados Aguinaldo</label>
-                            <input type="text" Name="dias_trabajados" id="dias_trabajados" class="form-control" placeholder="10"   />
+                            <input type="text" Name="dias_trabajados" id="dias_trabajados" class="form-control" placeholder="10" disabled  />
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -978,7 +994,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Dias trabajados a deber</label>
-                            <input type="text" Name="dias_trabajadosa_deber" id="dias_trabajadosa_deber" class="form-control" placeholder="10"   />
+                            <input type="text" Name="dias_trabajadosa_deber" id="dias_trabajadosa_deber" class="form-control" placeholder="10" disabled  />
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -1073,6 +1089,20 @@
                           <input type="date" name="fecha_baja" class="form-control" placeholder="00.00" required />
                       </div>
                    
+
+                      <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Total de percepciones</label>
+                            <input  type="text" Name="total_p" id="total_p" class="form-control"  />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
                         
                         <h5 class="mt-3">Deducciones</h5>
 
@@ -1097,7 +1127,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Infonavit</label>
-                            <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00"  required/>
+                            <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00" value="0.00" required/>
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -1112,7 +1142,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Transporte</label>
-                            <input type="text" Name="transporte" id="transporte" class="form-control" placeholder="00.00" value="0" required />
+                            <input type="text" Name="transporte" id="transporte" class="form-control" placeholder="00.00" value="0.00" required />
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -1128,7 +1158,7 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Prestamo</label>
-                            <input type="text" Name="prestamo" id="prestamo" class="form-control" placeholder="00.00" value="0" required />
+                            <input type="text" Name="prestamo" id="prestamo" class="form-control" placeholder="00.00" value="0.00" required />
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -1143,7 +1173,22 @@
                           <!-- Email input -->
                           <div class="form-outline">
                           <label class="form-label" >Otras deducciones</label>
-                            <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00"  value="0"required />
+                            <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00"  value="0.00" required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                      <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Total de Deducciones</label>
+                            <input  type="text" Name="total_d" id="total_d" class="form-control"  />
                             <div class="valid-feedback">
                               ¡Se ve bien!
                             </div>
@@ -1155,7 +1200,12 @@
                         <div class="col">
                           <div class="form-outline">
                           <br>
-                            <button class="btn btn-success push2" type="button" onclick="operaciones()"><i class="fas fa-calculator"></i>&nbsp;Calcular</button>         
+                            <button class="btn btn-success push2" type="button" onclick="operaciones()"><i class="fas fa-calculator"></i>&nbsp;Calcular</button>    
+                                 
+                          </div>
+                          <div class="form-outline">
+                          <br>
+                          <button class="btn btn-primary push2" type="button" onclick="limpiar()"><i class="fas fa-cleaner"></i>&nbsp;Limpiar</button>  
                           </div>
                         </div>
                         </div>
@@ -1167,6 +1217,7 @@
 
                             <div class="offcanvas-footer text-center" style="padding:10px;">
                         <button class="btn btn-dark" type="submit">Guardar baja</button>
+               
                       </div>
                           </form>
                           </div>
@@ -1204,6 +1255,7 @@ $(document).ready(function() {
     var pago_imms =  $(this).find("td:eq(40)").text();
     var tipo_descuentoinfo = $(this).find("td:eq(29)").text();
     var factorsua = $(this).find("td:eq(30)").text();
+    var puesto_e = $(this).find("td:eq(23)").text();
 
     //obtenemos el salario del empleado
     var salario = $(this).find("td:eq(24)").text();
@@ -1216,19 +1268,24 @@ $(document).ready(function() {
   var salariosoperaciones=document.getElementById('salario');
   var fecha_ingreso=document.getElementById('fecha_ingreso_empelado');
   var tipoinfo=document.getElementById('t_infonavit');
+  var puesto_empleado=document.getElementById('t_puesto');
 
 
   //llenamos los imput mediante javascript
-  nombrecompleto.innerText = nombre+' '+nombre2+' '+Apellido_p+' '+Apellido_m;
-  salariosoperaciones.innerText = salario;
-  fecha_ingreso.innerText = fecha_ingreso_empelado;
-  tipoinfo.innerText = tipo_descuentoinfo;
+
+
 
 
 
  $("#imms").val(parseFloat(pago_imms).toFixed(2));
 $("#infonavit").val(parseFloat(factorsua).toFixed(2));
-$("#t_infonavit2").val(tipo_descuentoinfo);
+$("#nombre").val(nombre+' '+nombre2+' '+Apellido_p+' '+Apellido_m);
+$("#salario").val(salario);
+$("#fecha_ingreso_empelado").val(fecha_ingreso_empelado);
+$("#t_infonavit").val(tipo_descuentoinfo);
+$("#t_puesto").val(puesto_e);
+
+
 
 
 
@@ -1378,55 +1435,79 @@ function chekinfonavit(checkbox){
 
   function operaciones()
   {
-    var salario=document.getElementById('salario');
-    var salarioc = parseFloat(salario.innerHTML).toFixed(2);
+
+    var salarioc =$("#salario").val()
     var diagratificacion = document.getElementById("diasgratificacion").value;
     var diastrabajados = $("#dias_trabajados").val();
     var diastrabajadosdeber = $("#dias_trabajadosa_deber").val();
     var diasvacaciones = $("#dias_vacaciones").val();
     var deduccionimms =  $("#imms").val();
     var deduccioninfonavit =  $("#infonavit").val();
-    var deducciontransporte =  $("#transporte").val();
+    var deducciontransporte =  document.getElementById("transporte").value;
     var deduccionorestamo =  $("#prestamo").val();
     var deduccionotroa =  $("#otras").val();
 
+    //en este apartado vamos a calcular lo que debe de infonavit segun su credito
+
+    var tipopago =  $("#t_infonavit").val();
+    var saldoadeberinfonavit=0;
+
+    pagosuainfonavit =  $("#infonavit").val();
    
 
-    //en este apartado vamos a calcular lo que debe de infonavit segun su credito
-    tipopago = document.getElementById('t_infonavit').innerHTML;
-
-    var pagosuainfonavit =  $("#t_infonavit").val();
-    var saldoadeberinfonavit=0;
-    if(tipopago == 'CF')
+    if(pagosuainfonavit==parseFloat(0).toFixed(2));
+    {
+      saldoadeberinfonavit=0;
+    }
+    if(tipopago == 'CF' && pagosuainfonavit  != parseFloat(0).toFixed(2))
     {
       pagosuainfonavit =  $("#infonavit").val();
       saldoadeberinfonavit = (pagosuainfonavit*2)/61*(diastrabajadosdeber)+15;
     }
-    if(tipopago == 'VSM')
+    if(tipopago == 'VSM' && pagosuainfonavit  != parseFloat(0).toFixed(2))
     {
       pagosuainfonavit =  $("#infonavit").val();
       saldoadeberinfonavit = (pagosuainfonavit*103.74*2)/61*(diastrabajadosdeber)+15;
     }
-
+  
 
     var aguinaldo = 15/365*diastrabajados*salarioc;
     var gratificacion = diagratificacion*salarioc;
     var sueldopropo = salarioc*diastrabajadosdeber;
-    var vacacionesproporcional = diasvacaciones*salarioc*.25
-    var total = ((((((aguinaldo+gratificacion+sueldopropo+vacacionesproporcional)-parseFloat(deduccionimms).toFixed(2))-parseFloat(saldoadeberinfonavit).toFixed(2)-parseFloat(deducciontransporte).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2)));
+    var vacacionesproporcional = diasvacaciones*salarioc*.25;
+    var totalpercepciones = aguinaldo+gratificacion+sueldopropo+vacacionesproporcional;
+    //falta agregar las demas deducciones
+   
 
-
+  
+    var total = ((((((aguinaldo+gratificacion+sueldopropo+vacacionesproporcional)-parseFloat(deduccionimms).toFixed(2))-parseFloat(saldoadeberinfonavit).toFixed(2)-parseFloat(deducciontransporte).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2))-parseFloat(deduccionotroa).toFixed(2)));
+    let totaldeduccion =total-(aguinaldo+gratificacion+sueldopropo+vacacionesproporcional);
+  
 
   // calculamos el aguinaldo del empleado a deber segun la fecha de ingreso
     $("#Aguinaldo_poporcional").val(parseFloat(aguinaldo).toFixed(2));
+    $("#total_p").val(parseFloat(totalpercepciones).toFixed(2));
+    $("#total_d").val(parseFloat(totaldeduccion).toFixed(2).substr(1,15));
     $("#gratificacion").val(parseFloat(gratificacion).toFixed(2));
     $("#sueldo_poporcional").val(parseFloat(sueldopropo).toFixed(2));
     $("#vacaciones_poporcionales").val(parseFloat(vacacionesproporcional).toFixed(2));
     $("#infonavit").val(parseFloat(saldoadeberinfonavit).toFixed(2));
     $("#total_entregar").val(parseFloat(total).toFixed(2));
+   
   
  //sumamos el total de dinero a otorgar al trabajador
   
+  }
+
+  function limpiar()
+  {
+    $("#Aguinaldo_poporcional").val(parseFloat(0).toFixed(2));
+    $("#total_p").val(parseFloat(0).toFixed(2));
+    $("#total_d").val(parseFloat(0).toFixed(2));
+    $("#gratificacion").val(parseFloat(0).toFixed(2));
+    $("#sueldo_poporcional").val(parseFloat(0).toFixed(2));
+    $("#vacaciones_poporcionales").val(parseFloat(0).toFixed(2));
+   
   }
 </script>
 

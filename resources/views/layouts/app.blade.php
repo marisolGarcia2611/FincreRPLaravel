@@ -448,7 +448,7 @@
                                         @foreach($varsubmenus as $submenus)
                                        
                                         @if($vis->nombre == $submenus->nombre)
-                                        <a class="nav-link e__sidebar2 d-inline-block text-truncate" data-bs-parent="#sidebar" href="{{ route('verempleados') }}">{{$submenus->nom}}</a><br/>
+                                        <a class="nav-link e__sidebar2 d-inline-block text-truncate" data-bs-parent="#sidebar" href="{{$submenus->nom}}">{{$submenus->nom}}</a><br/>
                                         @else
                                         @endif
                                         @php($varcontador++)

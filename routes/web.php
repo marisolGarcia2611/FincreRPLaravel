@@ -34,6 +34,9 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
    Route::get('grafica', 'App\Http\Controllers\EmpleadosController@grafica_empleados')->name('Empleados.grafica_empleados'); 
 
     //ruta de modulo de nominas
+    Route::resource('/Nominas','App\Http\Controllers\NominasController');
+    Route::get('/Nominas',[App\Http\Controllers\NominasController::class, 'index'])->name('vernominas');
+
 
    
 

@@ -7,6 +7,7 @@ use App\Models\Empresas;
 use App\Models\empleados;
 use App\Models\bancos;
 use App\Models\tipo_descuento_infonavit;
+use App\Models\Nominas_pagosenc;
 
 use Illuminate\Support\Facades\Request;
 trait DatosimpleTraits
@@ -47,6 +48,13 @@ trait DatosimpleTraits
     public  function obtenerultimoempleado(){
         $varultimoempleado = empleados::latest('id')->first();
         return $varultimoempleado;
+
+    }
+
+    public  function obtenernominas(){
+        $varnomina = Nominas_pagosenc::select('tblnominas_pagoenc.id','tblnominas_pagoenc.nombre_nomina','tblnominas_pagoenc.estado_nomina','tblnominas_pagoenc.fecha_inicio','tblnominas_pagoenc.fecha_fin', )
+        ->get();
+        return $varnomina;
 
     }
     public  function obtenertipodescinfonavit(){

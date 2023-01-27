@@ -449,7 +449,7 @@
                                         <?php $__currentLoopData = $varsubmenus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $submenus): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                        
                                         <?php if($vis->nombre == $submenus->nombre): ?>
-                                        <a class="nav-link e__sidebar2 d-inline-block text-truncate" data-bs-parent="#sidebar" href="<?php echo e(route('verempleados')); ?>"><?php echo e($submenus->nom); ?></a><br/>
+                                        <a class="nav-link e__sidebar2 d-inline-block text-truncate" data-bs-parent="#sidebar" href="<?php echo e($submenus->nom); ?>"><?php echo e($submenus->nom); ?></a><br/>
                                         <?php else: ?>
                                         <?php endif; ?>
                                         <?php ($varcontador++); ?>

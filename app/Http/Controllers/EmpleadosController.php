@@ -246,6 +246,8 @@ class EmpleadosController extends Controller
            $nominas->save();
 
            $date = $date->format('Y-m-d');
+
+           
         //    return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
              if($empleados->save() && $nominas->save()){
                 return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
@@ -269,7 +271,40 @@ class EmpleadosController extends Controller
     public function bajas(Request $request)
     {
 
- 
+        $date = Carbon::now();
+        $idempleado = $request->get('ids');
+        $descripcionbaja=$request->get('descripcion_baja');
+        $fecha = $date->format('Y-m-d');
+        $empleadosbaja = new empleados_bajas();
+        $empleadosbaja->idempleado=$idempleado;
+        $empleadosbaja->tipo_baja=$request->get('tipo_baja');
+        $empleadosbaja->descripcion=$descripcionbaja;
+        $empleadosbaja->fecha_baja=$request->get('fecha_baja');
+        $empleadosbaja->dias_gratificacion=$request->get('diasgratificacion');
+        $empleadosbaja->dias_aguinaldo=$request->get('dias_trabajados');
+        $empleadosbaja->dias_sueldo_a_deber=$request->get('dias_trabajadosa_deber');
+        $empleadosbaja->dias_vacaciones=$request->get('dias_vacaciones');
+        $empleadosbaja->cantidad_gratificacion=$request->get('gratificacion');
+        $empleadosbaja->cantidad_aguinaldo=$request->get('Aguinaldo_poporcional');
+        $empleadosbaja->cantidad_sueldo=$request->get('sueldo_poporcional');
+        $empleadosbaja->cantidad_vacaciones=$request->get('vacaciones_poporcionales');
+
+
+        $empleadosbaja->cantidaddeduccion_imms=$request->get('imms');
+        $empleadosbaja->cantidaddeduccion_infonavit=$request->get('infonavit');
+        $empleadosbaja->cantidaddeduccion_transporte=$request->get('transporte');
+        $empleadosbaja->cantidaddeduccion_prestamo=$request->get('prestamo');
+        $empleadosbaja->cantidaddeduccion_otros=$request->get('otras');
+        $empleadosbaja->cantidadtotal_entregada=$request->get('total_entregar');
+        $empleadosbaja->created_at = $fecha;
+        $empleadosbaja->save();
+
+
+        $empleado = empleados::find($idempleado);
+        $empleado->estado = 'Inactivo';
+        $empleado->descripcion_estado = $descripcionbaja;
+        $empleado->save();
+
 
         $idempleado = $request->get('ids');
         $nombreemplado=$request->get('nombre');

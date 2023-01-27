@@ -125,6 +125,65 @@ trait DatosimpleTraits
 
     }
 
+    public  function extraerempleados(){
+        $varlistaempleado = Empleados::join(
+            'tblnominas','tblempleados.id','=','tblnominas.idempleado')
+            ->join("tblpuestos", "tblempleados.idpuesto", "=", "tblpuestos.id")
+            ->join("tblsucursales", "tblempleados.idsucursal", "=", "tblsucursales.id")
+            ->join("tblciudades", "tblempleados.idciudad", "=", "tblciudades.id")
+            ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
+            ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
+            ->join("tbltipoinfonavit", "tbltipoinfonavit.id", "=", "tblnominas.id_tipoinfonavit")
+            ->select(
+            'tblempleados.id as idempleado',
+            'tblempleados.estado',
+            'tblempleados.primer_nombre',
+            'tblempleados.segundo_nombre',
+            'tblempleados.apellido_paterno',
+            'tblempleados.apellido_materno',
+            'tblempleados.sexo',
+            'tblempleados.tipo_sangre',
+            'tblempleados.estado_civil',
+            'tblempleados.telefono',
+            'tblempleados.correo',
+            'tblempleados.calle',
+            'tblempleados.colonia',
+            'tblempleados.numero_interior',
+            'tblempleados.numero_exterior',
+            'tblempleados.codigo_postal',
+            'tblciudades.nombre as ciudad',
+            'tblempleados.fecha_nacimiento',
+            'tblempleados.fecha_ingreso',
+            'tblpuestos.nombre as puesto',
+            'tblsucursales.nombre as sucursal',
+            'tblnominas.id as idnomina',
+            'tblempleados.rfc',
+            'tblempleados.nss',
+            'tblbancos.nombre as banco',
+            'tblnominas.numero_tarjeta',
+            'tblnominas.numero_cuenta',
+            'tblempresas.nombre_empresa',
+            'tblnominas.salario_bruto',
+            'tblnominas.salario_fijo',
+            'tblnominas.salario_neto',
+            'tblnominas.pago_imss',
+            'tblnominas.excedente',
+            'tblnominas.efectivo',
+            'tblnominas.factor_sua',
+            'tblnominas.descuento_quincenal',     
+            'tblnominas.numero_credito_infonavit',
+            'tbltipoinfonavit.Nombre as nombreinfonavit',
+            'tblempleados.contacto_emergencia',
+            'tblempleados.telefono_emergencia',
+            )
+            
+            ->get();
+
+            return $varlistaempleado;
+
+    }
+
+
     public  function obtenerlistaempleadoid(int $id){
         $varlistaempleado = Empleados::join(
             'tblnominas','tblempleados.id','=','tblnominas.idempleado')

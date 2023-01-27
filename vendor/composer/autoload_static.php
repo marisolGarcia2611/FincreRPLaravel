@@ -623,7 +623,6 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Vistas' => __DIR__ . '/../..' . '/app/Models/Vistas.php',
         'App\\Models\\bancos' => __DIR__ . '/../..' . '/app/Models/bancos.php',
-        'App\\Models\\empleados' => __DIR__ . '/../..' . '/app/Models/empleados.php',
         'App\\Models\\empleados_bajas' => __DIR__ . '/../..' . '/app/Models/empleados_bajas.php',
         'App\\Models\\nominas' => __DIR__ . '/../..' . '/app/Models/nominas.php',
         'App\\Models\\tipo_descuento_infonavit' => __DIR__ . '/../..' . '/app/Models/tipo_descuento_infonavit.php',

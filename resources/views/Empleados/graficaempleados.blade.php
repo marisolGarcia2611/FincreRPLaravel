@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    #grafica{
-        margin-top:10%;
-    }
-</style>
-<div id=grafica></div>
+<style> *{Font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif; }</style>
 
+<div class="default">
+    <div class="b-1">
+        <div  id=grafica class="position-g"></div>
+    </div>
+</div>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>

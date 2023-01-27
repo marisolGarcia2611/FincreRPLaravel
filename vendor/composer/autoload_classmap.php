@@ -42,7 +42,6 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\Vistas' => $baseDir . '/app/Models/Vistas.php',
     'App\\Models\\bancos' => $baseDir . '/app/Models/bancos.php',
-    'App\\Models\\empleados' => $baseDir . '/app/Models/empleados.php',
     'App\\Models\\empleados_bajas' => $baseDir . '/app/Models/empleados_bajas.php',
     'App\\Models\\nominas' => $baseDir . '/app/Models/nominas.php',
     'App\\Models\\tipo_descuento_infonavit' => $baseDir . '/app/Models/tipo_descuento_infonavit.php',

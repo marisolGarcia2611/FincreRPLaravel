@@ -112,7 +112,7 @@ class EmpleadosController extends Controller
         $nominas->salario_bruto=$request->get('salario_bruto');
         $nominas->salario_neto=$request->get('salario_neto');
         $nominas->salario_fijo=$request->get('salario_fijo');
-        $nominas->pago_imss=$request->get('pago_IMSS');
+        $nominas->pago_imss=0.00;
         $nominas->excedente=$request->get('excedente');
         $nominas->sueldo_fiscal=$request->get('sueldo_fiscal');
         $nominas->efectivo=$request->get('efectivo');
@@ -140,7 +140,9 @@ class EmpleadosController extends Controller
         $vartipodescinfo= $this->obtenertipodescinfonavit();
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
-            return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo'));
+        return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+
+            // return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo'));
             // ->with("success","Empleado creado correctamente")
     }
 
@@ -262,9 +264,28 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleados $empleados)
+    public function reactivar( $id)
     {
-        //
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+
+        $empleados = Empleados::find($id);
+        $empleados->estado = 'Activo';
+        $empleados->descripcion_estado = 'Reingreso de empleado';
+        $empleados->fecha_ingreso=$date;
+        $empleados->created_at = $fecha;
+        $empleados->save();
+
+        $date = $date->format('Y-m-d');
+
+        if($empleados->save()){
+            return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+        }
+        else{
+            return redirect()->route('verempleados')->with("warning","No se logro");
+        }
+
+        
     }
 
 

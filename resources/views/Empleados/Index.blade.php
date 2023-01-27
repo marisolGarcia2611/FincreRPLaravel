@@ -1,82 +1,10 @@
 @extends('layouts.app')
 @section('content')
-
 {{-- ALERTAS --}}
-<style>
-  .swal-overlay {
-  background-color: rgba(70, 71, 95, 0.45);
-  }
-  .bor{
-    border: none;
-    -webkit-transition: all 0.3s ease;
-     transition: all 0.3s ease;
-  }
-
-  .bor:hover {
-  -webkit-transform: scale(1.1) !important;
-  transform: scale(1.09) !important;
- }
-
- .nav-float{
-    position: fixed;border-top-right-radius:30px;border-bottom-right-radius:30px;z-index:2;
-  }
-
-  .nav-it:hover{
-    background-color: #33acce;border-radius:20px;
-    color: #fff;
-  }
-  .cartaForm{
-   border-radius: 30px;box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-
- .bg-p{
-  color: #32394B;
- }
- .mar-l{
-  margin-left: 40px;
- }
- .bg-table{
-  background-color:  #32394B;border-radius:18px;color:#fff; width:95%;
- }
-
- .bg-1{
-    background-color: #6e7994;border:0px solid rgba(255, 255, 255, 0);
-
-  }
-
-  .bg-2{
-    background-color: #525b72;border:0px solid rgba(255, 255, 255, 0);
-  }
-
-  .bg-3{
-    background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);
-  }
-
-  .bg-4{
-    background-color: #33ce64;border:0px solid rgba(255, 255, 255, 0);
-  }
-
-  .bg-5{
-    background-color: #ffa200;border:0px solid rgba(255, 255, 255, 0);
-  }
-
-  .bg-6{
-    background-color: #aab6dd;border:0px solid rgba(255, 255, 255, 0);
-  }
-
- 
- @media screen and (max-width:900px) {
-
-  .mar-l{
-  margin-left: 0px;
- }
-
- }
-</style>
 @if ($mensaje = Session::get('success'))
   @php
           echo '<script language="JavaScript">';
-          echo 'swal("¡Acción exitosa!","Empleado editado correctamente","success", {buttons: false,timer: 1500});';
+          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1500});';
           echo '</script>';  
   @endphp
 
@@ -92,184 +20,346 @@
 {{-- ALERTAS --}}
 
 <div class="mt-5 p__little">
-<br/>
-<br/>
-  <center class="container bg-p">
-        <div class="col-md-12">
-          <h2 class="mt-3 mb-3 fw-light animate_animated animate_backInLeft">Catalogo de Empleados</h2> 
-        </div>
-        <div class="col-md-12">
-          <div class="row mt-3 text-end">
-            <div class="col-md-2 d-md-block d-none"></div>
-            <div class="col-md-2 mar-l">
-              <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
+    <br/>
+    <br/>
+  
+    {{--------------------------- Encabezado de la pagina----------------------}}
+      <center class="container bg-p">
+            <div class="col-md-12">
+              <h2 class="mt-3 mb-3 fw-light animate_animated animate_backInLeft">Catalogo de Empleados</h2> 
             </div>
-            <div class="col-md-2">
-              <form action="{{ route('Empleados.exportar_excel') }}">
-              <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp; Exportar </button> 
-              </form>            
+            <div class="col-md-12">
+              <div class="row mt-3 text-end">
+                <div class="col-md-2 d-md-block d-none"></div>
+                <div class="col-md-2 mar-l">
+                  <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
+                </div>
+                <div class="col-md-2">
+                  <form action="{{ route('Empleados.exportar_excel') }}">
+                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp; Exportar </button> 
+                  </form>            
+                </div>
+                <div class="col-md-2">
+                  <form action="{{ route('Empleados.grafica_empleados') }}">
+                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficar </button> 
+                  </form>
+                </div>
+                <div class="col-md-4 d-md-block d-none">
+            
+              </div>
             </div>
-            <div class="col-md-2">
-              <form action="{{ route('Empleados.grafica_empleados') }}">
-              <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficar </button> 
-              </form>
-            </div>
-            <div class="col-md-4 d-md-block d-none">
-        
-          </div>
-        </div>
-    </center> 
-  <br/>
-  @csrf
- <center>
-  <div class="bg-table">
-    <div class="table-responsive" style="padding:30px;padding-bottom:10px;" id="mydatatable-container">     
-      <table class="table table-hover" id="tblempleados">
-      <thead class="table" style="border:0px solid rgba(255, 255, 255, 0);">
-            <tr style="background-color: #32394B;color:#fff;border:0px solid rgba(255, 255, 255, 0);"> 
-            <th class="text-center fw-light">Baja</th>
-            <th class="text-center fw-light">Editar</th>
-            <th  class="text-center fw-light">Numero de Empleado</th>
-            <th  class="text-center fw-light">Primer Nombre</th>
-            <th  class="text-center fw-light">Segundo Nombre</th>
-            <th  class="text-center fw-light">Apellido Paterno</th>
-            <th  class="text-center fw-light">Apellido Materno</th>
-            <th  class="text-center fw-light">Estado</th>   
-            <th  class="text-center fw-light">Descripción</th>
-            <th  class="text-center fw-light">Estado Civil</th>
-            <th  class="text-center fw-light">Telefono</th>
-            <th  class="text-center fw-light">Empresa</th>
-            <th  class="text-center fw-light">Correo</th>
-            <th  class="text-center fw-light">Sucursal</th>
-            <th  class="text-center fw-light">Ciudad</th>
-            <th  class="text-center fw-light">Calle</th>
-            <th  class="text-center fw-light">Colonia</th>
-            <th  class="text-center fw-light">Numero Interior</th>
-            <th  class="text-center fw-light">Numero Exterior</th>
-            <th  class="text-center fw-light">CP</th>
-            <th  class="text-center fw-light">Sexo</th>
-            <th  class="text-center fw-light">Fecha de Nacimiento</th>
-            <th  class="text-center fw-light">Fecha Ingreso</th>
-            <th  class="text-center fw-light">Puesto</th>
-            <th  class="text-center fw-light">Salario Bruto</th>
-            <th  class="text-center fw-light">Salario Neto</th>
-            <th  class="text-center fw-light">Salario fijo</th>
-            <th  class="text-center fw-light" >ID INFONAVIT</th>
-            <th  class="text-center fw-light"># Credito infonavit</th>
-            <th  class="text-center fw-light">Descuento infonavit</th>
-            <th  class="text-center fw-light">Factor sua</th>
-            <th  class="text-center fw-light">Descuento Quincenal</th>
-            <th  class="text-center fw-light">Banco</th>
-            <th  class="text-center fw-light">Numero de Tarjeta</th>
-            <th  class="text-center fw-light">Numero de Cuenta</th>
-            <th  class="text-center fw-light">RFC</th>
-            <th  class="text-center fw-light">NSS</th>
-            <th  class="text-center fw-light">Tipo de Sangre</th>
-            <th  class="text-center fw-light">Contacto de Emergencia</th>
-            <th  class="text-center fw-light">Telefono de Emergencia</th>
-            <th  class="text-center fw-light">Pago imss</th>
-            <th  class="text-center fw-light">Pago excedente</th>
-            <th  class="text-center fw-light">Pago efectivo</th>
-            <th  class="text-center fw-light">Ruta foto</th>
-        
-          </tr>
-        </thead>
-        
-        <tbody>
-          @foreach($varlistaempleados as $vis)
-            <tr>
-              <td class="table-dark" style="background-color: #32394B;">
-                  <div class="row">
-                    <div class="col-md-6 text-start">
+      </center> 
+     
+      <br/>
+      @csrf
+
+      {{--------------------------- Cuerpo de la tabla----------------------}}
+    <center>
+      <div class="bg-table">
+        <div class="table-responsive pad-table" id="mydatatable-container">     
+          <table class="table table-hover cont" id="tblempleados">
+            <thead class="table border-table">
+                  <tr class="tr-table"> 
+                  <th class="text-center fw-light">Baja</th>
+                  <th class="text-center fw-light">Editar</th>
+                  <th  class="text-center fw-light">Numero de Empleado</th>
+                  <th  class="text-center fw-light">Primer Nombre</th>
+                  <th  class="text-center fw-light">Segundo Nombre</th>
+                  <th  class="text-center fw-light">Apellido Paterno</th>
+                  <th  class="text-center fw-light">Apellido Materno</th>
+                  <th  class="text-center fw-light">Estado</th>   
+                  <th  class="text-center fw-light">Descripción</th>
+                  <th  class="text-center fw-light">Estado Civil</th>
+                  <th  class="text-center fw-light">Telefono</th>
+                  <th  class="text-center fw-light">Empresa</th>
+                  <th  class="text-center fw-light">Correo</th>
+                  <th  class="text-center fw-light">Sucursal</th>
+                  <th  class="text-center fw-light">Ciudad</th>
+                  <th  class="text-center fw-light">Calle</th>
+                  <th  class="text-center fw-light">Colonia</th>
+                  <th  class="text-center fw-light">Numero Interior</th>
+                  <th  class="text-center fw-light">Numero Exterior</th>
+                  <th  class="text-center fw-light">CP</th>
+                  <th  class="text-center fw-light">Sexo</th>
+                  <th  class="text-center fw-light">Fecha de Nacimiento</th>
+                  <th  class="text-center fw-light">Fecha Ingreso</th>
+                  <th  class="text-center fw-light">Puesto</th>
+                  <th  class="text-center fw-light">Salario Bruto</th>
+                  <th  class="text-center fw-light">Salario Neto</th>
+                  <th  class="text-center fw-light">Salario fijo</th>
+                  <th  class="text-center fw-light" >ID INFONAVIT</th>
+                  <th  class="text-center fw-light"># Credito infonavit</th>
+                  <th  class="text-center fw-light">Descuento infonavit</th>
+                  <th  class="text-center fw-light">Factor sua</th>
+                  <th  class="text-center fw-light">Descuento Quincenal</th>
+                  <th  class="text-center fw-light">Banco</th>
+                  <th  class="text-center fw-light">Numero de Tarjeta</th>
+                  <th  class="text-center fw-light">Numero de Cuenta</th>
+                  <th  class="text-center fw-light">RFC</th>
+                  <th  class="text-center fw-light">NSS</th>
+                  <th  class="text-center fw-light">Tipo de Sangre</th>
+                  <th  class="text-center fw-light">Contacto de Emergencia</th>
+                  <th  class="text-center fw-light">Telefono de Emergencia</th>
+                  <th  class="text-center fw-light">Pago imss</th>
+                  <th  class="text-center fw-light">Pago excedente</th>
+                  <th  class="text-center fw-light">Pago efectivo</th>
+                  <th  class="text-center fw-light">Ruta foto</th>
+                  </tr>
+            </thead>
+            
+            <tbody>
+              @foreach($varlistaempleados as $vis)
+                <tr>
+                  {{--------------------- Herramientas de la tabla--------------------}}
+                  <td class="td-tools">
+                    @if($vis->estado == "Activo") 
                       <button class="btn fas fa-trash" style="color:#bfc6d4;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
-                    </div>
-              </td>
-              <td class="table-dark" style="background-color: #32394B;">
-                <form action="/Empleados/{{$vis->idempleado}}/edit">
-                          <button class="btn fas fa-edit bor" style="color:#bfc6d4;" type="submit"></button>
-                </form>
-              </td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->idempleado}}</td>
-              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$vis->primer_nombre}}</td>
-              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$vis->segundo_nombre}}</td>
-              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$vis->apellido_paterno}}</td>
-              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$vis->apellido_materno}}</td>
-              @if($vis->estado=='Activo')
-              <td class="table-success" >{{$vis->estado}}</td>
-              @else
-              <td class="table-danger" >{{$vis->estado}}</td>
-              @endif
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->descripcion_estado}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->estado_civil}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->telefono}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->nombre_empresa}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->correo}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->sucursal}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->ciudad}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->calle}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->colonia}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->numero_interior}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->numero_exterior}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->codigo_postal}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->sexo}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->fecha_nacimiento}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->fecha_ingreso}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->puesto}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->salario_bruto}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->salario_neto}}</td>
-              <td class="bg-1" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->salario_fijo}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);" >{{$vis->idinfonavit}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);" >{{$vis->numero_credito_infonavit}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);" >{{$vis->nombreinfonavit}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->factor_sua}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->descuento_quincenal}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->banco}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->numero_tarjeta}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->numero_cuenta}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->rfc}}</td>
-              <td class="bg-3" style="background-color: #a0b2ec;border:0px solid rgba(255, 255, 255, 0);">{{$vis->nss}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->tipo_sangre}}</td>
-              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$vis->contacto_emergencia}}</td>
-              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$vis->telefono_emergencia}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->pago_imss}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->excedente}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->efectivo}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$vis->foto}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-      </table>
-    </div>  
-  </div>
-</center> 
+                    @else
+                      <button class="btn fas fa-upload" style="color:#bfc6d4;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
+                    @endif
+                  </td>
 
+                  <td class="td-tools">
+                    <form action="/Empleados/{{$vis->idempleado}}/edit">
+                      <button class="btn fas fa-edit bor" style="color:#bfc6d4;" type="submit"></button>
+                    </form>
+                  </td>
 
-  <br/>
-  <br/>
+                  <td class="bg-1">{{$vis->idempleado}}</td>
+                  <td class="bg-2">{{$vis->primer_nombre}}</td>
+                  <td class="bg-2">{{$vis->segundo_nombre}}</td>
+                  <td class="bg-2">{{$vis->apellido_paterno}}</td>
+                  <td class="bg-2">{{$vis->apellido_materno}}</td>
+                  @if($vis->estado=='Activo')
+                  <td class="table-success" >{{$vis->estado}}</td>
+                  @else
+                  <td class="table-danger" >{{$vis->estado}}</td>
+                  @endif
+                  <td class="bg-1">{{$vis->descripcion_estado}}</td>
+                  <td class="bg-1">{{$vis->estado_civil}}</td>
+                  <td class="bg-1">{{$vis->telefono}}</td>
+                  <td class="bg-1">{{$vis->nombre_empresa}}</td>
+                  <td class="bg-1">{{$vis->correo}}</td>
+                  <td class="bg-1">{{$vis->sucursal}}</td>
+                  <td class="bg-1">{{$vis->ciudad}}</td>
+                  <td class="bg-1">{{$vis->calle}}</td>
+                  <td class="bg-1">{{$vis->colonia}}</td>
+                  <td class="bg-1">{{$vis->numero_interior}}</td>
+                  <td class="bg-1">{{$vis->numero_exterior}}</td>
+                  <td class="bg-1">{{$vis->codigo_postal}}</td>
+                  <td class="bg-1">{{$vis->sexo}}</td>
+                  <td class="bg-1">{{$vis->fecha_nacimiento}}</td>
+                  <td class="bg-1">{{$vis->fecha_ingreso}}</td>
+                  <td class="bg-3">{{$vis->puesto}}</td>
+                  <td class="bg-3">{{$vis->salario_bruto}}</td>
+                  <td class="bg-3">{{$vis->salario_neto}}</td>
+                  <td class="bg-3">{{$vis->salario_fijo}}</td>
+                  <td class="bg-1">{{$vis->idinfonavit}}</td>
+                  <td class="bg-1">{{$vis->numero_credito_infonavit}}</td>
+                  <td class="bg-1">{{$vis->nombreinfonavit}}</td>
+                  <td class="bg-1">{{$vis->factor_sua}}</td>
+                  <td class="bg-1">{{$vis->descuento_quincenal}}</td>
+                  <td class="bg-3">{{$vis->banco}}</td>
+                  <td class="bg-3">{{$vis->numero_tarjeta}}</td>
+                  <td class="bg-3">{{$vis->numero_cuenta}}</td>
+                  <td class="bg-3">{{$vis->rfc}}</td>
+                  <td class="bg-3">{{$vis->nss}}</td>
+                  <td class="bg-1">{{$vis->tipo_sangre}}</td>
+                  <td class="bg-2">{{$vis->contacto_emergencia}}</td>
+                  <td class="bg-2">{{$vis->telefono_emergencia}}</td>
+                  <td class="bg-1">{{$vis->pago_imss}}</td>
+                  <td class="bg-1">{{$vis->excedente}}</td>
+                  <td class="bg-1">{{$vis->efectivo}}</td>
+                  <td class="bg-1">{{$vis->foto}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>  
+      </div>
+    </center> 
 
-<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
-
-<div class="offcanvas-header">
-<nav id="navbar-example2" class="navbar navbar-light px-3">
-      <a class="navbar-brand">Nuevo Empleado</a>
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link nav-it" href="#paso1">Paso 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-it" href="#paso2">Paso 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-it" href="#paso3">Paso 3</a>
-          </li>
-        
-        </ul>
-    </nav>
-  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <br/>
+    <br/>
 </div>
 
+
+<!-- Subir archivo Modal-->
+<div class="offcanvas offcanvas-bottom sudmit" tabindex="-1" id="offcanvaBottomUpload" aria-labelledby="offcanvasBottomLabel" style="height:50vh">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+
+    <style>
+      .input-file-container {
+        position: relative;
+        width: 225px;
+      } 
+      .js .input-file-trigger {
+        display: block;
+        padding: 14px 45px;
+        background: #39D2B4;
+        color: #fff;
+        font-size: 1em;
+        transition: all .4s;
+        cursor: pointer;
+      }
+      .js .input-file {
+        position: absolute;
+        top: 0; left: 0;
+        width: 225px;
+        opacity: 0;
+        padding: 14px 0;
+        cursor: pointer;
+      }
+      .js .input-file:hover + .input-file-trigger,
+      .js .input-file:focus + .input-file-trigger,
+      .js .input-file-trigger:hover,
+      .js .input-file-trigger:focus {
+        background: #34495E;
+        color: #39D2B4;
+      }
+
+      .file-return {
+        margin: 0;
+      }
+      .file-return:not(:empty) {
+        margin: 1em 0;
+      }
+      .js .file-return {
+        font-style: italic;
+        font-size: .9em;
+        font-weight: bold;
+      }
+      .js .file-return:not(:empty):before {
+        content: "Selected file: ";
+        font-style: normal;
+        font-weight: normal;
+      }
+
+
+
+
+
+
+      /* Useless styles, just for demo styles */
+
+      .sudmit {
+        font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif;
+        color: #7F8C9A;
+        background: #FCFDFD;
+      }
+     .sudmit h1, .sudmit h2 {
+        margin-bottom: 5px;
+        font-weight: normal;
+        text-align: center;
+        color:#aaa;
+      }
+     .sudmit h2 {
+        margin: 5px 0 2em;
+        color: #1ABC9C;
+      }
+      .sudmit form {
+        width: 225px;
+        margin: 0 auto;
+        text-align:center;
+      }
+      .sudmit h2 + P {
+        text-align: center;
+      }
+      .txtcenter {
+        margin-top: 4em;
+        font-size: .9em;
+        text-align: center;
+        color: #aaa;
+      }
+      .copy {
+        margin-top: 2em;
+      }
+      .copy a {
+        text-decoration: none;
+        color: #1ABC9C;
+      }
+    </style>
+    <h1>Flat UI - Custom Input:file</h1>
+    <h2>With JS return</h2>
+    
+    <form action="#">
+      <div class="input-file-container">  
+        <input class="input-file" id="my-file" type="file">
+        <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
+        <input type="submit" value="Enviar datos">
+      </div>
+      <p class="file-return"></p>
+    </form>
+    
+    <p class="txtcenter">It's just a test, not really usable.<br />Works on IE &gt; 8 and modern browsers</p>
+    <p class="txtcenter copy">by <a href="https://twitter.com/geoffreycrofte">@geoffreycrofte</a><br />see also <a href="https://codepen.io/CreativeJuiz/pen/uEHeD">Custom input:file with CSS only</a></p>
+
+    <script>
+      document.querySelector("html").classList.add('js');
+
+        var fileInput  = document.querySelector( ".input-file" ),  
+            button     = document.querySelector( ".input-file-trigger" ),
+            the_return = document.querySelector(".file-return");
+              
+        button.addEventListener( "keydown", function( event ) {  
+            if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+                fileInput.focus();  
+            }  
+        });
+        button.addEventListener( "click", function( event ) {
+          fileInput.focus();
+          return false;
+        });  
+        fileInput.addEventListener( "change", function( event ) {  
+            the_return.innerHTML = this.value;  
+        });  
+    </script>
+    {{-- <form action="" method="post" enctype="multipart/form-data" target="_blank">
+
+      <p>
+    
+        Sube una imagen:
+    
+        <input type="file" name="imagensubida" accept="file/pdf,">
+    
+        <input type="submit" value="Enviar datos">
+    
+      </p>
+    
+    </form> --}}
+  </div>
+</div>
+<!-- Subir archivo Modal-->
+
+<!-- ................................................................................................................................................-->
+
+
 <!-- Insertar Modal-->
-<div class="offcanvas-body small">
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
+    <div class="offcanvas-header">
+    <nav id="navbar-example2" class="navbar navbar-light px-3">
+          <a class="navbar-brand">Nuevo Empleado</a>
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link nav-it" href="#paso1">Paso 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-it" href="#paso2">Paso 2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-it" href="#paso3">Paso 3</a>
+              </li>
+            
+            </ul>
+        </nav>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+  
+   <div class="offcanvas-body small contenedor">
           <div class="container">
             <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
               <form action="" method="POST"  class="g-3 needs-validation" novalidate>
@@ -284,7 +374,7 @@
                 
                         <label class="form-label" for="form8Example4">Primer Nombre</label>
                      
-                          <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"   required />
+                          <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre" minlength="3" maxlength="20"    required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -299,7 +389,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label">Segundo Nombre</label>
-                          <input type="text" id="segundo_nombre"  name="segundo_nombre" class="form-control"  required />
+                          <input type="text" id="segundo_nombre"  name="segundo_nombre" class="form-control" minlength="3" maxlength="20"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -313,7 +403,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Apellido Paterno</label>
-                          <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control"  required />
+                          <input type="text" name="apellido_paterno" id="apellido_paterno" class="form-control" minlength="3" maxlength="20"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -326,7 +416,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Apellido Materno</label>
-                          <input type="text" name="apellido_materno" id="apellido_materno" class="form-control" required />
+                          <input type="text" name="apellido_materno" id="apellido_materno" class="form-control" minlength="3" maxlength="20"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -336,12 +426,13 @@
                         </div>
                       </div>
                     </div>
+                    
                     <div class="row">
                       <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
                         <label class="form-label" for="form8Example4">Telefono</label>
-                          <input type="numeric" name="telefono" id="telefono" class="form-control"  required />
+                          <input type="numeric" name="telefono" id="telefono" class="form-control" minlength="6" maxlength="10"   required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -354,7 +445,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label">Correo</label>
-                          <input type="text"  name="correo" id="correo" class="form-control"   required />
+                          <input type="text"  name="correo" id="correo" class="form-control" minlength="3" maxlength="60"   required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -420,31 +511,14 @@
                       </div>
                         </div>
                       </div>
+                    </div> 
 
-                      <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Banco</label>
-                        <select   name="banco" id="banco" class="form-select" required>
-                        @foreach($varbancos as $obtenerbanco)
-                        <option value="{{$obtenerbanco->id}}">{{$obtenerbanco->nombre}}</option>
-                        @endforeach
-                      </select>
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                        </div>
-                      </div>
-
+                    <div class="row">
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" for="form8Example4">Calle</label>
-                          <input type="text" name="calle" id="calle" class="form-control" required />
+                          <input type="text" name="calle" id="calle" class="form-control" minlength="3" maxlength="60"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -458,7 +532,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" for="form8Example4">Colonia</label>
-                          <input type="text" name="colonia" id="colonia" class="form-control" required />
+                          <input type="text" name="colonia" id="colonia" class="form-control" minlength="3" maxlength="60"  required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -471,7 +545,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Numero Interior</label>
-                          <input type="text" name="numero_interior" id="numero_interior" class="form-control" placeholder="00" required />
+                          <input type="text" name="numero_interior" id="numero_interior" class="form-control"  maxlength="10"  placeholder="#00" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -480,13 +554,11 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
                         <label class="form-label" >Numero Exterior</label>
-                          <input type="text" class="form-control" name="numero_exterior" id="numero_exterior" placeholder="00" required />
+                          <input type="text" class="form-control" name="numero_exterior" id="numero_exterior" maxlength="10"  placeholder="#00" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -499,7 +571,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label">Codigo Postal</label>
-                          <input type="text"  name="codigo_postal" id="codigo_postal"  class="form-control"  placeholder="00000" required />
+                          <input type="text"  name="codigo_postal" id="codigo_postal"  class="form-control" maxlength="6"   placeholder="00000" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -508,6 +580,21 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label">Estado Civil</label>
+                        <select class="form-select" name="estado_civil" id="estado_civil">
+                          <option value="soltero">Soltero</option>
+                          <option value="casado">Casado</option>
+                          <option value="union_libre">Union Libre</option>
+                        </select>
+                        </div>
+                      </div>
+                      
 
                       <div class="col">
                         <!-- Email input -->
@@ -526,6 +613,25 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="col">
+                        <!-- Email input -->
+                        <div class="form-outline">
+                        <label class="form-label" >Tipo de Sangre</label>
+                          <input type="text" name="tipo_sangre" id="tipo_sangre" class="form-control" placeholder="+" maxlength="2" required />
+                          <div class="valid-feedback">
+                            ¡Se ve bien!
+                          </div>
+                          <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                          </div>
+                        
+                        </div>
+                      </div>
+                   </div>
+
+                    <div class="row">
+                        
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
@@ -567,11 +673,41 @@
                           </div>
                         </div>
                       </div>
-                
-
+                      
                     </div>
-                    </div> 
-              </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <!-- Name input -->
+                        <div class="form-outline">
+                        <label class="form-label">Contacto de Emergencias</label>
+                          <input type="text" name="contacto_emergencias" id="contacto_emergencias" class="form-control" placeholder="Nombre de la persona" maxlength="50" required />
+                          <div class="valid-feedback">
+                            ¡Se ve bien!
+                          </div>
+                          <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                          </div>
+                        
+                        </div>
+                      </div>
+                    
+                      <div class="col">
+                          <!-- Email input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Telefono de emergencia </label>
+                            <input type="text" name="telefono_emergencia" id="telefono_emergencia" class="form-control" placeholder="00000000000" maxlength="10" required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+             </div>
                     <br/>
                     <!-- aqui termina el primer insert -->
                     <br/>
@@ -583,7 +719,7 @@
                         <!-- Name input -->
                         <div class="form-outline">
                         <label class="form-label" >Salario Bruto</label>
-                          <input type="text" name="salario_bruto" id="salario_bruto" class="form-control"  required />
+                          <input type="text" name="salario_bruto" id="salario_bruto" class="form-control" maxlength="8"   required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -596,7 +732,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Salario Fijo</label>
-                          <input type="text" name="salario_fijo" id="salario_fijo" class="form-control" placeholder="00.00" required/>
+                          <input type="text" name="salario_fijo" id="salario_fijo" class="form-control" maxlength="8" placeholder="00.00" required/>
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -610,7 +746,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Salario Neto</label>
-                          <input type="text" Name="salario_neto" id="salario_neto" class="form-control" placeholder="00.00" required />
+                          <input type="text" Name="salario_neto" id="salario_neto" class="form-control" maxlength="8" placeholder="00.00" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -619,11 +755,30 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="col">
+                          <!-- Name input -->
+                          <div class="form-outline">
+                          <label class="form-label" >Banco</label>
+                          <select   name="banco" id="banco" class="form-select" required>
+                          @foreach($varbancos as $obtenerbanco)
+                          <option value="{{$obtenerbanco->id}}">{{$obtenerbanco->nombre}}</option>
+                          @endforeach
+                        </select>
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                          </div>
+                      </div>
+
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Numero de Tarjeta</label>
-                          <input type="text" name="numero_tarjeta" id="numero_tarjeta" class="form-control" placeholder="000000000000000" required />
+                          <input type="text" name="numero_tarjeta" id="numero_tarjeta" class="form-control" minlength="16" maxlength="16" placeholder="000000000000000" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -639,7 +794,7 @@
                         <!-- Name input -->
                         <div class="form-outline">
                         <label class="form-label" for="form8Example4">Numero de Cuenta</label>
-                          <input type="text" name="numero_cuenta" id="numero_cuenta" class="form-control" required  placeholder="0000000000" />
+                          <input type="text" name="numero_cuenta" id="numero_cuenta" class="form-control" maxlength="10" required  placeholder="0000000000" />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -652,7 +807,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >rfc</label>
-                          <input type="text" name="rfc" id="rfc" class="form-control" placeholder="0000000000000"  required/>
+                          <input type="text" name="rfc" id="rfc" class="form-control" placeholder="0000000000000" maxlength="13" required/>
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -667,7 +822,7 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Numero de Seguro Social</label>
-                          <input type="text" name="nss" id="numero_seguro_social" class="form-control" placeholder="xxxxxxxxxx" required />
+                          <input type="text" name="nss" id="numero_seguro_social" class="form-control" placeholder="xxxxxxxxxx" maxlength="12" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
                           </div>
@@ -677,50 +832,9 @@
 
                         </div>
                       </div>
-                      <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Tipo de Sangre</label>
-                          <input type="text" name="tipo_sangre" id="tipo_sangre" class="form-control" placeholder="+" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        
-                        </div>
-                      </div>
+                    
                     </div>
-                    <div class="row">
-                      <div class="col">
-                        <!-- Name input -->
-                        <div class="form-outline">
-                        <label class="form-label">Contacto de Emergencias</label>
-                          <input type="text" name="contacto_emergencias" id="contacto_emergencias" class="form-control" placeholder="Nombre de la persona"  required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                        <!-- Email input -->
-                        <div class="form-outline">
-                        <label class="form-label" >Telefono de emergencia </label>
-                          <input type="text" name="telefono_emergencia" id="telefono_emergencia" class="form-control" placeholder="00000000000" required />
-                          <div class="valid-feedback">
-                            ¡Se ve bien!
-                          </div>
-                          <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                          </div>
-                        </div>
-                    </div>
+                   
               </div>
 
 
@@ -729,14 +843,14 @@
                     <br/>
 
                <div class="card p-5 cartaForm">
-                    <h4 id="scrollspyHeading3">Paso 3. Razón Social</h4>
+                    <h4 id="paso3">Paso 3. Razón Social</h4>
 
                     <div class="row">
                       <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
-                        <select class="form-select form-select mb-3" id="cmbempresas" name="cmbempresas" aria-label="Ejemplo de .form-select-lg" required>
-                    
+                        <select class="form-select mb-3" id="cmbempresas" name="cmbempresas" aria-label="Ejemplo de .form-select-lg" minlength="1" required>
+                          <option value="Selecciona opción..." selected>Selecciona opción...</option>
                           @foreach($varempresas as $obtenerempresa)
                           <option value="{{$obtenerempresa->id}}">{{$obtenerempresa->nombre_empresa}}</option>
                           @endforeach
@@ -753,19 +867,19 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-3" id="nss">
+                      {{-- <div class="col-md-3" id="nss">
                         <label class="form-label">Desglose de IMSS</label>
-                        <input type="text" name="pago_IMSS" id="pago_IMSS" class="form-control" placeholder="00.00" value="0.00" required />
+                        <input type="text" name="pago_IMSS" id="pago_IMSS" class="form-control" placeholder="00.00" value="0.00"maxlength="8" required />
                         <div class="valid-feedback">
                           ¡Se ve bien!
                         </div>
                         <div class="invalid-feedback">
                           Por favor, completa la información requerida.
                         </div>
-                      </div>
+                      </div> --}}
                       <div class="col-md-3" id="sueldo_fiscal">
                         <label class="form-label">Sueldo fiscal</label>
-                        <input type="text" name="sueldo_fiscal" id="sueldo_fiscal" class="form-control" placeholder="00.00" value="0.00" required />
+                        <input type="text" name="sueldo_fiscal" id="sueldo_fiscal" class="form-control" placeholder="00.00" value="0.00" maxlength="8"required />
                         <div class="valid-feedback">
                           ¡Se ve bien!
                         </div>
@@ -776,7 +890,7 @@
 
                       <div class="col-md-3" id="excedente">
                         <label class="form-label">Excedente</label>
-                        <input type="text" name="excedente" id="excedente" class="form-control" placeholder="00.00" value="0.00" required />
+                        <input type="text" name="excedente" id="excedente" class="form-control" placeholder="00.00" value="0.00" maxlength="8"required />
                         <div class="valid-feedback">
                           ¡Se ve bien!
                         </div>
@@ -786,72 +900,73 @@
                     </div>
                     <div class="col-md-3" id="Efectivo">
                         <label class="form-label">Efectivo</label>
-                        <input type="text" name="efectivo" id="efectivo" class="form-control" placeholder="00.00" required />
+                        <input type="text" name="efectivo" id="efectivo" class="form-control" placeholder="00.00"maxlength="8" required />
                         <div class="valid-feedback">
                           ¡Se ve bien!
                         </div>
                         <div class="invalid-feedback">
                           Por favor, completa la información requerida.
                         </div>
+
                     </div>
-                    <label class="form-label" for="form8Example4">Credito Infonavit</label> 
-                        <br>   
-                        <LABEl style="font-size: 15px;">Si 
-                        <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox" id="terminos" value="1" onclick="chekinfonavit(this)" />
-                      </LABEl>
+
+                    {{-- Descuento de Infonavit --}}
+
+                    <div class="row text-center mt-4 mb-4">
+                      <hr/>
+                      <div class="col">
+                        <label>Aplicar credito Infonavit 
+                          <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox" id="terminos" value="1" onclick="chekinfonavit(this)" />
+                        </label>
+                      </div>
+                    </div>
+                        
                         <br>
-                  
-                          <div class="col-md-6" id="tipo_descuento_infonavit">
-                            <div class="row" >
-                            <label class="form-label">Tipo de descuento infonavit</label>
-
-                            <select name="tipo_infonavit" >
-                              @foreach($vartipodescinfo as $obtenertipo)
-                              @if($obtenertipo->Nombre=="N/D")
-                              <option value=" {{$obtenertipo->id}}" selected>{{$obtenertipo->Nombre}}</option>
-                              @else
-                              <option value=" {{$obtenertipo->id}}">{{$obtenertipo->Nombre}}</option>
-                              @endif
-                              
-                             @endforeach
-                            </select>
+                    
+                    <div class="row">
+                        <div class="col-md-3" id="tipo_descuento_infonavit">
+                        <div class="row" >
+                        <label class="form-label">Tipo de descuento infonavit</label>
+                        <select class="form-select mb-3" name="tipo_infonavit" >
+                          @foreach($vartipodescinfo as $obtenertipo)
+                          @if($obtenertipo->Nombre=="N/D")
+                          <option value=" {{$obtenertipo->id}}" selected>{{$obtenertipo->Nombre}}</option>
+                          @else
+                          <option value=" {{$obtenertipo->id}}">{{$obtenertipo->Nombre}}</option>
+                          @endif
                           
-                            </div>
-                          </div>
+                          @endforeach
+                        </select>
+                      
+                        </div>
+                      </div>
 
-                          <div class="col-md-6"  id="factor_sua">
-                            <div class="row">
-                              <label class="form-label">Factor SUA</label>
-                               <input type="text" name="factor_sua" class="form-control" value="0.00" required />
-                            </div>
-                          </div>
+                      <div class="col-md-3"  id="factor_sua">
+                        <div class="row">
+                          <label class="form-label">Factor SUA</label>
+                            <input type="text" name="factor_sua" class="form-control" value="0.00"  maxlength="8" required />
+                        </div>
+                      </div>
 
-                          <div class="col-md-6"  id="descuento_quincenal">
-                            <div class="row">
-                              <label class="form-label">Descuento quincenal</label>
-                               <input type="text" name="descuento_quincenal" class="form-control" value="0.00" required />
-                            </div>
-                          </div>
+                      <div class="col-md-3"  id="descuento_quincenal">
+                        <div class="row">
+                          <label class="form-label">Descuento quincenal</label>
+                            <input type="text" name="descuento_quincenal" class="form-control" value="0.00"  maxlength="8"required />
+                        </div>
+                      </div>
 
-                          <div class="col-md-6"  id="numero_credito_infonavit">
-                            <div class="row">
-                                      <label class="form-label">Numero de credito infoanvit</label>
-                               <input type="text" name="numero_credito_infonavit" class="form-control" value="0.00" required />
-                            </div>
-                          </div>
+                      <div class="col-md-3"  id="numero_credito_infonavit">
+                        <div class="row">
+                                  <label class="form-label">Numero de credito infoanvit</label>
+                            <input type="text" name="numero_credito_infonavit" class="form-control" value="0.00" maxlength="8" required />
+                        </div>
+                      </div>
 
-                          <div class="col-md-6"  id="numero_credito_infonavit">
-                            <div class="row">
-                            <label class="form-label">Estado Civil</label>
-                            <select name="estado_civil" id="estado_civil">
-                              <option value="soltero">Soltero</option>
-                              <option value="casado">Casado</option>
-                              <option value="union_libre">Union Libre</option>
-                            </select>
-                            </div>
-                          </div>
-              
                     </div>
+                  
+                         
+              
+                  </div>
                </div>
 
                 
@@ -865,8 +980,9 @@
               </form>
             </div>
           </div> 
-      </div>
+   </div>
 </div>
+
 <!-- Fin Insertar Modal-->
 
 
@@ -875,98 +991,121 @@
 <!-- Eliminar Modal-->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
 
-        <div class="offcanvas-header">
-          <nav id="navbar-example2" class="navbar navbar-light px-3">
-            <a class="navbar-brand" href="#">Baja Empleado</a>
-          </nav>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        
-        <div class="offcanvas-body small">
-            <div class="container">
-              <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-                <form action="{{route('Empleados.bajas')}}" method="POST"  class="g-3 needs-validation" novalidate>
-                @csrf
-                    
-                    <hr/>
-                    <h5 class="text-center" id="scrollspyHeading1">Detalles de baja</h5>
-                    <br/>
-                    <input type="hidden"  id="ids" name="ids">
-                      <div class="text-center">
-                        <div class="row text-center">
-                          <div class="col-md-3">
-                            <div class="row">
-                              <p class="fs-6 col-md-4 fw-bold">Nombre Empleado</p>
-                              <input type="text" name="nombre" id="nombre" >
-               
-                            </div>
-                            
-                          </div>
-                          <div class="col-md-2">
-                            <div class="row">
-                              <p class="fs-6 col-md-4 fw-bold">Salario Empleado</p>
-                              <input type="text" name="salario" id="salario" >
-                             
-                            </div>
-                            
-                          </div>
-                          <div class="col-md-2">
-                            <div class="row">
-                              <p class="fs-6 col-md-6 fw-bold">Fecha de Ingreso</p>
-                              <input type="text" name="fecha_ingresoe" id="fecha_ingreso_empelado" >
-                             
-                 
-                            </div>
-                          </div>
-
-                          <div class="col-md-2">
-                            <div class="row">
-                              <p class="fs-6 col-md-6 fw-bold">Tipo infonavit</p>
-                              <input type="text" name="t_infonavit" id="t_infonavit" >
-                         
-                            </div>
-                          </div>
-
-                          <div class="col-md-2">
-                            <div class="row">
-                              <p class="fs-6 col-md-6 fw-bold">Puesto Empleado</p>
-                              <input type="text"  name="t_puesto" id="t_puesto" >
-                    
-                            </div>
-                          </div>
-                        </div>
+  <div class="offcanvas-header">
+    <nav id="navbar-example2" class="navbar navbar-light px-3">
+          <a class="navbar-brand">Baja Empleado</a>
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link nav-it" href="#pas1">Paso 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-it" href="#pas2">Paso 2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-it" href="#pas3">Paso 3</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-it" href="#pas4">Paso 4</a>
+              </li>
+            
+            </ul>
+        </nav>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+    
+    <div class="offcanvas-body small contenedor">
+        <div class="container">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+            <form action="{{route('Empleados.bajas')}}" method="POST"  class="g-3 needs-validation" novalidate>
+              @csrf
+                  {{------------------ Detalles de la baja--------------------}}
+              <div class="card p-5 cartaForm">
+                  <h4 id="pas1">Paso 1. Información de baja</h4>
+                  <br/>
+                   <input type="hidden"  id="ids" name="ids"/>
+                      <div class="row text-center">
+                        <table class="table">
+                          <thead>
+                            <tr class="row">
+                              <th  class="col" scope="col">Nombre</th>
+                              <th  class="col" scope="col">Puesto</th>
+                              <th  class="col" scope="col">Salario</th>
+                              <th  class="col" scope="col">Fecha de Ingreso</th>
+                              <th  class="col" scope="col">Tipo Infonavit</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="row">
+                              <td  class="col" scope="row"><input type="text" name="nombre" id="nombre" /></td>
+                              <td  class="col" scope="row"><input type="text"  name="t_puesto" id="t_puesto"/></td>
+                              <td  class="col" scope="row"><input type="text" name="salario" id="salario"/></td>
+                              <td  class="col" scope="row"><input type="text" name="fecha_ingresoe" id="fecha_ingreso_empelado" /> </td>
+                              <td  class="col" scope="row"><input type="text" name="t_infonavit" id="t_infonavit" /></td>
+                            </tr>
+                          </tbody> 
+                        </table>
                       </div>
-                      <hr/>
-                      <br/>
-                 
-                      <div class="row">
-                        <div class="col">
+              </div> 
+              <br/>
+              <br/> 
+
+                {{------------------ Descripcion de baja--------------------}}
+              <div class="card p-5 cartaForm" >
+                <h4 id="pas2">Paso 2. Detalles de baja</h4>
+                <div class="row">
+                      <div class="col-md-4">
                         <label class="form-label" for="form8Example4">Tipo de Baja</label> 
                         <select name="tipo_baja" class="form-select" required>
                             <option  selected value="finiquito">Finquito</option>
                         </select>
-                        <label class="form-label" for="form8Example4">Aplicar prima vacacional</label> 
-                        <br>   
-                        
-                        <LABEl style="font-size: 15px;">Si <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox" id="terminos" value="1" onclick="terminos_cambio(this)" /></LABEl>
-                        <br> 
-                          <!-- Name input -->
-                     
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
 
-                          <div class="form-outline">
-                          <label class="form-label" for="form8Example4">Descripcion de la baja</label>         
-                            <textarea class="form-control" name="descripcion_baja" placeholder="Detalle el motivo de la baja del empleado" required>	</textarea>
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                            <div class="row">
-                        <div class="col">
-                          <!-- Name input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Dias de Gratificacion</label>
+                      <div class="col-md-8">
+                      <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Descripcion de la baja</label>         
+                          <textarea class="form-control" name="descripcion_baja" placeholder="Detalle el motivo de la baja del empleado" maxlength="250" required>	</textarea>
+                          <div class="valid-feedback">
+                            ¡Se ve bien!
+                          </div>
+                          <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                          </div>
+                        </div>
+                      </div>
+                      
+                </div>
+              </div>  
+              <br/>
+              <br/> 
+              
+                {{------------------ Percepciones--------------------}}
+              <div class="card p-5 cartaForm">
+               <h4 id="pas3">Paso 3. Percepciones</h4>
+                <div class="row text-center">
+                  <div class="col">
+                    <label class="fs-6">Aplicar prima vacacional 
+                      <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox"  id="terminos" value="1" onclick="terminos_cambio(this)" />
+                    </label>
+                  </div>
+                </div>
+                <hr/> 
+                
+                {{-- <label class="form-label" for="form8Example4">Aplicar prima vacacional</label> 
+                <br>   
+                
+                <LABEl style="font-size: 15px;">Si <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox" id="terminos" value="1" onclick="terminos_cambio(this)" /></LABEl>
+                <br>  --}}
+                      
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label" >Dias de Gratificacion</label>
                           <select name="diasgratificacion" id="diasgratificacion" class="form-select" required>
                             <option selected value="0">Seleccionar los dias a Gratificar</option>
                             <option  value="0">0</option>
@@ -980,260 +1119,275 @@
                             <option  value="70">70</option>
                             <option  value="80">80</option>
                             <option  value="90">90</option>
-                        </select>
-                          </div>
+                          </select>
+                      </div>
+                    </div>
+          
+
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Dias trabajados Aguinaldo</label>
+                        <input type="text" Name="dias_trabajados" id="dias_trabajados" class="form-control" placeholder="10" />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
                         </div>
-                 
-
-
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Dias trabajados Aguinaldo</label>
-                            <input type="text" Name="dias_trabajados" id="dias_trabajados" class="form-control" placeholder="10" disabled  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
                         </div>
+                      </div>
+                    </div>
 
 
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Dias trabajados a deber</label>
-                            <input type="text" Name="dias_trabajadosa_deber" id="dias_trabajadosa_deber" class="form-control" placeholder="10" disabled  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Dias trabajados a deber</label>
+                        <input type="text" Name="dias_trabajadosa_deber" id="dias_trabajadosa_deber" class="form-control" placeholder="10" />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
                         </div>
-
-
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Dias de vacaciones a deber</label>
-                            <input type="text" Name="dias_vacaciones" id="dias_vacaciones" class="form-control" placeholder="0" value="0"  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
                         </div>
+                      </div>
+                    </div>
 
-                        
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Dias de vacaciones a deber</label>
+                        <input type="text" Name="dias_vacaciones" id="dias_vacaciones" class="form-control" placeholder="0" value="0"  />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <!-- Email input -->
+                      <div class="form-outline">
+                      <label class="form-label" >Cantidad Gratificacion</label>
+                        <input type="text" Name="gratificacion" id="gratificacion" class="form-control" placeholder="00.00"  />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Sueldo proporcional</label>
+                        <input type="text" Name="sueldo_poporcional" id="sueldo_poporcional" class="form-control" placeholder="00.00"  />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
+
                 
 
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Aguinaldo proporcional</label>
+                        <input type="text" Name="Aguinaldo_poporcional" id="Aguinaldo_poporcional" class="form-control" placeholder="00.00"  />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Vacaciones Proporcionales</label>
+                        <input type="text" Name="vacaciones_poporcionales" id="vacaciones_poporcionales" class="form-control" placeholder="00.00" value="0.0" />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-md-4" id="Efectivo">
+                      <label class="form-label">fecha de baja</label>
+                      <input type="date" name="fecha_baja" class="form-control" placeholder="00.00" required />
+                    </div>
+
+                    <div class="col">
+                      <!-- Email input -->
+                      <div class="form-outline">
+                      <label class="form-label" >Total de percepciones</label>
+                        <input  type="text" Name="total_p" id="total_p" class="form-control"  />
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+              </div>
+              <br/>
+              <br/> 
+
+                {{------------------ Herramientas--------------------}}
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-outline">
+                    <button style="height:50px;width:100%;" class="btn btn-success" type="button" onclick="operaciones()"><i class="fas fa-calculator"></i>&nbsp;Calcular</button>         
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-outline">
+                    <button style="height:50px;width:100%;" class="btn btn-outline-primary" type="button" onclick="limpiar()"><i class="fas fa-broom"></i>&nbsp;Limpiar</button>  
+                  </div>
+                </div>
+              </div>                    
+              <br/>
+              <br/> 
+
+                  {{------------------ Deducciones--------------------}}               
+              <div class="card p-5 cartaForm">
+                  <div class="row">
+                    <h4 id="pas3">Paso 3.Deducciones</h4>
                         <div class="row">
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Cantidad Gratificacion</label>
-                            <input type="text" Name="gratificacion" id="gratificacion" class="form-control" placeholder="00.00"  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
+                          <div class="col">
+                              <!-- Email input -->
+                              <div class="form-outline">
+                              <label class="form-label" >Imss</label>
+                                <input type="text" Name="imms" id="imms" class="form-control"  required/>
+                                <div class="valid-feedback">
+                                  ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                  Por favor, completa la información requerida.
+                                </div>
+                              </div>
                             </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
+
+
+                            
+                            <div class="col">
+                              <!-- Email input -->
+                              <div class="form-outline">
+                              <label class="form-label" >Infonavit</label>
+                                <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00" value="0.00" required/>
+                                <div class="valid-feedback">
+                                  ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                  Por favor, completa la información requerida.
+                                </div>
+                              </div>
+                            </div>
+
+                            
+                            <div class="col">
+                              <div class="form-outline">
+                              <label class="form-label" >Transporte</label>
+                                <input type="text" Name="transporte" id="transporte" class="form-control" placeholder="00.00" value="0.00" required />
+                                <div class="valid-feedback">
+                                  ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                  Por favor, completa la información requerida.
+                                </div>
+                              </div>
+                            </div>
+                        </div> 
+                          
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" >Prestamo</label>
+                              <input type="text" Name="prestamo" id="prestamo" class="form-control" placeholder="00.00" value="0.00" required />
+                              <div class="valid-feedback">
+                                ¡Se ve bien!
+                              </div>
+                              <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                              </div>
+                            </div>
+                          </div>
+
+                          
+                          <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" >Otras deducciones</label>
+                              <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00"  value="0.00" required />
+                              <div class="valid-feedback">
+                                ¡Se ve bien!
+                              </div>
+                              <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                              </div>
+                            </div>
+                          </div>
+
+                          
+                          <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" >Total de Deducciones</label>
+                              <input  type="text" Name="total_d" id="total_d" class="form-control"  />
+                              <div class="valid-feedback">
+                                ¡Se ve bien!
+                              </div>
+                              <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                              </div>
                             </div>
                           </div>
                         </div>
+            
+                    {{-- <div class="col-md-2"> --}}
+                       
+                    {{-- </div> --}}
+                  </div>
+              </div>             
+              <br/>
+              <br/>
+
+              <div class="card p-5 cartaForm">
+                <h4 id="pas4">Paso 4.Cantidad a entregar</h4>
+                <div class="row text-center">
+                  <div class="col-md-3">
+                   <input type="text" Name="total_entregar" id="total_entregar" class="form-control" placeholder="00.00" value="0" required />
+                  </div>
+                </div>
+              </div>
+              <br/>
+                  
+              
+              <div class="offcanvas-footer text-center" style="padding:10px;">
+                <button class="btn btn-dark" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar baja</button>
+              </div>
+            </form>
 
 
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Sueldo proporcional</label>
-                            <input type="text" Name="sueldo_poporcional" id="sueldo_poporcional" class="form-control" placeholder="00.00"  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-                      
-
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Aguinaldo proporcional</label>
-                            <input type="text" Name="Aguinaldo_poporcional" id="Aguinaldo_poporcional" class="form-control" placeholder="00.00"  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Vacaciones Proporcionales</label>
-                            <input type="text" Name="vacaciones_poporcionales" id="vacaciones_poporcionales" class="form-control" placeholder="00.00" value="0.0" />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-
-                        <div class="col-md-4" id="Efectivo">
-                          <label class="form-label">fecha de baja</label>
-                          <input type="date" name="fecha_baja" class="form-control" placeholder="00.00" required />
-                      </div>
-                   
-
-                      <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Total de percepciones</label>
-                            <input  type="text" Name="total_p" id="total_p" class="form-control"  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <h5 class="mt-3">Deducciones</h5>
-
-                        
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Imss</label>
-                            <input type="text" Name="imms" id="imms" class="form-control"  required/>
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-
-                        
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Infonavit</label>
-                            <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00" value="0.00" required/>
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-                        
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Transporte</label>
-                            <input type="text" Name="transporte" id="transporte" class="form-control" placeholder="00.00" value="0.00" required />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-
-                        
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Prestamo</label>
-                            <input type="text" Name="prestamo" id="prestamo" class="form-control" placeholder="00.00" value="0.00" required />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-                        
-                        <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Otras deducciones</label>
-                            <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00"  value="0.00" required />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-
-                        
-                      <div class="col">
-                          <!-- Email input -->
-                          <div class="form-outline">
-                          <label class="form-label" >Total de Deducciones</label>
-                            <input  type="text" Name="total_d" id="total_d" class="form-control"  />
-                            <div class="valid-feedback">
-                              ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                              Por favor, completa la información requerida.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="form-outline">
-                          <br>
-                            <button class="btn btn-success push2" type="button" onclick="operaciones()"><i class="fas fa-calculator"></i>&nbsp;Calcular</button>    
-                                 
-                          </div>
-                          <div class="form-outline">
-                          <br>
-                          <button class="btn btn-primary push2" type="button" onclick="limpiar()"><i class="fas fa-cleaner"></i>&nbsp;Limpiar</button>  
-                          </div>
-                        </div>
-                        </div>
-                        <br/>
-                        <br/>
-                        <h5 class="mt-3">Cantidad a entregar</h5>
-                        <input type="text" Name="total_entregar" id="total_entregar" class="form-control" placeholder="00.00" value="0" required />
-
-
-                            <div class="offcanvas-footer text-center" style="padding:10px;">
-                        <button class="btn btn-dark" type="submit">Guardar baja</button>
-               
-                      </div>
-                          </form>
-                          </div>
-                        </div>
+          </div>
         </div>
+    </div>
 </div>
 <!--Fin Eliminar Modal-->
 
@@ -1242,6 +1396,7 @@ $(document).ready(function() {
   $('#nss').hide();
   $('#excedente').hide();
   $('#Efectivo').hide();
+  $('#sueldo_fiscal').hide();
   $('#vacaciones_poporcionales').hide();
   $('#dias_vacaciones').hide();
   $('#vacaciones_poporcionales').hide();
@@ -1367,19 +1522,19 @@ $("#t_puesto").val(puesto_e);
 $("#cmbempresas").change(function(){
   var id = $(this).val(); 
   var empresa = $(this).find('option:selected').text(); 
-  if(empresa == "CREDILAGUNA")
+  if(empresa == "EFECTIVO")
   {
-      $('#nss').hide();
+      // $('#nss').hide();
       $('#excedente').hide();
-      $('#Efectivo').hide();
+      $('#Efectivo').show();
       $('#sueldo_fiscal').hide();
    
   }
   else
   {
-      $('#nss').show();
+      // $('#nss').hide();
       $('#excedente').show();
-      $('#Efectivo').show();
+      $('#Efectivo').hide();
       $('#sueldo_fiscal').show();
   }
     });

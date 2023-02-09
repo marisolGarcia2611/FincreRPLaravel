@@ -4,20 +4,20 @@
   <div class="mt-5 p__little">
     @if($empleado->estado == "Activo")
       <nav id="navbar-example2" class="navbar navbar-light text-light bg-light px-3 d-none d-md-block nav-float">
-        <ul class="" style="margin-left:-20px;margin-right: 10px;">
+        <ul style="margin-left:-20px;margin-right: 10px;">
           <div class="nav-item mt-2 row">
-            <h6 class="col-md-7 text-info">Paso</h6>
-            <a class="nav-link btn btn-info push stepNav col-md-2" href="#paso1"><b>1</b></a>
+            <h6 class="col-md-7 text-muted"></h6>
+            <a class="nav-link  btn btn-gradient push stepNav col-md-2" href="#paso1">1. Paso</a>
           </div>
           
           <div class="nav-item mt-2 row">
-            <h6 class="col-md-7 text-info">Paso</h6>
-            <a class="nav-link btn btn-info push stepNav col-md-2" href="#paso2"><b>2</b></a>
+            <h6 class="col-md-7 text-muted"></h6>
+            <a class="nav-link  btn btn-gradient push stepNav col-md-2" href="#paso2">2. Paso</a>
           </div>
       
           <div class="nav-item mt-2 row">
-            <h6 class="col-md-7 text-info">Paso</h6>
-            <a class="nav-link btn btn-info push stepNav col-md-2" href="#paso3"><b>3</b></a>
+            <h6 class="col-md-7 text-muted"></h6>
+            <a class="nav-link  btn btn-gradient push stepNav col-md-2" href="#paso3">3. Paso</a>
           </div>
         </ul>
       </nav>
@@ -429,13 +429,13 @@
                       <div class="card p-5 cartaForm">
                           <div class="row">
                               <a class="col-md-3 nav-link btn btn-secondary step" href="#paso2"><h6 class="pt-1 text-light"><b>2</b></h6></a>    
-                              <h4 class="col-md-2" id="paso1">Salario</h4>
+                              <h4 class="col-md-2" id="paso2">Salario</h4>
                             </div>
                           <div class="row">
                             <div class="col">
                               <!-- Name input -->
                               <div class="form-outline">
-                              <label class="form-label" >Salario Bruto</label>
+                              <label class="form-label" >Salario Mensual</label>
                                 <input type="text" name="salario_bruto" id="salario_bruto" class="form-control"  value="{{$empleado->salario_bruto}}" required />
                                 <div class="valid-feedback">
                                   ¡Se ve bien!
@@ -448,7 +448,7 @@
                             <div class="col">
                               <!-- Email input -->
                               <div class="form-outline">
-                              <label class="form-label" >Salario Fijo</label>
+                              <label class="form-label" >Salario Diario Fiscal</label>
                                 <input type="text" name="salario_fijo" id="salario_fijo" class="form-control"  value="{{$empleado->salario_fijo}}" required/>
                                 <div class="valid-feedback">
                                   ¡Se ve bien!
@@ -462,7 +462,7 @@
                             <div class="col">
                               <!-- Email input -->
                               <div class="form-outline">
-                              <label class="form-label" >Salario Neto</label>
+                              <label class="form-label" >Salario Diario Integrado</label>
                                 <input type="text" Name="salario_neto" id="salario_neto" class="form-control"  value="{{$empleado->salario_neto}}" required />
                                 <div class="valid-feedback">
                                   ¡Se ve bien!
@@ -563,7 +563,7 @@
                       <div class="card p-5 cartaForm">
                             <div class="row">
                               <a class="col-md-3 nav-link btn btn-secondary step" href="#paso3"><h6 class="pt-1 text-light"><b>3</b></h6></a>    
-                              <h4 class="col-md-2" id="paso1">Razón Social</h4>
+                              <h4 class="col-md-2" id="paso3">Razón Social</h4>
                             </div>
 
                             <div class="row">
@@ -687,7 +687,7 @@
 
                         <!-- Guardar-->
                           <div class=" text-center" style="padding:10px;">
-                            <button class="btn text-light push" style="width: 80%; background-color: rgba(54, 55, 85, 0.972);height:5vh;" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;<b>Guardar cambio</b></button>
+                            <button class="btn btn-blue text-light push" style="width: 80%;height:5vh;" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;<b>Guardar cambio</b></button>
                           </div>
 
                       <br/>

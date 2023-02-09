@@ -3,31 +3,29 @@
 
 </style>
 
-<div class="mt-5 p__little">
+<div class="mt-4 p__little">
 <br/>
 <br/>
-  <center class="container bg-p">
+  <center class="container">
         <div class="col-md-12">
           <h2 class="mt-3 mb-3 fw-light animate_animated ">Nominas</h2> 
         </div>
         <div class="col-md-12">
-          <div class="row mt-8 text-end">
-            <div class="col-md-2 d-md-block d-none"></div>
-            <div class="col-md-2 mar-l">
-              <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
+          <div class="row mt-8 text-center">
+            <div>
+              <button  type="button" class="mb-1 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
             </div>
       
         </div>
-    </center> 
+  </center> 
   <br/>
   @csrf
  <center>
-  <div class="bg-table">
-    <div class="table-responsive" style="padding:30px;padding-bottom:10px;" id="mydatatable-container">     
-      <table class="table table-hover" id="tblempleados">
-      <thead class="table" style="border:0px solid rgba(255, 255, 255, 0);">
-            <tr style="background-color: #32394B;color:#fff;border:0px solid rgba(255, 255, 255, 0);"> 
-
+  <div class="shadow-lg mb-5 bg-body rounded border-0" style="margin:20px;width:95%;">
+    <div class="table-responsive pad-table" id="mydatatable-container">     
+      <table class="table table-hover " id="tblempleados">
+        <thead class="table">
+          <tr class="tr-table"> 
             <th class="text-center fw-light">Acciones</th>
             <th class="text-center fw-light">Numero de Nomina</th>
             <th class="text-center fw-light">Nombre de Nomina</th>
@@ -39,32 +37,28 @@
         </thead>
         
         <tbody>
-         
+          @foreach($varnominas as $nomina)
             <tr>
-              @foreach($varnominas as $nomina)
-         
-              <td class="table-dark" style="background-color: #32394B;">
+              <td class="td-tools">
                 <form action="">
                   @if($nomina->estado_nomina==="Iniciada")
-                  <button class="btn btn-success"  type="submit"> <a href="/Nominasinsert/insertarnomina/{{$nomina->id}}">Genera calculos</a></button>
+                  <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/{{$nomina->id}}"></a><
                   @elseif($nomina->estado_nomina==="Edicion")
-                  <button class="btn btn-success"  type="submit"> <a href=" /Nominaseditar/editarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}">Editar Nomina</a></button>
-
+                  <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}"></a>
                   @elseif($nomina->estado_nomina==="Cerrada")
-                  <button class="btn btn-success"  type="submit">EXPORTAR EXCEL</button>
-                  @endif
-                       
+                  <button class="text-light btn fas fa-download border-0 push"  type="submit"></button>
+                  @endif 
                 </form>
               </td>
                    
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->id}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->nombre_nomina}}</td>
-              <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->fecha_inicio}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->fecha_fin}}</td>
-              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->estado_nomina}}</td>
-              <td NAME="dtiponomina" class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->idtiponomina}}</td>
+                <td class="bg-1">{{$nomina->id}}</td>
+                <td class="bg-1">{{$nomina->nombre_nomina}}</td>
+                <td class="bg-2">{{$nomina->fecha_inicio}}</td>
+                <td class="bg-1">{{$nomina->fecha_fin}}</td>
+                <td class="bg-1">{{$nomina->estado_nomina}}</td>
+                <td name="dtiponomina" class="bg-1">{{$nomina->idtiponomina}}</td>
             </tr>
-    @endforeach
+           @endforeach
         </tbody>
       </table>
     </div>  
@@ -173,5 +167,20 @@
           </div> 
       </div>
 </div>
-
+<script>
+// $(document).ready(function() {
+//   $("table tbody tr").click(function() {
+    var table = $('#tblempleados').DataTable( {
+        "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
+        responsive: true,
+        scrollY: 500,
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        },
+        
+    } );
+    new $.fn.dataTable.FixedHeader( table );
+//   });
+// });
+</script>
 @endsection

@@ -12,12 +12,25 @@ use App\Models\Nominas_pagosdet;
 use App\Models\tarifasisr_det;
 use App\Models\tarifasisr_enc;
 use App\Models\tarifas_subsidio;
+use App\Models\Vistas;
+use App\Models\User;
 
 
 
 use Illuminate\Support\Facades\Request;
 trait DatosimpleTraits
 {
+    public  function obtenerusuarios(){
+        $varuser  = User::select('users.id','users.name' )
+        ->get();
+        return $varuser;
+    }
+    public  function obtenervistas(){
+        $varvista  = Vistas::select('tblvistas.id','tblvistas.nombre' )
+        ->get();
+        return $varvista;
+    }
+
     public  function obtenerpuestos(){
         $varpuesto  = Puestos::select('tblpuestos.id','tblpuestos.nombre' )
         ->get();
@@ -130,6 +143,7 @@ trait DatosimpleTraits
             'tblempleados.sexo',
             'tblempleados.fecha_nacimiento',
             'tblempleados.foto',
+            'tblempleados.archivo_baja',
             'tblnominas.salario_bruto',
             'tblnominas.salario_fijo',
             'tblnominas.salario_neto',

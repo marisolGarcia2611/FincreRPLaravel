@@ -11,7 +11,7 @@
 @elseif($mensaje = Session::get('warning'))
   @php
           echo '<script language="JavaScript">';
-          echo 'swal("¡No se a efectuado la acción!","Intente despues","warning", {buttons: false,timer: 1500});';
+          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","warning", {buttons: false,timer: 1500});';
           echo '</script>';  
   @endphp
 
@@ -19,7 +19,7 @@
 
 {{-- ALERTAS --}}
 
-<div class="mt-5 p__little">
+<div class="mt-4 p__little">
     <br/>
     <br/>
   
@@ -55,14 +55,14 @@
 
       {{--------------------------- Cuerpo de la tabla----------------------}}
     <center>
-      <div class="bg-table">
+      <div class="shadow-lg mb-5 bg-body rounded border-0" style="margin:20px;width:95%;">
         <div class="table-responsive pad-table" id="mydatatable-container">     
-          <table class="table table-hover cont" id="tblempleados">
-            <thead class="table border-table">
+          <table class="table table-hover " id="tblempleados">
+            <thead class="table">
                   <tr class="tr-table"> 
                   <th class="text-center fw-light">Baja</th>
                   <th class="text-center fw-light">Editar</th>
-                  <th  class="text-center fw-light">Numero de Empleado</th>
+                  <th  class="text-center fw-light"># </th>
                   <th  class="text-center fw-light">Primer Nombre</th>
                   <th  class="text-center fw-light">Segundo Nombre</th>
                   <th  class="text-center fw-light">Apellido Paterno</th>
@@ -84,20 +84,20 @@
                   <th  class="text-center fw-light">Fecha de Nacimiento</th>
                   <th  class="text-center fw-light">Fecha Ingreso</th>
                   <th  class="text-center fw-light">Puesto</th>
-                  <th  class="text-center fw-light">Salario Bruto</th>
-                  <th  class="text-center fw-light">Salario Neto</th>
-                  <th  class="text-center fw-light">Salario fijo</th>
+                  <th  class="text-center fw-light">Salario Mensual</th>
+                  <th  class="text-center fw-light">Salario Diario Integrado</th>
+                  <th  class="text-center fw-light">Salario Diario Fiscal</th>
                   <th  class="text-center fw-light" >ID INFONAVIT</th>
                   <th  class="text-center fw-light"># Credito infonavit</th>
                   <th  class="text-center fw-light">Descuento infonavit</th>
                   <th  class="text-center fw-light">Factor sua</th>
                   <th  class="text-center fw-light">Descuento Quincenal</th>
                   <th  class="text-center fw-light">Banco</th>
-                  <th  class="text-center fw-light">Numero de Tarjeta</th>
-                  <th  class="text-center fw-light">Numero de Cuenta</th>
+                  <th  class="text-center fw-light">Numero Tarjeta</th>
+                  <th  class="text-center fw-light">Numero Cuenta</th>
                   <th  class="text-center fw-light">RFC</th>
                   <th  class="text-center fw-light">NSS</th>
-                  <th  class="text-center fw-light">Tipo de Sangre</th>
+                  <th  class="text-center fw-light">Tipo Sangre</th>
                   <th  class="text-center fw-light">Contacto de Emergencia</th>
                   <th  class="text-center fw-light">Telefono de Emergencia</th>
                   <th  class="text-center fw-light">Pago imss</th>
@@ -113,15 +113,17 @@
                   {{--------------------- Herramientas de la tabla--------------------}}
                   <td class="td-tools">
                     @if($vis->estado == "Activo") 
-                      <button class="btn fas fa-trash" style="color:#bfc6d4;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
+                      <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
+                    @elseif($vis->archivo_baja=="1")
+                      <a class="text-light btn btn fas fa-eye" target="_blank"  href="pdf/baja_{{$vis->idempleado}}.pdf"></a>
                     @else
-                      <button class="btn fas fa-upload" style="color:#bfc6d4;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
+                      <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
                     @endif
                   </td>
-
+                
                   <td class="td-tools">
                     <form action="/Empleados/{{$vis->idempleado}}/edit">
-                      <button class="btn fas fa-edit bor" style="color:#bfc6d4;" type="submit"></button>
+                      <button class="text-light btn fas fa-edit bor"  type="submit"></button>
                     </form>
                   </td>
 
@@ -131,9 +133,9 @@
                   <td class="bg-2">{{$vis->apellido_paterno}}</td>
                   <td class="bg-2">{{$vis->apellido_materno}}</td>
                   @if($vis->estado=='Activo')
-                  <td class="table-success" >{{$vis->estado}}</td>
+                  <td class="bg-1 text-center" ><div style="border-radius: 100px;width:25px;height:25px;" class="bg-4"></div></td>
                   @else
-                  <td class="table-danger" >{{$vis->estado}}</td>
+                  <td class="bg-1 text-center" ><div style="border-radius: 100px;width:25px;height:25px;" class="bg-5"></div></td>
                   @endif
                   <td class="bg-1">{{$vis->descripcion_estado}}</td>
                   <td class="bg-1">{{$vis->estado_civil}}</td>
@@ -172,6 +174,7 @@
                   <td class="bg-1">{{$vis->efectivo}}</td>
                   <td class="bg-1">{{$vis->foto}}</td>
                 </tr>
+      
                 @endforeach
             </tbody>
           </table>
@@ -184,152 +187,36 @@
 </div>
 
 
+
+<!-- ................................................................................................................................................-->
+
+
+
+
 <!-- Subir archivo Modal-->
-<div class="offcanvas offcanvas-bottom sudmit" tabindex="-1" id="offcanvaBottomUpload" aria-labelledby="offcanvasBottomLabel" style="height:50vh">
+<div class="offcanvas offcanvas-bottom sudmit" tabindex="-1" id="offcanvaBottomUpload" aria-labelledby="offcanvasBottomLabel" style="height:55vh">
   <div class="offcanvas-header">
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body small">
-
-    <style>
-      .input-file-container {
-        position: relative;
-        width: 225px;
-      } 
-      .js .input-file-trigger {
-        display: block;
-        padding: 14px 45px;
-        background: #39D2B4;
-        color: #fff;
-        font-size: 1em;
-        transition: all .4s;
-        cursor: pointer;
-      }
-      .js .input-file {
-        position: absolute;
-        top: 0; left: 0;
-        width: 225px;
-        opacity: 0;
-        padding: 14px 0;
-        cursor: pointer;
-      }
-      .js .input-file:hover + .input-file-trigger,
-      .js .input-file:focus + .input-file-trigger,
-      .js .input-file-trigger:hover,
-      .js .input-file-trigger:focus {
-        background: #34495E;
-        color: #39D2B4;
-      }
-
-      .file-return {
-        margin: 0;
-      }
-      .file-return:not(:empty) {
-        margin: 1em 0;
-      }
-      .js .file-return {
-        font-style: italic;
-        font-size: .9em;
-        font-weight: bold;
-      }
-      .js .file-return:not(:empty):before {
-        content: "Selected file: ";
-        font-style: normal;
-        font-weight: normal;
-      }
-
-
-
-
-
-
-      /* Useless styles, just for demo styles */
-
-      .sudmit {
-        font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif;
-        color: #7F8C9A;
-        background: #FCFDFD;
-      }
-     .sudmit h1, .sudmit h2 {
-        margin-bottom: 5px;
-        font-weight: normal;
-        text-align: center;
-        color:#aaa;
-      }
-     .sudmit h2 {
-        margin: 5px 0 2em;
-        color: #1ABC9C;
-      }
-      .sudmit form {
-        width: 225px;
-        margin: 0 auto;
-        text-align:center;
-      }
-      .sudmit h2 + P {
-        text-align: center;
-      }
-      .txtcenter {
-        margin-top: 4em;
-        font-size: .9em;
-        text-align: center;
-        color: #aaa;
-      }
-      .copy {
-        margin-top: 2em;
-      }
-      .copy a {
-        text-decoration: none;
-        color: #1ABC9C;
-      }
-    </style>
-    <h1>Flat UI - Custom Input:file</h1>
-    <h2>With JS return</h2>
-    
-    <form action="#">
-      <div class="input-file-container">  
-        <input class="input-file" id="my-file" type="file">
-        <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
-        <input type="submit" value="Enviar datos">
+    <h1>Subir archivo</h1>
+    <h2>Favor de subir el comprobante de la baja</h2>
+    <form action="/guardar" class="text-center" method="post" enctype="multipart/form-data" >
+      @csrf
+      <div class="text-center">
+        <input type="hidden"  id="idd" name="idd"/>
+        <div class="input-file-container">  
+          <input class="input-file" id="my-file" type="file" name="urlpdf">
+            <label for="my-file"name="my-file" style="border-radius:100px;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
+            <p class="file-return"></p>
+            <br/>
+            <hr/>
+            <button class="btn" type="submit" value="subir"><h3 style="color:#2B86C5!important;"><i class="fas fa-paper-plane"></i></h3></button>
+        </div>
       </div>
-      <p class="file-return"></p>
     </form>
-    
-    <p class="txtcenter">It's just a test, not really usable.<br />Works on IE &gt; 8 and modern browsers</p>
-    <p class="txtcenter copy">by <a href="https://twitter.com/geoffreycrofte">@geoffreycrofte</a><br />see also <a href="https://codepen.io/CreativeJuiz/pen/uEHeD">Custom input:file with CSS only</a></p>
+    <p class="txtcenter">Recuerde que solo se admite el formato ".pdf"</p>
 
-    <script>
-      document.querySelector("html").classList.add('js');
-
-        var fileInput  = document.querySelector( ".input-file" ),  
-            button     = document.querySelector( ".input-file-trigger" ),
-            the_return = document.querySelector(".file-return");
-              
-        button.addEventListener( "keydown", function( event ) {  
-            if ( event.keyCode == 13 || event.keyCode == 32 ) {  
-                fileInput.focus();  
-            }  
-        });
-        button.addEventListener( "click", function( event ) {
-          fileInput.focus();
-          return false;
-        });  
-        fileInput.addEventListener( "change", function( event ) {  
-            the_return.innerHTML = this.value;  
-        });  
-    </script>
-    {{-- <form action="" method="post" enctype="multipart/form-data" target="_blank">
-
-      <p>
-    
-        Sube una imagen:
-    
-        <input type="file" name="imagensubida" accept="file/pdf,">
-    
-        <input type="submit" value="Enviar datos">
-    
-      </p>
-    
-    </form> --}}
   </div>
 </div>
 <!-- Subir archivo Modal-->
@@ -344,13 +231,13 @@
           <a class="navbar-brand">Nuevo Empleado</a>
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a class="nav-link nav-it" href="#paso1">Paso 1</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#paso1">Paso - 1</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it" href="#paso2">Paso 2</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#paso2">Paso - 2</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it" href="#paso3">Paso 3</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#paso3">Paso - 3</a>
               </li>
             
             </ul>
@@ -718,7 +605,7 @@
                       <div class="col">
                         <!-- Name input -->
                         <div class="form-outline">
-                        <label class="form-label" >Salario Bruto</label>
+                        <label class="form-label" >Salario Mensual</label>
                           <input type="text" name="salario_bruto" id="salario_bruto" class="form-control" maxlength="8"   required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
@@ -731,7 +618,7 @@
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
-                        <label class="form-label" >Salario Fijo</label>
+                        <label class="form-label" >Salario Diario Fiscal</label>
                           <input type="text" name="salario_fijo" id="salario_fijo" class="form-control" maxlength="8" placeholder="00.00" required/>
                           <div class="valid-feedback">
                             ¡Se ve bien!
@@ -745,7 +632,7 @@
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
-                        <label class="form-label" >Salario Neto</label>
+                        <label class="form-label" >Salario Diario Integrado</label>
                           <input type="text" Name="salario_neto" id="salario_neto" class="form-control" maxlength="8" placeholder="00.00" required />
                           <div class="valid-feedback">
                             ¡Se ve bien!
@@ -973,7 +860,7 @@
                      <br/>
                     <!-- Guardar empleado -->
                     <div class="offcanvas-footer text-center" style="padding:10px;">
-                      <button class="btn btn-dark" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar empleado</button>
+                      <button class="btn btn-blue" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar empleado</button>
                     </div>
 
 
@@ -996,16 +883,16 @@
           <a class="navbar-brand">Baja Empleado</a>
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a class="nav-link nav-it" href="#pas1">Paso 1</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas1">Paso - 1</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it" href="#pas2">Paso 2</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas2">Paso - 2</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it" href="#pas3">Paso 3</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas3">Paso - 3</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it" href="#pas4">Paso 4</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas4">Paso - 4</a>
               </li>
             
             </ul>
@@ -1380,7 +1267,7 @@
                   
               
               <div class="offcanvas-footer text-center" style="padding:10px;">
-                <button class="btn btn-dark" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar baja</button>
+                <button class="btn btn-blue" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar baja</button>
               </div>
             </form>
 
@@ -1501,6 +1388,7 @@ $("#t_puesto").val(puesto_e);
   }
   
     $("#ids").val(id);
+    $("#idd").val(id);
    
 });
 
@@ -1678,6 +1566,26 @@ function chekinfonavit(checkbox){
     $("#vacaciones_poporcionales").val(parseFloat(0).toFixed(2));
    
   }
+</script>
+<script>
+  document.querySelector("html").classList.add('js');
+
+    var fileInput  = document.querySelector( ".input-file" ),  
+        button     = document.querySelector( ".input-file-trigger" ),
+        the_return = document.querySelector(".file-return");
+          
+    button.addEventListener( "keydown", function( event ) {  
+        if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+            fileInput.focus();  
+        }  
+    });
+    button.addEventListener( "click", function( event ) {
+      fileInput.focus();
+      return false;
+    });  
+    fileInput.addEventListener( "change", function( event ) {  
+        the_return.innerHTML = this.value;  
+    });  
 </script>
 
 @endsection

@@ -8,6 +8,12 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Vistas;
+use App\Models\usuario_pantallas;
+use App\Traits\MenuTrait;
+use App\Traits\DatosimpleTraits;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -21,8 +27,9 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    use MenuTrait;
     use RegistersUsers;
+    use DatosimpleTraits;
 
     /**
      * Where to redirect users after registration.
@@ -36,10 +43,30 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    public function Index()
     {
-        $this->middleware('guest');
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        $varlistaempleados=  $this-> obtenerlistaempleados();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        
+        return view('sistemas.registro',compact('varpantallas','varsubmenus','varlistaempleados'));
+
+
     }
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
+    // esta funcion corrobora que no estes logeado ya
+    // public function __construct()
+    // {
+    //     $this->middleware('guest');
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -47,14 +74,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
+    //     ]);
+    // }
 
     /**
      * Create a new user instance after a valid registration.
@@ -62,15 +89,29 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        
 
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            
-        ]);
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+        $pass = Hash::make($request->get('password'));
+
+        $user = new User();
+        $user->name=$request->get('name');
+        $user->email=$request->get('email');
+        $user->password = $pass;
+        $user->idempleado=$request->get('idempleado');
+        $user->estado_user="A";
+        $user->created_at=$fecha;
+        $user->save();
+
+        if($user->save()){
+            return redirect()->route('registro')->with("success","¡Se guardaron los cambios correctamente!");
+        }
+        else{
+            return redirect()->route('registro')->with("warning","No se logro");
+        }
+          
+
     }
 }

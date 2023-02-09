@@ -9,30 +9,30 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="{{ asset('Images/6.png') }}" class="d-block w-100 carrusel__site" alt="...">
-        <div class="carousel-caption text-start d-none d-md-block animate__animated animate__backInLeft">
-          <div class="animate__animated animate__flip">
+        <img src="{{ asset('Images/sliderportada.png') }}" class="d-block w-100 carrusel__site" alt="...">
+        <div class="carousel-caption text-start  animate__animated animate__backInLeft">
+          <div  class="animate__animated animate__flip d-none d-md-block">
               <img src="{{ asset('images/logo.png') }}" class="size__icon animate__animated animate__flip" width="400px" alt="icon login">
           </div>
           <br/>
           <br/>
           <br/>
-          <h5>Bienvenidos</h5>
-          <p>Algún contenido placeholder representativo para la primera diapositiva.</p>
+          <h5 class="text-blue">Bienvenidos</h5>
+          <p class="text-muted">Algún contenido placeholder representativo para la primera diapositiva.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="{{ asset('Images/5.png') }}" class="d-block w-100 carrusel__site" alt="...">
-        <div class="carousel-caption text-start  d-none d-md-block animate__animated animate__backInLeft">
-          <h5>Etiqueta de la segunda diapositiva</h5>
-          <p>Algún contenido placeholder representativo para la segunda diapositiva.</p>
+        <img src="{{ asset('Images/sliderportada.png') }}" class="d-block w-100 carrusel__site" alt="...">
+        <div  class="carousel-caption text-start  animate__animated animate__backInLeft">
+          <h5 class="text-darkBlue">Etiqueta de la segunda diapositiva</h5>
+          <p class="text-darkBlue">Algún contenido placeholder representativo para la segunda diapositiva.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="{{ asset('Images/4.png') }}" class="d-block w-100 carrusel__site" alt="...">
-        <div class="carousel-caption text-start d-none d-md-block animate__animated animate__backInLeft">
-          <h5>Etiqueta de la tercera diapositiva</h5>
-          <p>Algún contenido placeholder representativo para la tercera diapositiva.</p>
+        <img src="{{ asset('Images/sliderportada.png') }}" class="d-block w-100 carrusel__site" alt="...">
+        <div  class="carousel-caption text-start  animate__animated animate__backInLeft">
+          <h5 class="text-darkBlue">Etiqueta de la tercera diapositiva</h5>
+          <p class="text-darkBlue">Algún contenido placeholder representativo para la tercera diapositiva.</p>
         </div>
       </div>
     </div>
@@ -98,8 +98,8 @@
 
      <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 200px;">
       
-      <div class="push cub__size " style="background-color: #32394B;">
-        <h1 class="fw-light font__cub " >Área Informativa</h1>
+      <div class="push cub__size cub__color">
+        <h1 class="fw-light font__cub text-light" >Área Informativa</h1>
       </div>
      
       <div class="col">
@@ -187,17 +187,17 @@
 </div>
 
 
-<div class="container-fluid footer__size" style="background-color:#32394B;">
+<div class="container-fluid footer__size footer-color">
   <div class="container text-light">
 
     <div class="row">
-      <div class="col-3">
+      <div class="col-md-3">
         <h5>Contactanos</h5>
         <a class="nav-link active fw-light fs-6" aria-current="page" href="https://www.facebook.com/FincreFinanciera"><i class="fab fa-facebook-f"></i> &nbsp;Fincre Laguna</a>
         <a class="nav-link active fw-light fs-6" aria-current="page" href="#"><i class="fas fa-envelope"></i> &nbsp;paginaweb@fincrelaguna.com</a>
       </div>
       
-      <div class="col-6">
+      <div class="col-md-6">
         <h5>Dirección</h5>
         <p class="font_little fs-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti fugiat laudantium dicta architecto officia amet. Labore, eum sit. Ipsa dicta corrupti aut iste iure commodi veniam nam fugit eaque exercitationem!</p>
       </div>

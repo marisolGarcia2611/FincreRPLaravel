@@ -250,12 +250,12 @@ class EmpleadosController extends Controller
            $date = $date->format('Y-m-d');
 
            
+              
         //    return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
-             if($empleados->save() && $nominas->save()){
-                return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
-            }
-            return redirect()->route('verempleados')->with("warning","No se logro");
-
+        if($empleados->save() && $nominas->save()){
+            return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+        }
+        return redirect()->route('verempleados')->with("warning","No se logro");
     }
 
     /**
@@ -272,6 +272,7 @@ class EmpleadosController extends Controller
         $empleados = Empleados::find($id);
         $empleados->estado = 'Activo';
         $empleados->descripcion_estado = 'Reingreso de empleado';
+        $empleados->archivo_baja = 0;
         $empleados->fecha_ingreso=$date;
         $empleados->created_at = $fecha;
         $empleados->save();
@@ -375,6 +376,35 @@ class EmpleadosController extends Controller
             $puntos[] = ['name'=>$articulo['primer_nombre'],'y'=>floatval($articulo['idpuesto'])];
         }
         return view('Empleados.graficaempleados',['data'=> json_encode($puntos)],compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos',));
+    }
+
+    public function mform(){
+        return view('Empleados.Index');
+    }
+
+    
+    public function mguardar(Request $request){
+        if($request->hasFile("urlpdf")){
+            $file=$request->file("urlpdf");
+            $id = $request->get('idd');
+
+            $empleados = Empleados::find($id);
+            $empleados->archivo_baja = 1;
+            $empleados->save();
+
+            $nombre = "baja_"."$id".".".$file->guessExtension();
+            $ruta = public_path("pdf/".$nombre);
+
+            if($file->guessExtension()=="pdf"){
+                copy($file, $ruta);
+                return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+            }else{
+                return redirect()->route('verempleados')->with("warning","¡Se guardaron los cambios correctamente!");
+            }
+
+
+
+        }
     }
     
 

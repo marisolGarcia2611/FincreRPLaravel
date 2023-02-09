@@ -33,6 +33,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
    Route::put('/Empleados/Reactivar/{id}','App\Http\Controllers\EmpleadosController@reactivar')->name('reactivar');
    Route::get('exportar_excel', 'App\Http\Controllers\EmpleadosController@exportar_excel')->name('Empleados.exportar_excel'); 
    Route::get('grafica', 'App\Http\Controllers\EmpleadosController@grafica_empleados')->name('Empleados.grafica_empleados'); 
+   Route::post('/guardar','App\Http\Controllers\EmpleadosController@mguardar')->name('guardar');
 
     //ruta de modulo de nominas
     Route::resource('/Nominas','App\Http\Controllers\NominasController');
@@ -42,6 +43,15 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/Nominaseditar/editarnomina/{id}/{idtiponomina}','App\Http\Controllers\NominasController@editarnomina')->name('Nominaseditar');
     Route::get('/Nominaseditaremp/editarnomemp/{id}/{idempleado}','App\Http\Controllers\NominasController@editarnomemp')->name('Nominaseditaremp');
 
+    // Sistemas panel de control
+    Route::get('/Panel', 'App\Http\Controllers\SistemasController@index')->name('panel');
+    Route::get('/Permisos', 'App\Http\Controllers\SistemasController@indexPermisos')->name('permisos');
+    Route::post('/AsignarPermiso', 'App\Http\Controllers\SistemasController@asignarPermiso')->name('asignarPermiso');
+
+
+    // Resgistro de usuarios
+    Route::get('/Registro', 'App\Http\Controllers\Auth\RegisterController@Index')->name('registro');
+    Route::post('/Registro/Crear', 'App\Http\Controllers\Auth\RegisterController@create')->name('createUser');
     
     
 

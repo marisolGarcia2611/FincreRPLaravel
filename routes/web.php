@@ -37,8 +37,12 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     //ruta de modulo de nominas
     Route::resource('/Nominas','App\Http\Controllers\NominasController');
     Route::get('/Nominas',[App\Http\Controllers\NominasController::class, 'index'])->name('vernominas');
+    Route::get('/Nominasinsert/insertarnomina/{id}','App\Http\Controllers\NominasController@insertarnomina')->name('Nominasinsert');
+    Route::get('/Nominascerrar/cerrarnomina/{id}','App\Http\Controllers\NominasController@cerrarnomina')->name('Nominascerrar');
+    Route::get('/Nominaseditar/editarnomina/{id}/{idtiponomina}','App\Http\Controllers\NominasController@editarnomina')->name('Nominaseditar');
+    Route::get('/Nominaseditaremp/editarnomemp/{id}/{idempleado}','App\Http\Controllers\NominasController@editarnomemp')->name('Nominaseditaremp');
 
-
-   
+    
+    
 
   });

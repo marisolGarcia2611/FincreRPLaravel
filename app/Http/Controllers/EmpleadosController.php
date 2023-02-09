@@ -378,5 +378,7 @@ class EmpleadosController extends Controller
     }
     
 
+    
+
 
 }

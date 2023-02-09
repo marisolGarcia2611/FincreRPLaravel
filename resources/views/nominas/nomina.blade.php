@@ -29,10 +29,12 @@
             <tr style="background-color: #32394B;color:#fff;border:0px solid rgba(255, 255, 255, 0);"> 
 
             <th class="text-center fw-light">Acciones</th>
+            <th class="text-center fw-light">Numero de Nomina</th>
             <th class="text-center fw-light">Nombre de Nomina</th>
             <th class="text-center fw-light">Fecha inicio</th>
             <th class="text-center fw-light">Fecha Fin</th>
             <th class="text-center fw-light">Estatus</th>
+            <th class="text-center fw-light">Tipo Nomina</th>
           </tr>
         </thead>
         
@@ -44,21 +46,23 @@
               <td class="table-dark" style="background-color: #32394B;">
                 <form action="">
                   @if($nomina->estado_nomina==="Iniciada")
-                  <button class="btn btn-success"  type="submit">GENERAR CALCULOS</button>
+                  <button class="btn btn-success"  type="submit"> <a href="/Nominasinsert/insertarnomina/{{$nomina->id}}">Genera calculos</a></button>
                   @elseif($nomina->estado_nomina==="Edicion")
-                  <button class="btn btn-primary" type="submit">EDITAR NOMINA</button>
-                  <button class="btn btn-danger" type="submit">CERRAR NOMINA</button>
-                  @elseif($nomina->estado_nomina==="Cerrarada")
+                  <button class="btn btn-success"  type="submit"> <a href=" /Nominaseditar/editarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}">Editar Nomina</a></button>
+
+                  @elseif($nomina->estado_nomina==="Cerrada")
                   <button class="btn btn-success"  type="submit">EXPORTAR EXCEL</button>
                   @endif
                        
                 </form>
               </td>
-              
+                   
+              <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->id}}</td>
               <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->nombre_nomina}}</td>
               <td class="bg-2" style="background-color: #9ba9e2;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->fecha_inicio}}</td>
               <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->fecha_fin}}</td>
               <td class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->estado_nomina}}</td>
+              <td NAME="dtiponomina" class="bg-1" style="background-color: #bfc6d4;border:0px solid rgba(255, 255, 255, 0);">{{$nomina->idtiponomina}}</td>
             </tr>
     @endforeach
         </tbody>
@@ -66,7 +70,6 @@
     </div>  
   </div>
 </center> 
-
 
   <br/>
   <br/>
@@ -133,6 +136,20 @@
                           <div class="invalid-feedback">
                             Por favor, completa la información requerida.
                           </div>
+                        </div>
+                      </div>
+            
+
+                      <div class="col">
+                        <!-- Email input -->
+                        <div class="form-outline">
+                        <label class="form-label" >Tipo de Nomina</label>
+                      <select name="tipo_nomina">
+                        @foreach($varisrenc as $isrenc)
+                        <option value="{{$isrenc->id}}">{{$isrenc->tipo}}</option>
+                        @endforeach
+                  
+                      </select>
                         </div>
                       </div>
             

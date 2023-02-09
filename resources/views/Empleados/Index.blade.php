@@ -916,7 +916,8 @@
                             <tr class="row">
                               <th  class="col" scope="col">Nombre</th>
                               <th  class="col" scope="col">Puesto</th>
-                              <th  class="col" scope="col">Salario</th>
+                              <th  class="col" scope="col">Salario Diario Integrado</th>
+                              <th  class="col" scope="col">Salario Mensual</th>
                               <th  class="col" scope="col">Fecha de Ingreso</th>
                               <th  class="col" scope="col">Tipo Infonavit</th>
                             </tr>
@@ -926,6 +927,7 @@
                               <td  class="col" scope="row"><input type="text" name="nombre" id="nombre" /></td>
                               <td  class="col" scope="row"><input type="text"  name="t_puesto" id="t_puesto"/></td>
                               <td  class="col" scope="row"><input type="text" name="salario" id="salario"/></td>
+                              <td  class="col" scope="row"><input type="text" name="salarioMensual" id="salarioMensual"/></td>
                               <td  class="col" scope="row"><input type="text" name="fecha_ingresoe" id="fecha_ingreso_empelado" /> </td>
                               <td  class="col" scope="row"><input type="text" name="t_infonavit" id="t_infonavit" /></td>
                             </tr>
@@ -1311,7 +1313,8 @@ $(document).ready(function() {
     var puesto_e = $(this).find("td:eq(23)").text();
 
     //obtenemos el salario del empleado
-    var salario = $(this).find("td:eq(24)").text();
+    var salario = $(this).find("td:eq(25)").text();
+    var salarioMensual = $(this).find("td:eq(24)").text();
     //obtenemos la fecha de alta del empleado
    var fecha_ingreso_empelado = $(this).find("td:eq(22)").text();
    //obtenemos el imput que llenaremos mediante javascript
@@ -1334,6 +1337,7 @@ $(document).ready(function() {
 $("#infonavit").val(parseFloat(factorsua).toFixed(2));
 $("#nombre").val(nombre+' '+nombre2+' '+Apellido_p+' '+Apellido_m);
 $("#salario").val(salario);
+$("#salarioMensual").val(salarioMensual);
 $("#fecha_ingreso_empelado").val(fecha_ingreso_empelado);
 $("#t_infonavit").val(tipo_descuentoinfo);
 $("#t_puesto").val(puesto_e);
@@ -1493,7 +1497,8 @@ function chekinfonavit(checkbox){
   function operaciones()
   {
 
-    var salarioc =$("#salario").val()
+    var salarioc =$("#salario").val();
+    var salarioM= $("#salarioMensual").val();
     var diagratificacion = document.getElementById("diasgratificacion").value;
     var diastrabajados = $("#dias_trabajados").val();
     var diastrabajadosdeber = $("#dias_trabajadosa_deber").val();
@@ -1531,7 +1536,7 @@ function chekinfonavit(checkbox){
     var aguinaldo = 15/365*diastrabajados*salarioc;
     var gratificacion = diagratificacion*salarioc;
     var sueldopropo = salarioc*diastrabajadosdeber;
-    var vacacionesproporcional = diasvacaciones*salarioc*.25;
+    var vacacionesproporcional = ((salarioM/30.4)* diasvacaciones)*.25;
     var totalpercepciones = aguinaldo+gratificacion+sueldopropo+vacacionesproporcional;
     //falta agregar las demas deducciones
    

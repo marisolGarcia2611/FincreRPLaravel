@@ -33,7 +33,8 @@ class SistemasController extends Controller
         $varlistavistas=$this->obtenervistas();
         $varlistapuestos=$this->obtenerpuestos();
         $varlistausers=$this->obtenerusuarios();
-        return view('sistemas.permisos',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistapuestos'));
+        $varlistadepas = $this->obtenerdepartamentos();
+        return view('sistemas.permisos',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistadepas'));
     }
 
     protected function asignarPermiso(Request $request)

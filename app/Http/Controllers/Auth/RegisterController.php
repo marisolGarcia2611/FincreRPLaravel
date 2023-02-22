@@ -13,20 +13,11 @@ use App\Models\usuario_pantallas;
 use App\Traits\MenuTrait;
 use App\Traits\DatosimpleTraits;
 use Carbon\Carbon;
+use App\Models\Empleados;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
     use MenuTrait;
     use RegistersUsers;
     use DatosimpleTraits;
@@ -36,7 +27,13 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 
     /**
      * Create a new controller instance.
@@ -94,23 +91,40 @@ class RegisterController extends Controller
 
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
-        $pass = Hash::make($request->get('password'));
+        
+        
 
-        $user = new User();
-        $user->name=$request->get('name');
-        $user->email=$request->get('email');
-        $user->password = $pass;
-        $user->idempleado=$request->get('idempleado');
-        $user->estado_user="A";
-        $user->created_at=$fecha;
-        $user->save();
+        if($request->hasFile("urlpdf")){
+            $file=$request->file("urlpdf");
 
-        if($user->save()){
-            return redirect()->route('registro')->with("success","¡Se guardaron los cambios correctamente!");
+            $pass = bcrypt($request->get('contrasena'));
+            $idempleado = $request->get('idempleado');
+
+            $user = new User();
+            $user->name=$request->get('name');
+            $user->email=$request->get('email');
+            $user->password = $pass;
+            $user->idempleado=$idempleado;
+            $user->estado_user="A";
+            $user->created_at=$fecha;
+
+            $empleados = Empleados::find($idempleado);
+            $empleados->foto = 1;
+            $empleados->save();
+            $user->save();
+
+            $nombre = "$idempleado".".".$file->guessExtension();
+            $ruta = public_path("Images/Perfil/".$nombre);
+
+            if($file->guessExtension()=="jpg"){
+                copy($file, $ruta);
+                return redirect()->route('registro')->with("success","¡Se guardaron los cambios correctamente!");
+            }else{
+                return redirect()->route('registro')->with("warning","No se logro");
+            }
         }
-        else{
-            return redirect()->route('registro')->with("warning","No se logro");
-        }
+
+    
           
 
     }

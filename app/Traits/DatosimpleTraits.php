@@ -14,6 +14,7 @@ use App\Models\tarifasisr_enc;
 use App\Models\tarifas_subsidio;
 use App\Models\Vistas;
 use App\Models\User;
+use App\Models\Departamentos;
 
 
 
@@ -29,6 +30,12 @@ trait DatosimpleTraits
         $varvista  = Vistas::select('tblvistas.id','tblvistas.nombre' )
         ->get();
         return $varvista;
+    }
+
+    public  function obtenerdepartamentos(){
+        $vardepa  = Departamentos::select('tbldepartamentos.id','tbldepartamentos.nombre' )
+        ->get();
+        return $vardepa;
     }
 
     public  function obtenerpuestos(){
@@ -159,12 +166,17 @@ trait DatosimpleTraits
             'tblempleados.estado_civil',
             'tblempleados.descripcion_estado',
             'tblempleados.fecha_ingreso',
+            'tblempleados.nacionalidad',
+            'tblempleados.grado_estudio',
+            'tblempleados.curp',
             'tblnominas.pago_imss',
+            'tblnominas.sueldo_fiscal',
             'tblnominas.excedente',
             'tblnominas.efectivo',
             'tblnominas.factor_sua',
             'tblnominas.descuento_quincenal',
             'tblnominas.numero_credito_infonavit',
+            'tblnominas.fecha_ingreso_imss',
             'tblempresas.id',
             'tblempresas.nombre_empresa')
             ->get();
@@ -184,45 +196,54 @@ trait DatosimpleTraits
             ->join("tbltipoinfonavit", "tbltipoinfonavit.id", "=", "tblnominas.id_tipoinfonavit")
             ->select(
             'tblempleados.id as idempleado',
-            'tblempleados.estado',
-            'tblempleados.primer_nombre',
-            'tblempleados.segundo_nombre',
+            'tblempresas.nombre_empresa',
+            'tblsucursales.nombre as sucursal',
             'tblempleados.apellido_paterno',
             'tblempleados.apellido_materno',
+            'tblempleados.primer_nombre',
+            'tblempleados.segundo_nombre',
+            'tblempleados.correo',
+            'tblempleados.telefono',
+            'tblempleados.nacionalidad',
+            'tblempleados.fecha_nacimiento',
+            'tblempleados.grado_estudio',
+            'tblpuestos.nombre as puesto',
+            'tblbancos.nombre as banco',
+            'tblempleados.rfc',
+            'tblempleados.curp',
+            'tblempleados.nss',
             'tblempleados.sexo',
             'tblempleados.tipo_sangre',
-            'tblempleados.estado_civil',
-            'tblempleados.telefono',
-            'tblempleados.correo',
+            'tblempleados.estado_civil',       
             'tblempleados.calle',
             'tblempleados.colonia',
             'tblempleados.numero_interior',
             'tblempleados.numero_exterior',
             'tblempleados.codigo_postal',
             'tblciudades.nombre as ciudad',
-            'tblempleados.fecha_nacimiento',
+            'tblnominas.fecha_ingreso_imss',
             'tblempleados.fecha_ingreso',
-            'tblpuestos.nombre as puesto',
-            'tblsucursales.nombre as sucursal',
-            'tblnominas.id as idnomina',
-            'tblempleados.rfc',
-            'tblempleados.nss',
-            'tblbancos.nombre as banco',
-            'tblnominas.numero_tarjeta',
-            'tblnominas.numero_cuenta',
-            'tblempresas.nombre_empresa',
-            'tblnominas.salario_bruto',
-            'tblnominas.salario_fijo',
-            'tblnominas.salario_neto',
-            'tblnominas.pago_imss',
-            'tblnominas.excedente',
-            'tblnominas.efectivo',
-            'tblnominas.factor_sua',
-            'tblnominas.descuento_quincenal',     
-            'tblnominas.numero_credito_infonavit',
-            'tbltipoinfonavit.Nombre as nombreinfonavit',
+            'tblempleados.fecha_baja',
             'tblempleados.contacto_emergencia',
             'tblempleados.telefono_emergencia',
+            'tblnominas.id as idnomina',
+            'tblempleados.estado',
+            'tblempleados.descripcion_estado',
+            'tblnominas.salario_bruto',
+            'tblnominas.salario_neto',
+            'tblnominas.salario_fijo',
+            'tblnominas.pago_imss',
+            'tblnominas.sueldo_fiscal',
+            'tblnominas.excedente',
+            'tblnominas.efectivo',  
+            'tblnominas.factor_sua',
+            'tblnominas.descuento_quincenal', 
+            'tblnominas.numero_tarjeta',
+            'tblnominas.numero_cuenta',
+            'tbltipoinfonavit.Nombre as nombreinfonavit',
+            'tblnominas.numero_credito_infonavit',
+           
+         
             )
             
             ->get();
@@ -276,6 +297,9 @@ trait DatosimpleTraits
             'tblnominas.numero_cuenta',
             'tblempleados.rfc',
             'tblempleados.nss',
+            'tblempleados.nacionalidad',
+            'tblempleados.grado_estudio',
+            'tblempleados.curp',
             'tblempleados.tipo_sangre',
             'tblempleados.contacto_emergencia',
             'tblempleados.telefono_emergencia',
@@ -284,12 +308,14 @@ trait DatosimpleTraits
             'tblempleados.descripcion_estado',
             'tblempleados.fecha_ingreso',
             'tblnominas.pago_imss',
+            'tblnominas.sueldo_fiscal',
             'tblnominas.excedente',
             'tblnominas.efectivo' ,
             'tblnominas.factor_sua',
             'tblnominas.descuento_quincenal',
             'tblnominas.numero_credito_infonavit',
             'tblempresas.id',
+            'tblnominas.fecha_ingreso_imss',
             'tblempresas.nombre_empresa')
             ->where('tblempleados.id','=',$id)
             ->get();
@@ -318,10 +344,10 @@ trait DatosimpleTraits
         'tblpuestos.nombre as puesto',
         'tblsucursales.nombre as sucursal',
         'tblnominas_pagodet.faltas_reta_aus',
-        'tblnominas_pagodet.dias_laborados',
-        'tblnominas.sueldo_fiscal',
+        'tblnominas_pagodet.dias_laborados',     
         'tblnominas.excedente',
         'tblnominas.efectivo',
+        'tblnominas.sueldo_fiscal',
         'tblnominas_pagodet.total_sueldo',
         'tblnominas_pagodet.deudores_fiscal',
         'tblnominas_pagodet.deudores_no_fiscal',
@@ -353,7 +379,7 @@ trait DatosimpleTraits
 public  function obteneempleadonomaeditar(int $idpagonom,  int $idempleado){
     $varobtenernomemp = Nominas_pagosenc::join(
         'tblnominas_pagodet','tblnominas_pagoenc.id','=','tblnominas_pagodet.idpagonomina')
-    ->select('tblnominas_pagoenc.id','tblnominas_pagodet.idempleado','tblnominas_pagodet.dias_laborados','tblnominas_pagodet.deudores_fiscal','tblnominas_pagodet.deudores_no_fiscal','pago_infonavit','pago_imss','pago_subsidio','pago_isr','bono','transporte')
+    ->select('tblnominas_pagoenc.id','tblnominas_pagoenc.idtiponomina','tblnominas_pagodet.id as idpadodet','tblnominas_pagodet.idempleado','tblnominas_pagodet.dias_laborados','tblnominas_pagodet.deudores_fiscal','tblnominas_pagodet.deudores_no_fiscal','pago_infonavit','pago_imss','pago_subsidio','pago_isr','bono','transporte')
     ->where(['tblnominas_pagoenc.id' => $idpagonom,'tblnominas_pagodet.idempleado' => $idempleado])
     ->get();
     return $varobtenernomemp;

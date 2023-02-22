@@ -8,7 +8,10 @@ use App\Traits\Menutrait;
 use App\Traits\DatosimpleTraits;
 use App\Models\Nominas_pagosenc;
 use App\Models\tarifasisr_det;
+use App\Models\Nominas_pagosdet;
 use DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\BoTranImport;
 
 class NominasController extends Controller
 {
@@ -16,6 +19,12 @@ class NominasController extends Controller
     use MenuTrait;
     use DatosimpleTraits;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     public function index()
     {
     $varpantallas =  $this->Traermenuenc();
@@ -46,10 +55,20 @@ class NominasController extends Controller
         return redirect()->route('vernominas')->with("Nomina Creada Correctamente");
     }
 
-    public function insertarnomina($id){
+    public function insertarnomina($id,$idpago_nomina){
+        $dias_nomina=0;
+        if($idpago_nomina==1){
+            $dias_nomina = 7;
+        }
+        if($idpago_nomina==2){
+            $dias_nomina = 15;
+        }
+        if($idpago_nomina==3){
+            $dias_nomina = 30;
+        }
 
         //mandamos llamar el procedimiento de calculonomima
-        $pagosnom = DB::select('CALL insertar_nominapag(?)', [$id]);
+        $pagosnom = DB::select('CALL insertar_nominapag_det(?,?)', [$id,$dias_nomina]);
         $pagosnomina = DB::select('CALL generarcalculosnomina(?)', [$id]);
         //actualizamos el estado de tabla pagosnominaencabezado
         $pagonomenc = Nominas_pagosenc::find($id);
@@ -81,8 +100,43 @@ class NominasController extends Controller
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         $varnomem= $this->obteneempleadonomaeditar($id,$idemple);
-        return view('nominas.editarnomempl',compact('varpantallas','varsubmenus','varnomem'));
+        return view('nominas.editarnominaempleado',compact('varpantallas','varsubmenus','varnomem'));
     }
+
+
+    public function actualizarNominaEmp(request $request, $id)
+    {
+           $date = Carbon::now();
+           $fecha = $date->format('Y-m-d');
+           $idd = $request->get('id');
+           $idtiponom = $request->get('idtiponom');
+
+           $nomina = Nominas_pagosdet::find($id);
+           $nomina->dias_laborados = $request->post('dias_laborados');
+           $nomina->deudores_fiscal = $request->post('deudores_fiscal');
+           $nomina->deudores_no_fiscal = $request->post('deudores_no_fiscal');
+           $nomina->updated_at=$fecha;
+           $nomina->save();
+
+        //    return view('nominas.editarnomina');
+        
+              
+        // if($nomina->save() ){
+        //     return redirect()->route('Nominaseditar')->with("success","¡Se guardaron los cambios correctamente!");
+        // }
+        // return redirect()->route('Nominaseditar',$id,$idemple)->with("warning","No se logro");
+        // return redirect('/Nominaseditar/editarnomina/$idd/$idtiponom');
+        
+        // return redirect()->action('NominasController@editarnomina', [$idd,$idtiponom],);
+        return redirect()->back();
+    }
+
+    public function importar_excel(request $request){
+        $file=$request->file("urlpdf");
+        Excel::import(new BoTranImport, $file);
+
+    }
+
 
 
 }

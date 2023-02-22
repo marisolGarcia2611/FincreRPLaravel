@@ -26,6 +26,7 @@ class EmpleadosController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -55,10 +56,7 @@ class EmpleadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        
-    }
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -67,84 +65,91 @@ class EmpleadosController extends Controller
      */
     public function store(Request $request)
     {
+       
         $ultimoemple =$this->obtenerultimoempleado();
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
-  
-        $empleados = new empleados();
-        $empleados->primer_nombre = $request->get('primer_nombre');
-        $empleados->segundo_nombre = $request->get('segundo_nombre');
-        $empleados->apellido_paterno = $request->get('apellido_paterno');
-        $empleados->apellido_materno = $request->get('apellido_materno');
-        $empleados->telefono = $request->get('telefono');
-        $empleados->correo = $request->get('correo');
-        $empleados->idpuesto = $request->get('puesto');
-        $empleados->idsucursal = $request->get('sucursal');
-        $empleados->idciudad = $request->get('ciudad');
-        $empleados->idbanco = $request->get('banco');
-        $empleados->calle = $request->get('calle');
-        $empleados->colonia = $request->get('colonia');
-        $empleados->numero_interior = $request->get('numero_interior');
-        $empleados->numero_exterior = $request->get('numero_exterior');
-        $empleados->codigo_postal = $request->get('codigo_postal');
-        $empleados->sexo = $request->get('sexo');
-        $empleados->fecha_nacimiento = $request->get('fecha_nacimiento');
-        $empleados->foto = $request->get('foto');
-        $empleados->rfc = $request->get('rfc');
-        $empleados->nss = $request->get('nss');
-        $empleados->tipo_sangre = $request->get('tipo_sangre');
-        $empleados->contacto_emergencia = $request->get('contacto_emergencias');
-        $empleados->telefono_emergencia = $request->get('telefono_emergencia');
-        $empleados->estado = 'Activo';
-        $empleados->descripcion_estado = 'alta empleado';
-        $empleados->estado_civil = $request->post('estado_civil');
-        $empleados->created_at = $date;
-        $empleados->fecha_ingreso = $request->get('fecha_alta');
-        $empleados->fecha_baja = $date;
-        $empleados->save();
 
+        if($request->hasFile("urlpdff")){
+            $file=$request->file("urlpdff");
+            $id = $request->get('rfc');
 
-        //insertamos en la tabla empleados
-        $nominas = new nominas();
-        $nominas->idempresa=$request->get('cmbempresas');
-        $nominas->idempleado=$ultimoemple->id+1;
-        $nominas->idbancos=$request->get('banco');
-        $nominas->salario_bruto=$request->get('salario_bruto');
-        $nominas->salario_neto=$request->get('salario_neto');
-        $nominas->salario_fijo=$request->get('salario_fijo');
-        $nominas->pago_imss=0.00;
-        $nominas->excedente=$request->get('excedente');
-        $nominas->sueldo_fiscal=$request->get('sueldo_fiscal');
-        $nominas->efectivo=$request->get('efectivo');
-        $nominas->numero_tarjeta=$request->get('numero_tarjeta');
-        $nominas->numero_cuenta=$request->get('numero_cuenta');
-        $nominas->id_tipoinfonavit = $request->post('tipo_infonavit');
-        $nominas->factor_sua = $request->post('factor_sua');
-        $nominas->descuento_quincenal = $request->post('descuento_quincenal');
-        $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');
-//checar id para que no fallen
-        $nominas->created_at = $fecha;
-        $nominas->save();
+            $nombre = "contrato_"."$id".".".$file->guessExtension();
+            $ruta = public_path("DetallesEmpleados/contratos/".$nombre);
 
+            if($file->guessExtension()=="pdf"){
+                $empleados = new empleados();
+                $empleados->primer_nombre = $request->get('primer_nombre');
+                $empleados->segundo_nombre = $request->get('segundo_nombre');
+                $empleados->apellido_paterno = $request->get('apellido_paterno');
+                $empleados->apellido_materno = $request->get('apellido_materno');
+                $empleados->telefono = $request->get('telefono');
+                $empleados->correo = $request->get('correo');
+                $empleados->idpuesto = $request->get('puesto');
+                $empleados->grado_estudio= $request->get('grado_estudio');
+                $empleados->nacionalidad = $request->get('nacionalidad');
+                $empleados->idsucursal = $request->get('sucursal');
+                $empleados->idciudad = $request->get('ciudad');
+                $empleados->idbanco = $request->get('banco');
+                $empleados->calle = $request->get('calle');
+                $empleados->colonia = $request->get('colonia');
+                $empleados->numero_interior = $request->get('numero_interior');
+                $empleados->numero_exterior = $request->get('numero_exterior');
+                $empleados->codigo_postal = $request->get('codigo_postal');
+                $empleados->sexo = $request->get('sexo');
+                $empleados->fecha_nacimiento = $request->get('fecha_nacimiento');
+                $empleados->foto = 0;
+                $empleados->archivo_baja = 0;
+                $empleados->rfc = $request->get('rfc');
+                $empleados->nss = $request->get('nss');
+                $empleados->curp = $request->post('curp');
+                $empleados->tipo_sangre = $request->get('tipo_sangre');
+                $empleados->contacto_emergencia = $request->get('contacto_emergencias');
+                $empleados->telefono_emergencia = $request->get('telefono_emergencia');
+                $empleados->estado = 'A';
+                $empleados->descripcion_estado = 'ALTA EMPLEADO';
+                $empleados->estado_civil = $request->get('estado_civil');
+                $empleados->created_at = $fecha;
+                $empleados->fecha_ingreso = $request->get('fecha_alta');
+                $empleados->save();
+        
+        
+                //insertamos en la tabla empleados
+                $nominas = new nominas();
+                $nominas->idempresa=$request->get('cmbempresas');
+                $nominas->idempleado=$ultimoemple->id+1;
+                $nominas->idbancos=$request->get('banco');
+                $nominas->salario_bruto=$request->get('salario_bruto');
+                $nominas->salario_neto=$request->get('salario_neto');
+                $nominas->salario_fijo=$request->get('salario_fijo');
+                $nominas->pago_imss=0.00;
+                $nominas->excedente=$request->get('excedente');
+                $nominas->sueldo_fiscal=$request->get('sueldo_fiscal');
+                $nominas->efectivo=$request->get('efectivo');
+                $nominas->numero_tarjeta=$request->get('numero_tarjeta');
+                $nominas->numero_cuenta=$request->get('numero_cuenta');
+                $nominas->id_tipoinfonavit = $request->post('tipo_infonavit');
+                $nominas->factor_sua = $request->post('factor_sua');
+                $nominas->descuento_quincenal = $request->post('descuento_quincenal');
+                $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');
+                $nominas->fecha_ingreso_imss = $request->get('fecha_ingreso_imss');
+                $nominas->created_at = $fecha;
+                $nominas->save();
+                copy($file, $ruta);
+                return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+                
+            }else{
+                return redirect()->route('verempleados')->with("PDFwarning","¡Se guardaron los cambios correctamente!");
+            }
 
+        }
 
-
-        $varpantallas =  $this->Traermenuenc();
-        $varsubmenus =   $this->Traermenudet();
-        $varpuestos = $this->obtenerpuestos();
-        $varsucursales = $this->obtenersucursales();
-        $varciudades =  $this->obtenerciudades();
-        $varempresas = $this->obtenerempresas();
-        $varbancos = $this->obtenerbancos();
-        $varlistaempleados=  $this-> obtenerlistaempleados();
-        $vartipodescinfo= $this->obtenertipodescinfonavit();
-        $date = Carbon::now();
-        $date = $date->format('Y-m-d');
-        return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
-
-            // return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo'));
+        // $texto = "Acrchivo enviado";
+        // return response($texto, 200);
+        // return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo'));
             // ->with("success","Empleado creado correctamente")
     }
+ 
 
     /**
      * Display the specified resource.
@@ -192,6 +197,7 @@ class EmpleadosController extends Controller
            // $ultimoemple =$this->obtenerultimoempleado();
            $date = Carbon::now();
            $fecha = $date->format('Y-m-d');
+         
      
            $empleados = Empleados::find($id);
            $empleados->primer_nombre = $request->post('primer_nombre');
@@ -200,7 +206,8 @@ class EmpleadosController extends Controller
            $empleados->apellido_materno = $request->post('apellido_materno');
            $empleados->telefono = $request->post('telefono');
            $empleados->correo = $request->post('correo');
-           $empleados->idpuesto = $request->post('puesto');
+           $empleados->grado_estudio= $request->post('grado_estudio');
+           $empleados->nacionalidad = $request->post('nacionalidad');
            $empleados->idsucursal = $request->post('sucursal');
            $empleados->idciudad = $request->post('ciudad');
            $empleados->idbanco = $request->post('banco');
@@ -211,19 +218,19 @@ class EmpleadosController extends Controller
            $empleados->codigo_postal = $request->post('codigo_postal');
            $empleados->sexo = $request->post('sexo');
            $empleados->fecha_nacimiento = $request->post('fecha_nacimiento');
-           $empleados->foto = $request->post('foto');
+        //    $empleados->foto = $request->post('foto');
            $empleados->rfc = $request->post('rfc');
            $empleados->nss = $request->post('nss');
+           $empleados->curp = $request->post('curp');
            $empleados->tipo_sangre = $request->post('tipo_sangre');
            $empleados->contacto_emergencia = $request->post('contacto_emergencias');
            $empleados->telefono_emergencia = $request->post('telefono_emergencia');
-           $empleados->estado = 'Activo';
+           $empleados->estado = 'A';
            $empleados->descripcion_estado = 'alta empleado';
            $empleados->estado_civil = $request->post('estado_civil');
-           $empleados->created_at = $date;
            $empleados->fecha_ingreso = $request->post('fecha_alta');
            $empleados->estado_civil = $request->post('estado_civil');
-           $empleados->fecha_baja = $date;
+           $empleados->updated_at=$fecha;
            $empleados->save();
 
            $idnomina = $request->post('idnomina');
@@ -234,7 +241,7 @@ class EmpleadosController extends Controller
            $nominas->salario_neto=$request->post('salario_neto');
            $nominas->salario_fijo=$request->post('salario_fijo');
            $nominas->pago_imss=$request->post('pago_IMSS');
-           $nominas->sueldo_fiscal=$request->get('sueldo_fiscal');
+           $nominas->sueldo_fiscal=$request->post('sueldo_fiscal');
            $nominas->excedente=$request->post('excedente');
            $nominas->efectivo=$request->post('efectivo');
            $nominas->numero_tarjeta=$request->post('numero_tarjeta');
@@ -243,14 +250,10 @@ class EmpleadosController extends Controller
            $nominas->factor_sua = $request->post('factor_sua');
            $nominas->descuento_quincenal = $request->post('descuento_quincenal');
            $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');
-   
-           $nominas->created_at = $fecha;
+           $nominas->fecha_ingreso_imss = $request->post('fecha_ingreso_imss');
+           $nominas->updated_at=$fecha ;
            $nominas->save();
-
-           $date = $date->format('Y-m-d');
-
-           
-              
+     
         //    return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
         if($empleados->save() && $nominas->save()){
             return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
@@ -264,26 +267,40 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function reactivar( $id)
+    public function reactivar($id,request $request)
     {
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
+        
+        if($request->hasFile("urlpdf")){
+            
+            $empleados = Empleados::find($id);
+            $empleados->estado = 'A';
+            $empleados->descripcion_estado = 'Reingreso de empleado';
+            $empleados->updated_at=$fecha;
+            $empleados->fecha_ingreso = $request->post('fecha_alta');
+            $empleados->archivo_baja = 0;
+            $empleados->save();
 
-        $empleados = Empleados::find($id);
-        $empleados->estado = 'Activo';
-        $empleados->descripcion_estado = 'Reingreso de empleado';
-        $empleados->archivo_baja = 0;
-        $empleados->fecha_ingreso=$date;
-        $empleados->created_at = $fecha;
-        $empleados->save();
+            $idnomina = $request->post('idnomina');
+            $nominas =  nominas::find($idnomina);
+            $nominas->fecha_ingreso_imss = $request->post('fecha_ingreso_imss');
+            $nominas->sueldo_fiscal=$request->post('sueldo_fiscal');
+            $nominas->excedente=$request->post('excedente');
+            $nominas->save();
 
-        $date = $date->format('Y-m-d');
+            $file=$request->file("urlpdf");
+            $id = $request->get('rfc');
+            $nombre = "contrato_"."$id".".".$file->guessExtension();
+            $ruta = public_path("DetallesEmpleados/contratos/".$nombre);
 
-        if($empleados->save()){
-            return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
-        }
-        else{
-            return redirect()->route('verempleados')->with("warning","No se logro");
+            if($file->guessExtension()=="pdf"){
+                copy($file, $ruta);
+                return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
+            }else{
+                return redirect()->route('verempleados')->with("PDFwarning","¡Se guardaron los cambios correctamente!");
+            }
+
         }
 
         
@@ -323,7 +340,7 @@ class EmpleadosController extends Controller
 
 
         $empleado = empleados::find($idempleado);
-        $empleado->estado = 'Inactivo';
+        $empleado->estado = 'I';
         $empleado->descripcion_estado = $descripcionbaja;
         $empleado->save();
 
@@ -351,7 +368,7 @@ class EmpleadosController extends Controller
 
 
         $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','nombreemplado','fecha_baja','fecha_ingreso','salario','puesto','rpttotalentregar','totalper','rptotaldeducciones','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas',));
-        return $pdf->download("finiquito_empleado$idempleado.pdf",);
+        return $pdf->download("finiquito_empleado$idempleado.pdf");
           
     }
 
@@ -393,16 +410,14 @@ class EmpleadosController extends Controller
             $empleados->save();
 
             $nombre = "baja_"."$id".".".$file->guessExtension();
-            $ruta = public_path("pdf/".$nombre);
+            $ruta = public_path("DetallesEmpleados/bajas/".$nombre);
 
             if($file->guessExtension()=="pdf"){
                 copy($file, $ruta);
                 return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
             }else{
-                return redirect()->route('verempleados')->with("warning","¡Se guardaron los cambios correctamente!");
+                return redirect()->route('verempleados')->with("PDFwarning","¡Se guardaron los cambios correctamente!");
             }
-
-
 
         }
     }

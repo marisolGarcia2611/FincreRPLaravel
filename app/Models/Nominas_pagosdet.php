@@ -9,4 +9,10 @@ class Nominas_pagosdet extends Model
 {
     use HasFactory;
     public $table='tblnominas_pagodet';
+
+    protected $fillable = [
+        'idempleado',
+        'bono',
+        'transporte',
+    ];
 }

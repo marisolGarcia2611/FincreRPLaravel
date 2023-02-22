@@ -42,7 +42,7 @@
               <td class="td-tools">
                 <form action="">
                   @if($nomina->estado_nomina==="Iniciada")
-                  <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/{{$nomina->id}}"></a>
+                  <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}"></a>
                   @elseif($nomina->estado_nomina==="Edicion")
                   <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}"></a>
                   @elseif($nomina->estado_nomina==="Cerrada")

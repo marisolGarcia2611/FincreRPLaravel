@@ -84,8 +84,8 @@
   }
    /* -------------------Navbar style y medias------------------ */
 
-  .nv__style{height:4.5vh;width: 100%;z-index: 2;top: 0vh;position: fixed;margin-top: -3px;box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);background-color: #2B86C5;}
-  @media screen and (max-width:450px) {
+  .nv__style{height:35px;width: 100%;z-index: 2;top: 0vh;position: fixed;margin-top: -3px;box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);background-color: #2B86C5;}
+  /* @media screen and (max-width:450px) {
     .nv__style{height:2.5vh; width: 100%; z-index: 2; top: 0vh; margin-top: -6px; position: fixed !important;  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132); background-color: #2B86C5;}  
   }
   @media screen and (max-width:600px) {
@@ -96,12 +96,15 @@
   @media screen and (max-width:1900px) {
     .nv__style{height:5.5vh; width: 100%; z-index: 2; margin-top: -3px; top: 0vh; position: fixed; box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132); background-color: #2B86C5;}
   }
+  @media screen and (max-width:1200px) {
+    .nv__style{height:3.5vh; width: 100%; z-index: 2; margin-top: -3px; top: 0vh; position: fixed; box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132); background-color: #2B86C5;}
+  }
   @media screen and (max-height:600px) {
   .nv__style{height:9.5vh;width: 100%;z-index: 2;margin-top: -3px;top: 0vh;position: fixed;box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);background-color: #2B86C5;}
   }
   @media screen and (min-height:700px) {
     .nv__style{height:4.5vh;width: 100%;z-index: 2;margin-top: -3px;top: 0vh;position: fixed;box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);background-color: #2B86C5;}
-  }
+  } */
   /* -------------------Etiquetas de sidebar------------------ */
 
   .e__sidebar {float: none;border-radius: 30px;font-size: 13px;-webkit-transition: all 0.3s ease;color: var(--text-etiquetaP);transition: all 0.3s ease;border-radius: 20px;}
@@ -126,6 +129,9 @@
   .push:hover {-webkit-transform: scale(1.1) !important;transform: scale(1.04) !important;}
   .push2{-webkit-transition: all 0.3s ease;transition: all 0.3s ease;}   
   .push2:hover {-webkit-transform: scale(1.1) !important;transform: scale(1.06) !important;}
+
+  .zoom{-webkit-transition: all 0.3s ease;transition: all 0.3s ease;}
+  .zoom:hover {-webkit-transform: scale(1.1) !important;transform: scale(3.05) !important;border-radius: 10px;}
   /* -------------------Formularios con estylo rouded------------------ */
   
   .offcanvas-body input{border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868;}
@@ -146,6 +152,7 @@
   #mydatatable-container label{color: #8d8a8a;}
   #mydatatable-container select{border-radius: 100px;background-color: #e5e5e5a0;border: 0px solid rgb(111, 110, 110);border:0!important;outline: none;}
   #mydatatable-container{border-radius:40px; text-align: center;}
+  .fs-9{font-size: 10px;}
   .fs-8{font-size: 12px;}
   .fs-7{font-size: 18px;}
   .fs-6{font-size: 15px;}
@@ -178,13 +185,12 @@
   .cartaForm{border-radius: 30px;box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);}
   .step{ border-radius: 50px;width:30px;height:30px;color:#ffff;}
   .stepNav{border-radius: 50px;width:60px;height:30px;padding-top:4px;}
-  .nav-float{position: fixed;border-top-right-radius:30px;border-bottom-right-radius:30px;z-index:2;}
+  .nav-float{border-top-left-radius:30px;border-bottom-left-radius:30px;z-index: 2;margin-top:0px;top: 10vh;position: fixed;right: 0;margin-right: -25px;}
  
   /* -------------------Cabecera de editar------------------ */
   .swal-overlay {background-color: rgba(70, 71, 95, 0.45);}
   .bor{border: none;-webkit-transition: all 0.3s ease; transition: all 0.3s ease;}
   .bor:hover {-webkit-transform: scale(1.1) !important;transform: scale(1.09) !important;}
-  .nav-float{position: fixed;border-top-right-radius:30px;border-bottom-right-radius:30px;z-index:2;}
   .nav-it:hover{background-image: linear-gradient(45deg,#2E3192,#0095D9);border-radius:20px!important;color: #fff!important;}
   .cartaForm{border-radius: 30px;box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);}
   .bg-p{color: #32394B;}
@@ -193,19 +199,21 @@
 
    .pad-table{padding:30px!important;padding-bottom:10px!important;}
    .border-table{border:0px solid rgba(255, 255, 255, 0)!important;}
+   .pImage{border-radius: 50px;width:80px;height:80px;object-fit: cover;}
    .tr-table{background-color: #FF3CAC;background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;}
    .td-tools{background-color:#2B86C5!important ;color:#fff!important;border: 0px solid rgba(255, 255, 255, 0)!important;}
   .bg-table{background-color:  #32394B;border-radius:18px;color:#fff; width:95%;}
   .bg-1{background-color: #dfe3f0!important;border:0px solid rgba(255, 255, 255, 0)!important;}
   .bg-2{background-color: #9ba9e2!important;border:0px solid rgba(255, 255, 255, 0)!important;}
   .bg-3{background-color: #a0b2ec!important;border:0px solid rgba(255, 255, 255, 0)!important;}
-  .bg-4{background-color: #419443!important;border:0px solid rgba(255, 255, 255, 0);}
-  .bg-5{background-color: #d63757!important;border:0px solid rgba(255, 255, 255, 0);}
+  .bg-4{background-color: #419443!important;border:0px solid rgba(255, 255, 255, 0);margin-left: 5px;}
+  .bg-5{background-color: #d63757!important;border:0px solid rgba(255, 255, 255, 0);margin-left: 8px;}
   .bg-6{background-color: #f3f3f3;border:0px solid rgba(255, 255, 255, 0);}
+  .circle{border-radius: 100px;width:25px;height:25px;}
   @media screen and (max-width:900px) { .mar-l{ margin-left: 0px;}}
   
   /* -------------------Modal de subir archivos------------------ */
-  .input-file-container {position: relative;width: 225px;} 
+  .input-file-container {position: relative;width: 100%px;} 
   .js .input-file-trigger {display: block;padding: 14px 45px;background-color: #FF3CAC;background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;color: #fff;font-size: 1em;transition: all .4s;cursor: pointer;}
   .js .input-file {position: absolute;top: 0; left: 0;width: 225px;opacity: 0;padding: 14px 0;cursor: pointer;}
   .js .input-file:hover + .input-file-trigger,
@@ -225,6 +233,27 @@
   .copy {margin-top: .5em;}
   .copy a {text-decoration: none;color: #32394B;}
 
+  /* -------------------Modal de subir archivos 2------------------ */
+  .input-file-container {position: relative;width: 100%px;} 
+  .js .input-filee-trigger {display: block;padding: 14px 45px;background-color: #FF3CAC;background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;color: #fff;font-size: 1em;transition: all .4s;cursor: pointer;}
+  .js .input-filee {position: absolute;top: 0; left: 0;width: 225px;opacity: 0;padding: 14px 0;cursor: pointer;}
+  .js .input-filee:hover + .input-filee-trigger,
+  .js .input-filee:focus + .input-filee-trigger,
+  .js .input-filee-trigger:hover,
+  .js .input-filee-trigger:focus {background-color: #FF3CAC;background-image: linear-gradient(225deg, #2B86C5 0%, #784BA0 30%,  #FF3CAC 100%)!important;color:#fff!important; }
+  .filee-return {margin: 0;}
+  .filee-return:not(:empty) {margin: 1em 0;}
+  .js .filee-return {font-style: italic;font-size: .9em;font-weight: bold;}
+  .js .filee-return:not(:empty):before {content: "Selected file: ";font-style: normal;font-weight: normal;}
+  .sudmit { font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif; color: #7F8C9A;background: #FCFDFD;}
+  .sudmit h1, .sudmit h2 {margin-bottom: 5px;font-weight: normal;text-align: center;color:#aaa; }
+  .sudmit h2 {margin: 5px 0 2em;color: #2B86C5;}
+  .sudmit form {width: 225px;margin: 0 auto;text-align:center;}
+  .sudmit h2 + P {text-align: center;}
+  .txtcenter {margin-top: 1em;font-size: .9em;text-align: center;color: #aaa;}
+  .copy {margin-top: .5em;}
+  .copy a {text-decoration: none;color: #32394B;}
+
   /* -------------------------Botones----------------------------------------- */
   .btn-blue{background-color: #2B86C5;color:#fff;}
   .btn-blue:hover{background-color: #185988;color:#fff;}
@@ -233,15 +262,21 @@
 
   /* -------------------------Home Area----------------------------------------- */
   .footer-color{background-color: #2b86c5;background-image: linear-gradient(180deg, #2a628a 0%, #2f3292 100%);}
-  .cub__color{background-color: #353777;border-radius:10px;}
+  .cub__color{background-color: #2B86C5;border-radius:10px;}
   .text-darkBlue{color: #32394B;}
   .text-blue{color: #2B86C5;}
 
   /* -------------------------Panel Area----------------------------------------- */
   .bg-gradient-pink{background-color: #FF3CAC;background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;}
+  .b-blue{background-color: #2B86C5;}
   .text-lightGray{color:#b2b0b0;}
   .ocultar {display: none; }
   .mostrar { display: block;}
+  .bImage{z-index: 2;background-color:#00000037;color:#676464;border-radius:50px;width:80px;height:80px;border: none;}
+/* 
+  @media screen and (max-width:1400px) {  .orientatioInp{margin-left: 50px}}
+  @media screen and (max-width:950px) {  .orientatioInp{margin-left: 0}} */
+
 
 </style>
 
@@ -276,7 +311,11 @@
                 <div class="offcanvas-body contenedor-light">
                     <div class="list-group border-0 rounded-0 text-sm-start min-vh-100">
                         <nav class="nav flex-column">
-                          <img src="{{ asset('Images/1.png') }}" style="width: 150px;height:150px;object-fit:cover;margin-bottom:40px;" class="rounded mx-auto d-block" alt="...">
+                          <div class="text-center">
+                            <img  src="Images/Perfil/{{ Auth::user()->idempleado}}.jpg" style="width: 150px;height:150px;object-fit:cover;margin-bottom:40px;" class="rounded mx-auto d-block" alt="...">
+                            <p class="fw-light">{{ Auth::user()->name }}</p>
+                          </div>
+                          
                             @php($varRecursostmp='')
                             @php($VAR='')
                             <a class="nav-link e__sidebar1 d-inline-block text-truncate" data-bs-parent="#sidebar" href="/home"> <i class="fas fa-home icon"></i>Principal</a>
@@ -313,7 +352,7 @@
                             </div>
                         @guest
                         @else
-                                
+
                                     <a class="nav-link e__sidebar1 d-inline-block text-truncat" data-bs-parent="#sidebar" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fa fa-solid fa-arrow-right icon"></i>
@@ -330,7 +369,7 @@
                     </div>
                 </div>
                 <div class="offcanvas-footer">
-                  <img src="{{ asset('Images/diamod-logo.png') }}" width="80px" class="mb-5 rounded mx-auto d-block" alt="...">
+                  <img src="{{ asset('Images/diamod-logo.png') }}" width="50px" class="mb-5 rounded mx-auto d-block " alt="...">
                 </div>
               </div>
         </div>

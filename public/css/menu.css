@@ -380,7 +380,7 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
     /*----------------------------------------------------------------- button--------------------------------------------------- */
 
 .pos__btnBack{
-  z-index: 2;margin-top:0px;top: 2vh;position: fixed;right: 0;
+  z-index: 2;margin-top:0px;top: 2vh;position: fixed;left: 0;margin-left: 5px;
 }
 
   .wrapper {
@@ -392,16 +392,15 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
     
       display: inline-block;
       text-align: center;
-      background:rgb(255, 221, 1);
-      color:#fff;
+      background-color: #dedede;
+      color:#8b8b8b;
       font-weight: bold;
       line-height: 1;
-    padding: 13px;
+      padding: 13px;
       border-radius: 1px;
       position: relative;
       width: 48px;
       height: 45px;
-    
       text-decoration: none;
   }
   
@@ -412,7 +411,7 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
       position: absolute;
       content: "";
       display: inline-block;
-      background: rgb(255, 221, 1);
+      background-color: #dedede;
       border-radius: 50%;
       transition: transform 1s ease;
       transform: scale(0);

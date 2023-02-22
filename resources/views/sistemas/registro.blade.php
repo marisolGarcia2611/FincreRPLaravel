@@ -14,12 +14,28 @@
 @elseif($mensaje = Session::get('warning'))
   @php
           echo '<script language="JavaScript">';
-          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","warning", {buttons: false,timer: 1500});';
+          echo 'swal("¡No se a efectuado la acción!","Recuerde llenar todos los campos y que formato permitido de imagen en .jpg","warning", {buttons: false,timer: 1500});';
           echo '</script>';  
   @endphp
 
 @endif
 {{-- ALERTAS --}}
+
+<!--INICIO BUTON AREA-->
+<div class="pos__btnBack">
+    <div class="wrapper"> 
+        <p class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></p>
+    </div>
+        <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+<!--FIN BUTON AREA--> 
 
 <div class="mt-5 container">
     <div class="row justify-content-center">
@@ -30,7 +46,7 @@
                 </div>
 
                 <div class="card-body offcanvas-body small" style="padding-left: 30px;padding-right:30px;">
-                    <form method="POST" action="{{ route('createUser') }}" method="POST" class="g-3 needs-validation"  id="frm" novalidate>
+                    <form method="POST" action="{{ route('createUser') }}" method="POST" class="g-3 needs-validation" enctype="multipart/form-data"  id="frm" novalidate>
                         @csrf
                         <div>                        
                             <div class="row mb-3">
@@ -81,30 +97,37 @@
                             </div>
 
                             <div class="row mb-4">
+                              
                                 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="pass1">Contraseña</label>
-                                        <input type="password" name="contrasena" class="form-control" id="contrasena" value="" placeholder="Ingrese su contraseña..." required>
-                                        <div class="valid-feedback">
-                                            ¡Se ve bien!
+                                        <div class="input-group">
+                                            <input type="password" ID="txtPassword"  name="contrasena" class="form-control" id="contrasena" placeholder="Ingrese su contraseña..." style="border-radius: 40px;" required>
+                                            <div class="input-group-append">
+                                                <a id="show_password" class="btn__password" type="button" onclick="mostrarPassword()" style="margin-top: 4px;margin-left:5px;color:#a6a6a6;"> <span class="fa fa-eye-slash icon"></span> </a>
+                                            </div>
                                         </div>
-                                        <div class="invalid-feedback">
-                                            *Minimo 8 caracteres, usa Mayusculas, minusculas, numeros y caracteres especiales.
-                                        </div>
+
+
+                                        <div class="valid-feedback">¡Se ve bien!</div>
+                                        <div class="invalid-feedback">*Minimo 8 caracteres, usa Mayusculas, minusculas, numeros y caracteres especiales.</div>
                                     </div> 
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="pass2">Confirme Contraseña</label>
-                                        <input type="password" class="form-control" name="recontrasena" id="recontrasena" value="" placeholder="Confirme su contraseña..." required>
-                                        <div class="valid-feedback">
-                                                ¡Se ve bien!
+                                        <label for="pass2">Contraseña</label>
+                                        <div class="input-group">
+                                            <input type="password" ID="inputPassword"  name="recontrasena" class="form-control" id="recontrasena" placeholder="Ingrese su contraseña..." style="border-radius: 40px;" required>
+                                            <div class="input-group-append">
+                                                <a id="show_password" class="btn__password" type="button" onclick="showPassword()" style="margin-top: 4px;margin-left:5px;color:#a6a6a6;"> <span class="fa fa-eye-slash icon"></span> </a>
+                                            </div>
                                         </div>
-                                        <div class="invalid-feedback">
-                                            *Minimo 8 caracteres, usa Mayusculas, minusculas, numeros y caracteres especiales.
-                                        </div>               
+
+
+                                        <div class="valid-feedback">¡Se ve bien!</div>
+                                        <div class="invalid-feedback">*Minimo 8 caracteres, usa Mayusculas, minusculas, numeros y caracteres especiales.</div>
                                     </div> 
                                 </div>
                                 
@@ -117,6 +140,23 @@
                             <div id="error" class="alert alert-danger ocultar" role="alert">
                                 Las Contraseñas no coinciden, vuelve a intentar !
                             </div> 
+
+
+                            <div class="row mb-4">
+                                <div class="col-md-4 d-md-block d-none"></div>
+                                <div class="col-md-4 text-center">
+                                    <label class="form-label">Foto de perfil</label>
+                                    <div>
+                                        <div class="input-file-container text-center">  
+                                        <input class="input-file" id="my-file" type="file" name="urlpdf">
+                                            <label for="my-file"name="my-file" style="border-radius:100px;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
+                                            <p class="file-return"></p>
+                                        </div>
+                                    </div>
+                                    <p class="txtcenter">Recuerde que solo se admite el formato ".jpg"</p> 
+                                </div>
+                                <div class="col-md-4 d-md-block d-none"></div>
+                            </div>
 
                             
                         </div>                      
@@ -170,6 +210,66 @@
         document.getElementById("frm").submit();
     }
 }
+</script>
+
+<script>
+    document.querySelector("html").classList.add('js');
+  
+      var fileInput  = document.querySelector( ".input-file" ),  
+          button     = document.querySelector( ".input-file-trigger" ),
+          the_return = document.querySelector(".file-return");
+            
+      button.addEventListener( "keydown", function( event ) {  
+          if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+              fileInput.focus();  
+          }  
+      });
+      button.addEventListener( "click", function( event ) {
+        fileInput.focus();
+        return false;
+      });  
+      fileInput.addEventListener( "change", function( event ) {  
+          the_return.innerHTML = this.value;  
+      });  
+  </script>
+   <script type="text/javascript">
+    function mostrarPassword(){
+            var cambio = document.getElementById("txtPassword");
+            if(cambio.type == "password"){
+                cambio.type = "text";
+                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            }else{
+                cambio.type = "password";
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            }
+        } 
+        
+        $(document).ready(function () {
+        //CheckBox mostrar contraseña
+        $('#ShowPassword').click(function () {
+            $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function showPassword(){
+            var cambio = document.getElementById("inputPassword");
+            if(cambio.type == "password"){
+                cambio.type = "text";
+                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            }else{
+                cambio.type = "password";
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            }
+        } 
+        
+        $(document).ready(function () {
+        //CheckBox mostrar contraseña
+        $('#ShowPassword').click(function () {
+            $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+        });
+    });
 </script>
 
 @endsection

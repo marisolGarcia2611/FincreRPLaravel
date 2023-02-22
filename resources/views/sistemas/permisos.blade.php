@@ -21,6 +21,22 @@
 @endif
 {{-- ALERTAS --}}
 
+<!--INICIO BUTON AREA-->
+<div class="pos__btnBack">
+    <div class="wrapper"> 
+        <p class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></p>
+    </div>
+        <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+<!--FIN BUTON AREA--> 
+
 <div class="mt-5 container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -58,8 +74,8 @@
                                     <label class="form-label">Departamento</label>
                                     <select name="iddepartamento" id="iddepartamento" class="form-select" required>
                                         <option value="">Seleccionar departamento... </option>
-                                        @foreach($varlistapuestos as $puesto)
-                                        <option value="{{$puesto->id}}">{{$puesto->nombre}}</option>
+                                        @foreach($varlistadepas as $depas)
+                                        <option value="{{$depas->id}}">{{$depas->nombre}}</option>
                                         @endforeach
                                     </select>
                                     <div class="valid-feedback">

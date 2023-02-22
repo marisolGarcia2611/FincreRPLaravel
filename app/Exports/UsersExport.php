@@ -23,65 +23,13 @@ class UsersExport implements   FromCollection, WithHeadings, ShouldAutoSize, Wit
     /**
     * @return \Illuminate\Support\Collection
     */
-    // public function registerEvents(): array
-    // {
-    //     return [
-    //         AfterSheet::class => function (AfterSheet $event) {
-
-    //             $position_last = count($this->headings()[1]);
-
-    //             $column = Coordinate::stringFromColumnIndex($position_last);
-    //             $cells = "A1:{$column}1";
-    //             $event->sheet->mergeCells($cells);
-    //             $event->sheet->getDelegate()->getStyle($cells)->getFont()->setBold(true);
-    //             $event->sheet->getDelegate()->getStyle($cells)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-    //             $event->sheet->getDelegate()->getStyle($cells)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-                
-
-    //         }
-    //         // $sheet->getStyle('A1')->applyFromArray(array(
-    //         //     'fill' => array(
-    //         //         'type'  => PHPExcel_Style_Fill::FILL_SOLID,
-    //         //         'color' => array('rgb' => 'FF0000')
-    //         //     )
-    //         // ));
-    //     ];
-    // // }
-    // public function registerEvents(): array
-    // {
-    //     return [
-    //         BeforeExport::class  => function(BeforeExport $event) {
-    //             $event->writer->setCreator('Patrick');
-    //         },
-    //         AfterSheet::class    => function(AfterSheet $event) {
-    //             $event->sheet->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-
-    //             $event->sheet->styleCells(
-    //                 'A1:W1',
-    //                 [
-    //                     'borders' => [
-    //                         'outline' => [
-    //                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-    //                             'color' => ['argb' => 'FFFF0000'],
-    //                         ],
-    //                     ]
-    //                 ]
-    //             );
-    //         },
-    //     ];
-    // }
+   
     
     public function registerEvents(): array
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
 
-              
-                // $cells = "A1:W1";
-                // $event->sheet->mergeCells($cells);
-                // $event->sheet->getDelegate()->getStyle($cells)->getFont()->setBold(true);
-                // $event->sheet->getDelegate()->getStyle($cells)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-                // $event->sheet->getDelegate()->getStyle($cells)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
                 $cellRange = 'A1:W1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
@@ -97,97 +45,92 @@ class UsersExport implements   FromCollection, WithHeadings, ShouldAutoSize, Wit
                 ->getStartColor()
                 ->setARGB('FFD3D3DE');
 
-                $event->sheet->getDelegate()->getStyle('B2')
+              
+
+                $event->sheet->getDelegate()->getStyle('B2:AE2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
-                ->setARGB('FF6495ED');
+                ->setARGB('FF1E90FF');
+      
 
-                $event->sheet->getDelegate()->getStyle('C2:F2')
-                ->getFill()
-                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                ->getStartColor()
-                ->setARGB('FF9ACD32');
-
-                $event->sheet->getDelegate()->getStyle('G2:K2')
-                ->getFill()
-                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                ->getStartColor()
-                ->setARGB('FF008080');
-
-                $event->sheet->getDelegate()->getStyle('L2:Q2')
+                $event->sheet->getDelegate()->getStyle('AF2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
                 ->setARGB('FFBA55D3');
 
-                $event->sheet->getDelegate()->getStyle('R2')
+                $event->sheet->getDelegate()->getStyle('AG2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
                 ->setARGB('FF9ACD32');
 
-                $event->sheet->getDelegate()->getStyle('S2:U2')
+             
+
+                $event->sheet->getDelegate()->getStyle('AH2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
-                ->setARGB('FFFA8072');
+                ->setARGB('FF9ACD32');//VERDE
 
-                $event->sheet->getDelegate()->getStyle('V2:X2')
-                ->getFill()
-                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                ->getStartColor()
-                ->setARGB('FF1E90FF');//VERDE
-
-                $event->sheet->getDelegate()->getStyle('Y2:AA2')
+                $event->sheet->getDelegate()->getStyle('AI2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
                 ->setARGB('FFFF8C00');
 
-                $event->sheet->getDelegate()->getStyle('AB2')
+                $event->sheet->getDelegate()->getStyle('AJ2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
                 ->setARGB('FFC0C0C0');
 
-                $event->sheet->getDelegate()->getStyle('AC2:AJ2')
+                $event->sheet->getDelegate()->getStyle('AK2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
                 ->setARGB('FF9ACD32');
 
-                $event->sheet->getDelegate()->getStyle('AK2:AL2')
+                $event->sheet->getDelegate()->getStyle('AL2')
+                ->getFill()
+                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                ->getStartColor()
+                ->setARGB('FFC0C0C0');
+
+                $event->sheet->getDelegate()->getStyle('AM2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
                 ->setARGB('FF20B2AA');
 
-                $event->sheet->getDelegate()->getStyle('AM2:AN2')
+                $event->sheet->getDelegate()->getStyle('AN2')
+                ->getFill()
+                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                ->getStartColor()
+                ->setARGB('FF1E90FF');
+
+                $event->sheet->getDelegate()->getStyle('AO2:AP2')
                 ->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()
                 ->setARGB('FFFF1493');
+
+                $event->sheet->getDelegate()->getStyle('AQ2:AR2')
+                ->getFill()
+                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                ->getStartColor()
+                ->setARGB('FFFF8C00');
+
+                $event->sheet->getDelegate()->getStyle('AS2:AT2')
+                ->getFill()
+                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                ->getStartColor()
+                ->setARGB('FF20B2AA');
             },
         ];
     }
 
-    // public function styles(Worksheet $sheet)
-    // {
-    //     $styleArray = [
-    //         'font' => [
-    //             'bold' => true,
-    //         ],
-    //     ];
-
-    //     $sheet->getStyle("D");
-
-    //     $column_range = 'D4:D' . $sheet->getHighestRow();
-
-    //     return [
-    //         $column_range  => $styleArray
-    //     ];
-    // }
 
     public function collection()
     {
@@ -202,45 +145,55 @@ class UsersExport implements   FromCollection, WithHeadings, ShouldAutoSize, Wit
             ['Catalogo de Empleadaos'],
             [
                 'No. Empleado',
-                'Estado',
-                'Primer Nombre',
-                'Segundo Nombre',
+                'Empresa',
+                'Sucursal',          
                 'Apellido Paterno',
                 'Apellido Materno',
+                'Primer Nombre',
+                'Segundo Nombre',
+                'Telefono.',
+                'Correo',
+                'Nacionalidad',
+                'Fecha Nacimiento',
+                'Grado de estudio',
+                'Puesto',
+                'Banco',
+                'RFC',
+                'CURP',
+                'NSS',
                 'Sexo',
                 'Tipo Sangre',
                 'Estado Civil',
-                'Telefono.',
-                'Correo',
                 'Calle',
                 'Colonia',
                 'No. Interior',
                 'No. Exterior',
                 'C.P.',
                 'Ciudad',
-                'Fecha Nacimiento',
-                'Fecha Ingreso',
-                'Puesto',
-                'Sucursal',
-                'ID Nomina',
-                'RFC',
-                'NSS',
-                'Banco',
-                'No. Tarjeta',
-                'No. Cuenta',
-                'Empresa',
-                'Salario Bruto',
-                'Salario Fijo',
-                'Salario Neto',
-                'Pago IMSS',
-                'Excedente',
-                'Efectivo',
-                'Factor SUA',
-                'Descuento Quincenal',
-                'No. Credito Infonavit',
-                'Tipo Infonavit',
+                'Fecha de Ingreso IMSS',
+                'Fecha Alta',
+                'Fecha Baja', 
                 'Contato Emergencia',
                 'Telefono Emergencia',
+                'ID Nomina',
+                'Estado',
+                'Descripcion de estado',          
+                'Salario Bruto',
+                'Salario Neto',
+                'Salario Fijo',
+                'Pago IMSS',
+                'Excedente',
+                'Efectivo',    
+                'Factor SUA',
+                'Descuento Quincenal',
+                'No. Tarjeta',
+                'No. Cuenta',    
+                'Tipo Infonavit',
+                'No. Credito Infonavit',        
+                
+                
+                
+                
             ]
         ];
     }

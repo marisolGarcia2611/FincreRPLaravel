@@ -1,209 +1,210 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <style>
-        .border{
-            border-bottom:.5px solid black;
-            text-align:center;
-        }
-
-        .border1{
-            border:.5px solid black;
-            text-align:center;
-            padding: 10px;
-        }
-
-        .border2{
-            border:0px solid black;
-            text-align:center;
-        }
-
-        .border3{
-            border:.2px solid black;
-            padding: 10px;
-        }
+       
         body{
-            Font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
-        }
-
-        .text2{
-            Font-family:Arial, Gill Sans, Gill Sans MT, Calibri, sans-serif.
-        }
-
-        p{
-            font-size:12px;
-        }
-        .text1{
-            font-size:12px;
+            Font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;font-size:10px;
         }
         .p1{
             font-size:14px;
         }
 
-        .default{
-            margin: 0 auto;
-        }
-        .txt-c{
-            text-align:center;
-        }
-        .txt-r{
-            text-align:right;
-        }
-        .i-1{
-            background-color:#3e3e3e;
-            color:#fff;
-            border-radius:50px;
-            text-align:center;
-            padding-left:10px;
-            margin-left:10px;
-        }
+        .texR{text-align:right;}
+        
+        .td1{width: 20px}
+        .td2{text-align: right;width: 30px;}
+        .td3{width: 50px}
+        .td22{border-top:0.3px solid #000000;text-align: right;width: 30px;}
 
-        td{
-            font-size:14px;
-        }
+        .tdd1{width: 100px}
+        .tdd11{width: 100px;text-align: right;}
+        .tdd2{text-align: right;width: 150px;}
+        .tdd22{border-top:0.3px solid #000000;text-align: right;width: 30px;}
+
+
     </style>
-    <body>
-    
-    
+</head>
+<body class="container">
 
-    <div class="txt-r">
-        <p><b>Torreón Coah, A <?php echo e($fecha_baja); ?></b></p>
-    </div>
-
-    <br/>
-
-    <div>
-        <p class="text1"><b>EMPLEADO: </b><?php echo e($nombreemplado); ?></p>
-        <p class="text1"><b>PUESTO: </b><?php echo e($puesto); ?></p>
+    <div class="row">
+        <div  class="text-center" style="border:0.7px solid #000000;width:100%;height:70px;">
+           <h4 class="fw-bold p1 mt-4"><?php echo e($nombreempresa); ?></h4>
+        </div>
     </div>
 
 
-    <div>
-
-        <table class="default">
-                    <br/>
-                        <tr>
-                            <td class="text1"><b>FECHA INGRESO:</b> </td><td class="text1"><?php echo e($fecha_ingreso); ?></td>
-
-                        </tr>
-                        <tr>
-                           <td class="text1"><b>FECHA BAJA:</b> </td><td class="text1"><?php echo e($fecha_baja); ?></td>
-                        </tr>
-                       
-                        <tr>
-                           <td class="text1"></td> <td class="text1"><b>000</b> días</td>
-                        </tr>
+    <div class="row text-center">
+        <p class="fw-bold">CALCULO DE FINIQUITO</p>
+    </div>
 
 
+    <div class="row texR mt-3 mb-4">
+        <p id="fecha">Torreón Coah, A <?php echo e($datenow); ?></p>
+    </div>
+
+
+
+    <div class="row mb-3">
+        <p><b>EMPLEADO: </b><?php echo e($nombreemplado); ?></p>
+        <p><b>PUESTO: </b><?php echo e($puesto); ?></p>
+    </div>
+
+
+    <div class="row mb-4">
+        <div style="border:0.7px solid #000000;padding:10px; width:100%;">
+            <table>
+                <tr>
+                    <td class="tdd1">FECHA INGRESO:</td>
+                    <td class="tdd2"><?php echo e($fecha_ingreso); ?></td>
+                    <td class="tdd11">S.D.</td>
+                    <td class="tdd2"><?php echo e($salario); ?></td> 
+                </tr>
+                <tr>
+                    <td class="tdd1">FECHA BAJA:</td>
+                    <td class="tdd2"><?php echo e($fecha_baja); ?></td>
+                    <td class="tdd11">S.D.I</td>
+                    <td class="tdd2 fw-bold"> - </td>
+                </tr>
+                <tr>
+                    <td class="tdd1"></td>
+                    <td class="tdd22"><?php echo e($diasDiferencia); ?> DIAS</td>
+                    <td class="tdd11" ></td>
+                    <td class="tdd2 fw-bold">PAGO QUINCENAL</td>
+                </tr>
             </table>
-
+        </div>
     </div>
-     <br/>  
-     <br/>
+
+   
 
      
 
-    <div class="txt-c "> 
-        <table class="default">
-            <caption><b> FINIQUITO </b></caption>
-                <br/>
-                    <tr class="txt-c">
-                        
-                        <td class="i-1">No. Empleado&nbsp;&nbsp;&nbsp; </td>
-                        <td class="i-1">Gratificacion&nbsp;&nbsp;&nbsp;</td>
-                        <td class="i-1">Aguinaldo&nbsp;&nbsp;&nbsp;</td>
-                        <td class="i-1">Vacaciones&nbsp;&nbsp;&nbsp;</td>
-                        <td class="i-1">Sueldo&nbsp;&nbsp;&nbsp;</td>
+    <div class="row mb-4">
+            <div>
+                <p style="border:0.7px solid #000000;width:70%;background-color:#dfdfdf;" class="fw-bold">FINIQUITO</p>
+            </div>
 
-                    </tr>
-
-                    <tr class="txt-c"> 
-                        
-                        <td><?php echo e($idempleado); ?></td>
-                        <td><?php echo e($rptvardiasgratificacion); ?></td>
-                        <td><?php echo e($rtpvaraguinaldoporporcional); ?></td>
-                        <td><?php echo e($rptvarvacacionesporporcionales); ?></td>
-                        <td><?php echo e($rptvarsueldoporporcional); ?></td>
-
-                    </tr>
-                    <br/>
-                    <tr class="txt-c"> 
-                        
-                        <td><b>Total de Percepciones</b></td>
-                        <td><?php echo e($totalper); ?></td>
-                        
-                    </tr>
-
-
-        </table>
-
-        <br/>
-        <hr/>
-        <br/>
-
-        <table class="default">
-                <caption><b> DEDUCCIONES </b></caption>
-                <br/>
-                        <tr class="txt-c">
-                            
-                            <td class="i-1">IMSS &nbsp;&nbsp;&nbsp; </td>
-                            <td class="i-1">Infonavit &nbsp;&nbsp;&nbsp;</td>
-                            <td class="i-1">Tranporte &nbsp;&nbsp;&nbsp;</td>
-                            <td class="i-1">Prestamos &nbsp;&nbsp;&nbsp;</td>
-                            <td class="i-1">Otras &nbsp;&nbsp;&nbsp;</td>
-
-                        </tr>
-
-                        <tr class="txt-c"> 
-                            
-                            <td><?php echo e($rptvardeudaimms); ?></td>
-                            <td><?php echo e($rptvardeduedainfonavit); ?></td>
-                            <td><?php echo e($rptvardeudatransporte); ?></td>
-                            <td><?php echo e($rptvardeudaprestamo); ?></td>
-                            <td><?php echo e($rptvarotrasdeudas); ?></td>
-
-                        </tr>
-                        <br/>
-                        <tr class="txt-c"> 
-                            
-                            <td><b>Total de deducciones</b></td>
-                            <td> <?php echo e($rptotaldeducciones); ?></td>
-                            
-                        </tr>
-
-
-        </table>
-
+            <table>
+                <tr>
+                    <td class="td1">NO. EMPLEADO</td>
+                    <td class="td2"><?php echo e($idempleado); ?></td>
+                    <td class="td3"></td>
+                </tr>
+                <tr>
+                    <td class="td1">GRATIFICACIÓN</td>
+                    <td class="td2"><?php echo e($rptvardiasgratificacion); ?></td>
+                    <td class="td3"></td>
+                </tr>
+                <tr>
+                    <td class="td1">SUELDO</td>
+                    <td class="td2"><?php echo e($rptvarotrasdeudas); ?></td>
+                    <td class="td3"></td>
+    
+                </tr>
+                <tr>
+                    <td class="td1">AGUINALDO</td>
+                    <td class="td2"><?php echo e($rtpvaraguinaldoporporcional); ?></td>
+                    <td class="td3"></td>
+    
+                </tr>
+                <tr>
+                    <td class="td1">PRIMA VACACIONAL</td>
+                    <td class="td2"><?php echo e($rptvarvacacionesporporcionales); ?></td>
+                    <td class="td3"></td>
+    
+                </tr>
+                <tr>
+                    <td class="td1"><b>TOTAL PERCEPCIONES</b></td>
+                    <td class="td22"><?php echo e($totalper); ?></td>
+                    <td class="td3"></td>
+    
+                </tr>
+            </table>
     </div>
 
-    <br/>
-    <br/>
 
-    <div class="border2">
-        <p class="p1"> <b >TOTAL A PAGAR </b></p>
-        <p class=" p1"><?php echo e($rpttotalentregar); ?></p>
+                        
+    <div class="row mb-4">
+        <div>
+            <p style="border:0.7px solid #000000;width:70%;background-color:#dfdfdf;" class="fw-bold">DEDUCCIONES</p>
+        </div>
+        <table>
+            <tr>
+                <td class="td1">IMSS</td>
+                <td class="td2"><?php echo e($rptvardeudaimms); ?></td>
+                <td class="td3"></td>
+            </tr>
+            <tr>
+                <td class="td1">INFONAVIT</td>
+                <td class="td2"><?php echo e($rptvardeduedainfonavit); ?></td>
+                <td class="td3"></td>
+            </tr>
+            <tr>
+                <td class="td1">TRANSPORTE</td>
+                <td class="td2"><?php echo e($rptvardeudatransporte); ?></td>
+                <td class="td3"></td>
+
+            </tr>
+            <tr>
+                <td class="td1">PRESTAMOS</td>
+                <td class="td2"><?php echo e($rptvardeudaprestamo); ?></td>
+                <td class="td3"></td>
+
+            </tr>
+            <tr>
+                <td class="td1">OTRAS</td>
+                <td class="td2"><?php echo e($rptvarotrasdeudas); ?></td>
+                <td class="td3"></td>
+
+            </tr>
+            <tr>
+                <td class="td1"><b>TOTAL DEDUCCIONES</b></td>
+                <td class="td22"><?php echo e($rptotaldeducciones); ?></td>
+                <td class="td3"></td>
+
+            </tr>
+        </table>
+     
+    </div>
+                        
+                    
+
+
+    <div class="row" style="margin-bottom:200px;">
+        <div style="width:70%;background-color:#dfdfdf;">
+            <p class="p1">TOTAL A PAGAR&nbsp;&nbsp;&nbsp;&nbsp;<b><?php echo e($rpttotalentregar); ?></b></p>
+        </div>
     </div>
  
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="border2" style="border-top: .5px solid #000000;" width:200px;>
-        <h4 ><?php echo e($nombreemplado); ?></h4>
 
 
+    <div class="row">
+        <table class="default">
+            <tr>
+                <th style="border: 0.3px solid #000000;border-radius:20px;width:25px;height:55px;"></td>
+                <th style="border-bottom: 0.3px solid #000000;width:150px;"></td>
+                <th style="border: 0.3px solid #000000;border-radius:80px;width:25px;height:55px;"></td>
+            </tr>
 
-        <p>FIRMA DE CONFORMIDAD</p>
+            <tr>
+                <td  style="width:25px;"></td>
+                <td style="width:150px;" class="text-center">
+                    <p class="fw-bold p-1"><?php echo e($nombreemplado); ?></p>
+                    <p>FIRMA DE CONFORMIDAD</p>
+                </td>
+                <td style="width:25px;"></td>
+            </tr>
+
+        </table>
     </div>
-  
-
-    
-
-
-
-   
-       
-  
  
     </body>
 </html><?php /**PATH C:\Users\Aux sistemas\Desktop\FincreRPLaravel\resources\views/Empleados/rptfiniquito.blade.php ENDPATH**/ ?>

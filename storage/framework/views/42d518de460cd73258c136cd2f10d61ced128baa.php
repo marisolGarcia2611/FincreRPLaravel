@@ -1,7 +1,24 @@
 
 <?php $__env->startSection('content'); ?>
 
-</style>
+
+<?php if($mensaje = Session::get('success')): ?>
+  <?php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1500});';
+          echo '</script>';  
+  ?>
+
+<?php elseif($mensaje = Session::get('warning')): ?>
+  <?php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","warning", {buttons: false,timer: 3000});';
+          echo '</script>';  
+  ?>
+
+<?php endif; ?>
+
+
 
 <div class="mt-4 p__little">
 <br/>
@@ -40,23 +57,36 @@
           <?php $__currentLoopData = $varnominas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $nomina): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
               <td class="td-tools">
-                <form action="">
+                <form action="/Nominas/exportar_excel">
+                  <?php echo csrf_field(); ?>
                   <?php if($nomina->estado_nomina==="Iniciada"): ?>
                   <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/<?php echo e($nomina->id); ?>/<?php echo e($nomina->idtiponomina); ?>"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/<?php echo e($nomina->id); ?>"></a> <!--solo de enc-->
                   <?php elseif($nomina->estado_nomina==="Edicion"): ?>
                   <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/<?php echo e($nomina->id); ?>/<?php echo e($nomina->idtiponomina); ?>"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/temporal/<?php echo e($nomina->id); ?>"></a><!--solo de enc det temdet-->
                   <?php elseif($nomina->estado_nomina==="Cerrada"): ?>
+                  <input type="text" name="id" id="id" hidden value="<?php echo e($nomina->id); ?>">
                   <button class="text-light btn fas fa-download border-0 push"  type="submit"></button>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/calcular/<?php echo e($nomina->id); ?>"></a><!--solo de enc det-->
                   <?php endif; ?> 
                 </form>
               </td>
                    
-                <td class="bg-1"><?php echo e($nomina->id); ?></td>
+                <td class="bg-3"><?php echo e($nomina->id); ?></td>
                 <td class="bg-1"><?php echo e($nomina->nombre_nomina); ?></td>
                 <td class="bg-2"><?php echo e($nomina->fecha_inicio); ?></td>
-                <td class="bg-1"><?php echo e($nomina->fecha_fin); ?></td>
-                <td class="bg-1"><?php echo e($nomina->estado_nomina); ?></td>
-                <td name="dtiponomina" class="bg-1"><?php echo e($nomina->idtiponomina); ?></td>
+                <td class="bg-2"><?php echo e($nomina->fecha_fin); ?></td>
+                <td class="table-success border-0"><?php echo e($nomina->estado_nomina); ?></td>
+                <td name="dtiponomina" class="table-warning border-0">
+                  <?php if($nomina->idtiponomina == 1): ?>
+                  Semanal
+                 <?php elseif($nomina->idtiponomina == 2): ?>
+                  Quincenal
+                 <?php elseif($nomina->idtiponomina == 3): ?>
+                  Mensual
+                <?php endif; ?>
+                </td>
             </tr>
            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
@@ -138,7 +168,8 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Tipo de Nomina</label>
-                      <select name="tipo_nomina">
+                      <select class="form-select" name="tipo_nomina" required>
+                        <option value="">Seleccionar...</option>
                         <?php $__currentLoopData = $varisrenc; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $isrenc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <option value="<?php echo e($isrenc->id); ?>"><?php echo e($isrenc->tipo); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -160,7 +191,7 @@
                      <br/>
                     <!-- Guardar empleado -->
                     <div class="offcanvas-footer text-center" style="padding:10px;">
-                      <button class="btn btn-dark" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Crear Nomina</button>
+                      <button class="btn btn-blue" style="border-radius: 40px;" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Crear Nomina</button>
                     </div>
               </form>
             </div>
@@ -182,6 +213,26 @@
     new $.fn.dataTable.FixedHeader( table );
 //   });
 // });
+</script>
+<script>
+  // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
+(function () {
+  'use strict'
+
+  // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+  var forms = document.querySelectorAll('.needs-validation')
+  // Bucle sobre ellos y evitar el envío
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Aux sistemas\Desktop\FincreRPLaravel\resources\views/nominas/nomina.blade.php ENDPATH**/ ?>

@@ -3,7 +3,7 @@
 <!--INICIO BUTON AREA-->
 <div class="pos__btnBack">
   <div class="wrapper"> 
-      <p class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></p>
+    <h5 class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
   </div>
       <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <defs>
@@ -19,7 +19,6 @@
 
 <?php $__currentLoopData = $obtenerempleado; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $empleado): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   <div class="mt-5 p__little">
-    <?php if($empleado->estado == "A"): ?>
       <nav id="navbar-example2" class="navbar navbar-light bg-light text-light px-3 d-none d-md-block nav-float shadow-lg p-3 mb-5 bg-body">
         <ul style="margin-left:-20px;margin-right: 10px;">
           <div class="nav-item mt-2 row">
@@ -38,7 +37,6 @@
           </div>
         </ul>
       </nav>
-    <?php endif; ?>
   </div>
 
 
@@ -47,98 +45,7 @@
             <div class="container">
               <div data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
               
-                  <!-- Activar usuario-->
-                  <?php if($empleado->estado == "I"): ?>         
-                    <div class="card p-5 mt-5 cartaForm mb-4">
-                        <div class="text-center text-primary mb-4">
-                           <h1><i class="fas fa-exclamation-triangle"></i></h1> 
-                           <h4>Este empleado esta inactivo en este momento</h4>
-                        </div>
-                      
-                        <div class="row mb-4">
-                            <div>
-                              <form action="<?php echo e(route('reactivar', $empleado->idempleado)); ?>" method="POST" enctype="multipart/form-data" class="g-3 needs-validation" novalidate>
-                                <?php echo csrf_field(); ?>
-                                <?php echo method_field('PUT'); ?>
-
-                                 <!-- Detalles de reingreso-->
-                                  <div class="row mb-4">
-                                    <input type="text" hidden class="form-control" name="idnomina"  value="<?php echo e($empleado->idnom); ?>" required />
-                                    <input type="text" hidden class="form-control" name="rfc" value="<?php echo e($empleado->rfc); ?>" required/>
-
-                                    <div class="col">
-                                      <div class="form-outline">
-                                      <label class="form-label" >Fecha de reingreso</label>
-                                        <input type="date" name="fecha_alta" id="fecha_alta" class="form-control"  value="<?php echo e($empleado->fecha_ingreso); ?>"  required />
-                                        <div class="valid-feedback">
-                                          ¡Se ve bien!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                          Por favor, completa la información requerida.
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <div class="col">
-                                      <div class="form-outline">
-                                      <label class="form-label" >Fecha de ingreo a IMSS</label>
-                                        <input type="date" name="fecha_ingreso_imss" id="fecha_ingreso_imss" class="form-control" value="<?php echo e($empleado->fecha_ingreso_imss); ?>" maxlength="12" />
-                                        <div class="valid-feedback">
-                                          ¡Se ve bien!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                          Por favor, completa la información requerida.
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-3" id="sueldo_fiscal">
-                                      <label class="form-label">Sueldo fiscal</label>
-                                      <input type="text" name="sueldo_fiscal" id="sueldo_fiscal" class="form-control"  value="<?php echo e($empleado->sueldo_fiscal); ?>" maxlength="8"  required />                      
-                                      <div class="valid-feedback">
-                                        ¡Se ve bien!
-                                      </div>
-                                      <div class="invalid-feedback">
-                                        Por favor, completa la información requerida.
-                                      </div>
-                                    </div>
-                                  
-                                    <div class="col-md-3" id="excedente">
-                                      <label class="form-label">Excedente</label>
-                                      <input type="text" name="excedente" id="excedente" class="form-control"  value="<?php echo e($empleado->excedente); ?>" maxlength="8"  required />
-                                      <div class="valid-feedback">
-                                        ¡Se ve bien!
-                                      </div>
-                                      <div class="invalid-feedback">
-                                        Por favor, completa la información requerida.
-                                      </div>
-                                    </div>
-                                  </div>
-                                  
-                                  <div class="row mb-4">                              
-                                      <div class="row text-center">
-                                        <div class="col-md-4 d-md-block d-none"></div>
-                                        <div class="input-file-container col-md-4">  
-                                          <input class="input-file" id="my-file" type="file" name="urlpdf">
-                                            <label for="my-file"name="my-file" style="border-radius:100px;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
-                                            <p class="file-return"></p> 
-                                        </div>
-                                        <div class="col-md-4 d-md-block d-none"></div>
-                                      </div>
-                                    <p class="txtcenter">Recuerde que solo se admite el formato ".pdf"</p>
-                                  </div>
-
-                                <div class="text-center">
-                                  <button type="submit" class="btn btn-blue push" style="width: 40%;border-radius:50px;">Activar empleado</button>
-                                </div>
-                              </form>
-                            </div>                       
-                        </div>
-                    </div>
-                    
-
-                  <?php else: ?>
-                    <form  action="<?php echo e(route('update', $empleado->idempleado)); ?>" method="POST"  enctype="multipart/form-data"  class="g-3 needs-validation" novalidate> 
+                    <form  action="<?php echo e(route('cambiar', $empleado->idempleado)); ?>" method="POST"  enctype="multipart/form-data"  class="g-3 needs-validation" novalidate> 
                       <?php echo csrf_field(); ?>
                       <?php echo method_field('PUT'); ?>
 
@@ -817,7 +724,6 @@
 
                       
                     </form>
-                  <?php endif; ?>
 
               </div>
             </div>
@@ -828,44 +734,23 @@
 
 <script>
   // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
-(function () {
-  'use strict'
+  (function () {
+    'use strict'
 
-  // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
-  var forms = document.querySelectorAll('.needs-validation')
-  // Bucle sobre ellos y evitar el envío
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-</script>
-
-<script>
-  document.querySelector("html").classList.add('js');
-
-    var fileInput  = document.querySelector( ".input-filee" ),  
-        button     = document.querySelector( ".input-filee-trigger" ),
-        the_return = document.querySelector(".filee-return");
-          
-    button.addEventListener( "keydown", function( event ) {  
-        if ( event.keyCode == 13 || event.keyCode == 32 ) {  
-            fileInput.focus();  
-        }  
-    });
-    button.addEventListener( "click", function( event ) {
-      fileInput.focus();
-      return false;
-    });  
-    fileInput.addEventListener( "change", function( event ) {  
-        the_return.innerHTML = this.value;  
-    });  
+    // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+    var forms = document.querySelectorAll('.needs-validation')
+    // Bucle sobre ellos y evitar el envío
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
 </script>
 
 

@@ -6,6 +6,11 @@ use App\Models\Nominas_pagosdet;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Http\Request;
+use App\Http\Controllers\NominasController;
+use Illuminate\Http\RedirectResponse;
+use  Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 
 class BoTranImport implements ToModel,WithHeadingRow
 {
@@ -28,8 +33,11 @@ class BoTranImport implements ToModel,WithHeadingRow
             $nomina->transporte= ($row['transporte']);
             $nomina->bono= ($row['bono']);
             $nomina->save();
+
+            // return redirect()->route('/Nominas')->with("successExcel","¡Se guardaron los cambios correctamente!");
+
         }
-        
+        // return redirect()->route('/Nominas')->with("warningExcel","¡Se guardaron los cambios correctamente!");
         // $nominas = $this->nominas_pagosdet->where('id', $row['id']);
         // return new Nominas_pagosdet([
         //     'bono'=>$row['bono'],

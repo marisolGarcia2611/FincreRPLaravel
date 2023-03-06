@@ -24,7 +24,7 @@
 <!--INICIO BUTON AREA-->
 <div class="pos__btnBack">
     <div class="wrapper"> 
-        <p class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></p>
+        <h5 class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
     </div>
         <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="card-body offcanvas-body small" style="padding-left: 30px;padding-right:30px;">
-                    <form method="POST" action="{{ route('asignarPermiso') }}" method="POST" class="g-3 needs-validation"  id="frm" novalidate>
+                    <form method="POST" action="{{ route('asignarPermiso') }}"class="g-3 needs-validation"  id="frm" novalidate>
                         @csrf
 
                         <div>

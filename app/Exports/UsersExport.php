@@ -35,7 +35,16 @@ class UsersExport implements   FromCollection, WithHeadings, ShouldAutoSize, Wit
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
                 $cells = 'A2:WW2';
                 $event->sheet->getDelegate()->getStyle($cells)->getFont()->setBold(true);
-                $event->sheet->getDelegate()->setAutoFilter('A2:AN2');
+                $event->sheet->getDelegate()->setAutoFilter('A2:AT2');
+                $event->sheet->getStyle('A2:AT2')->applyFromArray([
+                    'borders' => [
+                        'outline' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '000000'],
+                        ],
+                    ]
+                ]);
+                // $ev
                 // $event->$shet->setAutoFilter('A2');
 
 

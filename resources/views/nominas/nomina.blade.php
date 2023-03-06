@@ -1,7 +1,24 @@
 @extends('layouts.app')
 @section('content')
 
-</style>
+{{-- ALERTAS --}}
+@if ($mensaje = Session::get('success'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1500});';
+          echo '</script>';  
+  @endphp
+
+@elseif($mensaje = Session::get('warning'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","warning", {buttons: false,timer: 3000});';
+          echo '</script>';  
+  @endphp
+
+@endif
+
+{{-- ALERTAS --}}
 
 <div class="mt-4 p__little">
 <br/>
@@ -40,23 +57,36 @@
           @foreach($varnominas as $nomina)
             <tr>
               <td class="td-tools">
-                <form action="">
+                <form action="/Nominas/exportar_excel">
+                  @csrf
                   @if($nomina->estado_nomina==="Iniciada")
                   <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/{{$nomina->id}}"></a> <!--solo de enc-->
                   @elseif($nomina->estado_nomina==="Edicion")
                   <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/temporal/{{$nomina->id}}"></a><!--solo de enc det temdet-->
                   @elseif($nomina->estado_nomina==="Cerrada")
+                  <input type="text" name="id" id="id" hidden value="{{$nomina->id}}">
                   <button class="text-light btn fas fa-download border-0 push"  type="submit"></button>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/calcular/{{$nomina->id}}"></a><!--solo de enc det-->
                   @endif 
                 </form>
               </td>
                    
-                <td class="bg-1">{{$nomina->id}}</td>
+                <td class="bg-3">{{$nomina->id}}</td>
                 <td class="bg-1">{{$nomina->nombre_nomina}}</td>
                 <td class="bg-2">{{$nomina->fecha_inicio}}</td>
-                <td class="bg-1">{{$nomina->fecha_fin}}</td>
-                <td class="bg-1">{{$nomina->estado_nomina}}</td>
-                <td name="dtiponomina" class="bg-1">{{$nomina->idtiponomina}}</td>
+                <td class="bg-2">{{$nomina->fecha_fin}}</td>
+                <td class="table-success border-0">{{$nomina->estado_nomina}}</td>
+                <td name="dtiponomina" class="table-warning border-0">
+                  @if($nomina->idtiponomina == 1)
+                  Semanal
+                 @elseif($nomina->idtiponomina == 2)
+                  Quincenal
+                 @elseif($nomina->idtiponomina == 3)
+                  Mensual
+                @endif
+                </td>
             </tr>
            @endforeach
         </tbody>
@@ -138,7 +168,8 @@
                         <!-- Email input -->
                         <div class="form-outline">
                         <label class="form-label" >Tipo de Nomina</label>
-                      <select name="tipo_nomina">
+                      <select class="form-select" name="tipo_nomina" required>
+                        <option value="">Seleccionar...</option>
                         @foreach($varisrenc as $isrenc)
                         <option value="{{$isrenc->id}}">{{$isrenc->tipo}}</option>
                         @endforeach
@@ -160,7 +191,7 @@
                      <br/>
                     <!-- Guardar empleado -->
                     <div class="offcanvas-footer text-center" style="padding:10px;">
-                      <button class="btn btn-dark" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Crear Nomina</button>
+                      <button class="btn btn-blue" style="border-radius: 40px;" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Crear Nomina</button>
                     </div>
               </form>
             </div>
@@ -182,5 +213,25 @@
     new $.fn.dataTable.FixedHeader( table );
 //   });
 // });
+</script>
+<script>
+  // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
+(function () {
+  'use strict'
+
+  // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+  var forms = document.querySelectorAll('.needs-validation')
+  // Bucle sobre ellos y evitar el envío
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
 </script>
 @endsection

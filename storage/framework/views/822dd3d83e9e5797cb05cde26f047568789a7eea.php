@@ -5,23 +5,38 @@
 <?php if($mensaje = Session::get('success')): ?>
   <?php
           echo '<script language="JavaScript">';
-          echo 'swal("¡Acción exitosa!","Empleado actualizado de forma correcta.","success", {buttons: false,timer: 1500});';
+          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1500});';
           echo '</script>';  
   ?>
 
 <?php elseif($mensaje = Session::get('warning')): ?>
   <?php
           echo '<script language="JavaScript">';
-          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","warning", {buttons: false,timer: 1500});';
+          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","warning", {buttons: false,timer: 3000});';
           echo '</script>';  
   ?>
 
+<?php elseif($mensaje = Session::get('successExcel')): ?>
+  <?php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡Acción exitosa!","Archivo importado correctamente","success", {buttons: false,timer: 3000});';
+          echo '</script>';  
+  ?>
+
+<?php elseif($mensaje = Session::get('warningExcel')): ?>
+<?php
+        echo '<script language="JavaScript">';
+        echo 'swal("¡No se efectuo la acción!","Revise que el archivo importado cumpla con el formato requerido","warning", {buttons: false,timer: 3000});';
+        echo '</script>';  
+?>
 <?php endif; ?>
+
+
 
 <!--INICIO BUTON AREA-->
 <div class="pos__btnBack">
   <div class="wrapper"> 
-      <p class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></p>
+     <a href="/Nominas"><h5 class="btnBack"><i class="fas fa-solid fa-arrow-left"></i></h5></a>
   </div>
       <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <defs>
@@ -39,175 +54,203 @@
 <div class="mt-4 p__little">
 
 
-<div class="container">
-   <div class="row">
-    <center class="col-md-6 mt-4">
-        <div>
-          <h2 class="mt-3 mb-3 fw-light animate_animated ">Nominas</h2> 
-        </div>
-        <div >
-          <div class="mt-8">
-            <div>
-              <button type="submit" class=" animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-times-circle"></i>&nbsp; Cerrar Nomina </button> 
-            </div>
-        </div>
-      </div> 
-    </center> 
-
-      
-      <center class="col-md-6 mt-4">
-        <div class="row shadow-sm p-3 bg-body rounded  bt__flat"  style="width: 95%;">
-          <div class="">
-            <h6 class="card-title mt-4 fw-light">Importar Bonos y Transporte</h6>
-            <hr/>
+  <div class="container">
+    <div class="row">
+      <center class="col-md-12 mt-4 mb-4">
+          <div>
+            <h2 class="mt-3 mb-3 fw-light animate_animated">Nomina de Empleados</h2> 
           </div>
-          <div class="card-body">
-            <form action="/importBoTrans" method="POST" enctype="multipart/form-data" class="g-3 needs-validation" novalidate>
-              <?php echo csrf_field(); ?>
-          
-                <div class="row mb-2">                              
-                    <div class="row text-center">
-                      <div class="col-md-4 d-md-block d-none"></div>
-                      <div class="input-file-container col-md-4">  
-                        <input class="input-file" id="my-file" type="file" name="urlpdf">
-                          <label for="my-file"name="my-file" style="border-radius:100px;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
-                          <p class="file-return"></p> 
-                      </div>
-                      <div class="col-md-4 d-md-block d-none"></div>
-                    </div>
-                  <p class="txtcenter">Recuerde que solo se admite el formato ".xlxs"</p>
-                </div>
-          
-              <div class="text-center mb-3">
-                <button class="btn btn-blue" type="submit" style="width: 30%;border-radius:50px;"><i class="fas fa-upload"></i>&nbsp;&nbsp;Importar</button>
+          <div >
+          <div class="row mt-2 text-end">
+              <div class="col-md-3 d-md-block d-none"></div>
+
+              <div class="col-md-2">
+                <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom"><i class="fas fa-file-upload"></i>&nbsp;Importar extras</button>
               </div>
-            </form>
-          </div>
 
-        </div>
-    </center>
+              <div class="col-md-2 mar-l">
+                  <?php $__currentLoopData = $varnominas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $nomina): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <form action="/Nominas/calcularnomina/<?php echo e($nomina->idpagonomina); ?>/<?php echo e($nomina->idtiponomina); ?>">
+                        <?php echo csrf_field(); ?>
+                      <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-calculator"></i>&nbsp; Calcular Nomina</button> 
+                    </form>
+                    <?php break; ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>  
+              </div>
+
+              <div class="col-md-2">
+                <?php $__currentLoopData = $varnominas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $nomina): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <form action="/Nominas/cerrarnomina/<?php echo e($nomina->idpagonomina); ?>/<?php echo e($nomina->idtiponomina); ?>">
+                      <?php echo csrf_field(); ?>
+                      <button class=" animate__animated animate__backInLeft btn push2 bt__flat" type="submit"><i class="fas fa-times-circle"></i>&nbsp; Cerrar Nomina </button> 
+                    </form>
+                    <?php break; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>           
+            </div>
+
+              <div class="col-md-3 d-md-block d-none"></div>
+              
+          </div>
+      </center> 
+    </div>
+  </div>
+  
+ 
+<div class="container mt-3">
+  <div class="row">
+    <div>
+      <div class="shadow-lg mb-5 bg-body rounded border-0" style="">
+        <div class="table-responsive pad-table" id="mydatatable-container">     
+            <table class="table table-hover" id="tblempleados">
+            <thead class="table">
+                  <tr class="tr-table"> 
+                  <th class="text-center fw-light">Acciones</th>
+                  <th class="text-center fw-light">Tipo de Nomina</th>
+                  <th class="text-center fw-light">No. Corrida Nomina</th>
+                  <th class="text-center fw-light">No. Nomina</th>
+                  <th class="text-center fw-light">No. Empleado</th>
+                  <th class="text-center fw-light">Nombre Empleado</th>
+                  <th class="text-center fw-light">Puesto</th>
+                  <th class="text-center fw-light">Sucursal</th>
+                  <th class="text-center fw-light">Faltas/ret/aus</th>
+                  <th class="text-center fw-light">Dias Laborados</th>
+                  <th class="text-center fw-light">Sueldo Fiscal</th>
+                  <th class="text-center fw-light">Sueldo Excedente</th>
+                  <th class="text-center fw-light">Sueldo Efectivo</th>
+                  <th class="text-center fw-light">Sueldo Total</th>
+                  <th class="text-center fw-light">Deudores Fiscal</th>
+                  <th class="text-center fw-light">Deudores No Fiscal</th>
+                  <th class="text-center fw-light">Total Deudores</th>
+                  <th class="text-center fw-light">Pago Infonavit</th>
+                  <th class="text-center fw-light">Pago Imss</th>
+                  <th class="text-center fw-light">Pago ISR</th>
+                  <th class="text-center fw-light">Pago Subsidio</th>
+                  <th class="text-center fw-light">Pago Prima Vacacional</th>
+                  <th class="text-center fw-light">Pago Dias Pendientes</th>
+                  <th class="text-center fw-light">Bono</th>
+                  <th class="text-center fw-light">Transporte</th>
+                  <th class="text-center fw-light">Total Nomina Fiscal</th>
+                  <th class="text-center fw-light">Total Excedente</th>
+                  <th class="text-center fw-light">Total Efectivo</th>
+                  <th class="text-center fw-light">Pago Nomina Fiscal Global</th>
+                  <th class="text-center fw-light">Pago Nomina Excedente Global</th>
+                  <th class="text-center fw-light">Pago Efectivo Cajas</th>
+                  <th class="text-center fw-light">Total a pagar</th>
+                  <th class="text-center fw-light">Banco</th>
+                  <th class="text-center fw-light">Numero de Tarjeta</th>
+                  <th class="text-center fw-light">Numero de Cuenta</th>
+                  
+                
+                </tr>
+              </thead>
+              
+              <tbody>
+              
+                  <tr>
+                    <?php $__currentLoopData = $varnominas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $nomina): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <td class="td-tools">
+                      <a class="text-light btn fas fa-edit border-0 push"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($nomina->id); ?>"></a>
+                    </td>
+                    <td class="bg-3">
+                      <?php if($nomina->idtiponomina == 1): ?>
+                      Semanal
+                      <?php elseif($nomina->idtiponomina == 2): ?>
+                      Quincenal
+                      <?php elseif($nomina->idtiponomina == 3): ?>
+                      Mensual
+                    <?php endif; ?>
+                    </td>
+                    <td class="bg-1"><?php echo e($nomina->idpagonomina); ?></td>
+                    <td name="nominaid" class="bg-1"><?php echo e($nomina->id); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->idempleado); ?></td>
+                    <td class="bg-2"><?php echo e($nomina->primer_nombre.' '.$nomina->segundo_nombre.' '.$nomina->apellido_paterno.' '.$nomina->apellido_materno); ?></td>
+                    <td class="bg-2"><?php echo e($nomina->puesto); ?></td>
+                    <td class="bg-2"><?php echo e($nomina->sucursal); ?></td>
+                    <td class="table-warning border-0"><?php echo e($nomina->faltas_reta_aus); ?></td>
+                    <td class="table-success border-0"><?php echo e($nomina->dias_laborados); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->sueldo_fiscal); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->excedente); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->efectivo); ?></td>
+                    <td class="table-danger border-0"><?php echo e($nomina->total_sueldo); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->deudores_fiscal); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->deudores_no_fiscal); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->total_deudores); ?></td> 
+                    <td class="bg-1"><?php echo e($nomina->pago_infonavit); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->pago_imss); ?></td>  
+                    <td class="table-warning border-0"><?php echo e($nomina->pago_isr); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->pago_subsidio); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->pago_prima_vacacional); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->dias_pendiente); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->bono); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->transporte); ?></td>
+                    <td class="bg-3"><?php echo e($nomina->total_nomina_fiscal); ?></td>
+                    <td class="bg-3"><?php echo e($nomina->total_apagar_excedente); ?></td>
+                    <td class="bg-3"><?php echo e($nomina->total_efectivo); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->pago_nomina_fiscal_global); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->pago_nomina_excedente_global); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->pago_efectivo_cajas); ?></td>
+                    <td class="bg-1"><?php echo e($nomina->total_apagar); ?></td>
+                    <td class="bg-3"><?php echo e($nomina->banco); ?></td>
+                    <td class="bg-3"><?php echo e($nomina->numero_tarjeta); ?></td>
+                    <td class="bg-3"><?php echo e($nomina->numero_cuenta); ?></td>  
+                  </tr>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </tbody>
+            </table>
+        </div>  
+      </div>   
+    </div>
   </div>
 </div>
- 
- 
 
-<div class="shadow-lg mb-5 bg-body rounded border-0" style="margin:20px;width:95%;">
-  <div class="table-responsive pad-table" id="mydatatable-container">     
-    <form action="/nominasupdate/">
-      <table class="table table-hover" id="tblempleados">
-      <thead class="table">
-            <tr class="tr-table"> 
-            <th class="text-center fw-light">Acciones</th>
-            <th class="text-center fw-light">ID</th>
-            <th class="text-center fw-light">Numero Empleado</th>
-            <th class="text-center fw-light">Numero de Nomina pago</th>
-            <th class="text-center fw-light">Nombre Empleado</th>
-            <th class="text-center fw-light">Puesto</th>
-            <th class="text-center fw-light">Sucursal</th>
-            <th class="text-center fw-light">Faltas/ret/aus</th>
-            <th class="text-center fw-light">Dias Laborados</th>
-            <th class="text-center fw-light">Sueldo Fiscal</th>
-            <th class="text-center fw-light">Sueldo Excedente</th>
-            <th class="text-center fw-light">Sueldo Efectivo</th>
-            <th class="text-center fw-light">Sueldo Total</th>
-            <th class="text-center fw-light">Deudores Fiscal</th>
-            <th class="text-center fw-light">Deudores No Fiscal</th>
-            <th class="text-center fw-light">Total Deudores</th>
-            <th class="text-center fw-light">Pago Infonavit</th>
-            <th class="text-center fw-light">Pago Imss</th>
-            <th class="text-center fw-light">Pago ISR</th>
-            <th class="text-center fw-light">Pago Subsidio</th>
-            <th class="text-center fw-light">Pago Prima Vacacional</th>
-            <th class="text-center fw-light">Pago Dias Pendientes</th>
-            <th class="text-center fw-light">Bono</th>
-            <th class="text-center fw-light">Transporte</th>
-            <th class="text-center fw-light">Total Nomina Fiscal</th>
-            <th class="text-center fw-light">Total Excedente</th>
-            <th class="text-center fw-light">Total Efectivo</th>
-            <th class="text-center fw-light">Pago Nomina Fiscal Global</th>
-            <th class="text-center fw-light">Pago Nomina Excedente Global</th>
-            <th class="text-center fw-light">Pago Efectivo Cajas</th>
-            <th class="text-center fw-light">Total a pagar</th>
-            <th class="text-center fw-light">Banco</th>
-            <th class="text-center fw-light">Numero de Tarjeta</th>
-            <th class="text-center fw-light">Numero de Cuenta</th>
-          
-          </tr>
-        </thead>
-        
-        <tbody>
-         
-            <tr>
-              <?php $__currentLoopData = $varnominas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $nomina): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-              <td class="td-tools">
-                 <a class="text-light btn fas fa-edit border-0 push"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($nomina->id); ?>"></a>
-              </td>
 
-              <td name="nominaid" class="bg-1"><?php echo e($nomina->id); ?></td>
-              <td class="bg-1"><?php echo e($nomina->idempleado); ?></td>
-              <td class="bg-1"><?php echo e($nomina->idpagonomina); ?></td>
-              <td class="bg-2"><?php echo e($nomina->primer_nombre.' '.$nomina->segundo_nombre.' '.$nomina->apellido_paterno.' '.$nomina->apellido_materno); ?></td>
-              <td class="bg-2"><?php echo e($nomina->puesto); ?></td>
-              <td class="bg-2"><?php echo e($nomina->sucursal); ?></td>
-              <td class="table-warning border-0"><?php echo e($nomina->faltas_reta_aus); ?></td>
-              <td class="table-success border-0"><?php echo e($nomina->dias_laborados); ?></td>
-              <td class="bg-1"><?php echo e($nomina->sueldo_fiscal); ?></td>
-              <td class="bg-1"><?php echo e($nomina->excedente); ?></td>
-              <td class="bg-1"><?php echo e($nomina->efectivo); ?></td>
-              <td class="table-danger border-0"><?php echo e($nomina->total_sueldo); ?></td>
-              <td class="bg-1"><?php echo e($nomina->deudores_fiscal); ?></td>
-              <td class="bg-1"><?php echo e($nomina->deudores_no_fiscal); ?></td>
-              <td class="bg-1"><?php echo e($nomina->total_deudores); ?></td> 
-              <td class="bg-1"><?php echo e($nomina->pago_infonavit); ?></td>
-              <td class="bg-1"><?php echo e($nomina->pago_imss); ?></td>  
-              <td class="table-warning border-0"><?php echo e($nomina->pago_isr); ?></td>
-              <td class="bg-1"><?php echo e($nomina->pago_subsidio); ?></td>
-              <td class="bg-1"><?php echo e($nomina->pago_prima_vacacional); ?></td>
-              <td class="bg-1"><?php echo e($nomina->dias_pendiente); ?></td>
-              <td class="bg-1"><?php echo e($nomina->bono); ?></td>
-              <td class="bg-1"><?php echo e($nomina->transporte); ?></td>
-              <td class="bg-3"><?php echo e($nomina->total_nomina_fiscal); ?></td>
-              <td class="bg-3"><?php echo e($nomina->total_apagar_excedente); ?></td>
-              <td class="bg-3"><?php echo e($nomina->total_efectivo); ?></td>
-              <td class="bg-1"><?php echo e($nomina->pago_nomina_fiscal_global); ?></td>
-              <td class="bg-1"><?php echo e($nomina->pago_nomina_excedente_global); ?></td>
-              <td class="bg-1"><?php echo e($nomina->pago_efectivo_cajas); ?></td>
-              <td class="bg-1"><?php echo e($nomina->total_apagar); ?></td>
-              <td class="bg-3"><?php echo e($nomina->banco); ?></td>
-              <td class="bg-3"><?php echo e($nomina->numero_tarjeta); ?></td>
-              <td class="bg-3"><?php echo e($nomina->numero_cuenta); ?></td>  
-            </tr>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </tbody>
-      </table>
-      <Button class="btn btn-blue rounded-5" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar Cambios</Button>
+<!-- ................................................................................................................................................-->
+
+<!-- Subir archivo Modal-->
+<div class="offcanvas offcanvas-bottom sudmit" tabindex="-1" id="offcanvaBottomUpload" aria-labelledby="offcanvasBottomLabel" style="height:65vh">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+    <h1>Importar Extras(Bonos,Transporte y Prestamos)</h1>
+    <h2>Favor de subir el archivo con formato</h2>
+      <form action="/Nominas/importBoTrans" method="POST" enctype="multipart/form-data" class="g-3 needs-validation" novalidate>
+        <?php echo csrf_field(); ?>
+    
+          <div class="mb-2">                              
+              <div class=" text-center">
+                <div class="input-file-container">  
+                  <input class="input-file" id="my-file" type="file" name="urlxlsx" required>
+                  <div class="valid-feedback fs-8">
+                    ¡Se ve bien!
+                  </div>
+                  <div class="invalid-feedback fs-8">
+                    ¡Por favor, sube el archivo de importación!
+                  </div>
+                    <label for="my-file"name="my-file" style="border-radius:100px;width:98%!important;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
+                    <p class="file-return"></p> c
+                    <br/>
+                    <hr/>
+                    <button class="btn btn-send" type="submit" value="subir"><h3><i class="fas fa-paper-plane"></i> Enviar</h3></button>
+                </div>
+              </div>
+          </div>
       </form>
-  </div>  
+    <p class="txtcenter">Recuerde que solo se admite el formato ".pdf"</p>
+  </div>
 </div>
+<!-- Subir archivo Modal-->
+
+<!-- ................................................................................................................................................-->
 
 
 
-
-  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
+  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:40vh">
 
     <div class="offcanvas-header">
       <nav id="navbar-example2" class="navbar navbar-light px-3">
             <a class="navbar-brand">Editar Nomina</a>
-              <ul class="nav nav-pills">
-                <li class="nav-item">
-                  <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas1">Paso - 1</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas2">Paso - 2</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas3">Paso - 3</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas4">Paso - 4</a>
-                </li>
-              
-              </ul>
+           
           </nav>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -220,10 +263,10 @@
                   <div class="col">
                     <!-- Name input -->
                     <div class="form-outline">
-                    <label class="form-label" for="form8Example4">Numero de Empleado</label>
-                      <input type="text"  class="form-control" name="idpadodet" id="idpadodet" />
-                      <input type="text"  class="form-control" name="idemple" id="idemple"  />
-                      <input type="text"  class="form-control" name="idnomina" id="idnomina" />
+                    <label class="form-label" for="form8Example4">Nombre Empleado</label>
+                      <input type="text" hidden class="form-control" name="idpadodet" id="idpadodet"/>
+                      <input type="text"  class="form-control" name="emple" id="emple" disabled />
+                      
 
                     </div>
                   </div>
@@ -271,8 +314,10 @@
                 </div>
             
 
-                <div class="row mb-0 text-center">
-                        <button type="submit" class="btn btn-success">Guardar cambios</button>
+                <div class="row mb-0 mt-4">
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-blue" style="border-radius:20px;width:40%;"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar cambios</button>
+                  </div>
                 </div>
         </form>
     </div>
@@ -282,24 +327,53 @@
 
 
 <script>
-$(document).ready(function() {
-  var table = $('#tblempleados').DataTable( {
-        "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
-        responsive: true,
-        scrollY: 500,
-        scrollX: true,
-        "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        },
-        
-    } );
-    new $.fn.dataTable.FixedHeader( table );
-});
+    $(document).ready(function() {
+  
+  
+  
+    $("table tbody tr").click(function() {
+  var id = $(this).find("td:eq(2)").text();
+  $("#idpadodet").val(id);
+  
+  
+  var emp = $(this).find("td:eq(5)").text();
+  $("#emple").val(emp);
+  
+  
+  var idnomina = $(this).find("td:eq(4)").text();
+  $("#idnomina").val(idnomina);
+  
+  var diaslaborados = $(this).find("td:eq(9)").text();
+  $("#dias_laborados").val(diaslaborados);
+  
+  var deud_fiscal = $(this).find("td:eq(14)").text();
+  $("#deudores_fiscal").val(deud_fiscal);
+  
+  var deud_nofiscal = $(this).find("td:eq(15)").text();
+  $("#deudores_no_fiscal").val(deud_nofiscal);
+  
+  
+  
+    
+    });
+  
+  
+    var table = $('#tblempleados').DataTable( {
+            "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
+            responsive: true,
+            scrollY: 500,
+            scrollX: true,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+            },
+            
+        } );
+        new $.fn.dataTable.FixedHeader( table );
+    });
+  
+  
+  
 </script>
-
-
-
-
 
 <script>
   document.querySelector("html").classList.add('js');

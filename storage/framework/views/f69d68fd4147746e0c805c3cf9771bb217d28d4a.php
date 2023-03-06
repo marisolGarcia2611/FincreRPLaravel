@@ -24,7 +24,7 @@
 <!--INICIO BUTON AREA-->
 <div class="pos__btnBack">
     <div class="wrapper"> 
-        <p class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></p>
+        <h5 class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
     </div>
         <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
@@ -148,7 +148,13 @@
                                     <label class="form-label">Foto de perfil</label>
                                     <div>
                                         <div class="input-file-container text-center">  
-                                        <input class="input-file" id="my-file" type="file" name="urlpdf">
+                                        <input class="input-file" id="my-file" type="file" name="urlpdf" required>
+                                        <div class="valid-feedback fs-8">
+                                         ¡Se ve bien!
+                                        </div>
+                                        <div class="invalid-feedback fs-8">
+                                         ¡Por favor, sube el nuevo contrato!
+                                        </div>
                                             <label for="my-file"name="my-file" style="border-radius:100px;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
                                             <p class="file-return"></p>
                                         </div>

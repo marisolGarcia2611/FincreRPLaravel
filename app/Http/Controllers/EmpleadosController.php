@@ -182,8 +182,7 @@ class EmpleadosController extends Controller
             return view('Empleados.edit',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
 
     }
-    
-  
+
 
     /**
      * Update the specified resource in storage.
@@ -192,7 +191,7 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function update(request $request, $id)
+    public function cambiar(request $request, $id)
     {
            // $ultimoemple =$this->obtenerultimoempleado();
            $date = Carbon::now();
@@ -267,6 +266,41 @@ class EmpleadosController extends Controller
      * @param  \App\Models\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
+
+     public function vistaReactivar($id)
+    {
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        $varpuestos = $this->obtenerpuestos();
+        $varsucursales = $this->obtenersucursales();
+        $varciudades =  $this->obtenerciudades();
+        $varempresas = $this->obtenerempresas();
+        $varbancos = $this->obtenerbancos();
+        $varlistaempleados=  $this-> obtenerlistaempleados();
+        $vartipodescinfo= $this->obtenertipodescinfonavit();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        $obtenerempleado = $this->obtenerlistaempleadoid($id);
+            return view('Empleados.reactivar',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
+
+    }
+
+    public function traerVistaReactivar($id){
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        $varpuestos = $this->obtenerpuestos();
+        $varsucursales = $this->obtenersucursales();
+        $varciudades =  $this->obtenerciudades();
+        $varempresas = $this->obtenerempresas();
+        $varbancos = $this->obtenerbancos();
+        $varlistaempleados=  $this-> obtenerlistaempleados();
+        $vartipodescinfo= $this->obtenertipodescinfonavit();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        $obtenerempleado = $this->obtenerlistaempleadoid($id);
+            return view('Empleados.reactivar',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
+    }
+    
     public function reactivar($id,request $request)
     {
         $date = Carbon::now();
@@ -280,14 +314,23 @@ class EmpleadosController extends Controller
             $empleados->updated_at=$fecha;
             $empleados->fecha_ingreso = $request->post('fecha_alta');
             $empleados->archivo_baja = 0;
-            $empleados->save();
+           
 
             $idnomina = $request->post('idnomina');
             $nominas =  nominas::find($idnomina);
+            $nominas->idempresa=$request->post('cmbempresas');
+            $nominas->salario_bruto=$request->post('salario_bruto');
+            $nominas->salario_neto=$request->post('salario_neto');
+            $nominas->salario_fijo=$request->post('salario_fijo');
             $nominas->fecha_ingreso_imss = $request->post('fecha_ingreso_imss');
             $nominas->sueldo_fiscal=$request->post('sueldo_fiscal');
             $nominas->excedente=$request->post('excedente');
-            $nominas->save();
+            $nominas->efectivo=$request->post('efectivo');
+            $nominas->id_tipoinfonavit = $request->post('tipo_infonavit');
+            $nominas->factor_sua = $request->post('factor_sua');
+            $nominas->descuento_quincenal = $request->post('descuento_quincenal');
+            $nominas->numero_credito_infonavit = $request->post('numero_credito_infonavit');
+           
 
             $file=$request->file("urlpdf");
             $id = $request->get('rfc');
@@ -295,6 +338,8 @@ class EmpleadosController extends Controller
             $ruta = public_path("DetallesEmpleados/contratos/".$nombre);
 
             if($file->guessExtension()=="pdf"){
+                $empleados->save();
+                $nominas->save();
                 copy($file, $ruta);
                 return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
             }else{
@@ -306,11 +351,11 @@ class EmpleadosController extends Controller
         
     }
 
-
     public function bajas(Request $request)
     {
 
-        $date = Carbon::now();
+         Carbon::now();
+        
         $idempleado = $request->get('ids');
         $descripcionbaja=$request->get('descripcion_baja');
         $fecha = $date->format('Y-m-d');
@@ -344,9 +389,13 @@ class EmpleadosController extends Controller
         $empleado->descripcion_estado = $descripcionbaja;
         $empleado->save();
 
-
+       
+        // $datenow = $date->format('l jS \\of F Y');
+        $datenow =Carbon::setLocale(config('app.locale'));
+        setlocale(LC_ALL, 'es_MX', 'es', 'ES', 'es_MX.utf8');
         $idempleado = $request->get('ids');
         $nombreemplado=$request->get('nombre');
+        $nombreempresa=$request->get('empresa');
         $puesto=$request->get('ids');
         $fecha_baja=$request->get('fecha_baja');
         $fecha_ingreso=$request->get('fecha_ingresoe');
@@ -367,15 +416,100 @@ class EmpleadosController extends Controller
         $rptfechaactual=$request->get('fecha_baja');
 
 
-        $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','nombreemplado','fecha_baja','fecha_ingreso','salario','puesto','rpttotalentregar','totalper','rptotaldeducciones','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas',));
+        $fechaEmision = Carbon::parse($fecha_ingreso);
+        $fechaExpiracion = Carbon::parse($fecha_baja);
+        $diasDiferencia = $fechaExpiracion->diffInDays($fechaEmision);
+
+
+        $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','nombreemplado','diasDiferencia','datenow','nombreempresa','fecha_baja','fecha_ingreso','salario','puesto','rpttotalentregar','totalper','rptotaldeducciones','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas',));
         return $pdf->download("finiquito_empleado$idempleado.pdf");
           
     }
 
+    public function editarBaja($id){
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        $obtenerbajas = $this->obtenerbajas_empleados($id);
+            return view('Empleados.baja',compact('varpantallas','varsubmenus','obtenerbajas'));
+    }
+
+    public function BajaEmpleadoEdit(Request $request)
+    {
+
+        $date = Carbon::now();
+        $idempleado = $request->post('ids');
+        $id = $request->post('id');
+        $descripcionbaja=$request->post('descripcion_baja');
+        $fecha = $date->format('Y-m-d');
+        $empleadosbaja = empleados_bajas::find($id);
+        $empleadosbaja->idempleado=$idempleado;
+        $empleadosbaja->tipo_baja=$request->post('tipo_baja');
+        $empleadosbaja->descripcion=$descripcionbaja;
+        $empleadosbaja->fecha_baja=$request->post('fecha_baja');
+        $empleadosbaja->dias_gratificacion=$request->post('diasgratificacion');
+        $empleadosbaja->dias_aguinaldo=$request->post('dias_trabajados');
+        $empleadosbaja->dias_sueldo_a_deber=$request->post('dias_trabajadosa_deber');
+        $empleadosbaja->dias_vacaciones=$request->post('dias_vacaciones');
+        $empleadosbaja->cantidad_gratificacion=$request->post('gratificacion');
+        $empleadosbaja->cantidad_aguinaldo=$request->post('Aguinaldo_poporcional');
+        $empleadosbaja->cantidad_sueldo=$request->post('sueldo_poporcional');
+        $empleadosbaja->cantidad_vacaciones=$request->post('vacaciones_poporcionales');
+
+
+        $empleadosbaja->cantidaddeduccion_imms=$request->post('imms');
+        $empleadosbaja->cantidaddeduccion_infonavit=$request->post('infonavit');
+        $empleadosbaja->cantidaddeduccion_transporte=$request->post('transporte');
+        $empleadosbaja->cantidaddeduccion_prestamo=$request->post('prestamo');
+        $empleadosbaja->cantidaddeduccion_otros=$request->post('otras');
+        $empleadosbaja->cantidadtotal_entregada=$request->post('total_entregar');
+        $empleadosbaja->updated_at = $fecha;
+        $empleadosbaja->save();
+
+
+        $empleado = empleados::find($idempleado);
+        $empleado->descripcion_estado = $descripcionbaja;
+        $empleado->save();
+
+       
+        $datenow = $date->format('l jS \\of F Y');
+        $idempleado = $request->get('ids');
+        $nombreemplado=$request->get('nombre');
+        $nombreempresa=$request->get('empresa');
+        $puesto=$request->get('ids');
+        $fecha_baja=$request->get('fecha_baja');
+        $fecha_ingreso=$request->get('fecha_ingresoe');
+        $salario=$request->get('salario');
+        $puesto=$request->get('t_puesto');
+        $rptvardiasgratificacion=  $request->get('gratificacion');
+        $rtpvaraguinaldoporporcional =$request->get('Aguinaldo_poporcional');
+        $rptvarsueldoporporcional =$request->get('sueldo_poporcional');
+        $rptvarvacacionesporporcionales = $request->get('vacaciones_poporcionales');
+        $rptvardeudaimms =$request->get('imms');
+        $rptvardeduedainfonavit = $request->get('infonavit');
+        $rptvardeudatransporte = $request->get('transporte');
+        $rptvardeudaprestamo =$request->get('prestamo');
+        $rptvarotrasdeudas = $request->get('otras');
+        $totalper =$request->get('total_p');
+        $rptotaldeducciones =$request->get('total_d');
+        $rpttotalentregar =$request->get('total_entregar');
+        $rptfechaactual=$request->get('fecha_baja');
+
+
+        $fechaEmision = Carbon::parse($fecha_ingreso);
+        $fechaExpiracion = Carbon::parse($fecha_baja);
+        $diasDiferencia = $fechaExpiracion->diffInDays($fechaEmision);
+
+
+        $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','nombreemplado','diasDiferencia','datenow','nombreempresa','fecha_baja','fecha_ingreso','salario','puesto','rpttotalentregar','totalper','rptotaldeducciones','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas',));
+        return $pdf->download("finiquito_empleado$idempleado.pdf");
+          
+    }
 
     public function exportar_excel(){
       
-        return Excel::download(new UsersExport, 'exportando.xlsx');
+        return Excel::download(new UsersExport, 'EmpleadosExport.xlsx');
 
     }
 

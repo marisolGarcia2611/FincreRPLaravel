@@ -131,7 +131,7 @@
   .push2:hover {-webkit-transform: scale(1.1) !important;transform: scale(1.06) !important;}
 
   .zoom{-webkit-transition: all 0.3s ease;transition: all 0.3s ease;}
-  .zoom:hover {-webkit-transform: scale(1.1) !important;transform: scale(3.05) !important;border-radius: 10px;}
+  .zoom:hover {-webkit-transform: scale(1.1) !important;transform: scale(3.05) !important;border-radius: 3px;}
   /* -------------------Formularios con estylo rouded------------------ */
   
   .offcanvas-body input{border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868;}
@@ -213,9 +213,9 @@
   @media screen and (max-width:900px) { .mar-l{ margin-left: 0px;}}
   
   /* -------------------Modal de subir archivos------------------ */
-  .input-file-container {position: relative;width: 100%px;} 
+  .input-file-container {position: relative;width: 100%;} 
   .js .input-file-trigger {display: block;padding: 14px 45px;background-color: #FF3CAC;background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;color: #fff;font-size: 1em;transition: all .4s;cursor: pointer;}
-  .js .input-file {position: absolute;top: 0; left: 0;width: 225px;opacity: 0;padding: 14px 0;cursor: pointer;}
+  .js .input-file {position: absolute;top: 0; left: 0;width: 100%;opacity: 0;padding: 14px 0;cursor: pointer;}
   .js .input-file:hover + .input-file-trigger,
   .js .input-file:focus + .input-file-trigger,
   .js .input-file-trigger:hover,
@@ -254,6 +254,26 @@
   .copy {margin-top: .5em;}
   .copy a {text-decoration: none;color: #32394B;}
 
+   /* -------------------Modal de subir archivos 3------------------ */
+   .input-files-container {position: relative;width: 100%;} 
+  .js .input-files-trigger {display: block;padding: 14px 45px;background-color: #FF3CAC;background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;color: #fff;font-size: 1em;transition: all .4s;cursor: pointer;}
+  .js .input-files {position: absolute;top: 0; left: 0;width: 100%;opacity: 0;padding: 14px 0;cursor: pointer;}
+  .js .input-files:hover + .input-files-trigger,
+  .js .input-files:focus + .input-files-trigger,
+  .js .input-files-trigger:hover,
+  .js .input-files-trigger:focus {background-color: #FF3CAC;background-image: linear-gradient(225deg, #2B86C5 0%, #784BA0 30%,  #FF3CAC 100%)!important;color:#fff!important; }
+  .files-return {margin: 0;}
+  .files-return:not(:empty) {margin: 1em 0;}
+  .js .files-return {font-style: italic;font-size: .9em;font-weight: bold;}
+  .js .files-return:not(:empty):before {content: "Selected file: ";font-style: normal;font-weight: normal;}
+  .sudmit { font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif; color: #7F8C9A;background: #FCFDFD;}
+  .sudmit h1, .sudmit h2 {margin-bottom: 5px;font-weight: normal;text-align: center;color:#aaa; }
+  .sudmit h2 {margin: 5px 0 2em;color: #2B86C5;}
+  .sudmit form {width: 225px;margin: 0 auto;text-align:center;}
+  .sudmit h2 + P {text-align: center;}
+  .txtcenter {margin-top: 1em;font-size: .9em;text-align: center;color: #aaa;}
+  .copy {margin-top: .5em;}
+  .copy a {text-decoration: none;color: #32394B;}
   /* -------------------------Botones----------------------------------------- */
   .btn-blue{background-color: #2B86C5;color:#fff;}
   .btn-blue:hover{background-color: #185988;color:#fff;}
@@ -268,6 +288,8 @@
 
   /* -------------------------Panel Area----------------------------------------- */
   .bg-gradient-pink{background-color: #FF3CAC;background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;}
+  .btn-send{border:1px solid #2B86C5;border-radius:45px;width:100%;padding:18px;padding-bottom:15px;color: #2B86C5;}
+  .btn-send:hover{background-color: #2b86c5;border:1px solid #2B86C5;border-radius:45px;width:100%;padding:18px;padding-bottom:15px;color: #fff!important;}
   .b-blue{background-color: #2B86C5;}
   .text-lightGray{color:#b2b0b0;}
   .ocultar {display: none; }

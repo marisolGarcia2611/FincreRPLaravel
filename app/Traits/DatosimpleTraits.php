@@ -15,6 +15,8 @@ use App\Models\tarifas_subsidio;
 use App\Models\Vistas;
 use App\Models\User;
 use App\Models\Departamentos;
+use App\Models\empleados_bajas;
+use DB;
 
 
 
@@ -115,6 +117,21 @@ trait DatosimpleTraits
         ->where('tbltarifas_subsidio.idsubdet','=',$id)
         ->get();
         return $varobtenersubsidio;
+    }
+
+    public  function obtenerbajas_empleados(int $id){
+        $varbajas = empleados_bajas::join(
+            'tblempleados','tblempleados.id','=','tblempleado_bajas.idempleado')
+            ->join("tblpuestos", "tblempleados.idpuesto", "=", "tblpuestos.id")
+            ->join("tblnominas", "tblnominas.idempleado", "=", "tblempleados.id")
+            ->join("tblempresas", "tblempresas.id", "=", "tblnominas.idempresa")
+            ->join("tbltipoinfonavit", "tbltipoinfonavit.id", "=", "tblnominas.id_tipoinfonavit")
+            ->select('tblempleado_bajas.id','tblempleado_bajas.idempleado','tblempleado_bajas.tipo_baja','tblempleado_bajas.descripcion','tblempleado_bajas.fecha_baja','tblempleado_bajas.dias_gratificacion','tblempleado_bajas.dias_aguinaldo','tblempleado_bajas.dias_sueldo_a_deber','tblempleado_bajas.dias_vacaciones','tblempleado_bajas.cantidad_gratificacion','tblempleado_bajas.cantidad_aguinaldo','tblempleado_bajas.cantidad_sueldo','tblempleado_bajas.cantidad_vacaciones','tblempleado_bajas.cantidaddeduccion_infonavit','tblempleado_bajas.cantidaddeduccion_transporte','tblempleado_bajas.cantidaddeduccion_prestamo','tblempleado_bajas.cantidaddeduccion_otros','tblempleado_bajas.cantidadtotal_entregada','tblempleado_bajas.cantidaddeduccion_imms',
+            'tblempleados.primer_nombre','tblempleados.segundo_nombre','tblempleados.apellido_paterno','tblempleados.apellido_materno','tblpuestos.nombre as puesto','tblempleados.fecha_ingreso',
+            'tblnominas.salario_fijo as salarioDiario','tblnominas.salario_bruto as salarioMensual','tbltipoinfonavit.Nombre as infonavit','tblempresas.nombre_empresa as empresa')
+            ->where('tblempleado_bajas.idempleado','=',$id)
+            ->get();
+        return $varbajas;
     }
     
     public  function obtenerlistaempleados(){
@@ -324,7 +341,7 @@ trait DatosimpleTraits
 
     }
 
-   public  function obtenernominasporid($id){
+    public  function obtenernominasporid($id){
 
 
         $varnomina = Nominas_pagosdet::join(
@@ -333,7 +350,9 @@ trait DatosimpleTraits
         ->join("tblsucursales", "tblempleados.idsucursal", "=", "tblsucursales.id")
         ->join('tblnominas','tblempleados.id','=','tblnominas.idempleado')
         ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
+        ->join("tblnominas_pagoenc", "tblnominas_pagodet.idpagonomina", "=", "tblnominas_pagoenc.id")
         ->select(
+        'tblnominas_pagoenc.idtiponomina',
         'tblempleados.id as idempleado',
         'tblnominas_pagodet.id',
         'tblnominas_pagodet.idpagonomina',
@@ -374,6 +393,57 @@ trait DatosimpleTraits
         ->where('tblnominas_pagodet.idpagonomina','=',$id)
         ->get();
         return $varnomina;
+}
+
+public  function obtenernominasporidexport($id){
+
+
+    $varnomina = Nominas_pagosdet::join(
+    'tblempleados','tblnominas_pagodet.idempleado','=','tblempleados.id')
+    ->join("tblpuestos", "tblempleados.idpuesto", "=", "tblpuestos.id")
+    ->join("tblsucursales", "tblempleados.idsucursal", "=", "tblsucursales.id")
+    ->join('tblnominas','tblempleados.id','=','tblnominas.idempleado')
+    ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
+    ->join("tblnominas_pagoenc", "tblnominas_pagodet.idpagonomina", "=", "tblnominas_pagoenc.id")
+    ->join("tbltipo_nominas", "tblnominas_pagoenc.idtiponomina", "=", "tbltipo_nominas.id")
+    ->select(
+    'tblsucursales.nombre as sucursal',
+    'tblpuestos.nombre as puesto',
+    'tblnominas_pagodet.id',
+    'tblnominas_pagodet.idpagonomina',
+    'tblempleados.id as idempleado',
+    DB::Raw("CONCAT(tblempleados.primer_nombre, ' ', tblempleados.segundo_nombre,' ',tblempleados.apellido_paterno,' ',tblempleados.apellido_materno) AS NOMBRE"),
+    'tblnominas_pagodet.faltas_reta_aus',
+    'tblnominas_pagodet.dias_laborados',    
+    'tblnominas.sueldo_fiscal', 
+    'tblnominas.excedente',
+    'tblnominas.efectivo',
+    'tblnominas_pagodet.total_sueldo',
+    'tblnominas_pagodet.deudores_fiscal',
+    'tblnominas_pagodet.deudores_no_fiscal',
+    'tblnominas_pagodet.total_deudores',
+    'tblnominas_pagodet.pago_infonavit',
+    'tblnominas_pagodet.pago_imss',
+    'tblnominas_pagodet.pago_isr',
+    'tblnominas_pagodet.pago_subsidio',
+    'tblnominas_pagodet.pago_prima_vacacional',
+    'tblnominas_pagodet.dias_pendiente',
+    'tblnominas_pagodet.bono',
+    'tblnominas_pagodet.transporte',
+    'tblnominas_pagodet.total_nomina_fiscal',
+    'tblnominas_pagodet.total_apagar_excedente',
+    'tblnominas_pagodet.total_efectivo',
+    'tblnominas_pagodet.pago_nomina_fiscal_global',
+    'tblnominas_pagodet.pago_efectivo_cajas',
+    'tblnominas_pagodet.total_apagar',
+    'tblbancos.nombre as banco',
+    'tblnominas.numero_tarjeta',
+    'tblnominas.numero_cuenta'
+
+    )
+    ->where('tblnominas_pagodet.idpagonomina','=',$id)
+    ->get();
+    return $varnomina;
 }
 
 public  function obteneempleadonomaeditar(int $idpagonom,  int $idempleado){

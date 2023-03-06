@@ -12,6 +12,8 @@ use App\Models\Nominas_pagosdet;
 use DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\BoTranImport;
+use App\Exports\NominasExport;
+
 
 class NominasController extends Controller
 {
@@ -70,6 +72,7 @@ class NominasController extends Controller
         //mandamos llamar el procedimiento de calculonomima
         $pagosnom = DB::select('CALL insertar_nominapag_det(?,?)', [$id,$dias_nomina]);
         $pagosnomina = DB::select('CALL generarcalculosnomina(?)', [$id]);
+        $Borrartablatemp =  DB::select('truncate table temptblnominas_pagodet');
         //actualizamos el estado de tabla pagosnominaencabezado
         $pagonomenc = Nominas_pagosenc::find($id);
         $pagonomenc->estado_nomina = 'Edicion';
@@ -78,13 +81,70 @@ class NominasController extends Controller
     }
 
 
-    public function cerrarnomina($id){
-
+    public function cerrarnomina($id,$idtipodias ){
+        $dias_nomina=0;
+        if($idtipodias==1){
+            $dias_nomina = 7;
+        }
+        if($idtipodias==2){
+            $dias_nomina = 15;
+        }
+        if($idtipodias==3){
+            $dias_nomina = 30;
+        }
+  
+        $Borrartablatemp =  DB::select('truncate table temptblnominas_pagodet');
         //cerramos la nomina
         $pagonomenc = Nominas_pagosenc::find($id);
         $pagonomenc->estado_nomina = 'Cerrada';
         $pagonomenc->save();
-        return redirect()->route('vernominas');
+
+        if($pagonomenc->save()){
+            return redirect()->route('vernominas')->with("success","¡Se guardaron los cambios correctamente!");
+        }
+        return back()->with("warning","No se logro");
+    
+    }
+
+    public function calcularnomina($id,$idtipodias ){
+        $dias_nomina=0;
+        if($idtipodias==1){
+            $dias_nomina = 7;
+        }
+        if($idtipodias==2){
+            $dias_nomina = 15;
+        }
+        if($idtipodias==3){
+            $dias_nomina = 30;
+        }
+        $pagosnom = DB::select('CALL generarcalculosnominafinal(?)', [$id]);
+        $Borrartbl =  DB::select('delete from tblnominas_pagodet where idpagonomina = ? ', [$id]);
+        $pagosnomina = DB::select('CALL generarcalculosnomina(?)', [$id]);
+
+        return back()->with("success","¡Se guardaron los cambios correctamente!");
+    
+    }
+
+    public function nominaeliminar($id){
+        // solo de enc
+        $Borrartbl =  DB::select('delete from tblnominas_pagoenc where id = ? ', [$id]);
+        return back()->with("success","¡Se guardaron los cambios correctamente!");
+    }
+
+    public function nominaeliminarTemp($id){
+        // solo de enc det temdet
+        $Borrartbl =  DB::select('delete from tblnominas_pagoenc where id = ? ', [$id]);
+        $Borrartbl =  DB::select('delete from tblnominas_pagodet where idpagonomina = ? ', [$id]);
+        $Borrartbl =  DB::select('delete from temptblnominas_pagodet where idpagonomina = ? ', [$id]);
+        return back()->with("success","¡Se guardaron los cambios correctamente!");
+    }
+
+    public function nominaeliminarCalcu($id){
+        // solo de enc det
+        $Borrartbl =  DB::select('delete from tblnominas_pagoenc where id = ? ', [$id]);
+        $Borrartbl =  DB::select('delete from tblnominas_pagodet where idpagonomina = ? ', [$id]);
+        return back()->with("success","¡Se guardaron los cambios correctamente!");
+        
     }
 
     public function editarnomina($id, $idtiponomina){
@@ -104,13 +164,12 @@ class NominasController extends Controller
     }
 
 
-    public function actualizarNominaEmp(request $request, $id)
+    public function actualizarNominaEmp(request $request)
     {
            $date = Carbon::now();
            $fecha = $date->format('Y-m-d');
-           $idd = $request->get('id');
-           $idtiponom = $request->get('idtiponom');
-
+           $id = $request->get('idpadodet');
+         
            $nomina = Nominas_pagosdet::find($id);
            $nomina->dias_laborados = $request->post('dias_laborados');
            $nomina->deudores_fiscal = $request->post('deudores_fiscal');
@@ -118,22 +177,35 @@ class NominasController extends Controller
            $nomina->updated_at=$fecha;
            $nomina->save();
 
-        //    return view('nominas.editarnomina');
-        
-              
-        // if($nomina->save() ){
-        //     return redirect()->route('Nominaseditar')->with("success","¡Se guardaron los cambios correctamente!");
-        // }
-        // return redirect()->route('Nominaseditar',$id,$idemple)->with("warning","No se logro");
-        // return redirect('/Nominaseditar/editarnomina/$idd/$idtiponom');
-        
-        // return redirect()->action('NominasController@editarnomina', [$idd,$idtiponom],);
-        return redirect()->back();
+           if($nomina->save()){
+            return back()->with("success","¡Se guardaron los cambios correctamente!");
+        }
+        return back()->with("warning","No se logro");
     }
 
+    
+
     public function importar_excel(request $request){
-        $file=$request->file("urlpdf");
-        Excel::import(new BoTranImport, $file);
+        $file=$request->file("urlxlsx");
+       
+
+        if($request->hasFile("urlxlsx")){
+            $file=$request->file("urlxlsx");
+
+            if($file->guessExtension()=="xlsx"){
+                Excel::import(new BoTranImport, $file);
+                return back()->with("successExcel","¡Se guardaron los cambios correctamente!");
+            }else{
+                return back()->with("warningExcel","¡Se guardaron los cambios correctamente!");
+            }
+
+        }
+        
+    }
+
+    public function exportar_excel(request $request){
+
+        return Excel::download(new NominasExport($request->id), 'NominaExport.xlsx');
 
     }
 

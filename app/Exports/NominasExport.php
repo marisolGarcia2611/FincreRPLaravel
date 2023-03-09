@@ -142,7 +142,6 @@ class NominasExport implements   FromCollection, WithHeadings, ShouldAutoSize, W
 
     public function collection()
     {
-        $id=7;
         $varlistanomina=  $this-> obtenernominasporidexport($this->id);
         return $varlistanomina;
     }

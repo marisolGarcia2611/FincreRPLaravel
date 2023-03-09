@@ -153,7 +153,7 @@
                                          ¡Se ve bien!
                                         </div>
                                         <div class="invalid-feedback fs-8">
-                                         ¡Por favor, sube el nuevo contrato!
+                                         ¡Por favor, sube la foto de perfil!
                                         </div>
                                             <label for="my-file"name="my-file" style="border-radius:100px;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
                                             <p class="file-return"></p>

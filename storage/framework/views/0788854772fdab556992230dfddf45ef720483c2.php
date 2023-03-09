@@ -124,25 +124,25 @@
                   <td class="td-tools">
 
                         <?php if($vis->estado == "I"): ?>
-                         <a class="text-light btn fas fa-user-check"   href="/ReactivarEmpleado/<?php echo e($vis->idempleado); ?>"></a>
+                         <a class="text-light btn fas fa-user-check"   href="/ReactivarEmpleado/<?php echo e($vis->idempleado); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Reactivar"></a>
                           <form action="/Empleados/editBaja/<?php echo e($vis->idempleado); ?>">
-                            <button class="text-light btn fas fa-edit bor"  type="submit"></button>
+                            <button class="text-light btn fas fa-edit bor"  type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar baja"></button>
                           </form>
 
                         <?php endif; ?>
 
                         <?php if($vis->estado == "A"): ?> 
                           <form action="<?php echo e(route('Empleados.edit', $vis->idempleado)); ?>">
-                            <button class="text-light btn fas fa-edit bor"  type="submit"></button>
+                            <button class="text-light btn fas fa-edit bor" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar"  type="submit"></button>
                           </form>
                         <?php endif; ?>
 
                         <?php if($vis->estado == "A"): ?> 
-                        <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" ></button>
+                        <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></button>
                         <?php elseif($vis->archivo_baja=="1"): ?>
-                          <a class="text-light btn btn fas fa-eye" target="_blank"  href="DetallesEmpleados/bajas/baja_<?php echo e($vis->idempleado); ?>.pdf"></a>          
+                          <a class="text-light btn btn fas fa-eye" target="_blank"  href="DetallesEmpleados/bajas/baja_<?php echo e($vis->idempleado); ?>.pdf" data-bs-toggle="tooltip" data-bs-placement="right" title="Ver archivo"></a>          
                         <?php else: ?>
-                          <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" ></button>
+                          <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Subir archivo" ></button>
                         <?php endif; ?>
 
 
@@ -966,12 +966,13 @@
                 <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas3">Paso - 3</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas4">Paso - 4</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;background-color: #fff;" href="#pas4">Paso - 4</a>
               </li>
             
             </ul>
         </nav>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h3 class="text-secondary"><a class="btn btn-close" href="/back"> </a></h3> 
+      
   </div>
     
     <div class="offcanvas-body small contenedor">
@@ -1687,7 +1688,6 @@
         the_return.innerHTML = this.value;  
     });  
 </script>
-
 
 
 <?php $__env->stopSection(); ?>

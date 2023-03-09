@@ -104,7 +104,6 @@
             <table class="table table-hover" id="tblempleados">
             <thead class="table">
                   <tr class="tr-table"> 
-                  <th class="text-center fw-light">Acciones</th>
                   <th class="text-center fw-light">Tipo de Nomina</th>
                   <th class="text-center fw-light">No. Corrida Nomina</th>
                   <th class="text-center fw-light">No. Nomina</th>
@@ -148,9 +147,7 @@
               
                   <tr>
                     @foreach($varnominas as $nomina)
-                    <td class="td-tools">
-                      <a class="text-light btn fas fa-edit border-0 push"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$nomina->id}}"></a>
-                    </td>
+                  
                     <td class="bg-3">
                       @if($nomina->idtiponomina == 1)
                       Semanal
@@ -214,13 +211,14 @@
   <div class="offcanvas-body small">
     <h1>Importar Extras(Bonos,Transporte y Prestamos)</h1>
     <h2>Favor de subir el archivo con formato</h2>
+    
       <form action="/Nominas/importBoTrans" method="POST" enctype="multipart/form-data" class="g-3 needs-validation" novalidate>
         @csrf
     
           <div class="mb-2">                              
               <div class=" text-center">
                 <div class="input-file-container">  
-                  <input class="input-file" id="my-file" type="file" name="urlxlsx" required>
+                  <input class="input-file" id="my-file" type="file" name="urlxlsx" required/>
                   <div class="valid-feedback fs-8">
                     ¡Se ve bien!
                   </div>
@@ -228,7 +226,7 @@
                     ¡Por favor, sube el archivo de importación!
                   </div>
                     <label for="my-file"name="my-file" style="border-radius:100px;width:98%!important;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
-                    <p class="file-return"></p> c
+                    <p class="file-return"></p> 
                     <br/>
                     <hr/>
                     <button class="btn btn-send" type="submit" value="subir"><h3><i class="fas fa-paper-plane"></i> Enviar</h3></button>
@@ -237,6 +235,9 @@
           </div>
       </form>
     <p class="txtcenter">Recuerde que solo se admite el formato ".pdf"</p>
+    <div class="text-center">
+          <a class="link-secondary " style="font-size:15px;" href="{{ asset('Importaciones/ImportarExtras.xlsx') }}" download="ImportarExtras"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>&nbsp; Descargar Formato</a>
+    </div>
   </div>
 </div>
 <!-- Subir archivo Modal-->
@@ -244,86 +245,7 @@
 <!-- ................................................................................................................................................-->
 
 
-{{--------------------------------------------- Modal de update de nominas -----------------------------------}}
-  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:40vh">
 
-    <div class="offcanvas-header">
-      <nav id="navbar-example2" class="navbar navbar-light px-3">
-            <a class="navbar-brand">Editar Nomina</a>
-           
-          </nav>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-
-    <div class="card-body offcanvas-body small" style="padding-left: 30px;padding-right:30px;">
-      <form  action="/Nominaseditaremp/actualizarEmpleado" method="POST"  class="g-3 needs-validation" novalidate> 
-          @csrf
-          @method('PUT')
-                <div class="row mb-4">
-                  <div class="col">
-                    <!-- Name input -->
-                    <div class="form-outline">
-                    <label class="form-label" for="form8Example4">Nombre Empleado</label>
-                      <input type="text" hidden class="form-control" name="idpadodet" id="idpadodet"/>
-                      <input type="text"  class="form-control" name="emple" id="emple" disabled />
-                      {{-- <input type="text"  class="form-control" name="idnomina" id="idnomina" /> --}}
-
-                    </div>
-                  </div>
-
-                  <div class="col">
-                    <!-- Email input -->
-                    <div class="form-outline">
-                    <label class="form-label">Dias Laborados</label>
-                      <input type="number" id="dias_laborados"  name="dias_laborados" class="form-control"  maxlength="20" required />
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col">
-                    <!-- Email input -->
-                    <div class="form-outline">
-                    <label class="form-label" >Deudores Fiscal</label>
-                      <input type="number" name="deudores_fiscal" id="deudores_fiscal" class="form-control"  maxlength="20" required />
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <!-- Email input -->
-                    <div class="form-outline">
-                    <label class="form-label" >Deudores No Fiscal</label>
-                      <input type="number" name="deudores_no_fiscal" id="deudores_no_fiscal" class="form-control" maxlength="20"required />
-                      <div class="valid-feedback">
-                        ¡Se ve bien!
-                      </div>
-                      <div class="invalid-feedback">
-                        Por favor, completa la información requerida.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            
-
-                <div class="row mb-0 mt-4">
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-blue" style="border-radius:20px;width:40%;"><i class="fas fa-save"></i>&nbsp;&nbsp;Guardar cambios</button>
-                  </div>
-                </div>
-        </form>
-    </div>
-
-  
-  </div>
 
 
 <script>

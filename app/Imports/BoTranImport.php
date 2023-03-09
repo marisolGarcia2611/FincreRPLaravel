@@ -32,11 +32,15 @@ class BoTranImport implements ToModel,WithHeadingRow
             
             $nomina->transporte= ($row['transporte']);
             $nomina->bono= ($row['bono']);
+            $nomina->deudores_fiscal=($row['deudores_fiscal']);
+            $nomina->deudores_no_fiscal=($row['deudores_no_fiscal']);
             $nomina->save();
 
             // return redirect()->route('/Nominas')->with("successExcel","¡Se guardaron los cambios correctamente!");
 
         }
+
+        
         // return redirect()->route('/Nominas')->with("warningExcel","¡Se guardaron los cambios correctamente!");
         // $nominas = $this->nominas_pagosdet->where('id', $row['id']);
         // return new Nominas_pagosdet([

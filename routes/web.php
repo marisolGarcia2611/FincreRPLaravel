@@ -15,16 +15,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('welcome');});
 Auth::routes();
+
+
+//Ruta de excel-------------------------------------------------------------------------------------
 Route::get('/Empleados/exportar_excel', 'App\Http\Controllers\EmpleadosController@exportar_excel')->name('Empleados.exportar_excel'); 
 Route::post('/Nominas/importBoTrans', 'App\Http\Controllers\NominasController@importar_excel')->name('Nominas.importar_excel'); 
-
 Route::get('/Nominas/exportar_excel', 'App\Http\Controllers\NominasController@exportar_excel')->name('Nominas.exportar_excel'); 
 
 Route::group(['middleware' => 'prevent-back-history'],function(){
    Auth::routes();
+   Route::get('/back', function () {return back();});
 
-   //ruta de el modulo de empleados
-  //  Route::resource('/Empleados','App\Http\Controllers\EmpleadosController');
+
+   //Ruta de el modulo de empleados-------------------------------------------------------------------------------------
    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
    Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos');
    Route::get('/Empleados',[App\Http\Controllers\EmpleadosController::class, 'index'])->name('verempleados');
@@ -38,12 +41,12 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
    Route::put('/Empleados/AtualizarBaja','App\Http\Controllers\EmpleadosController@BajaEmpleadoEdit')->name('Empleados.atualizarBaja');
    Route::get('/ReactivarEmpleado/{id}','App\Http\Controllers\EmpleadosController@traerVistaReactivar')->name('reactivar');
    Route::put('/Empleados/UpdateReactivar/{id}','App\Http\Controllers\EmpleadosController@reactivar')->name('Empleados.updateReactivar');
-
-   
+   //subir archivo    
    Route::get('grafica', 'App\Http\Controllers\EmpleadosController@grafica_empleados')->name('Empleados.grafica_empleados'); 
    Route::post('/guardar','App\Http\Controllers\EmpleadosController@mguardar')->name('guardar');
 
-    //ruta de modulo de nominas
+
+    //Ruta de modulo de nominas---------------------------------------------------------------------------------------------
     Route::resource('/Nominas','App\Http\Controllers\NominasController');
     Route::get('/Nominas',[App\Http\Controllers\NominasController::class, 'index'])->name('vernominas');
     Route::get('/Nominasinsert/insertarnomina/{id}/{idpago_nomina}','App\Http\Controllers\NominasController@insertarnomina')->name('Nominasinsert');
@@ -52,7 +55,6 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/Nominaseditar/editarnomina/{id}/{idtiponomina}','App\Http\Controllers\NominasController@editarnomina')->name('Nominaseditar');
     Route::get('/Nominaseditaremp/editarnomemp/{id}/{idempleado}','App\Http\Controllers\NominasController@editarnomemp')->name('Nominaseditaremp');
     Route::put('/Nominaseditaremp/actualizarEmpleado','App\Http\Controllers\NominasController@actualizarNominaEmp')->name('nominas.actualizaremp');
-
     // solo de enc
     Route::get('/Nominaseliminar/{id}','App\Http\Controllers\NominasController@nominaeliminar')->name('nominaeliminar');
     //solo de enc det temdet
@@ -61,17 +63,22 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/Nominaseliminar/calcular/{id}','App\Http\Controllers\NominasController@nominaeliminarCalcu')->name('nominaeliminarCalcu');
 
 
-
-    // Sistemas panel de control
+    // Ruta sistemas panel de control---------------------------------------------------------------------------------------------
     Route::get('/Panel', 'App\Http\Controllers\SistemasController@index')->name('panel');
     Route::get('/Permisos', 'App\Http\Controllers\SistemasController@indexPermisos')->name('permisos');
     Route::post('/AsignarPermiso', 'App\Http\Controllers\SistemasController@asignarPermiso')->name('asignarPermiso');
 
 
-    // Resgistro de usuarios
+    // Ruta resgistro de usuarios--------------------------------------------------------------------------------------------------
     Route::get('/Registro', 'App\Http\Controllers\Auth\RegisterController@Index')->name('registro');
     Route::post('/Registro/Crear', 'App\Http\Controllers\Auth\RegisterController@create')->name('createUser');
     
-    
+
+    // Area de creditos--------------------------------------------------------------------------------------------------
+    Route::get('/Creditos',[App\Http\Controllers\CreditosController::class, 'index'])->name('vercreditos');
+    Route::get('/Creditos/CapturaDistribuidor', 'App\Http\Controllers\CreditosController@getDistribuidor')->name('getDistribuidor');
+    Route::get('/Creditos/CapturaAval', 'App\Http\Controllers\CreditosController@getAval')->name('getAval');
+    Route::get('/Creditos/CapturaDocumentos', 'App\Http\Controllers\CreditosController@getDocumentos')->name('getDocumentos');
+    Route::get('/Creditos/GestionFase1', 'App\Http\Controllers\CreditosController@getGestionFase1')->name('getGestionFase1');
 
   });

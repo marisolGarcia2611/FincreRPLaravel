@@ -140,50 +140,50 @@
 
   
 <div class="d-md-block d-none">
-  <div class="card-group text-center">
-    <div class="card text-white" style="background-color: #55728400;" >
-      <img src="{{ asset('Images/7.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
-      <div class="card-img-overlay" style="transform: translateY(40%);">
+    <div class="card-group text-center">
+      <div class="card text-white" style="background-color: #55728400;" >
+        <img src="{{ asset('Images/7.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
+        <div class="card-img-overlay" style="transform: translateY(40%);">
 
-        <figure class="animate__animated animate__backInDown">
-            <blockquote class="blockquote">
-              <h2 class="fw-bold">CONSTRUYE</h2>
-            </blockquote>
-            {{-- <figcaption class="blockquote-footer">
-              Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
-            </figcaption> --}}
-          </figure>
+          <figure class="animate__animated animate__backInDown">
+              <blockquote class="blockquote">
+                <h2 class="fw-bold">CONSTRUYE</h2>
+              </blockquote>
+              {{-- <figcaption class="blockquote-footer">
+                Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
+              </figcaption> --}}
+            </figure>
+        </div>
       </div>
-    </div>
 
-  <div class="card text-white" style="background-color: #55728400;">
-    <img src="{{ asset('Images/8.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
-    <div class="card-img-overlay" style="transform: translateY(40%);">
-        <figure class="animate__animated animate__backInDown">
-            <blockquote class="blockquote">
-              <h2 class="fw-bold">CONQUISTA</h2>
-            </blockquote>
-            {{-- <figcaption class="blockquote-footer">
-              Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
-            </figcaption> --}}
-          </figure>
+      <div class="card text-white" style="background-color: #55728400;">
+        <img src="{{ asset('Images/8.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
+        <div class="card-img-overlay" style="transform: translateY(40%);">
+            <figure class="animate__animated animate__backInDown">
+                <blockquote class="blockquote">
+                  <h2 class="fw-bold">CONQUISTA</h2>
+                </blockquote>
+                {{-- <figcaption class="blockquote-footer">
+                  Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
+                </figcaption> --}}
+              </figure>
+        </div>
+      </div>
+
+      <div class="card text-white" style="background-color: #55728400;">
+        <img src="{{ asset('Images/9.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
+        <div class="card-img-overlay" style="transform: translateY(40%);">
+            <figure class="animate__animated animate__backInDown">
+                <blockquote class="blockquote">
+                  <h2 class="fw-bold">GANA</h2>
+                </blockquote>
+                {{-- <figcaption class="blockquote-footer">
+                  Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
+                </figcaption> --}}
+            </figure>
+        </div>
     </div>
   </div>
-
-  <div class="card text-white" style="background-color: #55728400;">
-    <img src="{{ asset('Images/9.png') }}" class="card-img" alt="..." style="height:700px;object-fit: cover;">
-    <div class="card-img-overlay" style="transform: translateY(40%);">
-        <figure class="animate__animated animate__backInDown">
-            <blockquote class="blockquote">
-              <h2 class="fw-bold">GANA</h2>
-            </blockquote>
-            {{-- <figcaption class="blockquote-footer">
-              Alguien fomoso en <cite title="Título fuente">Título fuente</cite>
-            </figcaption> --}}
-        </figure>
-    </div>
-  </div>
-</div>
 </div>
 
 

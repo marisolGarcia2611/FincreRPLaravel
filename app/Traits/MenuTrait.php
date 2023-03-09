@@ -25,7 +25,7 @@ public function Traermenudet(){
     ->join("tbldepartamentos", "tbldepartamentos.id", "=", "tblusuario_pantallas.iddepartamento")
     ->where("Users.name", "=", $Varusuario)
     ->orderby('tbldepartamentos.nombre')
-    ->select('tbldepartamentos.nombre','tblvistas.nombre AS nom' )
+    ->select('tbldepartamentos.nombre','tblvistas.nombre AS nom','tblvistas.descripcion AS descripcion' )
     ->get();
 
  return $varsubmenu;

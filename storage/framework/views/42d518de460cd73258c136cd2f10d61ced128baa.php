@@ -5,9 +5,15 @@
 <?php if($mensaje = Session::get('success')): ?>
   <?php
           echo '<script language="JavaScript">';
-          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1500});';
+          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1800});';
           echo '</script>';  
   ?>
+<?php elseif($mensaje = Session::get('successcalcular')): ?>
+<?php
+        echo '<script language="JavaScript">';
+        echo 'swal("¡Nomina calculada exitosamente!","Proceso realizado de forma correcta","success", {buttons: false,timer: 2000});';
+        echo '</script>';  
+?>
 
 <?php elseif($mensaje = Session::get('warning')): ?>
   <?php
@@ -60,15 +66,15 @@
                 <form action="/Nominas/exportar_excel">
                   <?php echo csrf_field(); ?>
                   <?php if($nomina->estado_nomina==="Iniciada"): ?>
-                  <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/<?php echo e($nomina->id); ?>/<?php echo e($nomina->idtiponomina); ?>"></a>
-                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/<?php echo e($nomina->id); ?>"></a> <!--solo de enc-->
+                  <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/<?php echo e($nomina->id); ?>/<?php echo e($nomina->idtiponomina); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Calcular"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/<?php echo e($nomina->id); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></a> <!--solo de enc-->
                   <?php elseif($nomina->estado_nomina==="Edicion"): ?>
-                  <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/<?php echo e($nomina->id); ?>/<?php echo e($nomina->idtiponomina); ?>"></a>
-                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/temporal/<?php echo e($nomina->id); ?>"></a><!--solo de enc det temdet-->
+                  <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/<?php echo e($nomina->id); ?>/<?php echo e($nomina->idtiponomina); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/temporal/<?php echo e($nomina->id); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></a><!--solo de enc det temdet-->
                   <?php elseif($nomina->estado_nomina==="Cerrada"): ?>
                   <input type="text" name="id" id="id" hidden value="<?php echo e($nomina->id); ?>">
-                  <button class="text-light btn fas fa-download border-0 push"  type="submit"></button>
-                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/calcular/<?php echo e($nomina->id); ?>"></a><!--solo de enc det-->
+                  <button class="text-light btn fas fa-download border-0 push"  type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Exportar"></button>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/calcular/<?php echo e($nomina->id); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></a><!--solo de enc det-->
                   <?php endif; ?> 
                 </form>
               </td>

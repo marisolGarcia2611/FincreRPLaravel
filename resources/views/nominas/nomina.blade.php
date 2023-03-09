@@ -5,9 +5,15 @@
 @if ($mensaje = Session::get('success'))
   @php
           echo '<script language="JavaScript">';
-          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1500});';
+          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1800});';
           echo '</script>';  
   @endphp
+@elseif($mensaje = Session::get('successcalcular'))
+@php
+        echo '<script language="JavaScript">';
+        echo 'swal("¡Nomina calculada exitosamente!","Proceso realizado de forma correcta","success", {buttons: false,timer: 2000});';
+        echo '</script>';  
+@endphp
 
 @elseif($mensaje = Session::get('warning'))
   @php
@@ -60,15 +66,15 @@
                 <form action="/Nominas/exportar_excel">
                   @csrf
                   @if($nomina->estado_nomina==="Iniciada")
-                  <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}"></a>
-                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/{{$nomina->id}}"></a> <!--solo de enc-->
+                  <a class="text-light btn fas fa-calculator border-0 push" href="/Nominasinsert/insertarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Calcular"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/{{$nomina->id}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></a> <!--solo de enc-->
                   @elseif($nomina->estado_nomina==="Edicion")
-                  <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}"></a>
-                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/temporal/{{$nomina->id}}"></a><!--solo de enc det temdet-->
+                  <a class="text-light btn fas fa-edit border-0 push" href=" /Nominaseditar/editarnomina/{{$nomina->id}}/{{$nomina->idtiponomina}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar"></a>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/temporal/{{$nomina->id}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></a><!--solo de enc det temdet-->
                   @elseif($nomina->estado_nomina==="Cerrada")
                   <input type="text" name="id" id="id" hidden value="{{$nomina->id}}">
-                  <button class="text-light btn fas fa-download border-0 push"  type="submit"></button>
-                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/calcular/{{$nomina->id}}"></a><!--solo de enc det-->
+                  <button class="text-light btn fas fa-download border-0 push"  type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Exportar"></button>
+                  <a class="text-light btn fas fa-trash border-0 push" href=" /Nominaseliminar/calcular/{{$nomina->id}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></a><!--solo de enc det-->
                   @endif 
                 </form>
               </td>

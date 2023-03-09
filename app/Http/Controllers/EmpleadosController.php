@@ -9,7 +9,7 @@ use App\Models\Vistas;
 use App\Models\empleados_bajas;
 use App\Http\Requests\StoreEmpleadosRequest;
 use App\Http\Requests\UpdateEmpleadosRequest;
-use App\Traits\Menutrait;
+use App\Traits\MenuTrait;
 use App\Traits\DatosimpleTraits;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -354,7 +354,7 @@ class EmpleadosController extends Controller
     public function bajas(Request $request)
     {
 
-         Carbon::now();
+         $date = Carbon::now();
         
         $idempleado = $request->get('ids');
         $descripcionbaja=$request->get('descripcion_baja');
@@ -390,9 +390,9 @@ class EmpleadosController extends Controller
         $empleado->save();
 
        
-        // $datenow = $date->format('l jS \\of F Y');
-        $datenow =Carbon::setLocale(config('app.locale'));
-        setlocale(LC_ALL, 'es_MX', 'es', 'ES', 'es_MX.utf8');
+        $datenow = $date->format('l jS \\of F Y');
+        // $datenow =Carbon::setLocale(config('app.locale'));
+        // setlocale(LC_ALL, 'es_MX', 'es', 'ES', 'es_MX.utf8');
         $idempleado = $request->get('ids');
         $nombreemplado=$request->get('nombre');
         $nombreempresa=$request->get('empresa');

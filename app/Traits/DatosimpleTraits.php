@@ -398,52 +398,9 @@ trait DatosimpleTraits
 public  function obtenernominasporidexport($id){
 
 
-    $varnomina = Nominas_pagosdet::join(
-    'tblempleados','tblnominas_pagodet.idempleado','=','tblempleados.id')
-    ->join("tblpuestos", "tblempleados.idpuesto", "=", "tblpuestos.id")
-    ->join("tblsucursales", "tblempleados.idsucursal", "=", "tblsucursales.id")
-    ->join('tblnominas','tblempleados.id','=','tblnominas.idempleado')
-    ->join("tblbancos", "tblempleados.idbanco", "=", "tblbancos.id")
-    ->join("tblnominas_pagoenc", "tblnominas_pagodet.idpagonomina", "=", "tblnominas_pagoenc.id")
-    ->join("tbltipo_nominas", "tblnominas_pagoenc.idtiponomina", "=", "tbltipo_nominas.id")
-    ->select(
-    'tblsucursales.nombre as sucursal',
-    'tblpuestos.nombre as puesto',
-    'tblnominas_pagodet.id',
-    'tblnominas_pagodet.idpagonomina',
-    'tblempleados.id as idempleado',
-    DB::Raw("CONCAT(tblempleados.primer_nombre, ' ', tblempleados.segundo_nombre,' ',tblempleados.apellido_paterno,' ',tblempleados.apellido_materno) AS NOMBRE"),
-    'tblnominas_pagodet.faltas_reta_aus',
-    'tblnominas_pagodet.dias_laborados',    
-    'tblnominas.sueldo_fiscal', 
-    'tblnominas.excedente',
-    'tblnominas.efectivo',
-    'tblnominas_pagodet.total_sueldo',
-    'tblnominas_pagodet.deudores_fiscal',
-    'tblnominas_pagodet.deudores_no_fiscal',
-    'tblnominas_pagodet.total_deudores',
-    'tblnominas_pagodet.pago_infonavit',
-    'tblnominas_pagodet.pago_imss',
-    'tblnominas_pagodet.pago_isr',
-    'tblnominas_pagodet.pago_subsidio',
-    'tblnominas_pagodet.pago_prima_vacacional',
-    'tblnominas_pagodet.dias_pendiente',
-    'tblnominas_pagodet.bono',
-    'tblnominas_pagodet.transporte',
-    'tblnominas_pagodet.total_nomina_fiscal',
-    'tblnominas_pagodet.total_apagar_excedente',
-    'tblnominas_pagodet.total_efectivo',
-    'tblnominas_pagodet.pago_nomina_fiscal_global',
-    'tblnominas_pagodet.pago_efectivo_cajas',
-    'tblnominas_pagodet.total_apagar',
-    'tblbancos.nombre as banco',
-    'tblnominas.numero_tarjeta',
-    'tblnominas.numero_cuenta'
-
-    )
-    ->where('tblnominas_pagodet.idpagonomina','=',$id)
-    ->get();
-    return $varnomina;
+    $sql = "call traernomina($id)";
+    $varnomina = DB::select($sql);
+     return collect($varnomina);
 }
 
 public  function obteneempleadonomaeditar(int $idpagonom,  int $idempleado){

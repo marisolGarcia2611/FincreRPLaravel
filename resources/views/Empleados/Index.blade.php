@@ -124,25 +124,25 @@
                   <td class="td-tools">
 
                         @if($vis->estado == "I")
-                         <a class="text-light btn fas fa-user-check"   href="/ReactivarEmpleado/{{$vis->idempleado}}"></a>
+                         <a class="text-light btn fas fa-user-check"   href="/ReactivarEmpleado/{{$vis->idempleado}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Reactivar"></a>
                           <form action="/Empleados/editBaja/{{$vis->idempleado}}">
-                            <button class="text-light btn fas fa-edit bor"  type="submit"></button>
+                            <button class="text-light btn fas fa-edit bor"  type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar baja"></button>
                           </form>
 
                         @endif
 
                         @if($vis->estado == "A") 
                           <form action="{{ route('Empleados.edit', $vis->idempleado) }}">
-                            <button class="text-light btn fas fa-edit bor"  type="submit"></button>
+                            <button class="text-light btn fas fa-edit bor" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar"  type="submit"></button>
                           </form>
                         @endif
 
                         @if($vis->estado == "A") 
-                        <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
+                        <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></button>
                         @elseif($vis->archivo_baja=="1")
-                          <a class="text-light btn btn fas fa-eye" target="_blank"  href="DetallesEmpleados/bajas/baja_{{$vis->idempleado}}.pdf"></a>          
+                          <a class="text-light btn btn fas fa-eye" target="_blank"  href="DetallesEmpleados/bajas/baja_{{$vis->idempleado}}.pdf" data-bs-toggle="tooltip" data-bs-placement="right" title="Ver archivo"></a>          
                         @else
-                          <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
+                          <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="{{$vis->id}}" data-bs-toggle="tooltip" data-bs-placement="right" title="Subir archivo" ></button>
                         @endif
 
 
@@ -978,12 +978,13 @@
                 <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas3">Paso - 3</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas4">Paso - 4</a>
+                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;background-color: #fff;" href="#pas4">Paso - 4</a>
               </li>
             
             </ul>
         </nav>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h3 class="text-secondary"><a class="btn btn-close" href="/back"> </a></h3> 
+      {{-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><a href="/back"></a></button> --}}
   </div>
     
     <div class="offcanvas-body small contenedor">
@@ -1710,7 +1711,6 @@
         the_return.innerHTML = this.value;  
     });  
 </script>
-
 
 
 @endsection

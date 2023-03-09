@@ -195,21 +195,21 @@
                             <div class="col-md-3"  id="factor_sua">
                               <div class="row">
                                 <label class="form-label">Factor SUA</label>
-                                  <input type="text" name="factor_sua" class="form-control" value="{{$empleado->factor_sua}}"  maxlength="8" required />
+                                  <input type="text" name="factor_sua" class="form-control" value="{{$empleado->factor_sua}}"  maxlength="8" />
                               </div>
                             </div>
         
                             <div class="col-md-3"  id="descuento_quincenal">
                               <div class="row">
                                 <label class="form-label">Descuento quincenal</label>
-                                  <input type="text" name="descuento_quincenal" class="form-control" value="{{$empleado->descuento_quincenal}}"  maxlength="8"required />
+                                  <input type="text" name="descuento_quincenal" class="form-control" value="{{$empleado->descuento_quincenal}}"  maxlength="8" />
                               </div>
                             </div>
         
                             <div class="col-md-3"  id="numero_credito_infonavit">
                               <div class="row">
                                         <label class="form-label">Numero de credito infoanvit</label>
-                                  <input type="text" name="numero_credito_infonavit" class="form-control" value="{{$empleado->numero_credito_infonavit}}" maxlength="8" required />
+                                  <input type="text" name="numero_credito_infonavit" class="form-control" value="{{$empleado->numero_credito_infonavit}}" maxlength="8"  />
                               </div>
                             </div>
       

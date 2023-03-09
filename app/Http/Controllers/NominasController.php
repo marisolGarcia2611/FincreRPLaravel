@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Traits\Menutrait;
+use App\Traits\MenuTrait;
 use App\Traits\DatosimpleTraits;
 use App\Models\Nominas_pagosenc;
 use App\Models\tarifasisr_det;
@@ -54,7 +54,7 @@ class NominasController extends Controller
         $nominas_pagoenc->comentarios='comentario';
         $nominas_pagoenc->idtiponomina=$request->get('tipo_nomina');
         $nominas_pagoenc->save();
-        return redirect()->route('vernominas')->with("Nomina Creada Correctamente");
+        return redirect()->route('vernominas')->with("success","Nomina Creada Correctamente");
     }
 
     public function insertarnomina($id,$idpago_nomina){
@@ -77,7 +77,7 @@ class NominasController extends Controller
         $pagonomenc = Nominas_pagosenc::find($id);
         $pagonomenc->estado_nomina = 'Edicion';
         $pagonomenc->save();
-        return redirect()->route('vernominas');
+        return redirect()->route('vernominas')->with("successcalcular","Nomina Creada Correctamente");
     }
 
 

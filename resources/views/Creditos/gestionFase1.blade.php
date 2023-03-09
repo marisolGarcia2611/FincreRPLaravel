@@ -23,8 +23,23 @@
   @endphp
 
 @endif
-
 {{-- ALERTAS --}}
+
+<!--INICIO BUTON AREA-->
+<div class="pos__btnBack">
+    <div class="wrapper"> 
+      <h5 class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
+    </div>
+        <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+    <!--FIN BUTON AREA-->  
 
 <div class="mt-4 p__little">
   <br/>
@@ -39,16 +54,18 @@
               <div class="row mt-3 text-end">
                 <div class="col-md-2 d-md-block d-none"></div>
                 <div class="col-md-2 mar-l">
-                  <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
+                    <form action="/Creditos/CapturaDistribuidor">
+                        <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
+                    </form>
                 </div>
                 <div class="col-md-2">
                   <form action="">
-                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp; Exportar </button> 
+                        <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp; Exportar </button> 
                   </form>            
                 </div>
                 <div class="col-md-2">
                   <form action="">
-                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficar </button> 
+                        <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficar </button> 
                   </form>
                 </div>
                 <div class="col-md-4 d-md-block d-none">
@@ -68,15 +85,24 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <p class=" text-light fw-light"> <div class="bg-info" style="border-radius: 100px;padding:10px;width:10px;height:10px;"></div> Distribuidor</p>
+                            <div class="row">
+                                <div class="col-md-4 bg-info" style="border-radius: 100px;padding:10px;width:10px;height:10px;"></div> 
+                                <p class="col-md-8 fw-light">Distribuidor</p>
+                            </div>
                         </div>
 
                         <div class="col-md-4">
-                            <p class=" text-light fw-light"> <div class="bg-primary" style="border-radius: 100px;padding:10px;width:10px;height:10px;"></div> Aval</p>
+                            <div class="row">
+                                <div class="col-md-4 bg-primary" style="border-radius: 100px;padding:10px;width:10px;height:10px;"></div> 
+                                <p class="col-md-6 fw-light">Aval</p>
+                            </div>
                         </div>
 
                         <div class="col-md-4">
-                            <p class=" text-light fw-light"> <div class="bg-success" style="border-radius: 100px;padding:10px;width:10px;height:10px;"></div> Documentos</p>
+                            <div class="row">
+                                <div class="col-md-4 bg-success" style="border-radius: 100px;padding:10px;width:10px;height:10px;"></div> 
+                                <p class="col-md-8 fw-light">Documentos</p>
+                            </div>
                         </div>
                     </div>
                    

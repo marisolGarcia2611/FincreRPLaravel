@@ -124,25 +124,25 @@
                   <td class="td-tools">
 
                         <?php if($vis->estado == "I"): ?>
-                         <a class="text-light btn fas fa-user-check"   href="/ReactivarEmpleado/<?php echo e($vis->idempleado); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Reactivar"></a>
+                         <a class="text-light btn fas fa-user-check"   href="/ReactivarEmpleado/<?php echo e($vis->idempleado); ?>"></a>
                           <form action="/Empleados/editBaja/<?php echo e($vis->idempleado); ?>">
-                            <button class="text-light btn fas fa-edit bor"  type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar baja"></button>
+                            <button class="text-light btn fas fa-edit bor"  type="submit"></button>
                           </form>
 
                         <?php endif; ?>
 
                         <?php if($vis->estado == "A"): ?> 
                           <form action="<?php echo e(route('Empleados.edit', $vis->idempleado)); ?>">
-                            <button class="text-light btn fas fa-edit bor" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar"  type="submit"></button>
+                            <button class="text-light btn fas fa-edit bor"  type="submit"></button>
                           </form>
                         <?php endif; ?>
 
                         <?php if($vis->estado == "A"): ?> 
-                        <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar"></button>
+                        <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" ></button>
                         <?php elseif($vis->archivo_baja=="1"): ?>
-                          <a class="text-light btn btn fas fa-eye" target="_blank"  href="DetallesEmpleados/bajas/baja_<?php echo e($vis->idempleado); ?>.pdf" data-bs-toggle="tooltip" data-bs-placement="right" title="Ver archivo"></a>          
+                          <a class="text-light btn btn fas fa-eye" target="_blank"  href="DetallesEmpleados/bajas/baja_<?php echo e($vis->idempleado); ?>.pdf"></a>          
                         <?php else: ?>
-                          <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" data-bs-toggle="tooltip" data-bs-placement="right" title="Subir archivo" ></button>
+                          <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="<?php echo e($vis->id); ?>" ></button>
                         <?php endif; ?>
 
 
@@ -217,10 +217,8 @@
         </div>  
       </div>
     </center> 
-
-   
+  
 </div>
-
 <!-- ................................................................................................................................................-->
 
 <!-- Insertar Modal-->
@@ -966,13 +964,12 @@
                 <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;" href="#pas3">Paso - 3</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-it text-secondary fs-8" style="border-radius:20px;background-color: #fff;" href="#pas4">Paso - 4</a>
+                <a class="nav-link nav-it text-secondary fs-8"  style="border-radius:20px;background-color:#fff;" href="#pas4">Paso - 4</a>
               </li>
             
             </ul>
         </nav>
-        <h3 class="text-secondary"><a class="btn btn-close" href="/back"> </a></h3> 
-      
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
     
     <div class="offcanvas-body small contenedor">
@@ -1044,19 +1041,26 @@
                <h4 id="pas3">Paso 3. Percepciones</h4>
                 <div class="row text-center">
                   <div class="col">
-                    <label class="fs-6">Aplicar prima vacacional 
+                    <label class="fs-6">Pagar dias de vacaciones
                       <input style="border: .5px solid rgb(165, 165, 165);width:15px;height:15px;" class="form-check-input" type="checkbox"  id="terminos" value="1" onclick="terminos_cambio(this)" />
                     </label>
                   </div>
                 </div>
                 <hr/> 
+
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4" id="Efectivo">
+                    <label class="form-label">fecha de baja</label>
+                    <input type="date" name="fecha_baja" id="fecha_baja" class="form-control" placeholder="00.00" required />
+                  </div>
+                  <div class="col-md-4"></div>
+
+                </div>
                       
                   <div class="row">
 
-                    <div class="col" id="Efectivo">
-                      <label class="form-label">fecha de baja</label>
-                      <input type="date" name="fecha_baja" id="fecha_baja" class="form-control" placeholder="00.00" required />
-                    </div>
+                  
 
 
                     <div class="col">
@@ -1118,14 +1122,7 @@
                         </div>
                       </div>
                     </div>
-                    
-                    
-                    
-     
-                  </div>
 
-                  <div class="row">
-                
                     <div class="col">
                       <div class="form-outline">
                       <label class="form-label" >Sueldo proporcional</label>
@@ -1138,22 +1135,14 @@
                         </div>
                       </div>
                     </div>
+                    
+                    
+                    
+     
+                  </div>
 
-                
-
-                    <div class="col">
-                      <div class="form-outline">
-                      <label class="form-label" >Aguinaldo proporcional</label>
-                        <input type="text" Name="Aguinaldo_poporcional" id="Aguinaldo_poporcional" class="form-control" placeholder="00.00"  required/>
-                        <div class="valid-feedback">
-                          ¡Se ve bien!
-                        </div>
-                        <div class="invalid-feedback">
-                          Por favor, completa la información requerida.
-                        </div>
-                      </div>
-                    </div>
-
+                  <div class="row">
+              
                     
                     <div class="col">
                       <!-- Email input -->
@@ -1169,6 +1158,21 @@
                       </div>
                     </div>
 
+                    
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Aguinaldo proporcional</label>
+                        <input type="text" Name="Aguinaldo_poporcional" id="Aguinaldo_poporcional" class="form-control" placeholder="00.00"  required/>
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
+
+
                     <div class="col">
                       <div class="form-outline">
                       <label class="form-label" >Prima Vacacional</label>
@@ -1182,11 +1186,21 @@
                       </div>
                     </div>
 
-
+                    <div class="col">
+                      <div class="form-outline">
+                      <label class="form-label" >Otras</label>
+                        <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00" value="0.0" required/>
+                        <div class="valid-feedback">
+                          ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                          Por favor, completa la información requerida.
+                        </div>
+                      </div>
+                    </div>
                     
 
                     <div class="col">
-                      <!-- Email input -->
                       <div class="form-outline">
                       <label class="form-label" >Total de percepciones</label>
                         <input  type="text" Name="total_p" id="total_p" class="form-control"  required/>
@@ -1203,6 +1217,106 @@
                   </div>
               </div>
 
+                             
+              <div class="mb-4 card p-5 cartaForm">
+                <div class="row">
+                  <h4 id="pas3">Paso 4.Deducciones</h4>
+                      <div class="row">
+                        <div class="col">
+                            <!-- Email input -->
+                            <div class="form-outline">
+                            <label class="form-label" >Imss</label>
+                              <input type="text" Name="imms" id="imms" class="form-control"  required/>
+                              <div class="valid-feedback">
+                                ¡Se ve bien!
+                              </div>
+                              <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                              </div>
+                            </div>
+                          </div>
+
+
+                          
+                          <div class="col">
+                            <!-- Email input -->
+                            <div class="form-outline">
+                            <label class="form-label" >Infonavit</label>
+                              <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00" value="0.00" required/>
+                              <div class="valid-feedback">
+                                ¡Se ve bien!
+                              </div>
+                              <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                              </div>
+                            </div>
+                          </div>
+
+                          
+                          <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" >Transporte</label>
+                              <input type="text" Name="transporte" id="transporte" class="form-control" placeholder="00.00" value="0.00" required />
+                              <div class="valid-feedback">
+                                ¡Se ve bien!
+                              </div>
+                              <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                              </div>
+                            </div>
+                          </div>
+                      </div> 
+                        
+
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-outline">
+                          <label class="form-label" >Prestamo</label>
+                            <input type="text" Name="prestamo" id="prestamo" class="form-control" placeholder="00.00" value="0.00" required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                        <div class="col">
+                          <div class="form-outline">
+                          <label class="form-label" >Otras deducciones</label>
+                            <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00"  value="0.00" required />
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              Por favor, completa la información requerida.
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                        <div class="col">
+                          <div class="form-outline">
+                          <label class="form-label" >Total de Deducciones</label>
+                            <input  type="text" Name="total_d" id="total_d" class="form-control"  required/>
+                            <div class="valid-feedback">
+                              ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                              ¡Recuerde volver a calcular la baja para continuar!
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+          
+                  
+                    
+                  
+                </div>
+             </div>    
+
                 
               <div class="mb-4 row">
                 <div class="col-md-8">
@@ -1218,105 +1332,7 @@
                 </div>
               </div>                    
 
-                                 
-              <div class="mb-4 card p-5 cartaForm">
-                  <div class="row">
-                    <h4 id="pas3">Paso 4.Deducciones</h4>
-                        <div class="row">
-                          <div class="col">
-                              <!-- Email input -->
-                              <div class="form-outline">
-                              <label class="form-label" >Imss</label>
-                                <input type="text" Name="imms" id="imms" class="form-control"  required/>
-                                <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                </div>
-                              </div>
-                            </div>
-
-
-                            
-                            <div class="col">
-                              <!-- Email input -->
-                              <div class="form-outline">
-                              <label class="form-label" >Infonavit</label>
-                                <input type="text" Name="infonavit" id="infonavit" class="form-control" placeholder="00.00" value="0.00" required/>
-                                <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                </div>
-                              </div>
-                            </div>
-
-                            
-                            <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" >Transporte</label>
-                                <input type="text" Name="transporte" id="transporte" class="form-control" placeholder="00.00" value="0.00" required />
-                                <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                </div>
-                              </div>
-                            </div>
-                        </div> 
-                          
-
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-outline">
-                            <label class="form-label" >Prestamo</label>
-                              <input type="text" Name="prestamo" id="prestamo" class="form-control" placeholder="00.00" value="0.00" required />
-                              <div class="valid-feedback">
-                                ¡Se ve bien!
-                              </div>
-                              <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                              </div>
-                            </div>
-                          </div>
-
-                          
-                          <div class="col">
-                            <div class="form-outline">
-                            <label class="form-label" >Otras deducciones</label>
-                              <input type="text" Name="otras" id="otras" class="form-control" placeholder="00.00"  value="0.00" required />
-                              <div class="valid-feedback">
-                                ¡Se ve bien!
-                              </div>
-                              <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                              </div>
-                            </div>
-                          </div>
-
-                          
-                          <div class="col">
-                            <div class="form-outline">
-                            <label class="form-label" >Total de Deducciones</label>
-                              <input  type="text" Name="total_d" id="total_d" class="form-control"  required/>
-                              <div class="valid-feedback">
-                                ¡Se ve bien!
-                              </div>
-                              <div class="invalid-feedback">
-                                ¡Recuerde volver a calcular la baja para continuar!
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-            
-                    
                        
-                    
-                  </div>
-              </div>             
 
               <div class="mb-4 card p-5 cartaForm">
                 <h4 id="pas4">Paso 5.Cantidad a entregar</h4>
@@ -1347,10 +1363,6 @@
     $('#excedente').hide();
     $('#Efectivo').hide();
     $('#sueldo_fiscal').hide();
-    $('#vacaciones_poporcionales').hide();
-    // $('#dias_vacaciones').hide();
-    $('#vacaciones_poporcionales').hide();
-    // $('#dias_vacaciones').hide();
     $('#tipo_descuento_infonavit').hide();
     $('#factor_sua').hide();
     $('#descuento_quincenal').hide();
@@ -1410,7 +1422,7 @@
 
 
 
-
+  var fehcha_baja = document.getElementById("fecha_baja").value;
 
     //obtenemos los datos para calcular dias de aguinaldo del empleado
       var fechaIni = new Date(fecha_ingreso.innerText);
@@ -1460,7 +1472,6 @@
       $("#idd").val(id);
       $("#emp").val(id);
 
-      document.getElementById("emple").value = val(id);
     
   });
 
@@ -1504,19 +1515,11 @@
   function terminos_cambio(checkbox){
       //Si está marcada ejecuta la condición verdadera.
       if(checkbox.checked){
-        $('#vacaciones_poporcionales').show();
-        // $('#dias_vacaciones').show();
         $('#vacaciones_notomadas').show();
-
-
       }
-      //Si se ha desmarcado se ejecuta el siguiente mensaje.
+
       else{
-        $('#vacaciones_poporcionales').hide();
-        // $('#dias_vacaciones').hide();
-        $("#vacaciones_poporcionales").val(0);
-        // $("#dias_vacaciones").val(0);
-        $('#vacaciones_notomadas').hide(0);
+        $('#vacaciones_notomadas').hide();
       }
   }
 
@@ -1544,17 +1547,113 @@
 
     function operaciones()
     {
+   
+      var diff = 0;
+      var Totaldiastrabajadosvacaciones = 0;
+      var totaldiastrabajadostotales=0;
 
+      //obtenemos las fechas con las que haremos los calculos
+      var fehcha_baja = document.getElementById("fecha_baja").value;
+      var fechainicio = document.getElementById("fecha_ingreso_empelado").value;
+  
+
+      var fechabaj = new Date(fehcha_baja);
+      const añoactual = fechabaj.getFullYear();
+      const mesactual = fechabaj.getMonth()+1;
+      const diaactual = fechabaj.getDate();
+      var fechaingreso = new Date(fechainicio);
+      const añoingreso = fechaingreso.getFullYear();
+      const mesingreso = fechaingreso.getMonth()+1;
+      const diaingreso = fechaingreso.getDate();
+
+      
+
+      //esto para sacar prima vacacional
+      if(añoactual == añoingreso){
+        //se cuentan los dias en el mismo año
+         diff = fechabajo - fechaIni;
+         Totaldiastrabajadosvacaciones = Math.floor(diff / (1000 * 60 * 60 * 24));
+      }
+      else{
+        año=añoactual-1;
+        fechaIni = new Date(año+'-'+mesingreso+'-'+diaingreso);
+        fechadebaja = new Date(fehcha_baja);
+        diff = fechadebaja - fechaIni;
+        Totaldiastrabajadosvacaciones = Math.floor(diff / (1000 * 60 * 60 * 24));
+    
+      }
+       
+      var fechaIni = new Date(fechainicio);
+      var fechabajo = new Date(fehcha_baja);
+      var diffe = fechabajo - fechaIni;
+      var diasvacaciones = 0;
+      Totaldiastrabajados = Math.floor(diffe / (1000 * 60 * 60 * 24));
+      if(Totaldiastrabajados <= 729)
+      {  
+        diasdevacaciones = 12;
+      }
+      if(Totaldiastrabajados  >=730 &&  Totaldiastrabajados <= 1094)
+      {  
+        diasdevacaciones = 14;
+      }
+
+      if(Totaldiastrabajados  >=1095 &&  Totaldiastrabajados <= 1459)
+      {  
+        diasdevacaciones = 16;
+      }
+
+      if(Totaldiastrabajados  >=1460 &&  Totaldiastrabajados <= 1825)
+      {  
+        diasdevacaciones = 18;
+      }
+
+      
+      if(Totaldiastrabajados  >=1826 &&  Totaldiastrabajados <= 2189)
+      {  
+        diasdevacaciones = 20;
+      }
+
+      if(Totaldiastrabajados  >=2190 &&  Totaldiastrabajados <=2554 )
+      {  
+        diasdevacaciones = 22;
+      }
+
+      if(Totaldiastrabajados  >=2555 &&  Totaldiastrabajados <=2919 )
+      {  
+        diasdevacaciones = 24;
+      }
+
+      if(Totaldiastrabajados  >=2920 &&  Totaldiastrabajados <=3284 )
+      {  
+        diasdevacaciones = 26;
+      }
+
+      if(Totaldiastrabajados  >=3284 &&  Totaldiastrabajados <=3285 )
+      {  
+        diasdevacaciones = 28;
+      }
+
+      if(Totaldiastrabajados  >=3285 &&  Totaldiastrabajados <=3649 )
+      {  
+        diasdevacaciones = 30;
+      }
+
+      if(Totaldiastrabajados  >=3650 &&  Totaldiastrabajados <=5000 )
+      {  
+        diasdevacaciones = 32;
+      }
+    
       var salarioc =$("#salario").val();
       var salarioM= $("#salarioMensual").val();
       var diagratificacion = document.getElementById("diasgratificacion").value;
       var diastrabajados = $("#dias_trabajados").val();
       var diastrabajadosdeber = $("#dias_trabajadosa_deber").val();
-      // var diasvacaciones = $("#dias_vacaciones").val();
       var vacacionesnotomadas = $("#vacaciones_notomadas").val();
       var deduccionimms =  $("#imms").val();
       var deduccioninfonavit =  $("#infonavit").val();
       var deducciontransporte =  document.getElementById("transporte").value;
+      var otrasper =  document.getElementById("otras").value;
+      alert(otrasper);
       var deduccionorestamo =  $("#prestamo").val();
       var deduccionotroa =  $("#otras").val();
 
@@ -1585,29 +1684,28 @@
       var aguinaldo = 15/365*diastrabajados*salarioc;
       var gratificacion = diagratificacion*salarioc;
       var sueldopropo = salarioc*diastrabajadosdeber;
-      var vacacionesproporcional = (((salarioM/30.4)* vacacionesnotomadas)*.25);
-      var totalpercepciones = aguinaldo+gratificacion+sueldopropo+vacacionesproporcional;
+      var diasvacaciones = (((diasdevacaciones/365)*Totaldiastrabajadosvacaciones)*salarioc);
+      var primavacacional = ((diasvacaciones)*.25);
+      var totaldiasnotomados = parseFloat(vacacionesnotomadas*salarioc).toFixed();
+      var totalpercepciones = aguinaldo+gratificacion+sueldopropo+primavacacional;
+      var totalprecepcionesfinal = (otrasper+totaldiasnotomados-1+totalpercepciones+1);
       //falta agregar las demas deducciones
-    
 
-    
-      var total = ((((((aguinaldo+gratificacion+sueldopropo+vacacionesproporcional)-parseFloat(deduccionimms).toFixed(2))-parseFloat(saldoadeberinfonavit).toFixed(2)-parseFloat(deducciontransporte).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2))-parseFloat(deduccionotroa).toFixed(2)));
-      let totaldeduccion =total-(aguinaldo+gratificacion+sueldopropo+vacacionesproporcional);
+      
+      var total = (((((((otrasper+totaldiasnotomados-1+aguinaldo+gratificacion+sueldopropo+primavacacional+1)-parseFloat(deduccionimms).toFixed(2))-parseFloat(saldoadeberinfonavit).toFixed(2)-parseFloat(deducciontransporte).toFixed(2))-parseFloat(deduccionorestamo).toFixed(2))-parseFloat(deduccionotroa).toFixed(2))));
+      let totaldeduccion =total-(aguinaldo+gratificacion+sueldopropo+primavacacional);
     
 
     // calculamos el aguinaldo del empleado a deber segun la fecha de ingreso
       $("#Aguinaldo_poporcional").val(parseFloat(aguinaldo).toFixed(2));
-      $("#total_p").val(parseFloat(totalpercepciones).toFixed(2));
+      $("#total_p").val(parseFloat(totalprecepcionesfinal).toFixed(2));
       $("#total_d").val(parseFloat(totaldeduccion).toFixed(2).substr(1,15));
       $("#gratificacion").val(parseFloat(gratificacion).toFixed(2));
       $("#sueldo_poporcional").val(parseFloat(sueldopropo).toFixed(2));
-      $("#vacaciones_poporcionales").val(parseFloat(vacacionesproporcional).toFixed(2));
+      $("#vacaciones_poporcionales").val(parseFloat(primavacacional).toFixed(2));
       $("#infonavit").val(parseFloat(saldoadeberinfonavit).toFixed(2));
       $("#total_entregar").val(parseFloat(total).toFixed(2));
-    
-    
   //sumamos el total de dinero a otorgar al trabajador
-    
     }
 
     function limpiar()
@@ -1688,7 +1786,6 @@
         the_return.innerHTML = this.value;  
     });  
 </script>
-
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Aux sistemas\Desktop\FincreRPLaravel\resources\views/Empleados/Index.blade.php ENDPATH**/ ?>

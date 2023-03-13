@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Vistas;
 use App\Models\usuario_pantallas;
-use App\Traits\Menutrait;
+use App\Traits\MenuTrait;
 
 class HomeController extends Controller
 {

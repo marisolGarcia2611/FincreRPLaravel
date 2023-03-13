@@ -2,7 +2,8 @@
 
 @section('content')
 
-<div class="login__body" style="position: absolute;min-width: 100vh;z-index:1;left:0;right:0;min-height: 100vh;bottom:0;margin:0;">
+
+<div class="" >
     <div class="login-page">
         <div class="form rounded__basic">
             <div class="login">
@@ -27,7 +28,7 @@
 
                     <div class="input-group">
                         
-                        <input style="width: 360px" ID="txtPassword" id="password" type="password" class="rounded__basic  @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="password" required>
+                        <input  ID="txtPassword" id="password" type="password" class="rounded__basic with_basic  @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="password" required>
                         
                         <div class="input-group-append">
                                 <a id="show_password" class="btn__password" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </a>

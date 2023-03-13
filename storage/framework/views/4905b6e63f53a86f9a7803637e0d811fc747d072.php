@@ -2,7 +2,8 @@
 
 <?php $__env->startSection('content'); ?>
 
-<div class="login__body" style="position: absolute;min-width: 100vh;z-index:1;left:0;right:0;min-height: 100vh;bottom:0;margin:0;">
+
+<div class="" >
     <div class="login-page">
         <div class="form rounded__basic">
             <div class="login">
@@ -41,7 +42,7 @@ unset($__errorArgs, $__bag); ?>
 
                     <div class="input-group">
                         
-                        <input style="width: 360px" ID="txtPassword" id="password" type="password" class="rounded__basic  <?php $__errorArgs = ['password'];
+                        <input  ID="txtPassword" id="password" type="password" class="rounded__basic with_basic  <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }

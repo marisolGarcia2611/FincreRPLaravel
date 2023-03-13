@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas">
+<div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">
     <div class="mt-2">
         <h5 class="fw-light">Fase 1: Captura Inicial de Crédito</h5>
 
@@ -9,28 +9,28 @@
             <nav>
                 <div class="row p-3">
                     
-                    <div class="col-md-2 marginSpecial">
+                    <div class="col-md-2 col-2 marginSpecial">
                         <div class="row">
-                            <div class="col-md-6 circle1"><h2 class="fw-light">1</h2></div>
-                            <div class="col-md-6 p-15"><h5 class="fw-light">Distribuidor</h5></div>
+                            <div class="col-md-6 col-6 circle1"><h2 class="fw-light">1</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Distribuidor</h5></div>
                         </div> 
                     </div>
 
-                    <div class="col-md-2 line1"></div>
+                    <div class="col-md-2 col-2 line1"></div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-2">
                         <div class="row">
-                            <div class="col-md-6 border2"><h2 class="fw-light">2</h2></div>
-                            <div class="col-md-6 p-15"><h5 class="fw-light">Aval</h5></div>
+                            <div class="col-md-6 col-6 border2"><h2 class="fw-light">2</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Aval</h5></div>
                         </div> 
                     </div>
 
-                    <div class="col-md-2 line2"></div>
+                    <div class="col-md-2 col-2 line2"></div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-2">
                         <div class="row">
-                            <div class="col-md-6 border3"><h2 class="fw-light">3</h2></div>
-                            <div class="col-md-6 p-15"><h5 class="fw-light">Documentos</h5></div>
+                            <div class="col-md-6 col-6 border3"><h2 class="fw-light">3</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Documentos</h5></div>
                         </div> 
                     </div>
                     
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div style="height: 230px"></div>
+<div class="space_height"></div>
 
 
 <div class="container">
@@ -52,25 +52,34 @@
           <h4 id="scrollspyHeading1" class="fw-light">1. Distribuidor</h4> 
 
           <div class="row">
-            <div class="col-md-4 text-center mt-2">
-                <h1 class="iconBlue"><i class="fa-solid fa-file-invoice"></i></h1>
+            <div class="col-md-4 col-4 text-center mt-2">
+                <h1 class="iconBlue d-none d-md-block"><i class="fa-solid fa-file-invoice"></i></h1>
                 <div id="boton1" class="btn push bg-gradient-pink m-0 p-1 sizeItem" onclick="divLogin1()">
-                    <h6 class="fw-light">Datos Generales &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i></h6>
+                    <div class="row">
+                        <h6 class="col-md-6 col-12 fw-light fs_special2">Datos Generales &nbsp;&nbsp; </h6>
+                       <h6 class="col-md-6 col-12 text-right mr_15 mt_20"><i class="fa-solid fa-chevron-down"></i></h6>
+                    </div>
                 </div> 
             </div>
 
-            <div class="col-md-4 text-center mt-2">
-                <h1 class="iconBlue"><i class="fa-solid fa-person-circle-plus"></i></h1>
+            <div class="col-md-4 col-4 text-center mt-2">
+                <h1 class="iconBlue d-none d-md-block"><i class="fa-solid fa-person-circle-plus"></i></h1>
                 <div id="boton2" class="btn push bg-gradient-pink m-0 p-1 sizeItem" onclick="divLogin2()">
-                    <h6 class="fw-light">Conyuge &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i></h6>
+                    <div class="row">
+                        <h6 class="col-md-6 col-12 fw-light fs_special2">Conyuge &nbsp;&nbsp; </h6>
+                       <h6 class="col-md-6 col-12 text-right mr_15"><i class="fa-solid fa-chevron-down"></i></h6>
+                    </div>
                 </div> 
             </div>
             
             
-            <div class="col-md-4 text-center mt-2">
-                <h1 class="iconBlue"><i class="fa-solid fa-id-badge"></i></h1>
+            <div class="col-md-4 col-4 text-center mt-2">
+                <h1 class="iconBlue d-none d-md-block"><i class="fa-solid fa-id-badge"></i></h1>
                 <div id="boton3" class="btn push bg-gradient-pink m-0 p-1 sizeItem" onclick="divLogin3()">
-                    <h6 class="fw-light">Referencias &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i></h6>
+                    <div class="row">
+                        <h6 class="col-md-6 col-12 fw-light fs_special2">Referencias &nbsp;&nbsp; </h6>
+                       <h6 class="col-md-6 col-12 text-right mr_15 mt_8"><i class="fa-solid fa-chevron-down"></i></h6>
+                    </div>
                 </div> 
             </div>
           </div>
@@ -919,8 +928,8 @@
                 <div class="btn-group">
                     {{-- <button class="btn btn-outline-secondary">Abandonar</button>
                     <button class="btn btn-dark">Continuar</button> --}}
-                    <a class="btn btn-outline-secondary" href="/Creditos">Abandonar</a>
-                    <a class="btn btn-blue" href="/Creditos/CapturaAval">Continuar</a>
+                    <a class="btn btn-outline-purple" href="/Creditos">Abandonar</a>
+                    <a class="btn btn-purple" href="/Creditos/CapturaAval">Continuar</a>
                 </div>
             </div>
         </div>
@@ -946,17 +955,17 @@ $(document).ready(function() {
         
         document.getElementById("caja1").style.height = "100%";
         $('#caja1').show(); 
-        uno1.innerHTML = 'Datos Generales &nbsp;&nbsp; <i class="fa-solid fa-chevron-up"></i>';
+        uno1.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Datos Generales &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_20"><i class="fa-solid fa-chevron-up"></i></h6></div>';
         $('#caja2').hide(); 
-        uno2.innerHTML = 'Conyuge &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>';  
+        uno2.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Conyuge &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15"><i class="fa-solid fa-chevron-down"></i></h6></div>';  
         $('#caja3').hide();
-        uno3.innerHTML = 'Referencias &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>';    
+        uno3.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Referencias &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_8"><i class="fa-solid fa-chevron-down"></i></h6></div>';    
         clic1 = clic1 + 1;
     } 
     else{
         document.getElementById("caja1").style.height = "0px"; 
         $('#caja1').hide();   
-        uno1.innerHTML = 'Datos Generales &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>';  
+        uno1.innerHTML ='<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Datos Generales &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_20"><i class="fa-solid fa-chevron-down"></i></h6></div>';  
         clic1 = 1;
     }   
     }
@@ -973,17 +982,17 @@ $(document).ready(function() {
         
         document.getElementById("caja2").style.height = "100%";
         $('#caja2').show();
-        uno2.innerHTML = 'Conyuge &nbsp;&nbsp; <i class="fa-solid fa-chevron-up"></i>';
+        uno2.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Conyuge &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15"><i class="fa-solid fa-chevron-up"></i></h6></div>';
         $('#caja1').hide(); 
-        uno1.innerHTML = 'Datos Generales &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>'; 
+        uno1.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Datos Generales &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_20"><i class="fa-solid fa-chevron-down"></i></h6></div>'; 
         $('#caja3').hide();  
-        uno3.innerHTML = 'Referencias &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>';
+        uno3.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Referencias &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_8"><i class="fa-solid fa-chevron-down"></i></h6></div>';
         clic2 = clic2 + 1;
     } 
     else{
         document.getElementById("caja2").style.height = "0px"; 
         $('#caja2').hide();   
-        uno2.innerHTML = 'Conyuge &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>';  
+        uno2.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Conyuge &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15"><i class="fa-solid fa-chevron-down"></i></h6></div>';  
         clic2 = 1;
     }   
     }
@@ -999,17 +1008,17 @@ $(document).ready(function() {
         
         document.getElementById("caja3").style.height = "100%";
         $('#caja3').show();
-        uno3.innerHTML = 'Referencias &nbsp;&nbsp; <i class="fa-solid fa-chevron-up"></i>';
+        uno3.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Referencias &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_8"><i class="fa-solid fa-chevron-up"></i></h6></div>';
         $('#caja2').hide();
-        uno2.innerHTML = 'Conyuge &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>'; 
+        uno2.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Conyuge &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15"><i class="fa-solid fa-chevron-down"></i></h6></div>'; 
         $('#caja1').hide();  
-        uno1.innerHTML = 'Datos Generales &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>';
+        uno1.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Datos Generales &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_20"><i class="fa-solid fa-chevron-down"></i></h6></div>';
         clic3 = clic3 + 1;
     } 
     else{
         document.getElementById("caja3").style.height = "0px"; 
         $('#caja3').hide();   
-        uno3.innerHTML = 'Referencias &nbsp;&nbsp; <i class="fa-solid fa-chevron-down"></i>';  
+        uno3.innerHTML = '<div class="row"><h6 class="col-md-6 col-12 fw-light fs_special2">Referencias &nbsp;&nbsp; </h6><h6 class="col-md-6 col-12 text-right mr_15 mt_8"><i class="fa-solid fa-chevron-down"></i></h6></div>';  
         clic3 = 1;
     }   
     }

@@ -18,7 +18,7 @@
 @endif
 
 
-<div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded" style="width: 100%;z-index: 1;top: 0vh;position: fixed;">
+<div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">
     <div class="mt-2">
         <h5 class="fw-light">Fase 1: Captura Inicial de Crédito</h5>
 
@@ -26,28 +26,28 @@
             <nav>
                 <div class="row p-3">
                     
-                    <div class="col-md-2" style="margin-right:30px;margin-left:30px;">
+                    <div class="col-md-2 col-2 marginSpecial">
                         <div class="row">
-                            <div class="col-md-6 border1"><h2 class="fw-light">1</h2></div>
-                            <div class="col-md-6" style="padding:15px;"><h5 class="fw-light">Distribuidor</h5></div>
+                            <div class="col-md-6 col-6 border1"><h2 class="fw-light">1</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Distribuidor</h5></div>
                         </div> 
                     </div>
 
-                    <div class="col-md-2 line1"></div>
+                    <div class="col-md-2 col-2 line1"></div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-2">
                         <div class="row">
-                            <div class="col-md-6 circle2"><h2 class="fw-light">2</h2></div>
-                            <div class="col-md-6" style="padding:15px;"><h5 class="fw-light">Aval</h5></div>
+                            <div class="col-md-6 col-6 circle2"><h2 class="fw-light">2</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Aval</h5></div>
                         </div> 
                     </div>
 
-                    <div class="col-md-2 line2"></div>
+                    <div class="col-md-2 col-2 line2"></div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-2">
                         <div class="row">
-                            <div class="col-md-6 border3"><h2 class="fw-light">3</h2></div>
-                            <div class="col-md-6" style="padding:15px;"><h5 class="fw-light">Documentos</h5></div>
+                            <div class="col-md-6 col-6 border3"><h2 class="fw-light">3</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Documentos</h5></div>
                         </div> 
                     </div>
                     
@@ -58,7 +58,7 @@
     </div>
 </div>
 
-<div style="height: 230px"></div>
+<div class="space_height"></div>
 
 <div class="container">
     <form action="" method="POST" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
@@ -452,8 +452,8 @@
                 <div class="btn-group">
                     {{-- <button class="btn btn-outline-secondary">Abandonar</button>
                     <button class="btn btn-dark">Continuar</button> --}}
-                    <a class="btn btn-outline-secondary" href="/Creditos">Abandonar</a>
-                    <a class="btn btn-blue" href="/Creditos/CapturaDocumentos">Continuar</a>
+                    <a class="btn btn-outline-purple" href="/Creditos">Abandonar</a>
+                    <a class="btn btn-purple" href="/Creditos/CapturaDocumentos">Continuar</a>
                 </div>
             </div>
         </div>

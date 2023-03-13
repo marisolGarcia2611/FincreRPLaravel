@@ -58,9 +58,7 @@
                             </div>
                             <div class="row">
                               <div class="col">
-                                <!-- Name input -->
                                 <div class="form-outline">
-                        
                                 <label class="form-label" for="form8Example4">Primer Nombre</label>
                                 <input type="text" hidden class="form-control" name="idnomina"  value="<?php echo e($empleado->idnom); ?>"required />
                                   <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"  value="<?php echo e($empleado->primer_nombre); ?>"  minlength="3" maxlength="20" required />
@@ -70,12 +68,10 @@
                                   <div class="invalid-feedback">
                                     Por favor, completa la información requerida.
                                   </div>
-
-                                
                                 </div>
                               </div>
+                              
                               <div class="col">
-                                <!-- Email input -->
                                 <div class="form-outline">
                                 <label class="form-label">Segundo Nombre</label>
                                   <input type="text" id="segundo_nombre"  name="segundo_nombre" class="form-control"  value="<?php echo e($empleado->segundo_nombre); ?>" minlength="3" maxlength="20"/>

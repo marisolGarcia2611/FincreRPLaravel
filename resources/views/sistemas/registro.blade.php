@@ -24,7 +24,7 @@
 <!--INICIO BUTON AREA-->
 <div class="pos__btnBack">
     <div class="wrapper"> 
-        <h5 class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
+       <a href="/Panel"><h5 class="btnBack"><i class="fas fa-solid fa-arrow-left"></i></h5></a>
     </div>
         <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
@@ -35,7 +35,7 @@
             </defs>
         </svg>
     </div>
-<!--FIN BUTON AREA--> 
+  <!--FIN BUTON AREA-->  
 
 <div class="mt-5 container">
     <div class="row justify-content-center">

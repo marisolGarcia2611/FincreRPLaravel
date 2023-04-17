@@ -55,6 +55,6 @@ class NominaspagosDet extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tblnominas_pagodet');  
     }
 }

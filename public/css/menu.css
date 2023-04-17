@@ -329,43 +329,35 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
       /* -------------------------------------------------Scroll All----------------------------------------------*/
 
 
-  .contenedor{
-      overflow-y: scroll;
-      box-sizing: border-box;
+  .contenedor{height:100vh;scroll-behavior: auto;overflow-y: auto;overflow-x: hidden;}
+  .contenedor::-webkit-scrollbar {
+        width: 8px;     /* Tamaño del scroll en vertical */
+        height: 8px;    /* Tamaño del scroll en horizontal */
     }
-    
-    /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
-    
-    .contenedor::-webkit-scrollbar {
-      -webkit-appearance: none;
-    }
-    
-    .contenedor::-webkit-scrollbar:vertical {
-      width:10px;
-      /* height: 30px; */
-    }
-    
-    .contenedor::-webkit-scrollbar-button:increment,.contenedor-light::-webkit-scrollbar-button {
-      display: none;
-    } 
-    
-    .contenedor::-webkit-scrollbar:horizontal {
-      height: 10px;
-    }
-    
+    /* Ponemos un color de fondo y redondeamos las esquinas del thumb */
     .contenedor::-webkit-scrollbar-thumb {
-      /* background-color: #ffffff; */
-      /* background-image: linear-gradient(355deg, #b2eaff 0, #5389f2 50%, #003265 100%); */
-      background-color: #212529;
-      border-radius: 20px;
-      border: 1px solid #ffffff00;
-      
+        background: #a5a5a5;
+        border-radius: 4px;
     }
-    
+    /* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+    .contenedor::-webkit-scrollbar-thumb:hover {
+        background: #9e9e9e;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    }
+    /* Cambiamos el fondo cuando esté en active */
+    .contenedor::-webkit-scrollbar-thumb:active {
+        background-color: #999999;
+    }
+    /* Ponemos un color de fondo y redondeamos las esquinas del track */
     .contenedor::-webkit-scrollbar-track {
-      border-radius: 10px;  
+        background: #e1e1e1;
+        border-radius: 4px;
     }
-
+    /* Cambiamos el fondo cuando esté en active o hover */
+    .contenedor::-webkit-scrollbar-track:hover,
+    .contenedor::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+    }
 
   .push{
     -webkit-transition: all 0.3s ease;
@@ -377,7 +369,7 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
       transform: scale(1.04) !important;
     }
 
-    /*----------------------------------------------------------------- button--------------------------------------------------- */
+    /*----------------------------------------------------------------- button1--------------------------------------------------- */
 
 .pos__btnBack{
   z-index: 1;margin-top:0px;top: 1.8vh;position: absolute;left: 0;margin-left: 8px;
@@ -436,4 +428,111 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
   .btnBack:hover:after {
       transform: none;
   }
+
+  /*----------------------------------------------------------------- button2--------------------------------------------------- */
+
+  .pos__btnBack1{
+    z-index: 1;margin-top:0px;top: 1.8vh;position: fixed;left: 0;margin-left: 8px;
+  }
+
+  .btnBack1 {
+    display: inline-block;
+    text-align: center;
+    background-color: #ffffff;
+    color:#8b8b8b!important;
+    font-weight: bold;
+    line-height: 1;
+    padding: 13px;
+    border-radius: 1px;
+    position: relative;
+    width: 48px;
+    height: 45px;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;transition: all 0.3s ease;
+    }
+    .btnBack1:hover {
+      display: inline-block;
+      text-align: center;
+      background-color: #ffffff;
+      color:#8b8b8b!important;
+      font-weight: bold;
+      line-height: 1;
+      padding: 13px;
+      border-radius: 1px;
+      position: relative;
+      width: 48px;
+      height: 45px;
+      text-decoration: none;
+      -webkit-transform: scale(1.1) !important;transform: scale(1.4) !important;
+      cursor: pointer;
+    }
+
+
+
+    .btnBack1:before {
+        top: -25%;
+        left: 20%;
+    }
+
+    .btnBack1:after {
+        bottom: -25%;
+        right: 20%;
+    }
+
+    .btnBack1:hover:before,
+    .btnBack1:hover:after {
+        transform: none;
+    }
   
+
+    /*----------------------------------------------------------------- button Notification--------------------------------------------------- */
+    .pos__btnNotification{
+      z-index: 1;margin-top:0px;top: 1.8vh;position: absolute;right: 0;margin-right: 8px;
+    }
+    .btnNoti {
+      display: inline-block;
+      text-align: center;
+      background-color: #f6f6f6;
+      color:#8b8b8b!important;
+      font-weight: bold;
+      line-height: 1;
+      padding: 13px;
+      border-radius: 1px;
+      position: relative;
+      width: 48px;
+      height: 45px;
+      text-decoration: none;
+    }
+    .btnNoti:hover {
+      display: inline-block;
+      text-align: center;
+      background-color: #f6f6f6;
+      color:#8b8b8b!important;
+      font-weight: bold;
+      line-height: 1;
+      padding: 13px;
+      border-radius: 1px;
+      position: relative;
+      width: 48px;
+      height: 45px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+  
+    
+    .btnNoti:before {
+        top: -25%;
+        right: 20%;
+    }
+    
+    .btnNoti:after {
+        bottom: -25%;
+        left: 20%;
+    }
+    
+    .btnNoti:hover:before,
+    .btnNoti:hover:after {
+        transform: none;
+    }
+    

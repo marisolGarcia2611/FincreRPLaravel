@@ -27,6 +27,6 @@ class TipoNominas extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tbltipo_nominas');  
     }
 }

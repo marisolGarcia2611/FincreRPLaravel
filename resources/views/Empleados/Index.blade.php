@@ -1676,12 +1676,11 @@
       var deduccioninfonavit =  $("#infonavit").val();
       var deducciontransporte =  document.getElementById("transporte").value;
       var otrasper =  document.getElementById("otras").value;
-      alert(otrasper);
+
       var deduccionorestamo =  $("#prestamo").val();
       var deduccionotroa =  $("#otras").val();
 
-      //en este apartado vamos a calcular lo que debe de infonavit segun su credito
-
+      //------------------en este apartado vamos a calcular lo que debe de infonavit segun su credito
       var tipopago =  $("#t_infonavit").val();
       var saldoadeberinfonavit=0;
 
@@ -1702,8 +1701,11 @@
         pagosuainfonavit =  $("#infonavit").val();
         saldoadeberinfonavit = (pagosuainfonavit*103.74*2)/61*(diastrabajadosdeber)+15;
       }
-    
-   
+      if(tipopago == 'N/A')
+      {
+        saldoadeberinfonavit=0;
+      }
+    //------------------------------------------------------------------------------------------------------
       var aguinaldo = 15/365*diastrabajados*salarioc;
       var gratificacion = diagratificacion*salarioc;
       var sueldopropo = salarioc*diastrabajadosdeber;

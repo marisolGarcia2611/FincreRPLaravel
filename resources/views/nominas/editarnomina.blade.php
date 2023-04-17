@@ -58,7 +58,7 @@
     <div class="row">
       <center class="col-md-12 mt-4 mb-4">
           <div>
-            <h2 class="mt-3 mb-3 fw-light animate_animated">Nomina de Empleados</h2> 
+            <h2 class="mt-3 mb-3 fw-light animate_animated">Nómina de Empleados</h2> 
           </div>
           <div >
           <div class="row mt-2 text-end">
@@ -104,9 +104,9 @@
             <table class="table table-hover" id="tblempleados">
             <thead class="table">
                   <tr class="tr-table"> 
-                  <th class="text-center fw-light">Tipo de Nomina</th>
-                  <th class="text-center fw-light">No. Corrida Nomina</th>
-                  <th class="text-center fw-light">No. Nomina</th>
+                  <th class="text-center fw-light">Tipo de Nómina</th>
+                  <th class="text-center fw-light">No. Corrida Nómina</th>
+                  <th class="text-center fw-light">No. Nómina</th>
                   <th class="text-center fw-light">No. Empleado</th>
                   <th class="text-center fw-light">Nombre Empleado</th>
                   <th class="text-center fw-light">Puesto</th>
@@ -128,11 +128,11 @@
                   <th class="text-center fw-light">Pago Dias Pendientes</th>
                   <th class="text-center fw-light">Bono</th>
                   <th class="text-center fw-light">Transporte</th>
-                  <th class="text-center fw-light">Total Nomina Fiscal</th>
+                  <th class="text-center fw-light">Total Nómina Fiscal</th>
                   <th class="text-center fw-light">Total Excedente</th>
                   <th class="text-center fw-light">Total Efectivo</th>
-                  <th class="text-center fw-light">Pago Nomina Fiscal Global</th>
-                  <th class="text-center fw-light">Pago Nomina Excedente Global</th>
+                  <th class="text-center fw-light">Pago Nómina Fiscal Global</th>
+                  <th class="text-center fw-light">Pago Nómina Excedente Global</th>
                   <th class="text-center fw-light">Pago Efectivo Cajas</th>
                   <th class="text-center fw-light">Total a pagar</th>
                   <th class="text-center fw-light">Banco</th>

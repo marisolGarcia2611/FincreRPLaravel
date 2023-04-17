@@ -512,8 +512,6 @@ class EmpleadosController extends Controller
         return Excel::download(new UsersExport, 'EmpleadosExport.xlsx');
 
     }
-
-
     public function grafica_empleados(){
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
@@ -533,7 +531,6 @@ class EmpleadosController extends Controller
         return view('Empleados.Index');
     }
 
-    
     public function mguardar(Request $request){
         if($request->hasFile("urlpdf")){
             $file=$request->file("urlpdf");
@@ -549,15 +546,11 @@ class EmpleadosController extends Controller
             if($file->guessExtension()=="pdf"){
                 copy($file, $ruta);
                 return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
-            }else{
+            }
+            else
+            {
                 return redirect()->route('verempleados')->with("PDFwarning","¡Se guardaron los cambios correctamente!");
             }
-
         }
     }
-    
-
-    
-
-
 }

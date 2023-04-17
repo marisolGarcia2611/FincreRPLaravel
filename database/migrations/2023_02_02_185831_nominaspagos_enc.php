@@ -34,6 +34,6 @@ class NominaspagosEnc extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tblnominas_pagoenc');  
     }
 }

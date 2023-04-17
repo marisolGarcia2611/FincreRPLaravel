@@ -41,6 +41,6 @@ class Nominas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tblsucursales_permisos');
+        Schema::dropIfExists('tblnominas');
     }
 }

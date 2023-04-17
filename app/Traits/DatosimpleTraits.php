@@ -82,8 +82,7 @@ trait DatosimpleTraits
     public  function obtenernominas(){
         $varnomina = Nominas_pagosenc::join(
             'tbltipo_nominas','tblnominas_pagoenc.idtiponomina','=','tbltipo_nominas.id')
-            ->
-        select('tblnominas_pagoenc.id','tblnominas_pagoenc.fecha_inicio','tblnominas_pagoenc.fecha_fin','tblnominas_pagoenc.estado_nomina','tblnominas_pagoenc.nombre_nomina','tblnominas_pagoenc.comentarios','tblnominas_pagoenc.idtiponomina','tbltipo_nominas.tipo' )
+            ->select('tblnominas_pagoenc.id','tblnominas_pagoenc.fecha_inicio','tblnominas_pagoenc.fecha_fin','tblnominas_pagoenc.estado_nomina','tblnominas_pagoenc.nombre_nomina','tblnominas_pagoenc.comentarios','tblnominas_pagoenc.idtiponomina','tbltipo_nominas.tipo' )
         ->get();
         return $varnomina;
 
@@ -258,13 +257,8 @@ trait DatosimpleTraits
             'tblnominas.numero_tarjeta',
             'tblnominas.numero_cuenta',
             'tbltipoinfonavit.Nombre as nombreinfonavit',
-            'tblnominas.numero_credito_infonavit',
-           
-         
-            )
-            
+            'tblnominas.numero_credito_infonavit')
             ->get();
-
             return $varlistaempleado;
 
     }
@@ -387,9 +381,7 @@ trait DatosimpleTraits
         'tblnominas_pagodet.total_apagar',
         'tblbancos.nombre as banco',
         'tblnominas.numero_tarjeta',
-        'tblnominas.numero_cuenta'
-
-        )
+        'tblnominas.numero_cuenta')
         ->where('tblnominas_pagodet.idpagonomina','=',$id)
         ->get();
         return $varnomina;

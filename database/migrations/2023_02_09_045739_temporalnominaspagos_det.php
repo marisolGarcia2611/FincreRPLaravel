@@ -55,6 +55,6 @@ class TemporalnominaspagosDet extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('temptblnominas_pagodet');  
     }
 }

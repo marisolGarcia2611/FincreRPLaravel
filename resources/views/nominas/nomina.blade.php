@@ -11,7 +11,7 @@
 @elseif($mensaje = Session::get('successcalcular'))
 @php
         echo '<script language="JavaScript">';
-        echo 'swal("¡Nomina calculada exitosamente!","Proceso realizado de forma correcta","success", {buttons: false,timer: 2000});';
+        echo 'swal("¡Nómina calculada exitosamente!","Proceso realizado de forma correcta","success", {buttons: false,timer: 2000});';
         echo '</script>';  
 @endphp
 
@@ -31,7 +31,7 @@
 <br/>
   <center class="container">
         <div class="col-md-12">
-          <h2 class="mt-3 mb-3 fw-light animate_animated ">Nominas</h2> 
+          <h2 class="mt-3 mb-3 fw-light animate_animated ">Nóminas</h2> 
         </div>
         <div class="col-md-12">
           <div class="row mt-8 text-center">
@@ -50,12 +50,12 @@
         <thead class="table">
           <tr class="tr-table"> 
             <th class="text-center fw-light">Acciones</th>
-            <th class="text-center fw-light">Numero de Nomina</th>
-            <th class="text-center fw-light">Nombre de Nomina</th>
+            <th class="text-center fw-light">Numero de Nómina</th>
+            <th class="text-center fw-light">Nombre de Nómina</th>
             <th class="text-center fw-light">Fecha inicio</th>
             <th class="text-center fw-light">Fecha Fin</th>
             <th class="text-center fw-light">Estatus</th>
-            <th class="text-center fw-light">Tipo Nomina</th>
+            <th class="text-center fw-light">Tipo Nómina</th>
           </tr>
         </thead>
         
@@ -128,7 +128,7 @@
                         <!-- Name input -->
                         <div class="form-outline">
                 
-                        <label class="form-label" for="form8Example4">Nombre de Nomina</label>
+                        <label class="form-label" for="form8Example4">Nombre de Nómina</label>
                      
                           <input type="text"  class="form-control" name="nombre_nomina" id="nombre_nomina"   required />
                           <div class="valid-feedback">
@@ -173,7 +173,7 @@
                       <div class="col">
                         <!-- Email input -->
                         <div class="form-outline">
-                        <label class="form-label" >Tipo de Nomina</label>
+                        <label class="form-label" >Tipo de Nómina</label>
                       <select class="form-select" name="tipo_nomina" required>
                         <option value="">Seleccionar...</option>
                         @foreach($varisrenc as $isrenc)
@@ -197,7 +197,7 @@
                      <br/>
                     <!-- Guardar empleado -->
                     <div class="offcanvas-footer text-center" style="padding:10px;">
-                      <button class="btn btn-blue" style="border-radius: 40px;" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Crear Nomina</button>
+                      <button class="btn btn-blue" style="border-radius: 40px;" type="submit"><i class="fas fa-save"></i>&nbsp;&nbsp;Crear Nómina</button>
                     </div>
               </form>
             </div>

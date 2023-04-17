@@ -13,18 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('welcome');});
-Auth::routes();
-
+  Route::get('/', function () {return view('welcome');});
+  Auth::routes();
 
 //Ruta de excel-------------------------------------------------------------------------------------
-Route::get('/Empleados/exportar_excel', 'App\Http\Controllers\EmpleadosController@exportar_excel')->name('Empleados.exportar_excel'); 
-Route::post('/Nominas/importBoTrans', 'App\Http\Controllers\NominasController@importar_excel')->name('Nominas.importar_excel'); 
-Route::get('/Nominas/exportar_excel', 'App\Http\Controllers\NominasController@exportar_excel')->name('Nominas.exportar_excel'); 
+  Route::get('/Empleados/exportar_excel', 'App\Http\Controllers\EmpleadosController@exportar_excel')->name('Empleados.exportar_excel'); 
+  Route::post('/Nominas/importBoTrans', 'App\Http\Controllers\NominasController@importar_excel')->name('Nominas.importar_excel'); 
+  Route::get('/Nominas/exportar_excel', 'App\Http\Controllers\NominasController@exportar_excel')->name('Nominas.exportar_excel'); 
 
-Route::group(['middleware' => 'prevent-back-history'],function(){
-   Auth::routes();
-   Route::get('/back', function () {return back();});
+  Route::group(['middleware' => 'prevent-back-history'],function(){
+  Auth::routes();
+  Route::get('/back', function () {return back();});
 
 
    //Ruta de el modulo de empleados-------------------------------------------------------------------------------------
@@ -72,13 +71,37 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
     // Ruta resgistro de usuarios--------------------------------------------------------------------------------------------------
     Route::get('/Registro', 'App\Http\Controllers\Auth\RegisterController@Index')->name('registro');
     Route::post('/Registro/Crear', 'App\Http\Controllers\Auth\RegisterController@create')->name('createUser');
-    
+
+    // Area de vales--------------------------------------------------------------------------------------------------
+    Route::get('/vales',[App\Http\Controllers\valesController::class, 'index'])->name('vales');
+    Route::get('/vales/CapturaDistribuidor', 'App\Http\Controllers\valesController@getDistribuidor')->name('getDistribuidor');
+    Route::get('/vales/CapturaAval', 'App\Http\Controllers\valesController@getAval')->name('getAval');
+    Route::get('/vales/CapturaDocumentos', 'App\Http\Controllers\valesController@getDocumentos')->name('getDocumentos');
+    Route::get('/vales/GestionFase1', 'App\Http\Controllers\valesController@getGestionFase1')->name('getGestionFase1');
+
+
+    Route::post('/vales/insertardistribuidor', 'App\Http\Controllers\valesController@insertardistribuidor')->name('vales.insertardistribuidor');  
+    Route::post('/vales/insertaraval', 'App\Http\Controllers\valesController@insertaraval')->name('vales.insertaraval');  
+    Route::post('/vales/Guardar_archivos','App\Http\Controllers\valesController@Guardar_archivos')->name('vales.Guardar_archivos');
+
+    Route::get('/vales/Termina_Proceso_aval/{id}','App\Http\Controllers\valesController@Termina_Proceso_aval')->name('Termina_Proceso_aval');
+    Route::post('/vales/insertaraval_termino_proceso', 'App\Http\Controllers\valesController@insertaraval_termino_proceso')->name('insertaraval_termino_proceso'); 
+    Route::get('/vales/Termina_Proceso_documentos/{id}','App\Http\Controllers\valesController@Termina_Proceso_documentos')->name('Termina_Proceso_documentos');
+    Route::post('/vales/Guardar_archivos_termina_proceso','App\Http\Controllers\valesController@Guardar_archivos_termina_proceso')->name('Guardar_archivos_termina_proceso');
+
+
+    Route::get('/vales/verpdf/{archivo}', 'App\Http\Controllers\valesController@verpdf')->name('vales.verpdf');
+    Route::get('/vales/getactualizadoc/{id}', 'App\Http\Controllers\valesController@getactualizadoc')->name('vales.getactualizadoc');
+    Route::get('/vales/Termina_Proceso_aval/{id}','App\Http\Controllers\valesController@Termina_Proceso_aval')->name('Termina_Proceso_aval');
+    Route::post('/vales/distribuidoractualizar/', 'App\Http\Controllers\valesController@distribuidoractualizar')->name('vales.distribuidoractualizar');
+    Route::post('/vales/actualizar_aval/', 'App\Http\Controllers\valesController@actualizar_aval')->name('vales.actualizar_aval');
+    Route::get('/vales/getactualizardistribuidor/{id}', 'App\Http\Controllers\valesController@getactualizardistribuidor')->name('vales.getactualizardistribuidor');
+    Route::get('/vales/enviaramesa_credito/{id}', 'App\Http\Controllers\ValesController@enviaramesa_credito')->name('vales.enviaramesa_credito');
 
     // Area de creditos--------------------------------------------------------------------------------------------------
-    Route::get('/Creditos',[App\Http\Controllers\CreditosController::class, 'index'])->name('vercreditos');
-    Route::get('/Creditos/CapturaDistribuidor', 'App\Http\Controllers\CreditosController@getDistribuidor')->name('getDistribuidor');
-    Route::get('/Creditos/CapturaAval', 'App\Http\Controllers\CreditosController@getAval')->name('getAval');
-    Route::get('/Creditos/CapturaDocumentos', 'App\Http\Controllers\CreditosController@getDocumentos')->name('getDocumentos');
-    Route::get('/Creditos/GestionFase1', 'App\Http\Controllers\CreditosController@getGestionFase1')->name('getGestionFase1');
-
+    Route::get('/vales/GestionFase2', 'App\Http\Controllers\ValesController@getGestionFase2')->name('getGestionFase2');
+    Route::get('/vales/GestionFase2/EditarDistribuidor', 'App\Http\Controllers\ValesController@getEditDistribuidor')->name('getEditDistribuidor');
+    Route::get('/vales/GestionFase2/SolicitudMesaCredito/{id}', 'App\Http\Controllers\ValesController@getSolicitudMesaCredito')->name('getSolicitudMesaCredito');
+    Route::get('/vales/GestionFase2/CreditosDictamen', 'App\Http\Controllers\ValesController@getCreditosDictamen')->name('getCreditosDictamen');
+    
   });

@@ -17,10 +17,57 @@
 
 @endif
 
-<div id="aval"></div>
+<!-- Btn de regreso-->
+<div class="pos__btnBack1 d-none d-md-block" style="z-index:3!important;">
+        <div class="wrapper"> 
+        <h5 class="btnBack1" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
+        </div>
+</div>
+
+<!-- Menu de progreso-->
+<div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">
+    <div class="mt-2">
+        <h5 class="fw-light">Fase 1: Captura Inicial de Crédito  <button class="btn border-0 text-secondary" id="show2" onclick="divshow2()"><i class="fa-solid fa-minus"></i></button></h5>
+        <div>
+            <nav id="navbar">
+                <div class="row p-3">
+                    
+                    <div class="col-md-2 col-2 marginSpecial">
+                        <div class="row">
+                            <div class="col-md-6 col-6 border1"  onClick="history.go(-1);" style="cursor:pointer"><h2 class="fw-light">1</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special"  onClick="history.go(-1);" style="cursor:pointer" >Distribuidor</h5></div>
+                        </div> 
+                    </div>
+
+                    <div class="col-md-2 col-2 line1"></div>
+
+                    <div class="col-md-2 col-2">
+                        <div class="row">
+                            <div class="col-md-6 col-6 circle2"><h2 class="fw-light">2</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Aval</h5></div>
+                        </div> 
+                    </div>
+
+                    <div class="col-md-2 col-2 line2"></div>
+
+                    <div class="col-md-2 col-2">
+                        <div class="row">
+                            <div class="col-md-6 col-6 border3"><h2 class="fw-light">3</h2></div>
+                            <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Documentos</h5></div>
+                        </div> 
+                    </div>
+                    
+                </div>
+            </nav>
+        </div>
+
+    </div>
+</div>
 
 <div class="space_height" id="block2"></div>
 
+
+<!-- Contenedor principal-->
 <div class="container">
     <form action="/vales/actualizar_aval" method="POST" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
       @csrf
@@ -402,7 +449,8 @@
     </form>
 </div>
 
-<script src="{{ asset('js/F1Aval.js') }}"></script>
+<script ></script>
 <script src="{{ asset('js/caja.js') }}"></script>
 <script src="{{ asset('js/validation.js') }}"></script>
+<script src="{{ asset('js/block2.js') }}"></script>
 @endsection

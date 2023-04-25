@@ -26,7 +26,7 @@ class SistemasController extends Controller
         return view('sistemas.index',compact('varpantallas','varsubmenus'));
     }
 
-    public function indexPermisos()
+    public function indexAcciones()
     {
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
@@ -34,7 +34,7 @@ class SistemasController extends Controller
         $varlistapuestos=$this->obtenerpuestos();
         $varlistausers=$this->obtenerusuarios();
         $varlistadepas = $this->obtenerdepartamentos();
-        return view('sistemas.permisos',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistadepas'));
+        return view('sistemas.acciones',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistadepas'));
     }
 
     protected function asignarPermiso(Request $request)
@@ -61,6 +61,8 @@ class SistemasController extends Controller
         }
           
     }
+
+
 
 
 }

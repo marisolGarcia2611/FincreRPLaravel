@@ -145,10 +145,13 @@
                                 <div class="col-md-6 cs4"></div>                    
                                 @endif
                                 @if($mesacred->status == 'pro_aut')
-                                <div class="col-md-6 cs8"></div>                    
+                                <div class="col-md-6 cs5"></div>                    
                                 @endif
                                 @if($mesacred->status == 'pro_val')
                                 <div class="col-md-6 cs6"></div>                    
+                                @endif
+                                @if($mesacred->status == 'pro_obs')
+                                <div class="col-md-6 cs1"></div>                    
                                 @endif
                              </center>
                             </td>

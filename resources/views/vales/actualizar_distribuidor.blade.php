@@ -17,10 +17,106 @@
 
 @endif
 
-<div id="EncabezadoDis"></div>
+<!-- Btn de regreso-->
+
+<div class="pos__btnBack1 d-none d-md-block" style="z-index:3!important;">
+    <div class="wrapper"> 
+    <h5 class="btnBack1" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
+    </div>
+</div>
+
+<!-- Menu de progreso-->
+<div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">
+    <div class="mt-4">
+        <h5 class="fw-light">Fase 1: Actualización del credtito<button class="btn border-0 text-secondary" id="show" onclick="divshow()"><i class="fa-solid fa-minus"></i></button></h5>
+        <div>
+            <nav id="navbar">
+                    <div class="row p-3">
+                    @foreach($vardistribuidorfase1 as $datos) 
+                        <div class="col-md-2 col-2 marginSpecial">
+                            <div class="row">
+                                <div class="col-md-6 col-6 circle1"><h2 class="fw-light">1</h2></div>
+                                <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Distribuidor</h5></div>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-2 col-2 line1"></div>
+
+                        <div class="col-md-2 col-2">
+                            <div class="row">
+                                <div class="col-md-6 col-6 border2"><h2 class="fw-light">2</h2></div>
+                                <div class="col-md-6 col-6 p-15">
+                                <form action="/vales/actualizar_avalup/{{$datos->id_distribuidor}}" method="get">
+                                    <button class=" btn fa-primary fw-light fs_special border-0" type="submit">Aval</button>
+                                </form>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-2 col-2 line2"></div>
+
+                        <div class="col-md-2 col-2">
+                            <div class="row">
+                                <div class="col-md-6 col-6 border3"><h2 class="fw-light">3</h2></div>
+                                <div class="col-md-6 col-6 p-15"><h5 class="fw-light fs_special">Documentos</h5></div>
+                            </div> 
+                        </div>
+                        
+                    </div>
+                </nav>
+        </div>
+
+    </div>
+</div>
+
 
 <div class="space_height" id="block"></div>
 
+<!-- Aviso emergente-->
+<div class="container mt-2 mb-3">
+
+        <div class="row">
+            <div class="text-end">
+                    <button type="button" class="btn border-0 fw-light text-secondary fs-6_5" onclick="message()">
+                        <i class="fa-solid fa-message"></i></i>&nbsp;&nbsp;Observaciones
+                    </button>
+            </div>
+        </div>
+
+        <div id="messageContent">
+            <div class="alert alert-primary shadow p-3 mb-5 rounded position-alert border-0" role="alert">
+                <div class="row">
+                    <div class="col-md-10 col-10">
+                        <i class="fa-solid fa-triangle-exclamation"></i>&nbsp;&nbsp;Ultimas observaciones
+                    </div>
+                    <div class="col-md-2 col-2 text-end">
+                        <button type="button" class="btn border-0 position-cross" onclick="message()">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                @foreach($varmensajes as $mensa)
+                <div class="row">
+                    @if($mensa->tipo_usuario == "admin")
+                        <div class="col">
+                            <p class="fw-light text-success"><b> {{$mensa->tipo_usuario}}</b></p> 
+                            <p style="margin-top:-10px;" class="fw-light fs-8">Observaciones:<br/>  {{$mensa->texto}}</p> 
+                            <hr/>
+                        </div>
+                        
+                    @elseif($mensa->tipo_usuario == "sucursal")
+                        <div class="col">
+                            <p class="fw-light text-info"><b> {{$mensa->tipo_usuario}}</b></p> 
+                            <p style="margin-top:-10px;" class="fw-light fs-8">Comentario:<br/>  {{$mensa->texto}}</p> 
+                            <hr/>
+                        </div>
+                    @endif
+                </div>
+                @endforeach
+            </div>
+        </div>
+ 
+</div>
 
 <div class="container">
 
@@ -968,7 +1064,7 @@
                     <div class="col">
                             <div class="form-outline">
                             <label class="form-label" for="form8Example4">Ciudad</label>
-                               <select class="form-select" name="ciudad" id="ciudad">
+                               <select  name="ciudad" id="ciudad">
                                 @foreach($varciudades as $ciudad)
                                 @if($ciudad->id ==$datos->ciudad)
                                 <option  selected value="{{$ciudad->id}}" >{{$ciudad->nombre}}</option>
@@ -1000,11 +1096,46 @@
         </div>
 
     </form>
-
+    @endforeach
 </div>
 
-<script src="{{ asset('js/F1Distribuidor.js') }}"></script>
+
+<!-- btn mensaje-->
+<div class="chatButtonPosition">
+    <button class="btn border-0 p-2 chatButton" type="button" data-bs-toggle="modal" data-bs-target="#Documentacion"><h3><i class="fa-solid fa-comment"></i></h3></button>
+</div>
+
+<!-- Modal comentario-->
+@foreach($vardistribuidorfase1 as $datos) 
+<form action="/enviar_mensaje/sucursal/{{$datos->id_distribuidor}}">
+@endforeach
+    <div class="modal fade" id="Documentacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Añadir comentario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="mensaje"></textarea>
+                    <label for="floatingTextarea">Comentarios</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-blue">Enviar <i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+
 <script src="{{ asset('js/cajas.js') }}"></script>
 <script src="{{ asset('js/validation.js') }}"></script>
+<script src="{{ asset('js/aviso.js') }}"></script>
+<script src="{{ asset('js/block.js') }}"></script>
+
+
 
 @endsection

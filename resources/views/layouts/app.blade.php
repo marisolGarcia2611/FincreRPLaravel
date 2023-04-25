@@ -385,16 +385,16 @@
     .lh4{background-color: #9867FF;width:1px;}
 
     .mt10{margin-top: -10px;}
-    .position-alert{position:fixed;z-index:1000;right: 17%;max-width:900px;margin-top:-40px;}
+    .position-alert{position:fixed;z-index:1000;right: 20px;bottom:-20px;min-width:600px;margin-top:-40px;}
     .position-cross{margin-top:-10px;margin-right:-10px;}
     .pChat{object-fit: cover;width: 35px;height:35px;border-radius:100px;}
 
     @media screen and (max-width:600px) { 
-      .position-alert{position:fixed;z-index:1000;right:0px;max-width:900px;margin-top:0px;bottom: -50px;}
+      .position-alert{position:fixed;z-index:1000;right:0px;min-width:100%;margin-top:0px;bottom: -50px;}
     }
 
     /* -------------------------Chat area----------------------------------------- */
-    .chatButtonPosition{position: fixed;left:10px;bottom:10px;}
+    .chatButtonPosition{position: fixed;left:10px;bottom:10px;z-index: 3;}
     .chatButton{background-color: #242424;color: #fff; border-radius:100px;width:50px;height:50px;}
     .chatButton:hover{background-color:#3e3e3e!important;color: #fff!important;}
     .bg-chat{background-color:#f0f0f0;;position:fixed;z-index:999;width:320px;height:380px;bottom:0px;right:25px;border-top-left-radius: 18px;border-top-right-radius: 15px;padding:0px!important;}
@@ -422,7 +422,7 @@
     .iconSolicitud1{color: #ffffff;}
     .btn-turquesa{background-color: #02779b;color: #ffffff;border: none;}
     .btn-turquesa:hover{background-color: #045c77;color: #ffffff;border: none;}
-    .btn_Edicion{background-color: #0c95e4;position: fixed;right:0px;left:0px;bottom:0px;}
+    .btn_Edicion{background-color: #0c95e4;position: fixed;right:0px;left:0px;bottom:0px;z-index: 2;}
     .card-solicitud{margin-top: 80px;width:90%;}
     .carrusel_text{padding-left: 100px!important;padding-right: 100px!important;}
     .pos_histrial{position: fixed;right:0px;top:0px;bottom:0px;}

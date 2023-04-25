@@ -148,20 +148,26 @@
                           <button class="text-light btn fa-solid fa-eye bor" type="submit"></button>
                     </form>
                   </td>
-
+        
                   <td class="bg-1">
                     <center>
-                          @if($dis->estado_captura==3 && $dis->status =='')
+                    @if($dis->estado_captura==3 && $dis->status =='')
                             <form action="/vales/enviaramesa_credito/{{$dis->id}}">
                                   <button class="btn bg-4 cst6" style="border-radius:10px;" type="submit"><i class="fa-brands fa-slack"></i> Enviar Mesa Crédito</button>
                             </form>
-                          @elseif($dis->estado_captura==3 && $dis->status =='pro_rev')
-                          <div class="circle cst3"  title="Mesa de Credito"></div>
-                          @else
-                          <div class="circle cst2"  title="Proceso no terminado"></div>
-                          @endif
+                        
                     </center>
+                 
+                  @endif
+                  @if($dis->estado_captura==3 && $dis->status =='pro_obs')
+                
+                    <center>
+                          <form action="/vales/enviaramesa_credito_act/{{$dis->id}}">
+                                  <button class="btn bg-4 cst6" style="border-radius:10px;" type="submit"><i class="fa-brands fa-slack"></i> Enviar Mesa Crédito</button>
+                            </form>
+                            </center>
                   </td>
+                          @endif
               
                   <td class="bg-1">
                         <div class="progress">

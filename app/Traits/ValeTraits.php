@@ -5,6 +5,8 @@ use App\Models\estados;
 use App\Models\distribuidores;
 use App\Models\avales;
 use App\Models\documentos;
+use App\Models\historial;
+use App\Models\mensajes;
 use App\Models\tipo_distribuidor;
 use Illuminate\Support\Facades\Request;
 use DB;
@@ -258,6 +260,10 @@ trait ValeTraits{
         public function obtenersolicitud(int $id) {
             $vardistribuidores = distribuidores::join('tblconyuges','tbldistribuidores.id','=','tblconyuges.iddistribuidor')
                 ->join('tblreferencias','tbldistribuidores.id','=','tblreferencias.iddistribuidor')
+                ->join('tblsucursales','tbldistribuidores.idsucursal','=','tblsucursales.id')
+                ->join('tblpromotores','tbldistribuidores.idpromotor','=','tblpromotores.id')
+                ->join('tblempleados','tblpromotores.idempleado','=','tblempleados.id')
+                ->join('tblciudades','tbldistribuidores.idciudad','=','tblciudades.id')
                 ->select(
                 'tbldistribuidores.id as id_distribuidor', 
                 DB::raw('CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) as nombre'),
@@ -283,8 +289,11 @@ trait ValeTraits{
                 'tbldistribuidores.direccion_empresa as distribuidor_direccion_empresa', 
                 'tbldistribuidores.egreso_fijomensual as distribuidor_egreso_mensual', 
                 'tbldistribuidores.idestado as distribuidor_idestado',
+                'tblsucursales.nombre as sucursal',
                 'tbldistribuidores.estado_captura as distribuior_estado_captura',
                 'tbldistribuidores.tipo_distribuidor as tipodis',
+                DB::raw('CONCAT(tblempleados.primer_nombre," ",tblempleados.segundo_nombre," ",tblempleados.apellido_paterno," ",tblempleados.apellido_materno) promotor'),
+                'tblciudades.nombre as ciudaddistribuidor',
 
                 'tblconyuges.id as conyuid',
                 DB::raw('CONCAT(tblconyuges.primer_nombre," ",tblconyuges.segundo_nombre," ",tblconyuges.apellido_paterno," ",tblconyuges.apellido_materno) as nombrec'),
@@ -347,6 +356,41 @@ trait ValeTraits{
             ->where('tblavales.iddistribuidor','=',$iddistribuidor)
             ->get();
             return $idavalterminaproceso;
+        }
+
+        public function obtenerhistorial(int $iddistribuidor){
+            $varhistorial = historial::select(
+                'tblhistorial.id',
+                'tblhistorial.iddistribuidor',
+                'tblhistorial.status',
+                'tblhistorial.descripcion_status',
+                'tblhistorial.created_at as fecha_creacion',
+                'tblhistorial.updated_at as fecha_actualizacion')
+                ->where('tblhistorial.iddistribuidor','=',$iddistribuidor)
+                ->get();
+                return $varhistorial;
+
+        }
+
+        public function obtener_mensajes(int $iddistribuidor){
+
+        $varobtenermensajes = mensajes::select('tblmensajes_interacciones.id', 'tblmensajes_interacciones.iddistribuidor','tblmensajes_interacciones.texto','tblmensajes_interacciones.tipo_usuario','tblmensajes_interacciones.turno')
+        ->where('tblmensajes_interacciones.iddistribuidor','=',$iddistribuidor)
+        ->get();
+        return $varobtenermensajes;
+
+        }
+
+        public function obtenerturno(int $iddistribuidor){
+            $varturno = mensajes::select(
+             'tblmensajes_interacciones.id',   
+            'tblmensajes_interacciones.tipo_usuario',
+            'tblmensajes_interacciones.turno')
+            ->where('tblmensajes_interacciones.iddistribuidor','=',$iddistribuidor)
+            ->orderby('tblmensajes_interacciones.id','desc')
+            ->limit(1)
+            ->get();
+            return $varturno;
         }
 }
 

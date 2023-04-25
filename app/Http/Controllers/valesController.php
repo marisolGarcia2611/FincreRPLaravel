@@ -14,7 +14,10 @@ use App\Traits\MenuTrait;
 use App\Traits\DatosimpleTraits;
 use App\Traits\ValeTraits;
 use App\Models\tipo_distribuidor;
+use App\Models\historial;
+use App\Models\mensajes;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
@@ -117,6 +120,7 @@ class valesController extends Controller
       $distribuidor->capital=$request->get('capital');
       $distribuidor->capital_autorizado=$request->get('capital_autorizado');
       $distribuidor->estado_captura = 1;
+      $distribuidor->status = 'pro_rev';
       $distribuidor->created_at = $fecha;
       $distribuidor->save();
       $iddistribuidor = $this->iddistribuidor();
@@ -163,6 +167,7 @@ class valesController extends Controller
      
 
       if($conyuge->save() && $referencia->save()){
+     
     
         return redirect()->route('getAval')->with("success","¡Se guardaron los cambios correctamente!");
       }
@@ -258,45 +263,46 @@ class valesController extends Controller
    
         //creamos sus rutas
         //Documentos del distribuidor
-         $Nombredoc_ofi = "identificacion_oficial_distribuidor_#"."$iddistribuidor->id".".".$file_doc_ofi->guessExtension();
+         $Nombredoc_ofi = "identificacion_oficial_distribuidor_"."$iddistribuidor->id".".".$file_doc_ofi->guessExtension();
          $ruta_doc_ofi = public_path($Rutacarpeta."/".$Nombredoc_ofi);
 
 
-         $Nombre_doc_comprobante = "comprobante_domicilio_distribuidor_#"." $iddistribuidor->id".".".$file_doc_comprobante->guessExtension(); 
+         $Nombre_doc_comprobante = "comprobante_domicilio_distribuidor_"." $iddistribuidor->id".".".$file_doc_comprobante->guessExtension(); 
          $ruta_doc_comporbante = public_path($Rutacarpeta."/".$Nombre_doc_comprobante);
 
-         $Nombre_doc_comprobante_ingreso = "comprobante_ingresos_#"." $iddistribuidor->id".".".$file_doc_comprobante_ingreso->guessExtension(); 
+
+         $Nombre_doc_comprobante_ingreso = "comprobante_ingresos_"." $iddistribuidor->id".".".$file_doc_comprobante_ingreso->guessExtension(); 
          $ruta_doc_ingresos = public_path($Rutacarpeta."/".$Nombre_doc_comprobante_ingreso);
 
-         $Nombre_doc_solicitus_cre = "comprobante_solicitud_credito_#"." $iddistribuidor->id".".".$file_doc_solicitud_cre->guessExtension(); 
+         $Nombre_doc_solicitus_cre = "comprobante_solicitud_credito_"." $iddistribuidor->id".".".$file_doc_solicitud_cre->guessExtension(); 
          $ruta_doc_solicitud_cre = public_path($Rutacarpeta."/".$Nombre_doc_solicitus_cre);
 
-         $Nombre_doc_auto_buro = "comprobante_autorizacion_buro_#"." $iddistribuidor->id".".".$file_doc_auto_buro->guessExtension(); 
+         $Nombre_doc_auto_buro = "comprobante_autorizacion_buro_"." $iddistribuidor->id".".".$file_doc_auto_buro->guessExtension(); 
          $ruta_doc_auto_buro = public_path($Rutacarpeta."/".$Nombre_doc_auto_buro);
 
-         $Nombre_doc_veri_domicilio = "comprobante_verificacion_domicilio_#"." $iddistribuidor->id".".".$file_doc_veri_domicilio->guessExtension(); 
+         $Nombre_doc_veri_domicilio = "comprobante_verificacion_domicilio_"." $iddistribuidor->id".".".$file_doc_veri_domicilio->guessExtension(); 
          $ruta_docveri_domicilio = public_path($Rutacarpeta."/".$Nombre_doc_veri_domicilio);
 
 
 
 
          //documentos del aval
-         $Nombre_doc_ofi_aval = "comprobante_documento_oficial_aval_#"." $idultimoaval->id".".".$file_doc_ofi_aval->guessExtension(); 
+         $Nombre_doc_ofi_aval = "comprobante_documento_oficial_aval_"." $idultimoaval->id".".".$file_doc_ofi_aval->guessExtension(); 
          $ruta_doc_ofi_aval = public_path($Rutacarpeta."/".$Nombre_doc_ofi_aval);
 
-         $Nombre_doc_comporbante_aval = "comprobante_domicilio_aval_#"." $idultimoaval->id".".".$file_doc_comporbante_aval->guessExtension(); 
+         $Nombre_doc_comporbante_aval = "comprobante_domicilio_aval_"." $idultimoaval->id".".".$file_doc_comporbante_aval->guessExtension(); 
          $ruta_doc_comporbante_aval = public_path($Rutacarpeta."/".$Nombre_doc_comporbante_aval);
 
-         $Nombre_doc_ofi_soli_cred_aval = "comprobante_solicitus_aval_#"." $idultimoaval->id".".".$file_doc_ofi_soli_cred_aval->guessExtension(); 
+         $Nombre_doc_ofi_soli_cred_aval = "comprobante_solicitus_aval_"." $idultimoaval->id".".".$file_doc_ofi_soli_cred_aval->guessExtension(); 
          $ruta_doc_ofi_soli_cred_aval = public_path($Rutacarpeta."/".$Nombre_doc_ofi_soli_cred_aval);
 
-         $Nombre_doc_buro_aval = "comprobante_buro_aval_#"." $idultimoaval->id".".".$file_doc_buro_aval->guessExtension(); 
+         $Nombre_doc_buro_aval = "comprobante_buro_aval_"." $idultimoaval->id".".".$file_doc_buro_aval->guessExtension(); 
          $ruta_doc_buro_aval = public_path($Rutacarpeta."/".$Nombre_doc_buro_aval);
 
-         $Nombre_veri_dom_aval = "comprobante_verificacion_dom_aval_#"." $idultimoaval->id".".".$file_doc_veri_dom_aval->guessExtension(); 
+         $Nombre_veri_dom_aval = "comprobante_verificacion_dom_aval_"." $idultimoaval->id".".".$file_doc_veri_dom_aval->guessExtension(); 
          $ruta_veri_dom_aval = public_path($Rutacarpeta."/".$Nombre_veri_dom_aval);
 
-         $Nombre_comporbante_ingreso_aval = "comprobante_ingreso_aval_#"." $idultimoaval->id".".".$file_doc_ingreso_aval->guessExtension(); 
+         $Nombre_comporbante_ingreso_aval = "comprobante_ingreso_aval_"." $idultimoaval->id".".".$file_doc_ingreso_aval->guessExtension(); 
          $ruta_comporbante_ingreso_aval = public_path($Rutacarpeta."/".$Nombre_comporbante_ingreso_aval);
 
          if($file_doc_ofi->guessExtension()=="pdf"){
@@ -467,45 +473,45 @@ class valesController extends Controller
      
           //creamos sus rutas
           //Documentos del distribuidor
-           $Nombredoc_ofi = "identificacion_oficial_distribuidor_#"."$iddistribuidor".".".$file_doc_ofi->guessExtension();
+           $Nombredoc_ofi = "identificacion_oficial_distribuidor_"."$iddistribuidor".".".$file_doc_ofi->guessExtension();
            $ruta_doc_ofi = public_path($Rutacarpeta."/".$Nombredoc_ofi);
   
   
-           $Nombre_doc_comprobante = "comprobante_domicilio_distribuidor_#"."$iddistribuidor".".".$file_doc_comprobante->guessExtension(); 
+           $Nombre_doc_comprobante = "comprobante_domicilio_distribuidor_"."$iddistribuidor".".".$file_doc_comprobante->guessExtension(); 
            $ruta_doc_comporbante = public_path($Rutacarpeta."/".$Nombre_doc_comprobante);
   
-           $Nombre_doc_comprobante_ingreso = "comprobante_ingresos_#"."$iddistribuidor".".".$file_doc_comprobante_ingreso->guessExtension(); 
+           $Nombre_doc_comprobante_ingreso = "comprobante_ingresos_"."$iddistribuidor".".".$file_doc_comprobante_ingreso->guessExtension(); 
            $ruta_doc_ingresos = public_path($Rutacarpeta."/".$Nombre_doc_comprobante_ingreso);
   
-           $Nombre_doc_solicitus_cre = "comprobante_solicitud_credito_#"."$iddistribuidor".".".$file_doc_solicitud_cre->guessExtension(); 
+           $Nombre_doc_solicitus_cre = "comprobante_solicitud_credito_"."$iddistribuidor".".".$file_doc_solicitud_cre->guessExtension(); 
            $ruta_doc_solicitud_cre = public_path($Rutacarpeta."/".$Nombre_doc_solicitus_cre);
   
-           $Nombre_doc_auto_buro = "comprobante_autorizacion_buro_#"."$iddistribuidor".".".$file_doc_auto_buro->guessExtension(); 
+           $Nombre_doc_auto_buro = "comprobante_autorizacion_buro_"."$iddistribuidor".".".$file_doc_auto_buro->guessExtension(); 
            $ruta_doc_auto_buro = public_path($Rutacarpeta."/".$Nombre_doc_auto_buro);
   
-           $Nombre_doc_veri_domicilio = "comprobante_verificacion_domicilio_#"."$iddistribuidor".".".$file_doc_veri_domicilio->guessExtension(); 
+           $Nombre_doc_veri_domicilio = "comprobante_verificacion_domicilio_"."$iddistribuidor".".".$file_doc_veri_domicilio->guessExtension(); 
            $ruta_docveri_domicilio = public_path($Rutacarpeta."/".$Nombre_doc_veri_domicilio);
   
   
   
   
            //documentos del aval
-           $Nombre_doc_ofi_aval = "comprobante_documento_oficial_aval_#"."$idaval".".".$file_doc_ofi_aval->guessExtension(); 
+           $Nombre_doc_ofi_aval = "comprobante_documento_oficial_aval_"."$idaval".".".$file_doc_ofi_aval->guessExtension(); 
            $ruta_doc_ofi_aval = public_path($Rutacarpeta."/".$Nombre_doc_ofi_aval);
   
-           $Nombre_doc_comporbante_aval = "comprobante_domicilio_aval_#"."$idaval".".".$file_doc_comporbante_aval->guessExtension(); 
+           $Nombre_doc_comporbante_aval = "comprobante_domicilio_aval_"."$idaval".".".$file_doc_comporbante_aval->guessExtension(); 
            $ruta_doc_comporbante_aval = public_path($Rutacarpeta."/".$Nombre_doc_comporbante_aval);
   
-           $Nombre_doc_ofi_soli_cred_aval = "comprobante_solicitus_aval_#"."$idaval".".".$file_doc_ofi_soli_cred_aval->guessExtension(); 
+           $Nombre_doc_ofi_soli_cred_aval = "comprobante_solicitus_aval_"."$idaval".".".$file_doc_ofi_soli_cred_aval->guessExtension(); 
            $ruta_doc_ofi_soli_cred_aval = public_path($Rutacarpeta."/".$Nombre_doc_ofi_soli_cred_aval);
   
-           $Nombre_doc_buro_aval = "comprobante_buro_aval_#"."$idaval".".".$file_doc_buro_aval->guessExtension(); 
+           $Nombre_doc_buro_aval = "comprobante_buro_aval_"."$idaval".".".$file_doc_buro_aval->guessExtension(); 
            $ruta_doc_buro_aval = public_path($Rutacarpeta."/".$Nombre_doc_buro_aval);
   
-           $Nombre_veri_dom_aval = "comprobante_verificacion_dom_aval_#"."$idaval".".".$file_doc_veri_dom_aval->guessExtension(); 
+           $Nombre_veri_dom_aval = "comprobante_verificacion_dom_aval_"."$idaval".".".$file_doc_veri_dom_aval->guessExtension(); 
            $ruta_veri_dom_aval = public_path($Rutacarpeta."/".$Nombre_veri_dom_aval);
   
-           $Nombre_comporbante_ingreso_aval = "comprobante_ingreso_aval_#"."$idaval".".".$file_doc_ingreso_aval->guessExtension(); 
+           $Nombre_comporbante_ingreso_aval = "comprobante_ingreso_aval_"."$idaval".".".$file_doc_ingreso_aval->guessExtension(); 
            $ruta_comporbante_ingreso_aval = public_path($Rutacarpeta."/".$Nombre_comporbante_ingreso_aval);
   
            if($file_doc_ofi->guessExtension()=="pdf"){
@@ -584,7 +590,9 @@ public function getactualizardistribuidor(int $id){
   $varestados  =  $this->obtenerestados();
   $vardistribuidorfase1 =  $this->obtenerdatosfase1($id);
   $vartipodis = $this->obtenertipo_distribuidor();
-  return view('vales.actualizar_distribuidor',compact('varpantallas','varsubmenus','varpromotores','varsucursales','varciudades','varestados','vardistribuidorfase1','vartipodis'));
+  $varmensajes = $this->obtener_mensajes($id);
+  
+  return view('vales.actualizar_distribuidor',compact('varpantallas','varsubmenus','varpromotores','varsucursales','varciudades','varestados','vardistribuidorfase1','vartipodis','varmensajes'));
 }
 public function distribuidoractualizar(Request $request){
 
@@ -739,12 +747,15 @@ public function distribuidoractualizar(Request $request){
   return view('vales.mostrar_documentacion',compact('varpantallas','varsubmenus','vardocumentos'));
  }
 
- public function verpdf(String $filename){
-    $filename = 'Expedientes\distribuidores\1\comprobante_autorizacion_buro_#1.pdf';
-    $path = public_path($filename);
+ public function verpdf(int $contrato, String $filename){
+
+  
+
+    $RUTA = "Expedientes/distribuidores"."/$contrato"."/"."$filename";
+    $path = public_path($RUTA);
     return Response::make(file_get_contents($path), 200, [
     'Content-Type' => 'application/pdf',
-    'Content-Disposition' => 'inline; filename="'.$filename.'"'
+    'Content-Disposition' => 'inline; filename="'.$RUTA.'"'
     ]);
  }
 
@@ -777,9 +788,11 @@ public function distribuidoractualizar(Request $request){
       $varsubmenus =   $this->Traermenudet();
       $vardatossolicitud= $this->obtenersolicitud($id);
       $veraval= $this->solicitudaval($id);
-      return view('Vales.Fase2.solicitudMesaCredito',compact('varpantallas','varsubmenus','vardatossolicitud','veraval')); 
-
-
+      $vardocumentos =  $this->mostrardocumentacion($id);
+      $varhistorial = $this->obtenerhistorial($id);
+      $varmensajes = $this->obtener_mensajes($id);
+  
+      return view('Vales.Fase2.solicitudMesaCredito',compact('varpantallas','varsubmenus','vardatossolicitud','veraval','vardocumentos','varhistorial','varmensajes')); 
     }
     public function getCreditosDictamen()
     {
@@ -793,6 +806,11 @@ public function distribuidoractualizar(Request $request){
       $tipoD->status ='pro_rev';
 
       if($tipoD->save()){
+        $historial = new historial();
+        $historial->iddistribuidor =$iddistribuidor;
+        $historial->status ='pro_dic';
+        $historial->descripcion_status='Enviado a mesa de credito';
+        $historial->save();
 
         return redirect()->route('getGestionFase1')->with("success","¡Se guardaron los cambios correctamente!");
       }
@@ -800,7 +818,176 @@ public function distribuidoractualizar(Request $request){
         return redirect()->route('getGestionFase1')->with("warning","Incorrecto");
       }
     }
+
+
+    public function enviaramesa_credito_act(int $iddistribuidor){
+
+      $tipoD=distribuidores::find($iddistribuidor);
+      $tipoD->status ='pro_dic';
+      if($tipoD->save()){
+
+        $Upstatus = DB::select('update tblhistorial set status = "pro_dic", descripcion_status = "Enviado a mesa de credito" WHERE iddistribuidor = ?;', [$iddistribuidor]);
+
+        return redirect()->route('getGestionFase1')->with("success","¡Se guardaron los cambios correctamente!");
+      }
+      else{
+        return redirect()->route('getGestionFase1')->with("warning","Incorrecto");
+      }
+    }
+
+
+    public function  actualizar_avalup(int $id){
+      $iddistribuidor =$id;
+      $varciudades =  $this->obtenerciudades();
+      $varpantallas =  $this->Traermenuenc();
+      $varsubmenus =   $this->Traermenudet();
+      $varobtenerdatosaval=$this->obteneravalactualiza($iddistribuidor);
+      return view('vales.actualizar_aval',compact('varpantallas','varsubmenus','varciudades','varobtenerdatosaval'));
+   }
+
+   function Guardar_observaciones(Request $request){
+
+    $idreferenciadis = $request->get('idreferencia');
+    $idreferenciaava= $request->get('idreferenciaaval');
+
+   $iddistribuidor = $request->get('iddistribuidor');
+   $idaval= $request->get('idaval');
+  
+
+    $documento1=documentos::find($idreferenciadis);
+    $documento1->status_ide_ofi ='a' ;//$request->get('identificacionDis');
+    $documento1->status_com_dom = $request->get('comprobanteDomicilioDis');
+    $documento1->status_com_ingre =$request->get('comprobanteingreso');
+    $documento1->status_sol_cre =  $request->get('solicitudCreditoDis');
+    $documento1->status_aut_buro = $request->get('consultaBuroDis');
+    $documento1->status_ver_dom =  $request->get('verificacionDomicilioDis');
     
+
+
+    $documento2=documentos::find($idreferenciaava);
+    $documento2->status_ide_ofi =$request->get('identificacioAval');
+    $documento2->status_com_dom = $request->get('comprobanteDomicilioAval');
+    $documento2->status_com_ingre = $request->get('comprobanteingresoaval');
+    $documento2->status_sol_cre = $request->get('solicitudCreditoAval');
+    $documento2->status_aut_buro = $request->get('consultaBuroAval');
+    $documento2->status_ver_dom = $request->get('verificacioDomicilioAval');
+    
+    if($documento1->save()&& $documento2->save()){
+      $date = Carbon::now();
+      $fecha = $date->format('Y-m-d');
+
+      $Upstatus = DB::select('update tblhistorial set status = "pro_obs", descripcion_status = "La solicitud tiene observaciones" WHERE iddistribuidor = ?;', [$iddistribuidor]);
+
+      $tipoD=distribuidores::find($iddistribuidor);
+      $tipoD->status ='pro_obs';
+      $tipoD->save();
+      return redirect()->route('getGestionFase2')->with("success","¡Se guardaron los cambios correctamente!");
+    }
+    else{
+      return redirect()->route('getGestionFase2')->with("warning","Incorrecto");
+    }
+   }
+
+
+   function rechazar_distribuidor(int $iddis){
+   $iddistribuidor =$iddis;
+
+   $distribuidor = distribuidores::find($iddistribuidor);
+   $distribuidor->status = 'pro_rec';
+    
+    if($distribuidor->save()){
+
+      $Upstatus = DB::select('update tblhistorial set status = "pro_rec", descripcion_status = "Se rechazo la solicitud" WHERE iddistribuidor = ?;', [$iddistribuidor]);
+      return redirect()->route('getGestionFase2')->with("success","¡Se guardaron los cambios correctamente!");
+    }
+    else{
+      return redirect()->route('getGestionFase2')->with("warning","Incorrecto");
+    }
+   }
+
+   function aprobar_distribuidor(int $iddis){
+    $iddistribuidor =$iddis;
+ 
+    $distribuidor = distribuidores::find($iddistribuidor);
+    $distribuidor->status = 'pro_aut';
+     
+     if($distribuidor->save()){
+ 
+      $Upstatus = DB::select('update tblhistorial set status = "pro_aut", descripcion_status = "Se apobó la solicitud" WHERE iddistribuidor = ?;', [$iddistribuidor]);
+
+       return redirect()->route('getGestionFase2')->with("success","¡Se guardaron los cambios correctamente!");
+     }
+     else{
+       return redirect()->route('getGestionFase2')->with("warning","Incorrecto");
+     }
+    }
+
+
+    function enviar_mensaje(string $tipou, int $iddistribuidor, Request $request)
+  {
+
+      $varturno= $this->obtenerturno($iddistribuidor);
+      $date = Carbon::now();
+      $fecha = $date->format('Y-m-d');
+      $strmensaje = $request->get('mensaje');
+      
+      if ($varturno->isEmpty())
+      {
+        $turno ="turno admin" ;
+        $mensaje = new mensajes();
+        $mensaje->iddistribuidor= $iddistribuidor;
+        $mensaje->tipo_usuario=$tipou;
+        $mensaje->turno =$turno;
+        $mensaje->texto = $strmensaje;
+        $mensaje->created_at=$fecha;
+
+          if($mensaje->save())
+            {
+              return redirect()->route('getGestionFase2')->with("success","correcto");
+            }
+          else
+            {
+              return redirect()->route('getGestionFase1')->with("warning","debes esperar la respuesta para reponder");
+            }
+      }
+      else
+      {
+          foreach($varturno as $var)
+          {
+              if($var->tipo_usuario == $tipou)
+              {
+                return redirect()->route('getGestionFase1')->with("warning","debes esperar la respuesta para reponder");
+              }
+              else
+              {
+                  if($tipou == "admin")
+                  {
+                     $turno ="turno admin" ;
+                  }
+    
+                  if($tipou == "sucursal")
+                  {
+                  $turno ="turno sucursal" ;
+                  }
+          
+                   $mensaje = new mensajes();
+                   $mensaje->iddistribuidor= $iddistribuidor;
+                   $mensaje->tipo_usuario=$tipou;
+                   $mensaje->turno =$turno;
+                   $mensaje->texto = $strmensaje;
+                   $mensaje->created_at=$fecha;
+    
+                   if($mensaje->save())
+                   {
+                     return redirect()->route('getGestionFase2')->with("success","correcto");
+                   }
+                   else{
+                    return redirect()->route('getGestionFase1')->with("warning","debes esperar la respuesta para reponder");
+                   }
+               }
+        }          
+    }
+  } 
 }
 
 

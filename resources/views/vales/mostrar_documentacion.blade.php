@@ -91,38 +91,41 @@ a{
                               <tr>
                                   <td>Indentificación Oficial</td>
                                   <td>
-                                   <a target="_blank" class="text-secondary btn fa-solid fa-eye bor"  href="/vales/verpdf/{{$doc->identificacion_oficial}}"></a> 
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->identificacion_oficial}}"></a>  
                                   </td>
                               </tr>
                               <tr>
                                   <td>Comprobante de Domicilo</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->comprobante_domicilio}}"></a>
+                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_domicilio}}"></a>
                                   </td>
                               </tr>
 
                               <tr>
-                                  <td>Comprobante de Ingresos Aval</td>
+                                  <td>Comprobante de Ingresos</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->comprobante_ingresos}}"></a>
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_ingresos}}"></a>
                                   </td>
                               </tr>
                               <tr>
                                   <td>Solicitud de Crédito</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->solicitud_credito}}"></a>
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->solicitud_credito}}"></a>
+                       
                                   </td>
                               </tr>
                               <tr>
                                   <td>Autorización de Consulta de Buro</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="{{$doc->autorizacion_buro}}"></a>
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->autorizacion_buro}}"></a>
+                                 
                                   </td>
                               </tr>
                               <tr>
                                   <td>Vreficación de Domicilio</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="{{$doc->verificacion_domicilio}}"></a>  
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->verificacion_domicilio}}"></a>
+                                
                                   </td>
                               </tr>
                               </tbody>
@@ -160,38 +163,39 @@ a{
                               <tr>
                                   <td>Indentificación Oficial</td>
                                   <td>
-                                   <a target="_blank" class="text-secondary btn fa-solid fa-eye bor"  href="/vales/verpdf/{{$doc->identificacion_oficial}}"></a> 
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->identificacion_oficial}}"></a>
                                   </td>
                               </tr>
                               <tr>
                                   <td>Comprobante de Domicilo</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->comprobante_domicilio}}"></a>
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_domicilio}}"></a>
                                   </td>
                               </tr>
 
                               <tr>
                                   <td>Comprobante de Ingresos Aval</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->comprobante_ingresos}}"></a>
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_ingresos}}"></a>
+
                                   </td>
                               </tr>
                               <tr>
                                   <td>Solicitud de Crédito</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->solicitud_credito}}"></a>
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->solicitud_credito}}"></a>
                                   </td>
                               </tr>
                               <tr>
                                   <td>Autorización de Consulta de Buro</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="{{$doc->autorizacion_buro}}"></a>
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->autorizacion_buro}}"></a>
                                   </td>
                               </tr>
                               <tr>
-                                  <td>Vreficación de Domicilio</td>
+                                  <td>Verficación de Domicilio</td>
                                   <td>
-                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="{{$doc->verificacion_domicilio}}"></a>  
+                                  <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->verificacion_domicilio}}"></a>
                                   </td>
                               </tr>
                               </tbody>

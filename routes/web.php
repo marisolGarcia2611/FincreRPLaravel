@@ -91,11 +91,13 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/vales/verpdf/{contrato}/{archivo}', 'App\Http\Controllers\valesController@verpdf')->name('vales.verpdf');
   
-    Route::get('/vales/getactualizadoc/{id}', 'App\Http\Controllers\valesController@getactualizadoc')->name('vales.getactualizadoc');
+    Route::get('/vales/getactualizadoc/{id}', 'App\Http\Controllers\valesController@getverdoc')->name('vales.getverdoc');
     Route::get('/vales/Termina_Proceso_aval/{id}','App\Http\Controllers\valesController@Termina_Proceso_aval')->name('Termina_Proceso_aval');
-    Route::post('/vales/distribuidoractualizar/', 'App\Http\Controllers\valesController@distribuidoractualizar')->name('vales.distribuidoractualizar');
+    Route::post('/vales/distribuidoractualizar/', 'App\Http\Controllers\valesController@actualizar_distribuidor')->name('vales.distribuidoractualizar');
     Route::post('/vales/actualizar_aval/', 'App\Http\Controllers\valesController@actualizar_aval')->name('vales.actualizar_aval');
     Route::get('/vales/actualizar_avalup/{id}', 'App\Http\Controllers\valesController@actualizar_avalup')->name('vales.actualizar_avalup');
+    Route::post('/vales/actualizar_documentos/', 'App\Http\Controllers\valesController@actualizar_documentos')->name('vales.actualizar_documentos');
+    Route::get('/vales/actualizar_docup/{iddistribuidor}/{idava}', 'App\Http\Controllers\valesController@actualizar_docup')->name('vales.actualizar_docup');
     
     Route::get('/vales/getactualizardistribuidor/{id}', 'App\Http\Controllers\valesController@getactualizardistribuidor')->name('vales.getactualizardistribuidor');
     Route::get('/vales/enviaramesa_credito/{id}', 'App\Http\Controllers\ValesController@enviaramesa_credito')->name('vales.enviaramesa_credito');
@@ -113,5 +115,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('/aprobar_distribuidor/{id}', 'App\Http\Controllers\ValesController@aprobar_distribuidor')->name('aprobar_distribuidor');
 
     Route::get('/enviar_mensaje/{tipo}/{ididstribuidor}', 'App\Http\Controllers\ValesController@enviar_mensaje')->name('enviar_mensaje');
+
+    // Area de sistemas--------------------------------------------------------------------------------------------------
+    Route::get('/Sistemas/guardar_permisos', 'App\Http\Controllers\SistemasController@guardar_permisos')->name('guardar_permisos');
+    Route::get('/vales/actualizarnotificaciones', 'App\Http\Controllers\ValesController@actualizarnotificaciones')->name('actualizarnotificaciones');
   
   });

@@ -2,6 +2,15 @@ const avalF1 = document.querySelector('#aval');
 
 avalF1.innerHTML = `
 
+
+<div class="pos__btnBack1 d-none d-md-block" style="z-index:3!important;">
+    <div class="wrapper"> 
+        <form action="/vales/GestionFase1">
+            <button class="btn btnBack1 btn-light border-0" type="submit"><h4><i class="fa-solid fa-layer-group"></i></h4></button>
+        </form>
+    </div>
+</div>
+
 <div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">
     <div class="mt-2">
         <h5 class="fw-light">Fase 1: Captura Inicial de Crédito  <button class="btn border-0 text-secondary" id="show2" onclick="divshow2()"><i class="fa-solid fa-minus"></i></button></h5>

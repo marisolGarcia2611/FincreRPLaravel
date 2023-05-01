@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit487583af0ededa37a8258da6735d1545
+class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -351,8 +351,8 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -636,6 +636,7 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
         'App\\Models\\empleados_bajas' => __DIR__ . '/../..' . '/app/Models/empleados_bajas.php',
         'App\\Models\\estados' => __DIR__ . '/../..' . '/app/Models/estados.php',
         'App\\Models\\historial' => __DIR__ . '/../..' . '/app/Models/historial.php',
+        'App\\Models\\mensajes' => __DIR__ . '/../..' . '/app/Models/mensajes.php',
         'App\\Models\\nominas' => __DIR__ . '/../..' . '/app/Models/nominas.php',
         'App\\Models\\promotores' => __DIR__ . '/../..' . '/app/Models/promotores.php',
         'App\\Models\\referencias' => __DIR__ . '/../..' . '/app/Models/referencias.php',
@@ -5518,7 +5519,6 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
         'Ramsey\\Uuid\\Converter\\Time\\DegradedTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/DegradedTimeConverter.php',
         'Ramsey\\Uuid\\Converter\\Time\\GenericTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/GenericTimeConverter.php',
         'Ramsey\\Uuid\\Converter\\Time\\PhpTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/PhpTimeConverter.php',
-        'Ramsey\\Uuid\\Converter\\Time\\UnixTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/UnixTimeConverter.php',
         'Ramsey\\Uuid\\DegradedUuid' => __DIR__ . '/..' . '/ramsey/uuid/src/DegradedUuid.php',
         'Ramsey\\Uuid\\DeprecatedUuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/DeprecatedUuidInterface.php',
         'Ramsey\\Uuid\\DeprecatedUuidMethodsTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/DeprecatedUuidMethodsTrait.php',
@@ -5554,7 +5554,6 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
         'Ramsey\\Uuid\\Generator\\RandomLibAdapter' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/RandomLibAdapter.php',
         'Ramsey\\Uuid\\Generator\\TimeGeneratorFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/TimeGeneratorFactory.php',
         'Ramsey\\Uuid\\Generator\\TimeGeneratorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/TimeGeneratorInterface.php',
-        'Ramsey\\Uuid\\Generator\\UnixTimeGenerator' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/UnixTimeGenerator.php',
         'Ramsey\\Uuid\\Guid\\Fields' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/Fields.php',
         'Ramsey\\Uuid\\Guid\\Guid' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/Guid.php',
         'Ramsey\\Uuid\\Guid\\GuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/GuidBuilder.php',
@@ -5579,11 +5578,8 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
         'Ramsey\\Uuid\\Provider\\Time\\SystemTimeProvider' => __DIR__ . '/..' . '/ramsey/uuid/src/Provider/Time/SystemTimeProvider.php',
         'Ramsey\\Uuid\\Rfc4122\\Fields' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/Fields.php',
         'Ramsey\\Uuid\\Rfc4122\\FieldsInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/FieldsInterface.php',
-        'Ramsey\\Uuid\\Rfc4122\\MaxTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/MaxTrait.php',
-        'Ramsey\\Uuid\\Rfc4122\\MaxUuid' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/MaxUuid.php',
         'Ramsey\\Uuid\\Rfc4122\\NilTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/NilTrait.php',
         'Ramsey\\Uuid\\Rfc4122\\NilUuid' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/NilUuid.php',
-        'Ramsey\\Uuid\\Rfc4122\\TimeTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/TimeTrait.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidBuilder.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidInterface.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidV1' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV1.php',
@@ -5591,9 +5587,6 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
         'Ramsey\\Uuid\\Rfc4122\\UuidV3' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV3.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidV4' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV4.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidV5' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV5.php',
-        'Ramsey\\Uuid\\Rfc4122\\UuidV6' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV6.php',
-        'Ramsey\\Uuid\\Rfc4122\\UuidV7' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV7.php',
-        'Ramsey\\Uuid\\Rfc4122\\UuidV8' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV8.php',
         'Ramsey\\Uuid\\Rfc4122\\Validator' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/Validator.php',
         'Ramsey\\Uuid\\Rfc4122\\VariantTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/VariantTrait.php',
         'Ramsey\\Uuid\\Rfc4122\\VersionTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/VersionTrait.php',
@@ -6727,10 +6720,10 @@ class ComposerStaticInit487583af0ededa37a8258da6735d1545
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit487583af0ededa37a8258da6735d1545::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit487583af0ededa37a8258da6735d1545::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit487583af0ededa37a8258da6735d1545::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit487583af0ededa37a8258da6735d1545::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$classMap;
 
         }, null, ClassLoader::class);
     }

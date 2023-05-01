@@ -88,14 +88,14 @@
     .zoom:hover {-webkit-transform: scale(1.1) !important;transform: scale(3.05) !important;border-radius: 3px; box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.132);position: absolute;z-index: 999;}
     /* -------------------Formularios con estylo rouded------------------ */
 
-    .offcanvas-body input{border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868; text-transform:uppercase;}
+    .offcanvas-body input{border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868;}
     .offcanvas-body textarea{border-radius: 10px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868;text-transform:uppercase;}
-    .offcanvas-body select{border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868;text-transform:uppercase;}
+    .offcanvas-body select{border-radius: 40px;background-color: #eaeaea;border:.5px solid #fff;font-size: 11px;color: #686868;}
     .offcanvas-body label{color: #575656;margin-top: 5px;font-size: 12px;}
 
-    .form input{border-radius: 40px;background-color: #fefefe;border:.5px solid #d6d6d6;font-size: 11px;color: #686868; text-transform:uppercase;}
+    .form input{border-radius: 40px;background-color: #fefefe;border:.5px solid #d6d6d6;font-size: 11px;color: #686868;}
     .form textarea{border-radius: 10px;background-color: #f0f0f0;border:.5px solid #d6d6d6;font-size: 11px;color: #686868;text-transform:uppercase;}
-    .form select{border-radius: 40px;background-color: #f2f2f2;border:.5px solid #d6d6d6;font-size: 11px;color: #686868;text-transform:uppercase;}
+    .form select{border-radius: 40px;background-color: #f2f2f2;border:.5px solid #d6d6d6;font-size: 11px;color: #686868;}
     .form label{color: #575656;margin-top: 5px;font-size: 12px;}
     /* -------------------Botnes de Herramientas------------------ */
 
@@ -271,6 +271,9 @@
     .btn-gradient:hover{background-image: linear-gradient(45deg,#2E3192,#0095D9);color:#fff;}
     .btn-gradient-pink{background-color: #FF3CAC;background-image: linear-gradient(225deg, #784BA0 30%, #2B86C5 100%)!important;color:#fff!important;border: 0;}
     .btn-gradient-pink:hover{background-color: #FF3CAC;background-image: linear-gradient(225deg, #2B86C5 30%, #784BA0 100%)!important;color:#fff!important;border: 0;}
+    
+    .btn-collage-purple{background-color:rgb(105, 69, 183)!important;color:#fff!important;border: 0;}
+    .btn-collage-purple:hover{background-color:rgb(76, 48, 135)!important;color:#fff!important;border: 0;}
 
     /* -------------------------Home Area----------------------------------------- */
     .footer-color{background-color: #2b86c5;background-image: linear-gradient(180deg, #2a628a 0%, #2f3292 100%);}
@@ -318,11 +321,15 @@
     .sizeItem{border-radius:20px;width:100%;}
     .cicle_Blue{background-color: #2B86C5; color:#fff;border-radius:100px;padding:10px;font-size:14px;}
 
-    .btn-purple{padding-left:15px;padding-right: 15px;background-color:rgb(0, 87, 153);border-radius: 5px;padding: 5px;border: none;color: #fff}
-    .btn-purple:hover{padding-left:15px;padding-right: 15px;background-color:rgb(2, 62, 109);border-radius: 5px;padding: 5px;border: none;color: #fff}
-    .btn-outline-purple{padding-left:15px;padding-right: 15px;border-radius: 5px;padding: 5px;border: 1px solid rgb(1, 97, 171);color: rgb(0, 87, 153)}
-    .btn-outline-purple:hover{padding-left:15px;padding-right: 15px;background-color:rgb(124, 144, 159);border-radius: 5px;padding: 5px;border: 1px solid rgb(1, 97, 171);;color: #fff}
+    .btn-purple{padding-left:15px!important;padding-right: 15px!important;background-color:rgb(88, 57, 155)!important;border-top-right-radius: 10px!important;border-bottom-right-radius: 10px!important;padding: 5px!important;border: none!important;color: #fff!important;}
+    .btn-purple:hover{padding-left:15px!important;padding-right: 15px!important;background-color:rgb(65, 39, 120)!important;border-top-right-radius: 10px!important;border-bottom-right-radius: 10px!important;padding: 5px!important;border: none!important;color: #fff!important;}
+    .btn-outline-purple{padding-left:15px!important;padding-right: 15px!important;border-top-left-radius: 10px!important;border-bottom-left-radius: 10px!important;padding: 5px!important;border: 1px solid rgb(88, 57, 155)!important;color:rgb(88, 57, 155)!important;}
+    .btn-outline-purple:hover{padding-left:15px!important;padding-right: 15px!important;background-color:rgb(131, 102, 193)!important;border-top-left-radius: 10px!important;border-bottom-left-radius: 10px!important;padding: 5px!important;border: 1px solid rgb(88, 57, 155)!important;color: #fff!important;}
     .fs_special2{font-size: 15px;}
+
+    .btn-purple1{padding-left:20px!important;padding-right: 20px!important;background-color:rgb(84, 117, 213)!important;border-radius: 20px!important;border: none!important;color: #fff!important;font-weight: lighter;font-size: 17px;}
+    .btn-purple1:hover{padding-left:20px!important;padding-right: 20px!important;background-color:rgb(72, 98, 176)!important;border-radius: 20px!important;border: none!important;color: #fff!important;font-weight: lighter;font-size: 17px;}
+    
    
     @media screen and (max-width:600px) { 
       .circle1{background-color: #c648f4;border-radius:100px;width:35px;height:35px;padding:2px;color:#fff;}
@@ -385,9 +392,22 @@
     .lh4{background-color: #9867FF;width:1px;}
 
     .mt10{margin-top: -10px;}
-    .position-alert{position:fixed;z-index:1000;right: 20px;bottom:-20px;min-width:600px;margin-top:-40px;}
+    .position-alert{position:fixed;z-index:1000;right: 20px;bottom:-20px;min-width:800px;margin-top:-40px;height: 270px;}
     .position-cross{margin-top:-10px;margin-right:-10px;}
     .pChat{object-fit: cover;width: 35px;height:35px;border-radius:100px;}
+    .scrollAlert{height:210px;scroll-behavior: auto;overflow-y: auto;}
+    .scrollAlert::-webkit-scrollbar {width: 8px;     /* Tamaño del scroll en vertical */height: 8px;}
+    .scrollAlert::-webkit-scrollbar-thumb {   background: #a5a5a5;   border-radius: 4px;}
+    /* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+    .scrollAlert::-webkit-scrollbar-thumb:hover {
+        background: #9e9e9e;  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2); }
+    /* Cambiamos el fondo cuando esté en active */
+    .scrollAlert::-webkit-scrollbar-thumb:active {background-color: #999999;}
+    /* Ponemos un color de fondo y redondeamos las esquinas del track */
+    .scrollAlert::-webkit-scrollbar-track {background: #e1e1e1;border-radius: 4px; }
+    /* Cambiamos el fondo cuando esté en active o hover */
+    .scrollAlert::-webkit-scrollbar-track:hover, .scrollAlert::-webkit-scrollbar-track:active { background: #d4d4d4;}
+    
 
     @media screen and (max-width:600px) { 
       .position-alert{position:fixed;z-index:1000;right:0px;min-width:100%;margin-top:0px;bottom: -50px;}
@@ -400,9 +420,9 @@
     .bg-chat{background-color:#f0f0f0;;position:fixed;z-index:999;width:320px;height:380px;bottom:0px;right:25px;border-top-left-radius: 18px;border-top-right-radius: 15px;padding:0px!important;}
     .bg-headerChat{background-color: #363636;color: #ffffff;font-size:11px;border-top-left-radius: 18px;border-top-right-radius: 18px;}
     .cursor{cursor: pointer;}
-    .m1{background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%);color: #fff;padding: 5px 12px 5px 12px;position: relative;border-radius: 10px; text-align:right;font-size: 11px;font-weight: lighter;}
+    .m1{background-color:#8f70ff;color: #fff;padding: 5px 12px 5px 12px;position: relative;border-radius: 10px; text-align:right;font-size: 11px;font-weight: lighter;}
     .m1::before {content: '';width: 15px;  height: 15px; background-color: inherit; right: -5px; position: absolute; transform: rotate(45DEG); top: 40%;  margin-top: -5px; }
-    .m2{background-image: linear-gradient(43deg,  #50b0c8 46%, #8f70ff 100%);color: #fff;padding: 5px 12px 5px 12px;position: relative;border-radius: 10px;text-align:left;font-size: 11px;font-weight: lighter;}
+    .m2{background-color:#50b0c8;color: #fff;padding: 5px 12px 5px 12px;position: relative;border-radius: 10px;text-align:left;font-size: 11px;font-weight: lighter;}
     .m2::before {content: '';width: 15px; height: 15px;background-color: inherit;left: -5px;position: absolute;transform: rotate(45DEG);top: 40%; margin-top: -5px;}                                
     .infoM1{margin-right:10px;position: relative;text-align:right;font-size: 9px;}
     .infoM2{margin-left:10px;position: relative;text-align:left;font-size: 9px;}
@@ -448,6 +468,162 @@
       ó
       <input type="file" id="file1" required>
     </label> */
+
+    /* ------------------------- control permisos Area----------------------------------------- */
+    .accordion_bg{
+      background-color: #f3f3f300!important;color: #656464!important;text-decoration:none!important;border: none!important;font-size: 13px;}
+
+    /* ------------------------- valera Area----------------------------------------- */
+    .imgIco{width: 25px;height: 25px;}
+    .valera{background-color: rgb(230, 220, 235);border-radius:20px;height:200px;}
+    .valera1{height:200px;}
+    .btn-purple{background: rgb(88, 57, 155);color: #fff;}
+    .btn-purple:hover{background: rgb(74, 49, 129);color: #fff;}
+    .imgl{height: 100px;width:120px;}
+    .cub_size{background-color: #ebebeb;height: 150px;border-radius:20px;}
+
+
+
+    .text-1{margin-left: -20px!important;background-color: rgba(138, 159, 243, 0)!important;border:.5px solid rgba(255, 255, 255, 0)!important;font-size: 14px!important;color: #adc6ff!important;font-weight: bold!important;}
+    .text-1::placeholder { color: #d5e1ff; }
+
+    .text-2{margin-left: -20px!important;background-color: rgba(138, 159, 243, 0)!important;border:.5px solid rgba(255, 255, 255, 0)!important;font-size: 14px!important;color: #87c171!important;font-weight: bold!important;}
+    .text-2::placeholder { color: #d5e1ff; }
+
+    .text-3{margin-left: -20px!important;background-color: rgba(138, 159, 243, 0)!important;border:.5px solid rgba(255, 255, 255, 0)!important;font-size: 14px!important;color: #0e4ae1!important;font-weight: bold!important;}
+    .text-3::placeholder { color: #d5e1ff; }
+
+    .enc-1{background-color: rgba(138, 159, 243, 0)!important;border:.5px solid rgba(255, 255, 255, 0)!important;font-size: 14px!important;color: #5883bf!important;font-weight: bold!important;}
+
+    .mrt{margin-top: -25px;}
+
+    @media screen and (max-width:1300px) {.valera1{min-height:150px;} .imgl{height: 60px;width:70px;}.cub_size{background-color: #ebebeb;height: 110px;border-radius:20px;}.none{height: 0px;width:0px;display: none;}}
+
+    @media screen and (max-width:950px) {.valera1{min-height:150px;} .imgl{height: 40px;width:50px;}.cub_size{background-color: #ebebeb;height: 80px;border-radius:20px;}.none{height: 0px;width:0px;display: none;}}
+
+    @media screen and (max-width:450px) {.valera1{min-height:280px;} .imgl{height: 60px;width:70px;}.cub_size{background-color: #ebebeb;height: 110px;border-radius:20px;}.none{height: 0px;width:0px;display: none;}}
+    
+    .labelInv{border: 0px;background-color: rgba(240, 248, 255, 0);}
+    .inputInv{border: 0px!important;background-color: rgba(240, 248, 255, 0)!important;font-size: 16px!important;font-weight: bold!important;}
+
+    /* -------------------------btn back Area----------------------------------------- */
+
+    .pos__btnBack{
+    z-index: 1;margin-top:0px;top: 1.8vh;position: absolute;left: 0;margin-left: 8px;
+    }
+
+    .wrapper {
+        padding: 1.5rem 0;
+        filter: url('#goo');
+    }
+    
+    .btnBack {
+        display: inline-block;
+        font-size: 20px!important;
+        text-align: center;
+        background-color: #f6f6f6!important;
+        color:#8b8b8b!important;
+        border: 0px!important;
+        font-weight: bold;
+        line-height: 1;
+        padding: 13px;
+        border-radius: 1px;
+        position: relative;
+        width: 48px;
+        height: 45px;
+        text-decoration: none;
+        -webkit-transition: all 0.3s ease;transition: all 0.3s ease;
+    }
+
+    .btnBack:hover {
+      display: inline-block;
+      text-align: center;
+      background-color: #f6f6f6!important;
+      color:#8b8b8b!important;
+      font-weight: bold;
+      line-height: 1;
+      border: 0px!important;
+      padding: 13px;
+      border-radius: 1px;
+      position: relative;
+      width: 48px;
+      height: 45px;
+      text-decoration: none;
+      -webkit-transform: scale(1.1) !important;transform: scale(1.4) !important;
+      cursor: pointer;
+    }
+
+    .btnBack:before {
+        top: -25%;
+        left: 20%;
+    }
+    
+    .btnBack:after {
+        bottom: -25%;
+        right: 20%;
+    }
+    
+    .btnBack:hover:before,
+    .btnBack:hover:after {
+        transform: none;
+    }
+     /*----------------------------------------------------------------- button2--------------------------------------------------- */
+
+  .pos__btnBack1{
+    z-index: 1;margin-top:0px;top: 1.8vh;position: fixed;left: 0;margin-left: 8px;
+  }
+
+  .btnBack1 {
+    display: inline-block;
+    text-align: center;
+    background-color: #ffffff!important;
+    color:#8b8b8b!important;
+    font-weight: bold;
+    line-height: 1;
+    padding: 13px;
+    border-radius: 1px;
+    position: relative;
+    width: 48px;
+    height: 45px;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;transition: all 0.3s ease;
+    }
+    .btnBack1:hover {
+      display: inline-block;
+      text-align: center;
+      background-color: #ffffff!important;
+      color:#8b8b8b!important;
+      font-weight: bold;
+      line-height: 1;
+      padding: 13px;
+      border-radius: 1px;
+      position: relative;
+      width: 48px;
+      height: 45px;
+      text-decoration: none;
+      -webkit-transform: scale(1.1) !important;transform: scale(1.4) !important;
+      cursor: pointer;
+    }
+
+
+
+    .btnBack1:before {
+        top: -25%;
+        left: 20%;
+    }
+
+    .btnBack1:after {
+        bottom: -25%;
+        right: 20%;
+    }
+
+    .btnBack1:hover:before,
+    .btnBack1:hover:after {
+        transform: none;
+    }
+  
+
+   
 </style>
 
 

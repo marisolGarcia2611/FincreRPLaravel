@@ -34,10 +34,12 @@
 
                
         {{-- Asignación usuarios--}}
+        <form action="/Sistemas/guardar_permisos" >
+                     @csrf 
         <div class="row m-4">
             <div class="form-outline row">
                 <button class="col-2 btn btn-outline-primary fs-8 rounded-5">Usuario</button>
-                    
+             
                     <select class="col form-select rounded-5 fs-9" name="idusuario" id="idusuario" required>
                         <option value="">Seleccionar empleado... </option>
                         @foreach($varlistausers as $usuario)
@@ -53,93 +55,60 @@
             </div>
         </div>
 
+
         {{-- Asignación de permisos por vistas --}}
         <div class="row">
+    
             {{-- Tarjeta de departemento --}}
             <div class="col-md-6">
+          
                 <div class="shadow p-5 mb-3 bg-body rounded">
-        
-                    <h6 class="fw-light text-secondary mb-3"><i class="fa-brands fa-slack"></i> Recursos Humanos</h6>
+                    @php($vardepartamento = "null") 
+                    @php($varvista = "null") 
+                    @foreach($varpermiso as $datos)
+                    @if($vardepartamento == "null" || $vardepartamento  != $datos->nombre_departamento)
+                    <h6 class="fw-light text-secondary mb-3"><i class="fa-brands fa-slack"></i>{{$datos->nombre_departamento }}</h6>
+                    <input type="text" name="vistas[{{$datos->idvista}}]" value="{{$datos->idvista}}">
+                    @endif
+                   @if($vardepartamento  == $datos->nombre_departamento && $varvista != $datos->nombre_vista)
+                   <input type="text" name="vistas[{{$datos->idvista}}]" value="{{$datos->idvista}}">
+                   @endif
 
-                    <div class="accordion" id="Permisos">
+                    <div class="accordion" id="{{$datos->iddepartamento}}">
                         <div class="accordion-item border-0">
-                            <h2 class="accordion-header" id="vistaHeading1">
-                                <button  class="accordion-button accordion_bg" type="button" data-bs-toggle="collapse" data-bs-target="#vista1" aria-expanded="true" aria-controls="collapseOne">
-                                    Catalogo de empleados
-                                </button>
-                            </h2>
-                            
-                            <div id="vista1" class="accordion-collapse collapse show" aria-labelledby="vistaHeading1" data-bs-parent="#Permisos">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-md-4 mb-2">
-                                            <input type="checkbox" class="btn-check" id="vista" autocomplete="off">
-                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="vista">Ver cátalogo</label><br>
-                                        </div>
-
-                                        <div class="col-md-4 mb-2">
-                                            <input type="checkbox" class="btn-check" id="insert" autocomplete="off">
-                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="insert">Altas empleados</label><br>
-                                        </div>
-
-                                        <div class="col-md-4 mb-2">
-                                            <input type="checkbox" class="btn-check" id="delete" autocomplete="off">
-                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="delete">Bajas empleados</label><br>
-                                        </div>
-                                    </div>
-                                </div>
+                            @if($varvista == "null" || $varvista != $datos->nombre_vista)
+                                <h2 class="accordion-header" id="vistaHeading{{$datos->idvista}}">
+                                    <button  class="accordion-button accordion_bg" type="button" data-bs-toggle="collapse" data-bs-target="#vista{{$datos->idvista}}" aria-expanded="true" aria-controls="collapse{{$datos->idvista}}">
+                                    {{$datos->nombre_vista }}
+                                    </button>
+                                </h2>
+                            @endif   
+                                @php($vardepartamento =$datos->nombre_departamento) 
+                                @php($varvista =$datos->nombre_vista) 
+                            <div id="vista{{$datos->idvista}}" class="accordion-collapse collapse" aria-labelledby="vistaHeading{{$datos->idvista}}" data-bs-parent="#Permisos{{$datos->iddepartamento}}">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <div class="col col-lg-2">
+                                                    <input type="checkbox" class="btn-check" id="vistas{{$datos->idacciones}}" autocomplete="off" name='caja[{{$datos->nombre_accion}}]' value="{{$datos->idacciones}}">
+                                                    <label class="btn btn-outline-primary rounded-5 fs-8" for="vistas{{$datos->idacciones}}">{{$datos->descripcion_accion}}</label>
                             </div>
-                        </div>
-
-
-                        <div class="accordion-item border-0">
-                            <h2 class="accordion-header" id="vistaHeading2">
-                                <button class="accordion-button collapsed  accordion_bg" type="button" data-bs-toggle="collapse" data-bs-target="#vista2" aria-expanded="false" aria-controls="collapseTwo">
-                                    Gestión de nómina
-                                </button>
-                            </h2>
-                            
-                            <div id="vista2" class="accordion-collapse collapse" aria-labelledby="vistaHeading2" data-bs-parent="#Permisos">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-md-4 mb-2">
-                                            <input type="checkbox" class="btn-check" id="vista1" autocomplete="off">
-                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="vista1">Ver nómina</label><br>
-                                        </div>
-
-                                        <div class="col-md-4 mb-2">
-                                            <input type="checkbox" class="btn-check" id="insert1" autocomplete="off">
-                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="insert1">Crear nómina</label><br>
-                                        </div>
-
-                                        <div class="col-md-4 mb-2">
-                                            <input type="checkbox" class="btn-check" id="delete1" autocomplete="off">
-                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="delete1">Editar nómina</label><br>
-                                        </div>
-
-                                        <div class="col-md-4 mb-2">
-                                            <input type="checkbox" class="btn-check" id="Exportar" autocomplete="off">
-                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="Exportar">Exportar nómina</label><br>
-                                        </div>
-                                    </div>
-                                </div>
+                             </div>
+                             </div>
                             </div>
                         </div>
                     </div>
-
+                @endforeach
+                 </div>
                 </div>
-            </div>
         </div>
-
-
         <br>
         <div class="row mb-3">
             <div class="col-md-4 d-nome d-md-block"></div>
-            <button class="col-md-4 btn btn-outline-primary">Guardar permisos</button>
+            <button type="submit" class="col-md-4 btn btn-outline-primary">Guardar permisos</button>
             <div class="col-md-4 d-nome d-md-block"></div>
         </div>
         <br>
-        
+</form>
 </div>
 
 

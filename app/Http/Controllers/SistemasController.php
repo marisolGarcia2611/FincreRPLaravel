@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 use App\Models\Vistas;
 use App\Models\usuario_pantallas;
+use App\Models\usuario_acciones;
 use Illuminate\Http\Request;
 use App\Traits\MenuTrait;
 use Carbon\Carbon;
 use App\Traits\DatosimpleTraits;
-
+use App\Traits\SistemasTraits;
+use Illuminate\Support\Arr;
 
 class SistemasController extends Controller
 {
     use MenuTrait;
     use DatosimpleTraits;
+    use SistemasTraits;
 
     public function __construct()
     {
@@ -34,7 +37,16 @@ class SistemasController extends Controller
         $varlistapuestos=$this->obtenerpuestos();
         $varlistausers=$this->obtenerusuarios();
         $varlistadepas = $this->obtenerdepartamentos();
-        return view('sistemas.acciones',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistadepas'));
+        $varpermiso = $this->obtenerpermisos();
+        return view('sistemas.acciones',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistadepas','varpermiso'));
+    }
+
+
+    public function modulos()
+    {
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        return view('sistemas.modulos',compact('varpantallas','varsubmenus'));
     }
 
     protected function asignarPermiso(Request $request)
@@ -62,7 +74,47 @@ class SistemasController extends Controller
           
     }
 
+    public function guardar_permisos(Request $request)
+    {
 
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+        $id = $request->get('idusuario');
 
+        if ( $request->has('vistas')) 
+        {
+            foreach ($request->get('vistas') as $idvista) 
+            {
+              $vardepa = $this-> obtenerdepartamentoXvista($idvista);
+              foreach ($vardepa as $depa)
+              $usuario_pantalas = new usuario_pantallas();
+              $usuario_pantalas->idusuario=$id;
+              $usuario_pantalas->idvista=$idvista;
+              $usuario_pantalas->iddepartamento=$depa->iddepartamento;
+              $usuario_pantalas->estado='A';
+              $usuario_pantalas->created_at=$fecha;
+              $usuario_pantalas->save();
+            } 
+        }
 
+        if ( $request->has('caja')) 
+        {
+            foreach ($request->get('caja') as $peso ) {
+             $varpermiso = new usuario_acciones();
+             $varpermiso->idacciones=$peso;
+             $varpermiso->idusuario=$id;
+             $varpermiso->created_at= $fecha;
+             $varpermiso->save();
+  
+        } 
+    }
+    if($varpermiso->save()){
+        return redirect()->route('acciones')->with("success","¡Se guardaron los cambios correctamente!");
+     }
+     else{
+        return redirect()->route('acciones')->with("warning","No se logro");
+     }
+  }
+
+  
 }

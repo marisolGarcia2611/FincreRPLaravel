@@ -59,8 +59,8 @@
                                 <br/><b class="fw-bold">Promotor Encargado: </b> {{$datos->promotor}}
                                 <br/><b class="fw-bold">Nombre Completo: </b>{{$datos->nombre}}
                                 <br/><b class="fw-bold">Sexo: </b> {{$datos->distribuidor_sexo}}
-                                <br/><b class="fw-bold">Estado Civil: {{$datos->distribuidor_estado_civil}}
-                                <br/><b class="fw-bold">Fecha de Nacimiento: {{$datos->distribuidor_fecha}}
+                                <br/><b class="fw-bold">Estado Civil:</b> {{$datos->distribuidor_estado_civil}}
+                                <br/><b class="fw-bold">Fecha de Nacimiento:</b> {{$datos->distribuidor_fecha}}
                                 <br/><b class="fw-bold">CURP: </b> {{$datos->distribuidor_curp}}
                                 <br/><b class="fw-bold">RFC: </b> {{$datos->distribuidor_rfc}}
                                 <br/><b class="fw-bold">Telefono: </b>{{$datos->distribuidor_telefono}}
@@ -76,7 +76,7 @@
                         <div class="text-start p-5 carrusel_text">
                             <p>Conyuge</p>
                             <p class="fs-8 fw-light">
-                                <br/><b class="fw-bold">Nombre Completo: {{$datos->nombrec}}
+                                <br/><b class="fw-bold">Nombre Completo:</b> {{$datos->nombrec}}
                                 <br/><b class="fw-bold">Sexo: </b> {{$datos->coyu_sexo}}
                                 <br/><b class="fw-bold">Fecha de Nacimiento: </b> {{$datos->conyu_fecha_nacimiento}}
                                 <br/><b class="fw-bold">CURP: </b>{{$datos->conyu_curp}}
@@ -158,320 +158,372 @@
             <!------Area Documentacion----->
             <div class="mt-4">
                     <p class="fw-bold bg-encabezado text-light">Documentación</p>      
-                @foreach($vardocumentos as $doc)
-                @if($doc->Tipo=="Distribuidor")
-                <div class="row">
-                        <div class="col-md-6 col-6 text-center mt-2">
-                            <div id="boton1" class="btn push m-0 p-1 sizeItem border-0" onclick="divLogin1()">
-                                <div class="row bord1"><h1 class="iconSolicitud d-none d-md-block"><i class="fa-solid fa-person-circle-plus"></i></h1><h6 class="fw-light fs_special2">Distribuidor </h6></div>
-                            </div> 
+                    @foreach($vardocumentos as $doc)
+                        @if($doc->Tipo=="Distribuidor")
+                        <div class="row">
+                                <div class="col-md-6 col-6 text-center mt-2">
+                                    <div id="boton1" class="btn push m-0 p-1 sizeItem border-0" onclick="divLogin1()">
+                                        <div class="row bord1"><h1 class="iconSolicitud d-none d-md-block"><i class="fa-solid fa-person-circle-plus"></i></h1><h6 class="fw-light fs_special2">Distribuidor </h6></div>
+                                    </div> 
+                                </div>
+                    
+                                <div class="col-md-6 col-6 text-center mt-2">
+                                    <div id="boton2" class="btn push m-0 p-1 sizeItem border-0" onclick="divLogin2()">   
+                                        <div class="row bord1"> <h1 class="iconSolicitud d-none d-md-block"><i class="fa-solid fa-id-badge"></i></h1><h6 class="fw-light fs_special2">Aval</h6></div>
+                                    </div> 
+                                </div>
                         </div>
-            
-                        <div class="col-md-6 col-6 text-center mt-2">
-                            <div id="boton2" class="btn push m-0 p-1 sizeItem border-0" onclick="divLogin2()">   
-                                <div class="row bord1"> <h1 class="iconSolicitud d-none d-md-block"><i class="fa-solid fa-id-badge"></i></h1><h6 class="fw-light fs_special2">Aval</h6></div>
-                            </div> 
-                        </div>
-                </div>
+                            <form action="/Guardar_observaciones">
+                            <div id="caja1" class="text-start">
+                                <div class="card rounded-5 mt-3">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="text-center">
+                                                    <th scope="col">
+                                                        <div class="input-group">
+                                                            <div class="input-group-text labelInv"> # Distribuidor </div>
+                                                            <input class="form-control inputInv"  type="text" value="{{$doc->id_tipo}}" name="iddistribuidor">
+                                                            <div class="valid-feedback">
+                                                            ¡Se ve bien!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                            Por favor, completa la información requerida.
+                                                            </div>
+                                                        </div>
+                                                    </th>
 
+                                                    <th scope="col">
+                                                        <div class="input-group">
+                                                            <div class="input-group-text labelInv"> # Referencia </div>
+                                                            <input class="form-control inputInv" type="text" value="{{$doc->id}}" name="idreferencia">
+                                                            <div class="valid-feedback">
+                                                            ¡Se ve bien!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                            Por favor, completa la información requerida.
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="fs-8">
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Indentificación Oficial</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->identificacion_oficial}}"></a> 
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="identificacionDis" id="s-identificacionDis" autocomplete="off" value="A" required>
+                                                                <label class="btn btn-outline-success fs-9" for="s-identificacionDis">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="identificacionDis" id="d-identificacionDis" autocomplete="off" value="R" required>
+                                                                <label class="btn btn-outline-danger fs-9" for="d-identificacionDis">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Comprobante de Domicilo</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_domicilio}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteDomicilioDis" id="s-comprobanteDomicilioDis" autocomplete="off" value="A" >
+                                                                <label class="btn btn-outline-success fs-9" for="s-comprobanteDomicilioDis">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteDomicilioDis" id="d-comprobanteDomicilioDis" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-comprobanteDomicilioDis">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 
-                    <form action="/Guardar_observaciones">
-                    <div id="caja1" class="text-start">
-                        <div class="card rounded-5 mt-3">
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr class="text-center">
-                                        <th scope="col"># REFERENCIA <input type="text" value="{{$doc->id}}" name="idreferencia"></th>
-                                        <th scope="col">DISTRIBUIDOR # <input type="text" value="{{$doc->id_tipo}}" name="iddistribuidor"></th>
-                                            <th scope="col">Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="fs-8">
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Indentificación Oficial</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->identificacion_oficial}}"></a> 
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="identificacionDis" id="s-identificacionDis" autocomplete="off" value="A" required>
-                                                        <label class="btn btn-outline-success fs-9" for="s-identificacionDis">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="identificacionDis" id="d-identificacionDis" autocomplete="off" value="R" required>
-                                                        <label class="btn btn-outline-danger fs-9" for="d-identificacionDis">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Comprobante de Domicilo</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_domicilio}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteDomicilioDis" id="s-comprobanteDomicilioDis" autocomplete="off" value="A" >
-                                                        <label class="btn btn-outline-success fs-9" for="s-comprobanteDomicilioDis">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteDomicilioDis" id="d-comprobanteDomicilioDis" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-comprobanteDomicilioDis">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Comprobante de Ingresos</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_ingresos}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteingreso" id="s-comprobanteingreso" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-comprobanteingreso">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteingreso" id="d-comprobanteingreso" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-comprobanteingreso">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Comprobante de Ingresos</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_ingresos}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteingreso" id="s-comprobanteingreso" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-comprobanteingreso">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteingreso" id="d-comprobanteingreso" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-comprobanteingreso">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Solicitud de Crédito</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->solicitud_credito}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="solicitudCreditoDis" id="s-solicitudCreditoDis" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-solicitudCreditoDis">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="solicitudCreditoDis" id="d-solicitudCreditoDis" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-solicitudCreditoDis">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>Autorización de Consulta de Buro</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->autorizacion_buro}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="consultaBuroDis" id="s-consultaBuroDis" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-consultaBuroDis">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="consultaBuroDis" id="d-consultaBuroDis" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-consultaBuroDis">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>Verificación de Domicilio</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->verificacion_domicilio}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="verificacionDomicilioDis" id="s-verificacionDomicilioDis" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-verificacionDomicilioDis">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="verificacionDomicilioDis" id="d-verificacionDomicilioDis" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-verificacionDomicilioDis">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="txtcenter fs-9">Recuerde que solo se admite el formato ".pdf"</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            
+                            @foreach($vardocumentosaval as $idaval)
+                    
+                            <div id="caja2" class="text-start">
+                                <div class="card rounded-5 mt-3">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="text-center">
+                                                    <th scope="col">
+                                                        <div class="input-group">
+                                                            <div class="input-group-text labelInv"> # Aval </div>
+                                                            <input class="form-control inputInv"  type="text" value="{{$idaval->idaval}}" name="idaval">
+                                                            <div class="valid-feedback">
+                                                            ¡Se ve bien!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                            Por favor, completa la información requerida.
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <th>
+                                                        <div class="input-group">
+                                                            <div class="input-group-text labelInv"> # Referencia </div>
+                                                            <input class="form-control inputInv"  type="text" value="{{$idaval->idreferenciaaval}}" name="idreferenciaaval">
+                                                            <div class="valid-feedback">
+                                                            ¡Se ve bien!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                            Por favor, completa la información requerida.
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="fs-8">
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Indentificación Oficial</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$idaval->identificacion_oficial}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="identificacioAval" id="s-identificacioAval" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-identificacioAval">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="identificacioAval" id="d-identificacioAval" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-identificacioAval">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Comprobante de Domicilo</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$idaval->comprobante_domicilio}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteDomicilioAval" id="s-comprobanteDomicilioAval" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-comprobanteDomicilioAval">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteDomicilioAval" id="d-comprobanteDomicilioAval" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-comprobanteDomicilioAval">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Comprobante de Ingresos</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$idaval->comprobante_ingresos}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteingresoaval" id="s-comprobanteingresoaval" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-comprobanteingresoaval">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="comprobanteingresoaval" id="d-comprobanteingresoaval" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-comprobanteingresoaval">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
 
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Solicitud de Crédito</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->solicitud_credito}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="solicitudCreditoDis" id="s-solicitudCreditoDis" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-solicitudCreditoDis">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="solicitudCreditoDis" id="d-solicitudCreditoDis" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-solicitudCreditoDis">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">4</th>
-                                            <td>Autorización de Consulta de Buro</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->autorizacion_buro}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="consultaBuroDis" id="s-consultaBuroDis" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-consultaBuroDis">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="consultaBuroDis" id="d-consultaBuroDis" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-consultaBuroDis">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">5</th>
-                                            <td>Verificación de Domicilio</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->verificacion_domicilio}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="verificacionDomicilioDis" id="s-verificacionDomicilioDis" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-verificacionDomicilioDis">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="verificacionDomicilioDis" id="d-verificacionDomicilioDis" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-verificacionDomicilioDis">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <p class="txtcenter fs-9">Recuerde que solo se admite el formato ".pdf"</p> 
+                                                    <th scope="row">3</th>
+                                                    <td>Solicitud de Crédito</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$idaval->solicitud_credito}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="solicitudCreditoAval" id="s-solicitudCreditoAval" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-solicitudCreditoAval">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="solicitudCreditoAval" id="d-solicitudCreditoAval" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-solicitudCreditoAval">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>Autorización de Consulta de Buro</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$idaval->autorizacion_buro}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="consultaBuroAval" id="s-consultaBuroAval" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-consultaBuroAval">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="consultaBuroAval" id="d-consultaBuroAval" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-consultaBuroAval">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>Verificación de Domicilio</td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-2 d-none d-md-block"></div>
+                                                            <div class="col-md-2">
+                                                            <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$idaval->verificacion_domicilio}}"></a>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="verificacioDomicilioAval" id="s-verificacioDomicilioAval" autocomplete="off" value="A">
+                                                                <label class="btn btn-outline-success fs-9" for="s-verificacioDomicilioAval">Autorizado</label>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <input type="radio" class="btn-check" name="verificacioDomicilioAval" id="d-verificacioDomicilioAval" autocomplete="off" value="R">
+                                                                <label class="btn btn-outline-danger fs-9" for="d-verificacioDomicilioAval">Rechazado</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="txtcenter fs-9">Recuerde que solo se admite el formato ".pdf"</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                    @endforeach
+               
+                    @foreach($vardatossolicitud as $form)
+                        <!------Area Botones de status----->
+                        <div class="mt-4 mb-3">
+                            <div class="btn-group" role="group" aria-label="Basic example">   
+                                <a href="/rechazar_distribuidor/{{$form->id}}"><button type="button" class="btn btn-outline-danger fontResponsive"><i class="fa-solid fa-xmark"></i> Rechazado</button></a>
+                                <a href="/aprobar_distribuidor/{{$form->id}}"> <button type="button" class="btn btn-outline-success fontResponsive"><i class="fa-solid fa-check"></i> Aprobado</button></a>
+                                <button type="submit" class="btn btn-turquesa fontResponsive">Guardar Observaciones</button>           
                             </div>
                         </div>
-                    </div>
-                    @else
-                    <div id="caja2" class="text-start">
-                        <div class="card rounded-5 mt-3">
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr class="text-center">
-                                        <th scope="col"># Referencia <input type="text" value="{{$doc->id}}" name="idreferenciaaval"></th>
-                                            <th scope="col"># aval <input type="text" value="{{$doc->id_tipo}}" name="idaval"> </th>
-                                            <th scope="col">Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="fs-8">
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Indentificación Oficial</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->identificacion_oficial}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="identificacioAval" id="s-identificacioAval" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-identificacioAval">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="identificacioAval" id="d-identificacioAval" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-identificacioAval">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Comprobante de Domicilo</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_domicilio}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteDomicilioAval" id="s-comprobanteDomicilioAval" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-comprobanteDomicilioAval">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteDomicilioAval" id="d-comprobanteDomicilioAval" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-comprobanteDomicilioAval">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Comprobante de Ingresos</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->comprobante_ingresos}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteingresoaval" id="s-comprobanteingresoaval" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-comprobanteingresoaval">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="comprobanteingresoaval" id="d-comprobanteingresoaval" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-comprobanteingresoaval">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
 
-                                            <th scope="row">3</th>
-                                            <td>Solicitud de Crédito</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->solicitud_credito}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="solicitudCreditoAval" id="s-solicitudCreditoAval" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-solicitudCreditoAval">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="solicitudCreditoAval" id="d-solicitudCreditoAval" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-solicitudCreditoAval">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">4</th>
-                                            <td>Autorización de Consulta de Buro</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->autorizacion_buro}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="consultaBuroAval" id="s-consultaBuroAval" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-consultaBuroAval">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="consultaBuroAval" id="d-consultaBuroAval" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-consultaBuroAval">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">5</th>
-                                            <td>Verificación de Domicilio</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2 d-none d-md-block"></div>
-                                                    <div class="col-md-2">
-                                                    <a target="_blank" class="text-secondary btn fa-solid fa-eye bor" href="/vales/verpdf/{{$doc->id_tipo}}/{{$doc->verificacion_domicilio}}"></a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="verificacioDomicilioAval" id="s-verificacioDomicilioAval" autocomplete="off" value="A">
-                                                        <label class="btn btn-outline-success fs-9" for="s-verificacioDomicilioAval">Autorizado</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="radio" class="btn-check" name="verificacioDomicilioAval" id="d-verificacioDomicilioAval" autocomplete="off" value="R">
-                                                        <label class="btn btn-outline-danger fs-9" for="d-verificacioDomicilioAval">Rechazado</label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <p class="txtcenter fs-9">Recuerde que solo se admite el formato ".pdf"</p> 
-                            </div>
+                        <!------Area edicion----->
+                        <div class="btn_Edicion">
+                            <form action="/vales/getactualizardistribuidor/{{$form->id}}">
+                                <button class="btn border-0 fw-ligh text-light fw-bold push" type="submit">Habilitar edición</button>
+                            </form>
                         </div>
-                    </div>
-                    @endif
-                @endforeach
-
-                    <!------Area Botones de status----->
-                    <div class="mt-4 mb-3">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-
-                        
-                            <a href="/rechazar_distribuidor/{{$doc->id_tipo}}"><button type="button" class="btn btn-outline-danger fontResponsive"><i class="fa-solid fa-xmark"></i> Rechazado</button></a>
-                            <a href="/aprobar_distribuidor/{{$doc->id_tipo}}"> <button type="button" class="btn btn-outline-success fontResponsive"><i class="fa-solid fa-check"></i> Aprobado</button></a>
-                        
-                            <button type="submit" class="btn btn-turquesa fontResponsive">Guardar Observaciones</button>
-                        </div>
-                    </div>
-                    </form>
+                    @endforeach
+                </form>
             </div>
         </div>
     </div>
@@ -627,9 +679,9 @@
                     </div>
 
                     <div id="messageContent">
-                        <div class="alert alert-primary shadow p-3 mb-5 rounded position-alert border-0" role="alert">
+                        <div class="alert alert-light shadow p-3 mb-5 rounded-3 position-alert border-0" role="alert">
                             <div class="row">
-                                <div class="col-md-10 col-10 text-start">
+                                <div class="col-md-10 col-10">
                                     <i class="fa-solid fa-triangle-exclamation"></i>&nbsp;&nbsp;Ultimas observaciones
                                 </div>
                                 <div class="col-md-2 col-2 text-end">
@@ -638,24 +690,27 @@
                                     </button>
                                 </div>
                             </div>
-                            @foreach($varmensajes as $mensa)
-                            <div class="row">
-                                @if($mensa->tipo_usuario == "admin")
-                                    <div class="col">
-                                        <p class="fw-light text-success"><b> {{$mensa->tipo_usuario}}</b></p> 
-                                        <p style="margin-top:-10px;" class="fw-light fs-8">Observaciones:<br/>  {{$mensa->texto}}</p> 
-                                        <hr/>
+                            <div class="scrollAlert">
+                                    @foreach($varmensajes as $mensa)
+                                    <div class="container p-4">
+                                        @if($mensa->tipo_usuario == "admin")
+                                            <div class="row m1" style="margin-top: -20px;">
+                                                <p class="fs-8"><b> {{$mensa->tipo_usuario}}</b></p> 
+                                                <p style="margin-top:-10px;" class="fw-light fs-8"> {{$mensa->texto}}</p> 
+                                            </div>
+                                            
+                                        @elseif($mensa->tipo_usuario == "sucursal")
+                                            <div class="row m2" style="margin-top: -40px;">
+                                                <p class="fs-8"><b> {{$mensa->tipo_usuario}}</b></p> 
+                                                <p style="margin-top:-10px;" class="fw-light fs-8"> {{$mensa->texto}}</p> 
+                                            </div>
+                                        @endif
                                     </div>
-                                    
-                                @elseif($mensa->tipo_usuario == "sucursal")
-                                    <div class="col">
-                                        <p class="fw-light text-info"><b> {{$mensa->tipo_usuario}}</b></p> 
-                                        <p style="margin-top:-10px;" class="fw-light fs-8">Comentario:<br/>  {{$mensa->texto}}</p> 
-                                        <hr/>
-                                    </div>
-                                @endif
+                                    @endforeach
                             </div>
-                            @endforeach
+                            <div class="row">
+                               
+                            </div>
                         </div>
                     </div>
             
@@ -663,13 +718,6 @@
         </div>
     </div>
 
-
-    <!------Area edicion----->
-    <div class="btn_Edicion">
-        <form action="/vales/GestionFase2/EditarDistribuidor">
-            <button class="btn border-0 fw-ligh text-light fw-bold push" type="submit">Habilitar edición</button>
-        </form>
-    </div>
     
     <!------Area comentarios----->
     <div class="chatButtonPosition">
@@ -711,7 +759,6 @@
 
 <script src="{{ asset('js/btnBack1.js') }}"></script>
 <script src="{{ asset('js/validation.js') }}"></script>
-<script src="{{ asset('js/simpleTabla.js') }}"></script>
 <script src="{{ asset('js/aviso.js') }}"></script>
 <script>
     $(document).ready(function() { 

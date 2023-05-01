@@ -4,6 +4,7 @@ use App\Models\promotores;
 use App\Models\estados;
 use App\Models\distribuidores;
 use App\Models\avales;
+use App\Models\User;
 use App\Models\documentos;
 use App\Models\historial;
 use App\Models\mensajes;
@@ -80,11 +81,27 @@ trait ValeTraits{
                 return $vardistribuidores;
             }
 
-            public function obteneravala_termina_proceso(int $iddistribuidor){
-                $idavalterminaproceso =avales::select('tblavales.id' )
+            public function docAval(int $iddistribuidor){
+                $idavalterminaproceso =avales::join('tbldocumentacion','tblavales.id','=','tbldocumentacion.id_tipo')
+                ->select(          
+                    'tbldocumentacion.id as idreferenciaaval',
+                    'tbldocumentacion.id_tipo as idaval', 
+                    'tbldocumentacion.identificacion_oficial as identificacion_oficial',
+                    'tbldocumentacion.comprobante_domicilio as comprobante_domicilio',
+                    'tbldocumentacion.comprobante_ingresos as comprobante_ingresos',
+                    'tbldocumentacion.solicitud_credito as solicitud_credito',
+                    'tbldocumentacion.autorizacion_buro as autorizacion_buro',
+                    'tbldocumentacion.verificacion_domicilio as verificacion_domicilio')
                 ->where('tblavales.iddistribuidor','=',$iddistribuidor)
                 ->get();
                 return $idavalterminaproceso;
+            }
+
+            public function obteneravala_termina_proceso(int $iddistribuidor){
+                $docuAval =avales::select('tblavales.id' )
+                ->where('tblavales.iddistribuidor','=',$iddistribuidor)
+                ->get();
+                return $docuAval;
             }
 
         public function obtenerdatosfase1(int $id) {
@@ -195,6 +212,31 @@ trait ValeTraits{
             return $idavalterminaproceso;
         }
 
+        public function obtenerDocumentosDis(int $iddistribuidor){
+            $disDoc =documentos::select(
+            'tbldocumentacion.id')
+            ->where('tbldocumentacion.id_tipo','=',$iddistribuidor)
+            ->get();
+            return $disDoc;
+        }
+
+        public function obtenerDocumentosAval(int $idaval){
+            $avalDoc =documentos::select(
+            'tbldocumentacion.id')
+            ->where('tbldocumentacion.id_tipo','=',$idaval)
+            ->get();
+            return $avalDoc;
+        }
+
+        public function obtenerAval(int $iddistribuidor){
+            $disDoc =avales::select(
+            'tblavales.id')
+            ->where('tblavales.iddistribuidor','=',$iddistribuidor)
+            ->get();
+            return $disDoc;
+        }
+
+
         public function mostrardocumentacion(int $id){
             $idavalterminaproceso =documentos::select(
             'tbldocumentacion.id',
@@ -223,17 +265,9 @@ trait ValeTraits{
         }
 
         public function obtenermesacred(){
-           $varmesadecred = distribuidores::join('tblsucursales','tbldistribuidores.idsucursal','tblsucursales.id')
-           ->select(
-            'tbldistribuidores.id',
-            'tbldistribuidores.status',
-            DB::raw('CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) AS nombre'),
-            'tbldistribuidores.capital',
-            'tbldistribuidores.idsucursal',
-            'tblsucursales.nombre as nombresuc')
-           ->where('tbldistribuidores.status','<>','')
-           ->get();
-           return $varmesadecred;
+           $sql = 'select tbldistribuidores.id ,tbldistribuidores.status, CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) AS nombre, tbldistribuidores.capital, tbldistribuidores.idsucursal, tblsucursales.nombre as nombresuc  from tbldistribuidores inner join tblsucursales  on tbldistribuidores.idsucursal = tblsucursales.id  where status in("pro_rev","pro_dic");';
+           $varmesadecred = DB::select($sql);
+           return collect($varmesadecred);
         }
 
         public function obtenercfredvalidado(){
@@ -392,6 +426,28 @@ trait ValeTraits{
             ->get();
             return $varturno;
         }
+
+    public function obtenermensajesnoleidosxusuario(int $idusuario){
+        $varnoti = mensajes::select(
+            'tblmensajes_interacciones.id',   
+           'tblmensajes_interacciones.tipo_usuario',
+           'tblmensajes_interacciones.turno',
+           'tblmensajes_interacciones.status',
+           'tblmensajes_interacciones.texto',
+           'tblmensajes_interacciones.iddistribuidor',
+           'tblmensajes_interacciones.created_at')
+           ->where('tblmensajes_interacciones.idusuario','!=',$idusuario)
+           ->orderby('tblmensajes_interacciones.id','desc')
+           ->get();
+           return $varnoti;
+    }
+
+    public  function obtenerusuariosxname(string $usuario){
+        $varuser  = User::select('users.id','users.name' )
+        ->where('users.name','=',$usuario)
+        ->get();
+        return $varuser;
+    }
 }
 
 

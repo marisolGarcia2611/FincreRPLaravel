@@ -15,10 +15,10 @@
           echo '</script>';  
   @endphp
 
-@elseif($mensaje = Session::get('PDFwarning'))
+@elseif($mensaje = Session::get('warningMenssage'))
   @php
           echo '<script language="JavaScript">';
-          echo 'swal("¡No se a efectuado la acción!","Recuerde llenar todos los campos y que formato permitido de archivos es .pdf","warning", {buttons: false,timer: 5000});';
+          echo 'swal("¡Ultimo mensaje enviado aun no leído!","Debe esperar respuesta de la sucursal antes de mandar un nuevo mensaje","warning", {buttons: false,timer: 5000});';
           echo '</script>';  
   @endphp
 
@@ -26,8 +26,70 @@
 {{-- ALERTAS --}}
 
 
-<div id="btnBack"></div>  
-<div id="notificaciones"></div>
+<!--INICIO BUTON AREA-->
+<div class="pos__btnBack">
+    <div class="wrapper"> 
+      <form action="/vales">
+        <button class="btn btnBack btn-light" type="submit" ><i class="fas fa-solid fa-arrow-left"></i></button>
+      </form>
+    </div>
+</div>
+
+<!--INICIO NOTIFICACIONES AREA-->  
+<div id="notificaciones">
+    <div class="pos__btnNotification">
+        <div class="wrapper"> 
+            <button type="button" class="btn border-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <h5 class="btnNoti"><i class="fa-solid fa-bell"></i>
+                    <span class="fs-9 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <a> +</a>
+                    </span>
+                </h5>
+            </button>
+        </div>
+            
+    </div>
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+        <div class="text-center">
+            <h5 class="offcanvas-title fw-light" id="offcanvasRightLabel">Notificaciones</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+        
+        
+        @foreach($varnotificaciones as $notificaciones)
+            <div class="shadow-sm p-3 mb-5 rounded-4 bg-lightsecond">
+            @if($notificaciones->status =="leido")
+            @else
+            <div class="fw-bold text-secondary text-end fs-9 mt-6">Distribuidor: {{$notificaciones->iddistribuidor}}</div>
+
+            <div class="fw-bold fs-8 text-secondary fw-light">
+                Mensaje no leido
+            </div>
+            {{-- <div class="fw-bold  mt-6">ID: {{$notificaciones->id}}</div> --}}
+            
+            <div class="fw-light mt-2">{{$notificaciones->tipo_usuario}}: {{$notificaciones->texto}}</div>
+            <div class="text-end mt-4">
+                <a href="#" class="text-primary fw-light link_none fs-8">Responder</a>
+                <br>
+                <a href="#" class="text-primary fw-light link_none fs-8">Terminar Conversación</a>
+            </div>
+            </div>
+            @endif
+            @endforeach
+        
+            <center>
+                <form action="/vales/actualizarnotificaciones">
+                    <button class="btn border-0" type="submit"><h6 class="fw-light text-primary"> <i class="fa-solid fa-arrows-rotate"></i>&nbsp; &nbsp;Actualizar </h6></button>
+                </form>
+            </center>
+        </div>
+    </div>
+</div>
 
 
 
@@ -39,7 +101,7 @@
     {{--------------------------- Encabezado de la pagina----------------------}}
       <center class=" mb-3 container bg-p">
             <div class="col-md-12">
-              <h2 class="mt-3 mb-3 fw-light animate_animated animate_backInLeft">Mesa de crédito</h2> 
+              <h2 class="mt-3 mb-3 fw-light animate_animated animate_backInLeft">Créditos en Dictamen</h2> 
               <cite title="Título fuente">Analisis de solicitudes </cite>
             </div>
             <div class="col-md-12">
@@ -47,9 +109,9 @@
                     <div class="col d-md-block d-none"></div>
                 
                     <div class="col-md-3">
-                        <form action="">
+                        {{-- <form action="">
                             <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fa-solid fa-file"></i>&nbsp;Reportes</button> 
-                        </form>
+                        </form> --}}
                     </div>
 
                     <div class="col-md-4">
@@ -57,9 +119,9 @@
                     </div>
 
                     <div class="col-md-3">
-                        <form action="">
+                        {{-- <form action="">
                             <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficas</button> 
-                        </form>
+                        </form> --}}
                     </div>
 
                     <div class="col d-md-block d-none"></div>
@@ -121,7 +183,7 @@
                         <th class="text-center fw-light">Estado</th>
                         <th class="text-center fw-light">Editar</th>
                         <th class="text-center fw-light">Revisar</th>
-                        <th class="text-center fw-light">Historial</th>
+                        {{-- <th class="text-center fw-light">Historial</th> --}}
                         <th class="text-center fw-light">No. Distribuidor</th>
                         <th class="text-center fw-light">Nombre Completo</th>
                         <th  class="text-center fw-light">Sucursal</th>
@@ -169,13 +231,13 @@
                                 </form>
                             </td>
 
-                            <td class="bg-1">
+                            {{-- <td class="bg-1">
                                 <div class="progress" type="button"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight2" aria-controls="offcanvasRight">
                                     <div class="progress-bar bg-info" role="progressbar" style="width: 33.3%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 33.3%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                                     <div class="progress-bar bg-info" role="progressbar" style="width: 33.3%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="bg-3">{{$mesacred->id}}</td>
                             <td class="bg-2">{{$mesacred->nombre}}</td>
                             <td class="bg-2">{{$mesacred->nombresuc}}</td>
@@ -305,7 +367,7 @@
                                     </td>
 
                                     <td class="td-tools">
-                                        <form action="/Creditos/GestionFase2/SolicitudMesaCredito">
+                                        <form action="/vales/GestionFase2/SolicitudMesaCredito/{{$mesa->id}}">
                                             <button class="text-light btn fa-solid fa-eye bor"  type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Ver"></button>
                                         </form>
                                     </td>
@@ -329,7 +391,7 @@
 </div>
 
 
-<script src="{{ asset('js/Notificaciones.js') }}"></script>
+
 <script src="{{ asset('js/Historial.js') }}"></script>
 <script src="{{ asset('js/simpleTabla.js') }}"></script>
 <script src="{{ asset('js/btnBack1.js') }}"></script>

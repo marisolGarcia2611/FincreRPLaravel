@@ -27,27 +27,34 @@ class SistemasController extends Controller
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         return view('sistemas.index',compact('varpantallas','varsubmenus'));
+
     }
 
     public function indexAcciones()
     {
-        $varpantallas =  $this->Traermenuenc();
-        $varsubmenus =   $this->Traermenudet();
-        $varlistavistas=$this->obtenervistas();
-        $varlistapuestos=$this->obtenerpuestos();
-        $varlistausers=$this->obtenerusuarios();
-        $varlistadepas = $this->obtenerdepartamentos();
-        $varpermiso = $this->obtenerpermisos();
-        return view('sistemas.acciones',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistadepas','varpermiso'));
+        $permisos = $this->forpermisos('calcular_nominas');  
+            if($permiso=="registrar_permisos")
+            {
+                $varpantallas =  $this->Traermenuenc();
+                $varsubmenus =   $this->Traermenudet();
+                $varlistavistas=$this->obtenervistas();
+                $varlistapuestos=$this->obtenerpuestos();
+                $varlistausers=$this->obtenerusuarios();
+                $varlistadepas = $this->obtenerdepartamentos();
+                $varpermiso = $this->obtenerpermisos();
+                return view('sistemas.acciones',compact('varpantallas','varsubmenus','varlistavistas','varlistausers','varlistadepas','varpermiso'));
+            }
+            else{
+                return redirect()->route('panel')->with("Errorpermisos","No se logro");  
+            }
+          
+
+       
+
     }
 
 
-    public function modulos()
-    {
-        $varpantallas =  $this->Traermenuenc();
-        $varsubmenus =   $this->Traermenudet();
-        return view('sistemas.modulos',compact('varpantallas','varsubmenus'));
-    }
+
 
     protected function asignarPermiso(Request $request)
     {

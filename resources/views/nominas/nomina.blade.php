@@ -22,6 +22,14 @@
           echo '</script>';  
   @endphp
 
+
+  @elseif($mensaje = Session::get('Errorpermisos'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se encontro el permiso para efectuar la accion!","Comunicate al area de sistemas para validar permisos","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
 @endif
 
 {{-- ALERTAS --}}
@@ -29,23 +37,30 @@
 <div class="mt-4 p__little">
 <br/>
 <br/>
+
   <center class="container">
         <div class="col-md-12">
           <h2 class="mt-3 mb-3 fw-light animate_animated ">Nóminas</h2> 
         </div>
+        @foreach($permisos as $permisoa) 
+        @if($permisoa->nombre_accion=="alta_nominas")
         <div class="col-md-12">
           <div class="row mt-8 text-center">
             <div>
               <button  type="button" class="mb-1 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
             </div>
-      
         </div>
+        @endif
+        @endforeach
   </center> 
   <br/>
   @csrf
  <center>
+ @foreach($permisos as $permiso) 
+ @if($permiso->nombre_accion=="ver_nominas")
   <div class="shadow-lg mb-5 bg-body rounded border-0" style="margin:20px;width:95%;">
-    <div class="table-responsive pad-table" id="mydatatable-container">     
+    <div class="table-responsive pad-table" id="mydatatable-container">    
+
       <table class="table table-hover " id="tblempleados">
         <thead class="table">
           <tr class="tr-table"> 
@@ -97,9 +112,12 @@
            @endforeach
         </tbody>
       </table>
+
     </div>  
   </div>
 </center> 
+@endif
+@endforeach
 
   <br/>
   <br/>

@@ -1,6 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
+{{-- ALERTAS --}}
+@if ($mensaje = Session::get('success'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡Acción exitosa!","Movimiento completado de forma correcta","success", {buttons: false,timer: 1500});';
+          echo '</script>';  
+  @endphp
+
+@elseif($mensaje = Session::get('warning'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","warning", {buttons: false,timer: 3000});';
+          echo '</script>';  
+  @endphp
+
+@elseif($mensaje = Session::get('PDFwarning'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Recuerde llenar todos los campos y que formato permitido de archivos es .pdf","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
+
+  @elseif($mensaje = Session::get('Errorpermisos'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se encontro el permiso para efectuar la accion!","Comunicate al area de sistemas para validar permisos","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
+@endif
+
 
 <div class="mt-5">
     <div class="container">
@@ -33,7 +65,7 @@
             </div>
 
 
-            <div class="col-md-3 mr-2">
+            <!-- <div class="col-md-3 mr-2">
                 <form action="/Permisos">
                     <div class="card text-center shadow-lg p-3 mb-5 bg-body rounded push border-0">
                         <div class="card-body">
@@ -42,7 +74,7 @@
                         <button type="submit" class="bg-gradient-pink card-footer fw-light fs-8 border-0">Perfiles</button>
                     </div>
                 </form>
-            </div>
+            </div> -->
 
 
 

@@ -119,5 +119,16 @@ use Illuminate\Support\Facades\Route;
     // Area de sistemas--------------------------------------------------------------------------------------------------
     Route::get('/Sistemas/guardar_permisos', 'App\Http\Controllers\SistemasController@guardar_permisos')->name('guardar_permisos');
     Route::get('/vales/actualizarnotificaciones', 'App\Http\Controllers\ValesController@actualizarnotificaciones')->name('actualizarnotificaciones');
+
+    // Area entrega de vales y cliente final--------------------------------------------------------------------------------------------------
+    Route::get('/gestionCreditos',[App\Http\Controllers\ValeraController::class, 'indexGestionCreditos'])->name('gestionCreditos');
+    Route::get('/gestionCreditos/Valera', 'App\Http\Controllers\valeraController@getValera')->name('getValera');
+    Route::get('/gestionCreditos/Cliente', 'App\Http\Controllers\valeraController@getCliente')->name('getCliente');
+    Route::get('/gestionCreditos/nuevoCliente', 'App\Http\Controllers\valeraController@getnuevoCliente')->name('getnuevoCliente');
+    Route::get('/gestionCreditos/nuevoCanje', 'App\Http\Controllers\valeraController@getnuevoCanje')->name('getnuevoCanje');
+
+    Route::get('/CatalogosVales',[App\Http\Controllers\ValeraController::class, 'getIndexCatalogo'])->name('getIndexCatalogo');
+    Route::get('/CatalogosVales/controlValeras', 'App\Http\Controllers\valeraController@getcontrolValeras')->name('getcontrolValeras');
+    Route::get('/CatalogosVales/altaValeras', 'App\Http\Controllers\valeraController@getaltaValeras')->name('getaltaValeras');
   
   });

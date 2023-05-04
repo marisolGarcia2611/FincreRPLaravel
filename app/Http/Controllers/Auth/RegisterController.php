@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Vistas;
 use App\Models\usuario_pantallas;
 use App\Traits\MenuTrait;
+use App\Traits\SistemasTraits;
 use App\Traits\DatosimpleTraits;
 use Carbon\Carbon;
 use App\Models\Empleados;
@@ -21,6 +22,7 @@ class RegisterController extends Controller
     use MenuTrait;
     use RegistersUsers;
     use DatosimpleTraits;
+    use SistemasTraits;
 
     /**
      * Where to redirect users after registration.
@@ -43,13 +45,20 @@ class RegisterController extends Controller
 
     public function Index()
     {
+
+        $permisos = $this->forpermisos('calcular_nominas'); 
+        if($permisos=="registrar_usuarios")
+        {
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         $varlistaempleados=  $this-> obtenerlistaempleados();
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
-        
         return view('sistemas.registro',compact('varpantallas','varsubmenus','varlistaempleados'));
+        }
+        else{
+            return redirect()->route('panel')->with("Errorpermisos","No se logro");  
+        }
 
 
     }

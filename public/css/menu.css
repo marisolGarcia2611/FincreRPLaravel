@@ -538,4 +538,171 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
     .btnNoti:hover:after {
         transform: none;
     }
-    
+
+    /*----------------------------------------------------------------- button icon--------------------------------------------------- */
+    .pos__ico{
+      z-index: 1;margin-top:30px;top: 1.8vh;position: absolute;right: 0;margin-right: 15px;
+    }
+    .ico__image{width: 90px;height:50px;}
+
+    @media screen and (max-width:600px) { 
+      .ico__image{width: 55px;height:30px;}
+    }
+
+
+
+    /*----------------------------------------------------------------- button animate--------------------------------------------------- */
+
+.wr {
+  text-align: center;
+}
+.mt-d8{margin-top: -5px}
+
+
+
+@keyframes rotate {from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}}
+@-webkit-keyframes rotate {from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}}
+.imgr:hover{
+  -webkit-animation: 3s rotate linear infinite;
+  animation: 2s rotate linear infinite;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+#imgr2 {
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+.wr button {
+  background: #3498db;
+  color: #fff;
+  border: 0.15rem solid #3498db;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+@media screen and (max-width:600px) {
+  .wr {text-align: center;}
+
+  .wr button {
+    background: #3498db;
+    color: #fff;
+    border: 0.15rem solid #3498db;
+    padding: 3px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+  }
+}
+.wr button:hover {
+  color: #3498db;
+}
+.wr button::after {
+  content: "";
+  background: #ecf0f1;
+  position: absolute;
+  z-index: -1;
+  padding: 0.85em 0.75em;
+  display: block;
+}
+.wr button[class^="slide"]::after {
+  transition: all 0.35s;
+}
+.wr button[class^="slide"]:hover::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: all 0.35s;
+}
+.wr button.slide_from_left::after {
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  right: 100%;
+}
+.wr button.slide_from_right::after {
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  right: -100%;
+}
+.wr button.slide_from_top::after {
+  left: 0;
+  right: 0;
+  top: -100%;
+  bottom: 100%;
+}
+.wr button.slide_from_bottom::after {
+  left: 0;
+  right: 0;
+  top: 100%;
+  bottom: -100%;
+}
+.wr button[class^="grow"]::after {
+  transition: all 0.3s ease;
+}
+.wr button[class^="grow"]:hover::after {
+  transition: all 0.3s ease-out;
+}
+.wr button.grow_box::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0);
+}
+.wr button.grow_box:hover::after {
+  transform: scale(1, 1);
+}
+.wr button.grow_ellipse::after {
+  border-radius: 50%;
+  left: -50%;
+  right: -50%;
+  top: -150%;
+  bottom: -150%;
+  line-height: 8.34em;
+  transform: scale(0, 0);
+}
+.wr button.grow_ellipse:hover::after {
+  transform: scale(1, 1);
+}
+.wr button.grow_skew_forward::after {
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+}
+.wr button.grow_skew_forward:hover::after {
+  transform: skewX(-45deg) scale(1, 1);
+}
+.wr button.grow_skew_backward::after {
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(45deg) scale(0, 1);
+}
+.wr button.grow_skew_backward:hover::after {
+  transform: skewX(45deg) scale(1, 1);
+}
+.wr button.grow_spin::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0, 0) rotate(-180deg);
+}
+.wr button.grow_spin:hover::after {
+  transform: scale(1, 1) rotate(0deg);
+}

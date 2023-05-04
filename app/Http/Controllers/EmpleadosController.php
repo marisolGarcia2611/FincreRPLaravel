@@ -10,6 +10,7 @@ use App\Models\empleados_bajas;
 use App\Http\Requests\StoreEmpleadosRequest;
 use App\Http\Requests\UpdateEmpleadosRequest;
 use App\Traits\MenuTrait;
+use App\Traits\SistemasTraits;
 use App\Traits\DatosimpleTraits;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,6 +22,8 @@ class EmpleadosController extends Controller
     
     use MenuTrait;
     use DatosimpleTraits;
+    use SistemasTraits;
+    
 
     public function __construct()
     {
@@ -35,6 +38,7 @@ class EmpleadosController extends Controller
     
     public function index()
     {
+    $idusuario=auth()->user()->id;
     $varpantallas =  $this->Traermenuenc();
     $varsubmenus =   $this->Traermenudet();
     $varpuestos = $this->obtenerpuestos();
@@ -44,11 +48,11 @@ class EmpleadosController extends Controller
     $varbancos = $this->obtenerbancos();
     $varlistaempleados=  $this-> obtenerlistaempleados();
     $vartipodescinfo= $this->obtenertipodescinfonavit();
+    $permisos = $this->obtener_permisosxusuario($idusuario);
     $date = Carbon::now();
     $date = $date->format('Y-m-d');
-        return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo'));
+        return view('Empleados.Index',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','vartipodescinfo','permisos'));
     }
-
 
 
     /**
@@ -167,6 +171,7 @@ class EmpleadosController extends Controller
      */
     public function edit($id)
     {
+      
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         $varpuestos = $this->obtenerpuestos();
@@ -179,7 +184,16 @@ class EmpleadosController extends Controller
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
         $obtenerempleado = $this->obtenerlistaempleadoid($id);
-            return view('Empleados.edit',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
+        $permisos = $this->forpermisos('actualizar_empleados');  
+
+            if($permisos=="actualizar_empleados")
+            {
+                return view('Empleados.edit',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
+            }
+            else{
+                return redirect()->route('verempleados')->with("Errorpermisos","No se logro");  
+            }
+          
 
     }
 
@@ -269,6 +283,7 @@ class EmpleadosController extends Controller
 
      public function vistaReactivar($id)
     {
+      
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         $varpuestos = $this->obtenerpuestos();
@@ -281,11 +296,15 @@ class EmpleadosController extends Controller
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
         $obtenerempleado = $this->obtenerlistaempleadoid($id);
-            return view('Empleados.reactivar',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
+       
+     
 
-    }
+            return view('Empleados.reactivar',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
+  
+}
 
     public function traerVistaReactivar($id){
+   
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         $varpuestos = $this->obtenerpuestos();
@@ -298,7 +317,17 @@ class EmpleadosController extends Controller
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
         $obtenerempleado = $this->obtenerlistaempleadoid($id);
+        $permisos = $this->forpermisos('reactivar_empleados');
+
+        if($permisos == "reactivar_empleados")
+        {
             return view('Empleados.reactivar',compact('varpantallas','varsubmenus','varlistaempleados','varpuestos','varsucursales','varciudades','varempresas','varbancos','obtenerempleado','vartipodescinfo'));
+        }
+        else{
+            return redirect()->route('verempleados')->with("Errorpermisos","No se logro");
+           
+        }
+
     }
     
     public function reactivar($id,request $request)
@@ -342,20 +371,17 @@ class EmpleadosController extends Controller
                 $nominas->save();
                 copy($file, $ruta);
                 return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
-            }else{
+            }
+            else
+            {
                 return redirect()->route('verempleados')->with("PDFwarning","¡Se guardaron los cambios correctamente!");
             }
-
-        }
-
-        
+        }  
     }
 
     public function bajas(Request $request)
     {
-
          $date = Carbon::now();
-        
         $idempleado = $request->get('ids');
         $descripcionbaja=$request->get('descripcion_baja');
         $fecha = $date->format('Y-m-d');
@@ -420,7 +446,6 @@ class EmpleadosController extends Controller
         $fechaExpiracion = Carbon::parse($fecha_baja);
         $diasDiferencia = $fechaExpiracion->diffInDays($fechaEmision);
 
-
         $pdf = \PDF::loadView('Empleados.rptfiniquito',compact('idempleado','nombreemplado','diasDiferencia','datenow','nombreempresa','fecha_baja','fecha_ingreso','salario','puesto','rpttotalentregar','totalper','rptotaldeducciones','rptvardiasgratificacion','rtpvaraguinaldoporporcional','rptvarsueldoporporcional','rptvarvacacionesporporcionales','rptvardeudaimms','rptvardeduedainfonavit','rptvardeudatransporte','rptvardeudaprestamo','rptvarotrasdeudas',));
         return $pdf->download("finiquito_empleado$idempleado.pdf");
           
@@ -432,7 +457,15 @@ class EmpleadosController extends Controller
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
         $obtenerbajas = $this->obtenerbajas_empleados($id);
-            return view('Empleados.baja',compact('varpantallas','varsubmenus','obtenerbajas'));
+        $permisos = $this->forpermisos('editar_baja_empleados');
+            if($permisos=="editar_baja_empleados")
+            {
+                return view('Empleados.baja',compact('varpantallas','varsubmenus','obtenerbajas'));
+            }
+            else{
+                return redirect()->route('verempleados')->with("Errorpermisos","No se logro");  
+            }
+        
     }
 
     public function BajaEmpleadoEdit(Request $request)

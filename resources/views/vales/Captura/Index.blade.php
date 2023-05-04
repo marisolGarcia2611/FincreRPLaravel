@@ -23,25 +23,30 @@
   @endphp
 
 @endif
+<!--Icon Area-->
+<div class="pos__ico">
+  <img class="ico__image" src="{{ asset('ico/valeMil.png') }}" alt="valeMil">
+</div>
 
 <div class="container mt-5">
     <div class="text-center">
-        <h1 class="fw-light">Captura de Creditos</h1>
+        <br/>
+        <h2 class="fw-light">Captura de Creditos</h2>
     </div>
 
 
     <div class="mt-5">
-        <div class="text-center pCollage">
+        {{-- <div class="text-center pCollage">
           <form action="/vales/CapturaDistribuidor">
-            <button type="submit" class="btn-collage-purple btnCollage"><h5 class="fw-light"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp; Nuevo Movimineto</h5></button>
+            <button type="submit" class="btn-collage-purple btnCollage"><h6 class="fw-light"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp; Nuevo Movimineto</h6></button>
           </form>
-        </div>
+        </div> --}}
 
 
         <div class="pCollage">
             <div class="card-group text-center">
-                <div class="card text-light bgCollage">
-                  <img src="{{ asset('Images/13.png') }}" class="card-img responsiveCollage" alt="...">
+                <div class="card text-light bgCollage borderleft">
+                  <img src="{{ asset('Images/13.png') }}" class="card-img responsiveCollage borderleft" alt="...">
                   <div class="card-img-overlay translateY">
           
                     <figure class="animate_animated animate_backInDown">
@@ -59,8 +64,8 @@
                   </div>
                 </div>
           
-                <div class="card text-light bgCollage">
-                  <img src="{{ asset('Images/12.png') }}" class="card-img responsiveCollage" alt="...">
+                <div class="card text-light bgCollage borderRight">
+                  <img src="{{ asset('Images/12.png') }}" class="card-img responsiveCollage borderRight" alt="...">
                   <div class="card-img-overlay translateY">
                       <figure class="animate_animated animate_backInDown">
                           <blockquote class="blockquote">

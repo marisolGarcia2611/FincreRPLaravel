@@ -28,153 +28,147 @@ class valesController extends Controller
     use DatosimpleTraits;
     use ValeTraits;
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+  public function __construct(){
+      $this->middleware('auth');
+  }
 
-    public function index()
-    {
-      $varpantallas =  $this->Traermenuenc();
-      $varsubmenus =   $this->Traermenudet();
-    
-   
-        return view('vales.Index',compact('varpantallas','varsubmenus'));
-    }
-
-    public function getDistribuidor()
-    {
-      $varpantallas =  $this->Traermenuenc();
-      $varsubmenus =   $this->Traermenudet();
-      $varpromotores =  $this->obtenerpromotores();
-      $varsucursales = $this->obtenersucursales();
-      $varciudades =  $this->obtenerciudades();
-      $varestados  =  $this->obtenerestados();
-      $vartipodis = $this->obtenertipo_distribuidor();
+  public function index(){
+    $varpantallas =  $this->Traermenuenc();
+    $varsubmenus =   $this->Traermenudet();
   
-        return view('vales.Fase1.Captura.distribuidor',compact('varpantallas','varsubmenus','varpromotores','varsucursales','varciudades','varestados','vartipodis'));
-    }
+  
+      return view('vales.Captura.Index',compact('varpantallas','varsubmenus'));
+  }
 
-    public function getAval()
-    {
+  public function getDistribuidor(){
+    $varpantallas =  $this->Traermenuenc();
+    $varsubmenus =   $this->Traermenudet();
+    $varpromotores =  $this->obtenerpromotores();
+    $varsucursales = $this->obtenersucursales();
+    $varciudades =  $this->obtenerciudades();
+    $varestados  =  $this->obtenerestados();
+    $vartipodis = $this->obtenertipo_distribuidor();
 
-      $varciudades =  $this->obtenerciudades();
-      $varpantallas =  $this->Traermenuenc();
-      $varsubmenus =   $this->Traermenudet();
-        return view('vales.Fase1.Captura.aval',compact('varpantallas','varsubmenus','varciudades'));
-    }
+      return view('vales.Captura.Fase1.CapturaInicial.distribuidor',compact('varpantallas','varsubmenus','varpromotores','varsucursales','varciudades','varestados','vartipodis'));
+  }
 
-    public function getDocumentos()
-    {
-      $varpantallas =  $this->Traermenuenc();
-      $varsubmenus =   $this->Traermenudet();
-   
-        return view('vales.Fase1.Captura.documentos',compact('varpantallas','varsubmenus'));
-    }
+  public function getAval(){
 
-    public function getGestionFase1()
-    {
-      $varpantallas =  $this->Traermenuenc();
-      $varsubmenus =   $this->Traermenudet();
-      $vardistribuidores = $this->obtenerdistribuidores();
-   
-        return view('vales.Fase1.gestionFase1',compact('varpantallas','varsubmenus','vardistribuidores'));
-      
-    }
+    $varciudades =  $this->obtenerciudades();
+    $varpantallas =  $this->Traermenuenc();
+    $varsubmenus =   $this->Traermenudet();
+      return view('vales.Captura.Fase1.CapturaInicial.aval',compact('varpantallas','varsubmenus','varciudades'));
+  }
 
-    public function insertardistribuidor(Request $request){
-      $date = Carbon::now();
-      $fecha = $date->format('Y-m-d');
-      $varpantallas =  $this->Traermenuenc();
-      $varsubmenus =   $this->Traermenudet();
+  public function getDocumentos(){
+    $varpantallas =  $this->Traermenuenc();
+    $varsubmenus =   $this->Traermenudet();
+  
+      return view('vales.Captura.Fase1.CapturaInicial.documentos',compact('varpantallas','varsubmenus'));
+  }
 
-      //aqui guardaremos el distribuidor
-      $distribuidor = new distribuidores();
-      $distribuidor->idsucursal = $request->get('sucursal');
-      $distribuidor->idpromotor = $request->get('promotor');
-      $distribuidor->tipo_distribuidor = $request->get('tipo_distribuidor');
-      $distribuidor->primer_nombre = $request->get('primer_nombre');
-      $distribuidor->segundo_nombre = $request->get('segundo_nombre');
-      $distribuidor->apellido_paterno = $request->get('apellido_paterno');
-      $distribuidor->apellido_materno = $request->get('apellido_materno');
-      $distribuidor->sexo = $request->get('sexo');
-      $distribuidor->fecha_nacimiento = $request->get('fecha_nac');
-      $distribuidor->curp = $request->get('curp');
-      $distribuidor->rfc = $request->get('rfc');
-      $distribuidor->estado_civil = $request->get('estado_civil');
-      $distribuidor->telefono = $request->get('telefono');
-      $distribuidor->idestado = $request->get('estado');
-      $distribuidor->idciudad = $request->get('ciudad');
-      $distribuidor->codigo_postal = $request->get('codigo_postal');
-      $distribuidor->colonia = $request->get('colonia');
-      $distribuidor->calle = $request->get('calle');
-      $distribuidor->numero_interior = $request->get('numero_interior');
-      $distribuidor->numero_exterior = $request->get('numero_exterior');
-      $distribuidor->lugar_empleo = $request->get('lugar_empleo');
-      $distribuidor->puesto_empleo = $request->get('puesto_empleo');
-      $distribuidor->salario_mensual = $request->get('salario_mensual');
-      $distribuidor->egreso_fijomensual = $request->get('egreso_mensual_fijo');
-      $distribuidor->antiguedad = $request->get('antiguedad');
-      $distribuidor->telefono_empresa = $request->get('telefono_empleo');
-      $distribuidor->direccion_empresa = $request->get('direccion_empleo');
-      $distribuidor->capital=$request->get('capital');
-      $distribuidor->capital_autorizado=$request->get('capital_autorizado');
-      $distribuidor->estado_captura = 1;
-      $distribuidor->status = 'pro_rev';
-      $distribuidor->created_at = $fecha;
-      $distribuidor->save();
-      $iddistribuidor = $this->iddistribuidor();
-
-      $conyuge = new conyuges();
-      $conyuge->iddistribuidor = $iddistribuidor->id;
-      $conyuge->primer_nombre = $request->get('primer_nombre');
-      $conyuge->segundo_nombre = $request->get('segundo_nombre');
-      $conyuge->apellido_paterno = $request->get('apellido_paterno');
-      $conyuge->apellido_materno = $request->get('apellido_materno');
-      $conyuge->fecha_nacimiento = $request->get('fecha_nac');
-      $conyuge->curp = $request->get('curp');
-      $conyuge->rfc = $request->get('rfc');
-      $conyuge->sexo = $request->get('sexo');
-      $conyuge->telefono = $request->get('telefono');
-      $conyuge->lugar_empleo = $request->get('lugar_empleo');
-      $conyuge->puesto_empleo = $request->get('puesto_empleo');
-      $conyuge->salario_mensual = $request->get('salarioMensual');
-      $conyuge->egreso_fijomensual = $request->get('egresoFijoMensual');
-      $conyuge->antiguedad = $request->get('antiguedad');
-      $conyuge->telefono_empresa = $request->get('telefono_empleo');
-      $conyuge->direccion_empresa = $request->get('direccion_empleo');
-      $conyuge->created_at = $date;
-     
-       $referencia = new referencias();
-       $referencia->iddistribuidor = $iddistribuidor->id;
-       $referencia->primer_nombre = $request->get('primer_nombre');
-       $referencia->segundo_nombre = $request->get('segundo_nombre');
-       $referencia->apellido_paterno = $request->get('apellido_paterno');
-       $referencia->apellido_materno = $request->get('apellido_materno');
-       $referencia->sexo = $request->get('sexo');
-       $referencia->fecha_nacimiento = $request->get('fecha_nac');
-       $referencia->estado_civil = $request->get('curp');
-       $referencia->rfc = $request->get('rfc');
-       $referencia->estado_civil = $request->get('estado_civil');
-       $referencia->telefono = $request->get('telefono');
-       $referencia->calle = $request->get('calle');
-       $referencia->colonia = $request->get('colonia');
-       $referencia->numero_interior = $request->get('numero_interior');
-       $referencia->numero_exterior = $request->get('numero_exterior');
-       $referencia->codigo_postal = $request->get('codigo_postal');
-       $referencia->idciudad = $request->get('ciudad');
-      $referencia->created_at = $fecha;
-     
-
-      if($conyuge->save() && $referencia->save()){
-     
+  public function getGestionFase1(){
+    $varpantallas =  $this->Traermenuenc();
+    $varsubmenus =   $this->Traermenudet();
+    $vardistribuidores = $this->obtenerdistribuidores();
+  
+      return view('vales.Captura.Fase1.gestionFase1',compact('varpantallas','varsubmenus','vardistribuidores'));
     
-        return redirect()->route('getAval')->with("success","¡Se guardaron los cambios correctamente!");
-      }
-      else{
-        return redirect()->route('getDistribuidor')->with("warning","Incorrecto");
-      }
+  }
+
+  public function insertardistribuidor(Request $request){
+    $date = Carbon::now();
+    $fecha = $date->format('Y-m-d');
+    $varpantallas =  $this->Traermenuenc();
+    $varsubmenus =   $this->Traermenudet();
+
+    //aqui guardaremos el distribuidor
+    $distribuidor = new distribuidores();
+    $distribuidor->idsucursal = $request->get('sucursal');
+    $distribuidor->idpromotor = $request->get('promotor');
+    $distribuidor->tipo_distribuidor = $request->get('tipo_distribuidor');
+    $distribuidor->primer_nombre = $request->get('primer_nombre');
+    $distribuidor->segundo_nombre = $request->get('segundo_nombre');
+    $distribuidor->apellido_paterno = $request->get('apellido_paterno');
+    $distribuidor->apellido_materno = $request->get('apellido_materno');
+    $distribuidor->sexo = $request->get('sexo');
+    $distribuidor->fecha_nacimiento = $request->get('fecha_nac');
+    $distribuidor->curp = $request->get('curp');
+    $distribuidor->rfc = $request->get('rfc');
+    $distribuidor->estado_civil = $request->get('estado_civil');
+    $distribuidor->telefono = $request->get('telefono');
+    $distribuidor->idestado = $request->get('estado');
+    $distribuidor->idciudad = $request->get('ciudad');
+    $distribuidor->codigo_postal = $request->get('codigo_postal');
+    $distribuidor->colonia = $request->get('colonia');
+    $distribuidor->calle = $request->get('calle');
+    $distribuidor->numero_interior = $request->get('numero_interior');
+    $distribuidor->numero_exterior = $request->get('numero_exterior');
+    $distribuidor->lugar_empleo = $request->get('lugar_empleo');
+    $distribuidor->puesto_empleo = $request->get('puesto_empleo');
+    $distribuidor->salario_mensual = $request->get('salario_mensual');
+    $distribuidor->egreso_fijomensual = $request->get('egreso_mensual_fijo');
+    $distribuidor->antiguedad = $request->get('antiguedad');
+    $distribuidor->telefono_empresa = $request->get('telefono_empleo');
+    $distribuidor->direccion_empresa = $request->get('direccion_empleo');
+    $distribuidor->capital=$request->get('capital');
+    $distribuidor->capital_autorizado=$request->get('capital_autorizado');
+    $distribuidor->estado_captura = 1;
+    $distribuidor->status = 'pro_rev';
+    $distribuidor->created_at = $fecha;
+    $distribuidor->save();
+    $iddistribuidor = $this->iddistribuidor();
+
+    $conyuge = new conyuges();
+    $conyuge->iddistribuidor = $iddistribuidor->id;
+    $conyuge->primer_nombre = $request->get('primer_nombre');
+    $conyuge->segundo_nombre = $request->get('segundo_nombre');
+    $conyuge->apellido_paterno = $request->get('apellido_paterno');
+    $conyuge->apellido_materno = $request->get('apellido_materno');
+    $conyuge->fecha_nacimiento = $request->get('fecha_nac');
+    $conyuge->curp = $request->get('curp');
+    $conyuge->rfc = $request->get('rfc');
+    $conyuge->sexo = $request->get('sexo');
+    $conyuge->telefono = $request->get('telefono');
+    $conyuge->lugar_empleo = $request->get('lugar_empleo');
+    $conyuge->puesto_empleo = $request->get('puesto_empleo');
+    $conyuge->salario_mensual = $request->get('salarioMensual');
+    $conyuge->egreso_fijomensual = $request->get('egresoFijoMensual');
+    $conyuge->antiguedad = $request->get('antiguedad');
+    $conyuge->telefono_empresa = $request->get('telefono_empleo');
+    $conyuge->direccion_empresa = $request->get('direccion_empleo');
+    $conyuge->created_at = $date;
+    
+      $referencia = new referencias();
+      $referencia->iddistribuidor = $iddistribuidor->id;
+      $referencia->primer_nombre = $request->get('primer_nombre');
+      $referencia->segundo_nombre = $request->get('segundo_nombre');
+      $referencia->apellido_paterno = $request->get('apellido_paterno');
+      $referencia->apellido_materno = $request->get('apellido_materno');
+      $referencia->sexo = $request->get('sexo');
+      $referencia->fecha_nacimiento = $request->get('fecha_nac');
+      $referencia->estado_civil = $request->get('curp');
+      $referencia->rfc = $request->get('rfc');
+      $referencia->estado_civil = $request->get('estado_civil');
+      $referencia->telefono = $request->get('telefono');
+      $referencia->calle = $request->get('calle');
+      $referencia->colonia = $request->get('colonia');
+      $referencia->numero_interior = $request->get('numero_interior');
+      $referencia->numero_exterior = $request->get('numero_exterior');
+      $referencia->codigo_postal = $request->get('codigo_postal');
+      $referencia->idciudad = $request->get('ciudad');
+    $referencia->created_at = $fecha;
+    
+
+    if($conyuge->save() && $referencia->save()){
+    
+  
+      return redirect()->route('getAval')->with("success","¡Se guardaron los cambios correctamente!");
     }
+    else{
+      return redirect()->route('getDistribuidor')->with("warning","Incorrecto");
+    }
+  }
 
     public function insertaraval(Request $request){
       $iddistribuidor = $this->iddistribuidor();
@@ -374,7 +368,7 @@ class valesController extends Controller
     $varsubmenus =   $this->Traermenudet();
     $iddis = $iddistribuidor;
   
-      return view('vales.Fase1.TerminarProceso.aval',compact('varpantallas','varsubmenus','varciudades','iddis'));
+      return view('vales.Captura.Fase1.TerminarProceso.aval',compact('varpantallas','varsubmenus','varciudades','iddis'));
 
   }
 
@@ -420,7 +414,7 @@ class valesController extends Controller
         $distribuidorupdate->save();
         $iddis = $iddistribuidor;
         $aval =  $this->obteneravala_termina_proceso($iddis);
-        return view('vales.Fase1.TerminarProceso.documentos',compact('varpantallas','varsubmenus','iddis','aval'));
+        return view('vales.Captura.Fase1.TerminarProceso.documentos',compact('varpantallas','varsubmenus','iddis','aval'));
       }
       else{
         return redirect()->route('getDistribuidor')->with("warning","Incorrecto");
@@ -433,7 +427,7 @@ class valesController extends Controller
     $varsubmenus =   $this->Traermenudet();
     $iddis = $iddistribuidor;
     $aval =  $this->obteneravala_termina_proceso($iddis);
-    return view('vales.Fase1.TerminarProceso.documentos',compact('varpantallas','varsubmenus','iddis','aval'));
+    return view('vales.Captura.Fase1.TerminarProceso.documentos',compact('varpantallas','varsubmenus','iddis','aval'));
 
   }
 
@@ -583,7 +577,7 @@ class valesController extends Controller
     $vartipodis = $this->obtenertipo_distribuidor();
     $varmensajes = $this->obtener_mensajes($id);
     $varobtenerdatosaval=$this->obteneravalactualiza($id);
-    return view('vales.actualizar_distribuidor',compact('varpantallas','varsubmenus','varpromotores','varsucursales','varciudades','varestados','vardistribuidorfase1','vartipodis','varmensajes','varobtenerdatosaval'));
+    return view('vales.Captura.actualizar_distribuidor',compact('varpantallas','varsubmenus','varpromotores','varsucursales','varciudades','varestados','vardistribuidorfase1','vartipodis','varmensajes','varobtenerdatosaval'));
   }
 
   public function actualizar_distribuidor(Request $request){
@@ -683,7 +677,7 @@ class valesController extends Controller
             $varsubmenus =   $this->Traermenudet();
             $varobtenerdatosaval=$this->obteneravalactualiza($iddistribuidor);
             $iddis = $iddistribuidor;  
-            return view('vales.actualizar_aval',compact('varpantallas','varsubmenus','varciudades','varobtenerdatosaval','iddis'));
+            return view('vales.Captura.actualizar_aval',compact('varpantallas','varsubmenus','varciudades','varobtenerdatosaval','iddis'));
       }
       else{
         return redirect()->route('getDistribuidor')->with("warning","Incorrecto");
@@ -696,7 +690,7 @@ class valesController extends Controller
     $varpantallas =  $this->Traermenuenc();
     $varsubmenus =   $this->Traermenudet();
     $varobtenerdatosaval=$this->obteneravalactualiza($iddis);
-    return view('vales.actualizar_aval',compact('varpantallas','varsubmenus','varciudades','varobtenerdatosaval','iddis'));
+    return view('vales.Captura.actualizar_aval',compact('varpantallas','varsubmenus','varciudades','varobtenerdatosaval','iddis'));
   }
 
   public function  actualizar_aval(Request $request){
@@ -740,7 +734,7 @@ class valesController extends Controller
         $idava = $idaval;  
         $disDoc =  $this->obtenerDocumentosDis($iddis);
         $avalDoc =  $this->obtenerDocumentosAval($idava);
-        return view('vales.actualizar_documentos',compact('varpantallas','varsubmenus','iddis','idaval','disDoc','avalDoc'));
+        return view('vales.Captura.actualizar_documentos',compact('varpantallas','varsubmenus','iddis','idaval','disDoc','avalDoc'));
         // return redirect()->route('getGestionFase1')->with("success","¡Se guardaron los cambios correctamente!");
       }
       else{
@@ -756,7 +750,7 @@ class valesController extends Controller
     $varpantallas =  $this->Traermenuenc();
     $varsubmenus =   $this->Traermenudet();
     $varobtenerdatosaval=$this->obteneravalactualiza($iddis);
-    return view('vales.actualizar_documentos',compact('varpantallas','varsubmenus','iddis','idaval','disDoc','avalDoc','varobtenerdatosaval'));
+    return view('vales.Captura.actualizar_documentos',compact('varpantallas','varsubmenus','iddis','idaval','disDoc','avalDoc','varobtenerdatosaval'));
   }
 
   public function actualizar_documentos(Request $request){
@@ -905,7 +899,7 @@ class valesController extends Controller
     $varpantallas =  $this->Traermenuenc();
     $varsubmenus =   $this->Traermenudet();
 
-    return view('vales.Fase1.mostrar_documentacion',compact('varpantallas','varsubmenus','vardocumentos'));
+    return view('vales.Captura.Fase1.mostrar_documentacion',compact('varpantallas','varsubmenus','vardocumentos'));
   }
 
   public function verpdf(int $contrato, String $filename){
@@ -929,7 +923,7 @@ class valesController extends Controller
         $varcredito_rec_dic = $this-> obtener_cred_rev_dic();
         $varnotificaciones = $this->obtenermensajesnoleidosxusuario($idusuario);
     
-          return view('Vales.Fase2.IndexMesaCredito',compact('varpantallas','varsubmenus','varmesadecredito','varcreditoval','varcredito_rec_dic','varnotificaciones'));
+          return view('Vales.Captura.Fase2.IndexMesaCredito',compact('varpantallas','varsubmenus','varmesadecredito','varcreditoval','varcredito_rec_dic','varnotificaciones'));
         
   }
 
@@ -937,7 +931,7 @@ class valesController extends Controller
     $varpantallas =  $this->Traermenuenc();
     $varsubmenus =   $this->Traermenudet();
 
-      return view('Vales.Fase2.editDistribuidor',compact('varpantallas','varsubmenus'));
+      return view('Vales.Captura.Fase2.editDistribuidor',compact('varpantallas','varsubmenus'));
     
   }
 
@@ -954,13 +948,13 @@ class valesController extends Controller
     $varhistorial = $this->obtenerhistorial($id);
     $varmensajes = $this->obtener_mensajes($id);
 
-    return view('Vales.Fase2.solicitudMesaCredito',compact('varpantallas','varsubmenus','vardatossolicitud','veraval','vardocumentos','varhistorial','varmensajes','vardocumentosaval')); 
+    return view('Vales.Captura.Fase2.solicitudMesaCredito',compact('varpantallas','varsubmenus','vardatossolicitud','veraval','vardocumentos','varhistorial','varmensajes','vardocumentosaval')); 
   }
   public function getCreditosDictamen()
   {
     $varpantallas =  $this->Traermenuenc();
     $varsubmenus =   $this->Traermenudet();
-      return view('Vales.Fase2.creditosDictamen',compact('varpantallas','varsubmenus'));
+      return view('Vales.Captura.Fase2.creditosDictamen',compact('varpantallas','varsubmenus'));
   }
 
   public function enviaramesa_credito(int $iddistribuidor){
@@ -1073,7 +1067,7 @@ class valesController extends Controller
     }
   }
 
-  function enviar_mensaje(string $tipou, int $iddistribuidor, Request $request){
+  public function enviar_mensaje(string $tipou, int $iddistribuidor, Request $request){
     $idusuario=auth()->user()->id;
 
       $varusuario = $this-> obtenerusuariosxname($idusuario);
@@ -1153,8 +1147,7 @@ class valesController extends Controller
     }
   } 
   
-  public function actualizarnotificaciones()
-  {
+  public function actualizarnotificaciones(){
     return redirect()->route('getGestionFase2');
   }
 }

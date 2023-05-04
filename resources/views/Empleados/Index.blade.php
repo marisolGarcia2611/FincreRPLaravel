@@ -22,41 +22,63 @@
           echo '</script>';  
   @endphp
 
+
+  @elseif($mensaje = Session::get('Errorpermisos'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se encontro el permiso para efectuar la accion!","Comunicate al area de sistemas para validar permisos","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
 @endif
 
 {{-- ALERTAS --}}
 
 <div class="mt-4 p__little">
+
   <br/>
   <br/>
+  
     {{--------------------------- Encabezado de la pagina----------------------}}
+   
       <center class="mb-3 container bg-p">
             <div class="col-md-12">
               <h2 class="mt-3 mb-3 fw-light animate_animated animate_backInLeft">Catalogo de Empleados</h2> 
             </div>
+            
             <div class="col-md-12">
               <div class="row mt-3 text-end">
-                <div class="col-md-2 d-md-block d-none"></div>
-                <div class="col-md-2 mar-l">
-                  <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button> 
-                </div>
+                <div class="col-md-3 d-md-block d-none"></div>
+                @foreach($permisos as $accion)
+                @if($accion->nombre_accion == "alta_empleados")
                 <div class="col-md-2">
-                  <form action="{{ route('Empleados.exportar_excel') }}">
-                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp; Exportar </button> 
+                  <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fas fa-plus"></i>&nbsp; Añadir </button>  
+                </div>
+                @endif
+                @if($accion->nombre_accion ==  "exportar_empleados") 
+                <div class="col-md-2">
+                  <form action="{{ route('Empleados.exportar_excel') }}">                             
+                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-download"></i>&nbsp; Exportar </button>          
                   </form>            
                 </div>
+                @endif 
+                @if($accion->nombre_accion == "graficar_empleados")
                 <div class="col-md-2">
                   <form action="{{ route('Empleados.grafica_empleados') }}">
-                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficar </button> 
+                  <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-chart-pie"></i>&nbsp;Gaficar </button>
                   </form>
                 </div>
-                <div class="col-md-4 d-md-block d-none">
-            
+                @endif
+                @endforeach 
+                <div class="col-md-3 d-md-block d-none">
               </div>
+        
             </div>
       </center> 
      
       @csrf
+@foreach($permisos as $permiso)
+@if($permiso->nombre_accion == "Ver_empleados")
 
       {{--------------------------- Cuerpo de la tabla----------------------}}
     <center class="mb-4">
@@ -118,33 +140,33 @@
             </thead>
             
             <tbody>
-              @foreach($varlistaempleados as $vis)
+              @foreach($varlistaempleados as $vis )
                 <tr>
                   {{--------------------- Herramientas de la tabla--------------------}}
                   <td class="td-tools">
-
-                        @if($vis->estado == "I")
+                        @if($vis->estado == "I" )
                          <a class="text-light btn fas fa-user-check"   href="/ReactivarEmpleado/{{$vis->idempleado}}"></a>
                           <form action="/Empleados/editBaja/{{$vis->idempleado}}">
                             <button class="text-light btn fas fa-edit bor"  type="submit"></button>
                           </form>
-
                         @endif
-
+                  
+                        
                         @if($vis->estado == "A") 
                           <form action="{{ route('Empleados.edit', $vis->idempleado) }}">
                             <button class="text-light btn fas fa-edit bor"  type="submit"></button>
                           </form>
                         @endif
-
+             
                         @if($vis->estado == "A") 
                         <button class="text-light btn  fas fa-trash"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
-                        @elseif($vis->archivo_baja=="1")
+                        @elseif($vis->archivo_baja=="1" )
+                        
+                 
                           <a class="text-light btn btn fas fa-eye" target="_blank"  href="DetallesEmpleados/bajas/baja_{{$vis->idempleado}}.pdf"></a>          
                         @else
                           <button class="text-light btn fas fa-upload"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom" id="{{$vis->id}}" ></button>
                         @endif
-
 
                   </td>
 
@@ -210,13 +232,15 @@
                   <td class="bg-2">{{$vis->telefono_emergencia}}</td>
                 
                 </tr>
-      
                 @endforeach
             </tbody>
           </table>
         </div>  
       </div>
-    </center> 
+    </center>
+    @else
+    @endif
+    @endforeach
   
 </div>
 <!-- ................................................................................................................................................-->
@@ -960,6 +984,8 @@
 <!-- ................................................................................................................................................-->
 
 <!-- Eliminar Modal-->
+@foreach($permisos as $permisobaja)
+@if(@permisobaja =="eliminar_empleado")
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
 
   <div class="offcanvas-header">
@@ -1376,6 +1402,10 @@
         </div>
     </div>
 </div>
+@else
+@endif
+@endforeach
+
 <!--Fin Eliminar Modal-->
 
 <!-- ................................................................................................................................................-->

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
+class ComposerStaticInita2bf99afbdf4e064a888df36029c3c11
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -351,8 +351,8 @@ class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -644,6 +644,7 @@ class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
         'App\\Models\\tipo_descuento_infonavit' => __DIR__ . '/../..' . '/app/Models/tipo_descuento_infonavit.php',
         'App\\Models\\tipo_distribuidor' => __DIR__ . '/../..' . '/app/Models/tipo_distribuidor.php',
         'App\\Models\\tipo_nominas' => __DIR__ . '/../..' . '/app/Models/tipo_nominas.php',
+        'App\\Models\\usuario_acciones' => __DIR__ . '/../..' . '/app/Models/usuario_acciones.php',
         'App\\Models\\usuario_pantallas' => __DIR__ . '/../..' . '/app/Models/usuario_pantallas.php',
         'App\\Policies\\EmpleadosPolicy' => __DIR__ . '/../..' . '/app/Policies/EmpleadosPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
@@ -652,6 +653,7 @@ class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Traits\\DatosimpleTraits' => __DIR__ . '/../..' . '/app/Traits/DatosimpleTraits.php',
+        'App\\Traits\\SistemasTraits' => __DIR__ . '/../..' . '/app/Traits/SistemasTraits.php',
         'App\\Traits\\ValeTraits' => __DIR__ . '/../..' . '/app/Traits/ValeTraits.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
@@ -3250,6 +3252,12 @@ class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
         'League\\CommonMark\\Event\\DocumentPreRenderEvent' => __DIR__ . '/..' . '/league/commonmark/src/Event/DocumentPreRenderEvent.php',
         'League\\CommonMark\\Event\\DocumentRenderedEvent' => __DIR__ . '/..' . '/league/commonmark/src/Event/DocumentRenderedEvent.php',
         'League\\CommonMark\\Event\\ListenerData' => __DIR__ . '/..' . '/league/commonmark/src/Event/ListenerData.php',
+        'League\\CommonMark\\Exception\\AlreadyInitializedException' => __DIR__ . '/..' . '/league/commonmark/src/Exception/AlreadyInitializedException.php',
+        'League\\CommonMark\\Exception\\CommonMarkException' => __DIR__ . '/..' . '/league/commonmark/src/Exception/CommonMarkException.php',
+        'League\\CommonMark\\Exception\\IOException' => __DIR__ . '/..' . '/league/commonmark/src/Exception/IOException.php',
+        'League\\CommonMark\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/league/commonmark/src/Exception/InvalidArgumentException.php',
+        'League\\CommonMark\\Exception\\LogicException' => __DIR__ . '/..' . '/league/commonmark/src/Exception/LogicException.php',
+        'League\\CommonMark\\Exception\\MissingDependencyException' => __DIR__ . '/..' . '/league/commonmark/src/Exception/MissingDependencyException.php',
         'League\\CommonMark\\Exception\\UnexpectedEncodingException' => __DIR__ . '/..' . '/league/commonmark/src/Exception/UnexpectedEncodingException.php',
         'League\\CommonMark\\Extension\\Attributes\\AttributesExtension' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Attributes/AttributesExtension.php',
         'League\\CommonMark\\Extension\\Attributes\\Event\\AttributesListener' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Attributes/Event/AttributesListener.php',
@@ -3482,6 +3490,7 @@ class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
         'League\\CommonMark\\Parser\\MarkdownParserInterface' => __DIR__ . '/..' . '/league/commonmark/src/Parser/MarkdownParserInterface.php',
         'League\\CommonMark\\Parser\\MarkdownParserState' => __DIR__ . '/..' . '/league/commonmark/src/Parser/MarkdownParserState.php',
         'League\\CommonMark\\Parser\\MarkdownParserStateInterface' => __DIR__ . '/..' . '/league/commonmark/src/Parser/MarkdownParserStateInterface.php',
+        'League\\CommonMark\\Parser\\ParserLogicException' => __DIR__ . '/..' . '/league/commonmark/src/Parser/ParserLogicException.php',
         'League\\CommonMark\\Reference\\Reference' => __DIR__ . '/..' . '/league/commonmark/src/Reference/Reference.php',
         'League\\CommonMark\\Reference\\ReferenceInterface' => __DIR__ . '/..' . '/league/commonmark/src/Reference/ReferenceInterface.php',
         'League\\CommonMark\\Reference\\ReferenceMap' => __DIR__ . '/..' . '/league/commonmark/src/Reference/ReferenceMap.php',
@@ -3497,6 +3506,7 @@ class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
         'League\\CommonMark\\Renderer\\Inline\\NewlineRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Inline/NewlineRenderer.php',
         'League\\CommonMark\\Renderer\\Inline\\TextRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Inline/TextRenderer.php',
         'League\\CommonMark\\Renderer\\MarkdownRendererInterface' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/MarkdownRendererInterface.php',
+        'League\\CommonMark\\Renderer\\NoMatchingRendererException' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/NoMatchingRendererException.php',
         'League\\CommonMark\\Renderer\\NodeRendererInterface' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/NodeRendererInterface.php',
         'League\\CommonMark\\Util\\ArrayCollection' => __DIR__ . '/..' . '/league/commonmark/src/Util/ArrayCollection.php',
         'League\\CommonMark\\Util\\Html5EntityDecoder' => __DIR__ . '/..' . '/league/commonmark/src/Util/Html5EntityDecoder.php',
@@ -6720,10 +6730,10 @@ class ComposerStaticInitc897c4c60c00232352e67fcb15fe5994
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitc897c4c60c00232352e67fcb15fe5994::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$classMap;
 
         }, null, ClassLoader::class);
     }

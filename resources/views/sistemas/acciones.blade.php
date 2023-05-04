@@ -66,38 +66,39 @@
                     @php($vardepartamento = "null") 
                     @php($varvista = "null") 
                     @foreach($varpermiso as $datos)
-                    @if($vardepartamento == "null" || $vardepartamento  != $datos->nombre_departamento)
-                    <h6 class="fw-light text-secondary mb-3"><i class="fa-brands fa-slack"></i>{{$datos->nombre_departamento }}</h6>
-                    <input type="text" name="vistas[{{$datos->idvista}}]" value="{{$datos->idvista}}">
-                    @endif
-                   @if($vardepartamento  == $datos->nombre_departamento && $varvista != $datos->nombre_vista)
-                   <input type="text" name="vistas[{{$datos->idvista}}]" value="{{$datos->idvista}}">
-                   @endif
-
-                    <div class="accordion" id="{{$datos->iddepartamento}}">
-                        <div class="accordion-item border-0">
-                            @if($varvista == "null" || $varvista != $datos->nombre_vista)
-                                <h2 class="accordion-header" id="vistaHeading{{$datos->idvista}}">
-                                    <button  class="accordion-button accordion_bg" type="button" data-bs-toggle="collapse" data-bs-target="#vista{{$datos->idvista}}" aria-expanded="true" aria-controls="collapse{{$datos->idvista}}">
-                                    {{$datos->nombre_vista }}
-                                    </button>
-                                </h2>
-                            @endif   
+                        @if($vardepartamento == "null" || $vardepartamento  != $datos->nombre_departamento)
+                            <div class="col">
+                                <input type="checkbox" class="btn-check" id="departamento{{$datos->nombre_departamento}}" autocomplete="off" name='vistas[{{$datos->iddepartamento}}]' value="{{$datos->iddepartamento}}">
+                                <label class="btn btn-outline-primary rounded-5 fs-8" for="departamento{{$datos->nombre_departamento}}"><i class="fa-brands fa-slack"></i> {{$datos->nombre_departamento}}</label>
+                            </div>   
+                        @endif
+                        @if($vardepartamento  == $datos->nombre_departamento && $varvista != $datos->nombre_vista)
+                        @endif
+                        <div class="accordion" id="{{$datos->iddepartamento}}">
+                            <div class="accordion-item border-0">
+                                @if($varvista == "null" || $varvista != $datos->nombre_vista)
+                                    <h2 class="accordion-header" id="vistaHeading{{$datos->idvista}}">
+                                        <button  class="accordion-button accordion_bg" type="button" data-bs-toggle="collapse" data-bs-target="#vista{{$datos->idvista}}" aria-expanded="true" aria-controls="collapse{{$datos->idvista}}">
+                                            <input type="checkbox" class="btn-check" id="vistas1{{$datos->idvista}}" autocomplete="off" name='vistas[{{$datos->idvista}}]' value="{{$datos->idvista}}">
+                                            <label class="btn btn-outline-primary rounded-5 fs-8" for="vistas1{{$datos->idvista}}">{{$datos->nombre_vista }}</label>
+                                        </button>
+                                    </h2>
+                                @endif   
                                 @php($vardepartamento =$datos->nombre_departamento) 
                                 @php($varvista =$datos->nombre_vista) 
-                            <div id="vista{{$datos->idvista}}" class="accordion-collapse collapse" aria-labelledby="vistaHeading{{$datos->idvista}}" data-bs-parent="#Permisos{{$datos->iddepartamento}}">
-                                        <div class="accordion-body">
-                                            <div class="row">
-                                                <div class="col col-lg-2">
-                                                    <input type="checkbox" class="btn-check" id="vistas{{$datos->idacciones}}" autocomplete="off" name='caja[{{$datos->nombre_accion}}]' value="{{$datos->idacciones}}">
-                                                    <label class="btn btn-outline-primary rounded-5 fs-8" for="vistas{{$datos->idacciones}}">{{$datos->descripcion_accion}}</label>
-                            </div>
-                             </div>
-                             </div>
+                                <div id="vista{{$datos->idvista}}" class="accordion-collapse collapse" aria-labelledby="vistaHeading{{$datos->idvista}}" data-bs-parent="#Permisos{{$datos->iddepartamento}}">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col col-lg-2">
+                                                <input type="checkbox" class="btn-check" id="acciones{{$datos->idacciones}}" autocomplete="off" name='caja[{{$datos->nombre_accion}}]' value="{{$datos->idacciones}}">
+                                                <label class="btn btn-outline-primary rounded-5 fs-8" for="acciones{{$datos->idacciones}}">{{$datos->descripcion_accion}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
                  </div>
                 </div>
         </div>

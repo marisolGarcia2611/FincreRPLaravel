@@ -130,5 +130,18 @@ use Illuminate\Support\Facades\Route;
     Route::get('/CatalogosVales',[App\Http\Controllers\ValeraController::class, 'getIndexCatalogo'])->name('getIndexCatalogo');
     Route::get('/CatalogosVales/controlValeras', 'App\Http\Controllers\valeraController@getcontrolValeras')->name('getcontrolValeras');
     Route::get('/CatalogosVales/altaValeras', 'App\Http\Controllers\valeraController@getaltaValeras')->name('getaltaValeras');
-  
+
+
+    Route::get('/guardar_valeras', 'App\Http\Controllers\valeraController@guardar_valeras')->name('guardar_valeras');
+    Route::get('/asignarvaleraxdistribuidor', 'App\Http\Controllers\valeraController@asignarvaleraxdistribuidor')->name('asignarvaleraxdistribuidor');
+
+    Route::get('/validadistribuidor', 'App\Http\Controllers\valeraController@validadistribuidor')->name('validadistribuidor');
+
+    Route::get('/clienteinfo', 'App\Http\Controllers\valeraController@clienteinfo')->name('clienteinfo');
+
+
+
+
+    Route::get('/paginaprueba', 'App\Http\Controllers\valeraController@obtenerdesglosedeplazos')->name('paginaprueba');
+    
   });

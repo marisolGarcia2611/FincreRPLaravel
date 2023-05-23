@@ -166,7 +166,8 @@
                 </div>
             </center>
 
-            <form action="" method="POST" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
+            <form action="/asignarvaleraxdistribuidor" method="" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
+            @csrf
                 <div class="row p-4">
                     <div class="col-md-5 d-none d-md-block">
                         <div class="row">
@@ -179,46 +180,33 @@
                     <div class="col-md-7">
                         <div class="p-3">
                             <div class="row mb-3">
-                                <div class="col">
-                                    <div class="form-outline">
-                                    <label class="form-label" for="form8Example4">Sucursal</label>
-                                        <select name=""   id="" class="form-select" required>
-                                            <option value="">Seleccionar...</option>
-                                            <option value=""></option>
-                                        </select>
-                                        <div class="valid-feedback">
-                                        ¡Se ve bien!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                        Por favor, completa la información requerida.
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="col">
-                                    <div class="form-outline">
-                                    <label class="form-label" for="form8Example4">Asesor</label>
-                                        <select name=""   id="" class="form-select" required>
-                                            <option value="">Seleccionar...</option>
-                                            <option value=""></option>
-                                        </select>
-                                        <div class="valid-feedback">
-                                        ¡Se ve bien!
+                                <div class="row">
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form8Example4">Sucursal</label>
+                                                   <select name="sucursal" id="sucursal">
+                                                   @foreach($varobtenersucursalesxusuairo as $sucursales)
+                                                   <option value="{{$sucursales->id}}">{{$sucursales->nombre}}</option>
+                                                   @endforeach
+                                                   </select>
+                                            </div>
                                         </div>
-                                        <div class="invalid-feedback">
-                                        Por favor, completa la información requerida.
-                                        </div>
-                                    </div>
                                 </div>
+                              
+
                             </div>
-
+                           
+                           
                             <div class="row mb-3">
                                 <div class="col">
                                     <div class="form-outline">
                                     <label class="form-label" for="form8Example4">Distribuidor</label>
-                                        <select name=""  id="distribuidor1" class="form-select" onkeyup="distribuidor();"  required>
-                                            <option value="">Seleccionar...</option>
-                                            <option value=""></option>
+                                        <select name="distribuidor"  id="distribuidor1" class="form-select" onkeyup="distribuidor();"  required>
+                                        @foreach($var as $data)
+                                            <option value="{{$data->id}}">{{$data->id}} - {{$data->nombre}}</option>
+                                            @endforeach
                                         </select>
                                         <div class="valid-feedback">
                                         ¡Se ve bien!
@@ -232,7 +220,7 @@
                                 <div class="col">
                                     <div class="form-outline">
                                     <label class="form-label" for="form8Example4">Fecha de entrega</label>
-                                        <input type="date"  class="form-control" name="" id="fecha1" onkeyup="fecha();"  minlength="" maxlength="" required />
+                                        <input type="date"  class="form-control" name="fecha" id="fecha1" onkeyup="fecha();"  minlength="" maxlength="" required />
                                         <div class="valid-feedback">
                                         ¡Se ve bien!
                                         </div>
@@ -246,9 +234,10 @@
                                 <div class="col">
                                     <div class="form-outline">
                                     <label class="form-label" for="form8Example4">Seleccione valera</label>
-                                        <select name=""  placeholder="00"  id="valera1" onkeyup="valera();" class="form-select"required>
-                                            <option value="">Seleccionar...</option>
-                                            <option value=""></option>
+                                        <select name="valera"  placeholder="00"  id="valera1" onkeyup="valera();" class="form-select"required>
+                                        @foreach($varvaleras as $valera)
+                                        <option value="{{$valera->folio_valera}}"><h1>Valera #</h1> {{$valera->folio_valera}} ------ Folio Inicio {{$valera->folio_inicio}} ------- Folio Fin {{$valera->folio_fin}} </option>
+                                        @endforeach
                                         </select>
                                         <div class="valid-feedback">
                                         ¡Se ve bien!

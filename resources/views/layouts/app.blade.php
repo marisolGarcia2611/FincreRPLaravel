@@ -700,7 +700,7 @@
 
 <body class="contenedor">
     <div id="app">
-
+    @livewireStyles
     {{-- MENU DINAMICO INICIO --}}
     <main>
         <nav class="navbar  nv__style" >
@@ -791,7 +791,7 @@
        
     </main>
     </div>
-
+    @livewireScripts
 </body>
 
 <script type="text/javascript">

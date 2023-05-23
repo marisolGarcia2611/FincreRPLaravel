@@ -41,7 +41,7 @@
                     <h3 class="fw-light">Alta de valeras</h3>
                 </div>
 
-                <form action="" method="POST" class="g-3 form needs-validation" novalidate>
+                <form action="/guardar_valeras" method="" class="g-3 form needs-validation" novalidate>
                     {{-- Datos de capital --}}
                   <div name="ejMultiInput">
                     <div class="mb-4">
@@ -66,13 +66,11 @@
                                         <div class="col">
                                             <div class="form-outline">
                                                 <label class="form-label" for="form8Example4">Sucursal</label>
-                                                    <input type="text" placeholder="##" class="form-control" name=""  minlength="" maxlength="" id="sucursal1" onkeyup="sucursal();" required />
-                                                    <div class="valid-feedback">
-                                                    ¡Se ve bien!
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                    Por favor, completa la información requerida.
-                                                    </div>
+                                                   <select name="sucursal" id="sucursal">
+                                                   @foreach($varobtenersucursalesxusuairo as $sucursales)
+                                                   <option value="{{$sucursales->id}}">{{$sucursales->nombre}}</option>
+                                                   @endforeach
+                                                   </select>
                                             </div>
                                         </div>
 
@@ -157,7 +155,7 @@ function multiplicar(){
       var div='';
       for (var i=0;i<num;i++){ 
            var cont=i+1;
-           div+="<div class='col-md-3 margin-light'><div class='input-group'><span class='input-group-text input-t fs-9'>"+"<b>"+cont+ ".&nbsp;</b>Inicio/Fin"+"</span><input type='text' aria-label='First name' class='form-control maxlength='20' name='foloIni["+cont+"]' type='text' required'/>  <input type='text' aria-label='Last name' class='form-control'maxlength='20' name='folioFin["+cont+ "]' type='text' required /></div></div>";
+           div+="<div class='col-md-3 margin-light'><div class='input-group'><span class='input-group-text input-t fs-9'>"+"<b>"+cont+ ".&nbsp;</b>Inicio/Fin"+"</span><input type='text' aria-label='First name' class='form-control maxlength='20' name='folioIni["+cont+"]' type='text' required'/>  <input type='text' aria-label='Last name' class='form-control'maxlength='20' name='FolioFin["+cont+ "]' type='text' required /></div></div>";
       }
 
       document.getElementById("divMultiInputs").innerHTML=div;

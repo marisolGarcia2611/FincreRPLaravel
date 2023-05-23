@@ -100,39 +100,33 @@
             <table class="table table-hover " id="tblempleados">
                 <thead class="table">
                     <tr class="tr-table"> 
-                        <th  class="text-center fw-light">Editar</th>
+                
+                        <th class="text-center fw-light">Referencia Sucursal</th>
                         <th class="text-center fw-light">Inventario</th>
-                        <th class="text-center fw-light">Sucursal</th>
-                        <th class="text-center fw-light">Elementos disponibles</th>
-                        <th class="text-center fw-light">Elementos en uso</th>
-                        <th class="text-center fw-light">Fecha de ultima entrega</th>
+                        <th class="text-center fw-light">Nombre</th>
+                        <th class="text-center fw-light"> Valeras Disponibles</th>
+                        <th class="text-center fw-light"> Valeras En Uso</th>
                        
                     </tr>
                 </thead>
-                
-                <tbody>
-                
-                    <tr>
-                        <!-----Herramientas de la tabla---->
-                        <td class="bg-0">
-                            <form action="">
-                               <button  class="fas fa-edit bor text-s btn border-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Editar" ></button>
-                            </form>
-                        </td>
-
-                        <td class="bg-0 text-center">
-                            <center>
-                                <div class="col-md-2 cs5"></div>          
-                            </center>
-                        </td>
-
-
-                        <td class="table-light text-secondary"></td>
-                        <td class="table-light text-secondary"></td>
-                        <td class="table-light text-secondary"></td>
-                        <td class="table-light text-secondary"></td> 
-                    </tr>
         
+                <tbody>
+                @foreach($varstock as $datos) 
+                    <tr>
+                        <td class="table-light text-secondary">{{$datos->idsucursal}}</td>
+                        @if($datos->disponibles > 10 )
+                        <td class="table-light text-secondary"><div class="col-md-2 cs5"></div></td>
+                        @elseif($datos->disponibles >= 1  && $datos->disponibles < 10)
+                        <td class="table-light text-secondary"><div class="col-md-2 cs3"></div> </td>
+                        @elseif($datos->disponibles == 0)
+                        <td class="table-light text-secondary"> <div class="col-md-2 cs4"></div></td>
+                        @endif
+                        <td class="table-light text-secondary">{{$datos->nombre}}</td>
+                        <td class="table-light text-secondary">{{$datos->disponibles}}</td>
+                        <td class="table-light text-secondary">{{$datos->nodisponibles}}</td>
+                        </tr>
+                  
+                    @endforeach
                 </tbody>
             </table>
 
@@ -141,11 +135,8 @@
     </center> 
 </div>
 
-
 <script src="{{ asset('js/simpleTabla.js') }}"></script>
 <script src="{{ asset('js/valeraEntrega.js') }}"></script>
 <script src="{{ asset('js/btnBack1.js') }}"></script>
-
-
 
 @endsection

@@ -33,7 +33,7 @@ class SistemasController extends Controller
     public function indexAcciones()
     {
         $permisos = $this->forpermisos('calcular_nominas');  
-            if($permiso=="registrar_permisos")
+            if($permisos=="registrar_permisos")
             {
                 $varpantallas =  $this->Traermenuenc();
                 $varsubmenus =   $this->Traermenudet();

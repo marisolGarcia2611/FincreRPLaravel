@@ -267,7 +267,6 @@ class NominasController extends Controller
         }
     }
 
-    
 
     public function importar_excel(request $request){
         $permisos = $this->forpermisos('importar_bonos_nominas'); 
@@ -304,4 +303,5 @@ class NominasController extends Controller
             return redirect()->route('vernominas')->with("Errorpermisos","No se logro");   
         }
     }
+
 }

@@ -4,11 +4,17 @@ use App\Models\promotores;
 use App\Models\estados;
 use App\Models\distribuidores;
 use App\Models\avales;
+use App\Models\valeras;
 use App\Models\User;
 use App\Models\documentos;
 use App\Models\historial;
+use App\Models\cliente_vales;
+use App\Models\monto_capital;
 use App\Models\mensajes;
+use App\Models\prestamos_valesdet;
+use App\Models\prestamos_valesenc;
 use App\Models\tipo_distribuidor;
+use App\Models\distribuidores_valeras;
 use Illuminate\Support\Facades\Request;
 use DB;
 
@@ -448,6 +454,127 @@ trait ValeTraits{
         ->get();
         return $varuser;
     }
+
+   public function obtenerstockvaleras(){
+    $sql ="select distinct(v.idsucursal) ,s.nombre, count(case v.status_valera  = 'I'  when 'Error' THEN 1 else NULL end)
+    as disponibles,
+    count(case v.status_valera  = 'A'  when 'Error' THEN 1 else NULL end)
+    as nodisponibles 
+    from tblvaleras v INNER JOIN tblsucursales s on v.idsucursal = s.id 
+    group by v.idsucursal,s.nombre;";
+    $stokvales = DB::select($sql);
+    return collect($stokvales);
+   }
+
+   public function obtenersucursalporusuariologueado(int $idusario){
+    $varsucursal = user::join('tblempleados','users.idempleado','tblempleados.id')
+    ->select('users.id as id_usuario' ,'tblempleados.id as id_empleado','tblempleados.idsucursal as id_sucursal')
+    ->where('users.id','=',$idusario)
+    ->get();
+    return  $varsucursal;
+   }
+
+   public function obtenerdisxsucursal(int $idsuc){
+    $condiciones = [
+        // ['tbldistribuidores.idsucursal','=',$idsuc],
+        ['tbldistribuidores.status','=','pro_val']
+    ];
+    $vardistribuidoresxsuc = distribuidores::select('tbldistribuidores.id','tbldistribuidores.primer_nombre','tbldistribuidores.segundo_nombre','tbldistribuidores.apellido_paterno','tbldistribuidores.apellido_materno')
+    ->where($condiciones)
+    ->get();
+    return $vardistribuidoresxsuc;
+   }
+
+   public function obtenervalerasXsuc(int $idsuc){
+    $condiciones = [
+        ['tblvaleras.idsucursal','=',$idsuc],
+        ['tblvaleras.status_valera','=','A']
+    ];
+    $varvalerasxsuc = valeras::select('tblvaleras.id as folio_valera','tblvaleras.folio_inicio','tblvaleras.folio_fin')
+    ->where($condiciones)
+    ->get();
+    return  $varvalerasxsuc;
+
+   }
+
+
+public function validavalexdistribudor(int $iddistribuidor)
+{
+    $condiciones = [
+        ['tbldistribuidor_valeras.iddistribuidor','=',$iddistribuidor],
+        ['tblvaleras.status_valera','=','A']
+    ];
+
+    $vardatosvalidafolio = distribuidores_valeras::join('tblvaleras', 'tbldistribuidor_valeras.idvalera','tblvaleras.id')
+    ->join('tbldistribuidores','tbldistribuidor_valeras.iddistribuidor','tbldistribuidores.id')
+    ->select('tblvaleras.id as folio_valera','tblvaleras.folio_inicio','tblvaleras.folio_fin','tbldistribuidores.capital')
+    ->where($condiciones)
+    ->get();
+    return $vardatosvalidafolio;
+}
+
+
+
+public  function idultimocliente(){
+   $sql="select id from tblclientes_vales order by id desc limit 1 ";
+   $stokvales = DB::select($sql);
+   return collect($stokvales);
+}
+
+public  function idultimoprestamoenc(){
+    $sql="select id,pagoxplazototalredondeado from tblprestamos_valesenc order by id desc limit 1  ";
+   $stokvales = DB::select($sql);
+   return collect($stokvales);
+}
+
+public function obtenerinteresmensualxcapital(int $capital){
+$interes = monto_capital::select('tblmontos_capital.id','tblmontos_capital.porciento_interes')
+->where('tblmontos_capital.cantidad', '=',$capital)
+->get();
+return $interes;
+}
+
+
+public function obtenerclientetablaamortizacion(int $idcliente){
+    $clienteamortizacion = cliente_vales::select(
+    'tblclientes_vales.id',
+    'tblclientes_vales.iddistribuidor',
+    'tblclientes_vales.Nombre_completo',
+    'tblclientes_vales.telefono',
+    'tblclientes_vales.direccion')
+    ->where('tblclientes_vales.id', '=',$idcliente)
+    ->get();
+    return  $clienteamortizacion;
+}
+
+
+public function obtenereclienteamortizaciondet(int $idprestamovale){
+    $prestamovaleenc = prestamos_valesdet::select('tblprestamos_valesdet.idprestamo_vales',
+    'tblprestamos_valesdet.plazos',
+    'tblprestamos_valesdet.fecha_pago',
+    'tblprestamos_valesdet.pago_quincenal',
+    'tblprestamos_valesdet.coberturax_plazo',
+    'tblprestamos_valesdet.pago_total',
+    'tblprestamos_valesdet.saldo_nuevo')
+    ->where('tblprestamos_valesdet.idprestamo_vales', '=',$idprestamovale)
+    ->get();
+    return $prestamovaleenc;
+
+}
+
+public function validarfoliovale(int $foliovale){
+    $prestamovaleenc = prestamos_valesenc::select('tblprestamos_valesenc.id','tblprestamos_valesenc.folio_vale')
+    ->where('tblprestamos_valesenc.folio_vale', '=',$foliovale)
+    ->get();
+    return $prestamovaleenc;
+}
+
+public function obtenermontos_capital(){
+    $montosvales = monto_capital::select('tblmontos_capital.id','tblmontos_capital.cantidad')
+    ->get();
+return $montosvales;
+}
+
 }
 
 

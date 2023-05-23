@@ -13,6 +13,7 @@ use App\Models\tarifasisr_det;
 use App\Models\tarifasisr_enc;
 use App\Models\tarifas_subsidio;
 use App\Models\Vistas;
+use App\Models\plazos;
 use App\Models\User;
 use App\Models\Departamentos;
 use App\Models\empleados_bajas;
@@ -50,6 +51,17 @@ trait DatosimpleTraits
         ->get();
         return $varsucursal;
     }
+
+    public function obtenersucursalxusuario(int $idusuario)
+    {
+      $varsucursalesxusuario = Sucursales::join('tblusuario_sucursales', 'tblsucursales.id','tblusuario_sucursales.idsucursal')
+    ->join('users','tblusuario_sucursales.idusuario','users.id')
+    ->select('tblsucursales.id','tblsucursales.nombre')
+    ->where('tblusuario_sucursales.idusuario','=',$idusuario)
+    ->get();
+    return $varsucursalesxusuario;
+    }
+
     public  function obtenerciudades(){
         $varciudad = Ciudades::select('tblciudades.id','tblciudades.nombre' )
         ->get();
@@ -404,6 +416,10 @@ public  function obteneempleadonomaeditar(int $idpagonom,  int $idempleado){
     return $varobtenernomemp;
 }
 
-
+public function obtenerplazos(){
+    $varplazos = plazos::select('tblplazos_vales.id','tblplazos_vales.plazos','tblplazos_vales.tipo')
+    ->get();
+    return $varplazos;
+}
 
 }

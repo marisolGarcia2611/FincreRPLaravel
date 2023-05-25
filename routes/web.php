@@ -125,7 +125,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/gestionCreditos/Valera', 'App\Http\Controllers\valeraController@getValera')->name('getValera');
     Route::get('/gestionCreditos/Cliente', 'App\Http\Controllers\valeraController@getCliente')->name('getCliente');
     Route::get('/gestionCreditos/nuevoCliente', 'App\Http\Controllers\valeraController@getnuevoCliente')->name('getnuevoCliente');
-    Route::get('/gestionCreditos/nuevoCanje', 'App\Http\Controllers\valeraController@getnuevoCanje')->name('getnuevoCanje');
+    Route::get('/gestionCreditos/nuevoCanje/{id}/{Nombre}', 'App\Http\Controllers\valeraController@getnuevoCanje')->name('getnuevoCanje');
 
     Route::get('/CatalogosVales',[App\Http\Controllers\ValeraController::class, 'getIndexCatalogo'])->name('getIndexCatalogo');
     Route::get('/CatalogosVales/controlValeras', 'App\Http\Controllers\valeraController@getcontrolValeras')->name('getcontrolValeras');
@@ -135,12 +135,13 @@ use Illuminate\Support\Facades\Route;
     Route::get('/guardar_valeras', 'App\Http\Controllers\valeraController@guardar_valeras')->name('guardar_valeras');
     Route::get('/asignarvaleraxdistribuidor', 'App\Http\Controllers\valeraController@asignarvaleraxdistribuidor')->name('asignarvaleraxdistribuidor');
 
-    Route::get('/validadistribuidor', 'App\Http\Controllers\valeraController@validadistribuidor')->name('validadistribuidor');
+    Route::get('/validadistribuidor/{tipo}', 'App\Http\Controllers\valeraController@validadistribuidor')->name('validadistribuidor');
 
     Route::get('/clienteinfo', 'App\Http\Controllers\valeraController@clienteinfo')->name('clienteinfo');
+    Route::get('/clienteinfoact', 'App\Http\Controllers\valeraController@clienteinfoact')->name('clienteinfoact');
 
 
-
+    
 
     Route::get('/paginaprueba', 'App\Http\Controllers\valeraController@obtenerdesglosedeplazos')->name('paginaprueba');
     

@@ -60,8 +60,6 @@ class valeraController extends Controller
       }
       $varvaleras = $this-> obtenervalerasXsuc($idsuc);
 
-
-   
         return view('Vales.Gestion.EntregaValeras.Index',compact('varpantallas','varsubmenus','varobtenersucursalesxusuairo','var','varvaleras'));
       
     }
@@ -70,8 +68,9 @@ class valeraController extends Controller
     {
       $varpantallas =  $this->Traermenuenc();
       $varsubmenus =   $this->Traermenudet();
+      $varlistacliente = $this->obtenerclientesvales();
    
-        return view('Vales.Gestion.ClienteFinal.cliente',compact('varpantallas','varsubmenus'));
+        return view('Vales.Gestion.ClienteFinal.cliente',compact('varpantallas','varsubmenus','varlistacliente'));
       
     }
 
@@ -83,17 +82,20 @@ class valeraController extends Controller
       $plazos = $this->obtenerplazos();
       $montos = $this->obtenermontos_capital();
       
-   
-        return view('Vales.Gestion.ClienteFinal.clienteNuevo',compact('varpantallas','varsubmenus','plazos','montos'));
+      return view('Vales.Gestion.ClienteFinal.clienteNuevo',compact('varpantallas','varsubmenus','plazos','montos'));
       
     }
 
-    public function getnuevoCanje()
+    public function getnuevoCanje(int $id, String $nombre)
     {
+      $varidcliente = $id;
+      $varnombrecliente=$nombre;
       $varpantallas =  $this->Traermenuenc();
       $varsubmenus =   $this->Traermenudet();
+      $plazos = $this->obtenerplazos();
+      $montos = $this->obtenermontos_capital();
    
-        return view('Vales.Gestion.ClienteFinal.canjeNuevo',compact('varpantallas','varsubmenus'));
+        return view('Vales.Gestion.ClienteFinal.canjeNuevo',compact('varpantallas','varsubmenus','plazos','montos','varidcliente','varnombrecliente'));
       
     }
 
@@ -183,71 +185,171 @@ class valeraController extends Controller
   
     }
 
-    public function validadistribuidor(Request $request){
-      $varpantallas =  $this->Traermenuenc();
-      $varsubmenus =   $this->Traermenudet();
-     
-      $iddis = $request->get('distribuidor');
-      $capital = $request->get('capital');
-      $foliovale = $request->get('folio');
-      $plazos= $request->get('plazos');
-      $montovale =$request->get('monto_vale');
-     
 
-    if($iddis =="" || $foliovale == "" || $capital =="" ||$plazos =="")
-    {
-      return redirect()->route('getnuevoCliente')->with("errorvacio","¡Se guardaron los cambios correctamente!");
-    }
-    else
-    {
-    $datosvalida = $this->validavalexdistribudor($iddis);
-    $fol = $this->validarfoliovale($foliovale);
-    $boleano = 0;
-    $boleanovale=0;
 
-    foreach($datosvalida as $dato){
-      if($foliovale >= $dato->folio_inicio && $foliovale<=$dato->folio_fin)
-      {
-        $boleano =1;
-        break;
-      }
-      else{
+
+    public function validadistribuidor(Request $request, string $tipo){
+
+      $vartipo = $tipo;
+
+      if($vartipo == "nuevo"){
+        $varpantallas =  $this->Traermenuenc();
+        $varsubmenus =   $this->Traermenudet();
+        $iddis = $request->get('distribuidor');
+        $capital = $request->get('capital');
+        $foliovale = $request->get('folio');
+        $plazos= $request->get('plazos');
+        $montovale =$request->get('monto_vale');
+        
+        $fol = $this->validarfoliovale($foliovale);
         $boleano = 0;
-      }
-    }
-
-      if(sizeof($fol) == 0)
+        $boleanovale=0;
+  
+      if($iddis =="" || $foliovale == "" || $capital =="" ||$plazos =="")
       {
-        $boleanovale =1;
-      
+        return redirect()->route('getnuevoCliente')->with("errorvacio","¡Se guardaron los cambios correctamente!");
       }
-      else{
-        $boleanovale = 0;
-      }
+      else
+      {
     
-
-    if($montovale <= $capital){
-      if($boleanovale ==1){
-        if($boleano == 1 )
+      $datosvalida = $this->validavalexdistribudor($iddis);
+      foreach($datosvalida as $dato){
+        if($foliovale >= $dato->folio_inicio && $foliovale<=$dato->folio_fin)
         {
-        return view('Vales.Gestion.ClienteFinal.guardar_canje',compact('varpantallas','varsubmenus','foliovale','capital','iddis','plazos'));
+          $boleano =1;
+          break;
+        }
+        else{
+          $boleano = 0;
+        }
+      }
+  
+        if(sizeof($fol) == 0)
+        {
+          $boleanovale =1;
+        
+        }
+        else{
+          $boleanovale = 0;
+        }
+      
+  
+      if($montovale <= $capital){
+        if($boleanovale ==1){
+          if($boleano == 1 )
+          {
+          return view('Vales.Gestion.ClienteFinal.guardar_canje',compact('varpantallas','varsubmenus','foliovale','capital','iddis','plazos','montovale'));
+        }
+        else{
+          return redirect()->route('getnuevoCliente')->with("dimecionvale","¡error");
+        }
+        }
+        else{
+          return redirect()->route('getnuevoCliente')->with("erroryausado","¡error");
+        }
       }
       else{
-        return redirect()->route('getnuevoCliente')->with("dimecionvale","¡error");
+        return redirect()->route('getnuevoCliente')->with("Erromonto","¡error");
       }
-      }
-      else{
-        return redirect()->route('getnuevoCliente')->with("erroryausado","¡error");
-      }
+  }
+
+}
+
+
+
+
+if($vartipo == "registrado"){
+
+ $idcli = $request->get('idcliente');
+
+ $nombre = $request->get('nombre');
+ $varvalidaprestamoactual=  $this->validaclientexvaleactual($idcli);
+ $varinfocli=$this->datosdelclientexprestamo($idcli);
+
+ if(sizeof($varvalidaprestamoactual) == 0)
+ {
+  $varpantallas =  $this->Traermenuenc();
+  $varsubmenus =   $this->Traermenudet();
+  $iddis = $request->get('distribuidor');
+  $capital = $request->get('capital');
+  $foliovale = $request->get('folio');
+  $plazos= $request->get('plazos');
+  $montovale =$request->get('monto_vale');
+
+  $fol = $this->validarfoliovale($foliovale);
+  $boleano = 0;
+  $boleanovale=0;
+  $boelanocli=0;
+
+if($iddis =="" || $foliovale == "" || $capital =="" ||$plazos =="")
+{
+  return redirect()->route('getnuevoCanje')->with("errorvacio","¡Se guardaron los cambios correctamente!");
+}
+else
+{
+
+
+  $datosvalida = $this->validavalexdistribudor($iddis);
+foreach($datosvalida as $dato){
+  if($foliovale >= $dato->folio_inicio && $foliovale<=$dato->folio_fin)
+  {
+    $boleano =1;
+    break;
+  }
+  else{
+    $boleano = 0;
+  }
+}
+
+  if(sizeof($fol) == 0)
+  {
+    $boleanovale =1;
+  
+  }
+  else{
+    $boleanovale = 0;
+  }
+
+  if($montovale <= $capital){
+    if($boleanovale ==1){
+      if($boleano == 1 )
+      {
+        
+        return view('Vales.Gestion.ClienteFinal.guardar_canjeclireg',compact('varpantallas','varsubmenus','foliovale','capital','iddis','plazos','varinfocli','montovale'));
+    
     }
     else{
-      return redirect()->route('getnuevoCliente')->with("Erromonto","¡error");
+      return redirect()->route('getCliente')->with("dimecionvale","¡error");
     }
+    }
+    else{
+      return redirect()->route('getCliente')->with("erroryausado","¡error");
+    }
+  }
+  else{
+    return redirect()->route('getCliente')->with("Erromonto","¡error");
+  }
 
-   
+}
+ }
+ else{
+  return redirect()->route('getCliente')->with("errorvalidaprestamo","¡error");
+ }
+}
 }
 
+
+
+
+
+
+public function clienteinfoact(){
+  $varpantallas =  $this->Traermenuenc();
+  $varsubmenus =   $this->Traermenudet();
+    return view('Vales.Gestion.ClienteFinal.cliregistado_guardar_canje.blade',compact('varpantallas','varsubmenus'));
 }
+
+
 public function clienteinfo(){
   $varpantallas =  $this->Traermenuenc();
   $varsubmenus =   $this->Traermenudet();
@@ -272,6 +374,7 @@ public function obtenerdesglosedeplazos(Request $request){
   $date = Carbon::now();
   $fecha = $date->format('Y-m-d');
   $capital=$request->get('capital');
+  $monto=$request->get('monto_vale');
   $plazos = $request->get('plazos');
   $folio_vale = $request->get('folio');
   $date = Carbon::now();
@@ -280,7 +383,7 @@ public function obtenerdesglosedeplazos(Request $request){
   $mesactual = $date->format('m');
   $diaactual =  $date->format('d');
   $idusuario=auth()->user()->id;
-  $varinteres =$this->obtenerinteresmensualxcapital($capital);
+  $varinteres =$this->obtenerinteresmensualxcapital($monto);
  
 foreach($varinteres as $intere){
   $interes = $intere->porciento_interes;
@@ -302,6 +405,7 @@ $varclientevales->direccion_referencia = $request->get('direccion_referencia');
 $varclientevales->telefono_referencia = $request->get('telefono_referencia');
 $varclientevales->ruta_comprobante_identificacion = "sads";
 $varclientevales->ruta_vale_escaneado = "cdfds";
+$varclientevales->status="A";
 $varclientevales->created_at=$fecha;
 
 
@@ -311,7 +415,7 @@ $varclientevales->created_at=$fecha;
           foreach($idcliente as $clienteid){
             $idcliente= $clienteid->id;
           }
-          $sql ="CALL obtenercantidadescanjevale($capital,$plazos,$interes,$coberturaxplazo);";
+          $sql ="CALL obtenercantidadescanjevale($monto,$plazos,$interes,$coberturaxplazo);";
           $datoscalculo = DB::select($sql);
           
     
@@ -321,11 +425,12 @@ $varclientevales->created_at=$fecha;
           $pago_total = $info->pago_totalredondeado;
           $totalcentavos=$info->redondeocentavosxplazo;
           $pago_quincenal_total=$info->pagoxplazototalredondeado;
+          $capitalxplazo =$info->capitalxplazo;
     
         $tprestamovalesenc = new prestamos_valesenc();
         $tprestamovalesenc->idcliente=$idcliente;
         $tprestamovalesenc->idusuario_sistema=$idusuario;
-        $tprestamovalesenc->capitalxplazo=$pago_quincenal;
+        $tprestamovalesenc->capitalxplazo=$capitalxplazo;
         $tprestamovalesenc->interesxquincenasiniva=$info->interesxquincenasiniva;
         $tprestamovalesenc->pagototalintereses=$info->pagototalintereses;
         $tprestamovalesenc->pagoxplazointeresmascapital=$info->pagoxplazointeresmascapital;
@@ -343,6 +448,7 @@ $varclientevales->created_at=$fecha;
         $tprestamovalesenc->otrosconceptos1=0;
         $tprestamovalesenc->otrosconceptos2=0;
         $tprestamovalesenc->otrosconceptos3=0;
+        $tprestamovalesenc->status="A";
         $tprestamovalesenc->folio_vale =$folio_vale;
         $tprestamovalesenc->created_at=$fecha;
         
@@ -392,9 +498,9 @@ $varclientevales->created_at=$fecha;
                   $tprestamovalesdet->idprestamo_vales=$idultpre;
                   $tprestamovalesdet->plazos=$numerodeplazo;
                   $tprestamovalesdet->fecha_pago=$plazofecha;
-                  $tprestamovalesdet->pago_quincenal=$pago_quincenal;
+                  $tprestamovalesdet->pago_quincenal=$total_plazantes_redodeo;
                   $tprestamovalesdet->coberturax_plazo=$coberturaxplazo;
-                  $tprestamovalesdet->pago_total =$pago_total;
+                  $tprestamovalesdet->pago_total =$pago_quincenalredondeado;
                   $tprestamovalesdet->otros1 = 0;
                   $tprestamovalesdet->otros2 =0;
                   $tprestamovalesdet->saldo_nuevo =$resta_saldo;
@@ -446,10 +552,10 @@ $varclientevales->created_at=$fecha;
                         $tprestamovalesdet->idprestamo_vales=$idultpre;
                         $tprestamovalesdet->plazos=$numerodeplazo;
                         $tprestamovalesdet->fecha_pago=$plazofecha;
-                        $tprestamovalesdet->pago_quincenal=$pago_quincenal;
+                        $tprestamovalesdet->pago_quincenal=$total_plazantes_redodeo;
                         $tprestamovalesdet->coberturax_plazo=$coberturaxplazo;
-                        $tprestamovalesdet->pago_total =$pago_total;
-                        $tprestamovalesdet->otros1 = $resta_saldo;
+                        $tprestamovalesdet->pago_total =$pago_quincenalredondeado;
+                        $tprestamovalesdet->otros1 = 0;
                         $tprestamovalesdet->otros2 =0;
                         $tprestamovalesdet->saldo_nuevo = $resta_saldo;
                         $tprestamovalesdet->created_at=$fecha;

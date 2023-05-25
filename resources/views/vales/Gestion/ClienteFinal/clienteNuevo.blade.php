@@ -76,7 +76,7 @@
                 <div class="row text-center">
                     <h3 class="fw-light">Canje de vale</h3>
                 </div>
-                <form action="/validadistribuidor" method="" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
+                <form action="/validadistribuidor/nuevo" method="" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
                 @csrf
                     {{-- Datos de capital --}}
                     <div class="mb-4">

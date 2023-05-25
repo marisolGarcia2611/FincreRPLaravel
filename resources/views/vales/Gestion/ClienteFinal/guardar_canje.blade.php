@@ -75,7 +75,7 @@
                        
                             <div class="col-md-2">
                                 <div class="form-outline">
-                                <label class="form-label" for="form8Example4">Capital Actual</label>
+                                <label class="form-label" for="form8Example4">Capital Actual Distribuidor               </label>
                                     <input type="text"  class="form-control" name="capital" id=""  minlength="" maxlength="" value="{{$capital}}" required />
                                     <div class="valid-feedback">
                                     ¡Se ve bien!
@@ -106,6 +106,20 @@
                                 <div class="form-outline">
                                 <label class="form-label" for="form8Example4">Folio vale</label>
                                     <input type="text"  class="form-control" name="folio" id=""  minlength="" maxlength="" value="{{$foliovale}}" required />
+                                    <div class="valid-feedback">
+                                    ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Por favor, completa la información requerida.
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-md-2">
+                                <div class="form-outline">
+                                <label class="form-label" for="form8Example4">Monto vale vale</label>
+                                    <input type="text"  class="form-control" name="monto_vale" id=""  minlength="" maxlength="" value="{{$montovale}}" required />
                                     <div class="valid-feedback">
                                     ¡Se ve bien!
                                     </div>

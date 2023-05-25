@@ -575,8 +575,49 @@ public function obtenermontos_capital(){
 return $montosvales;
 }
 
+
+public function obtenerclientesvales(){
+    $clientesvales = cliente_vales::select('tblclientes_vales.id','tblclientes_vales.status','tblclientes_vales.Nombre_completo','tblclientes_vales.telefono','tblclientes_vales.direccion')
+    ->get();
+    return $clientesvales;
+
+}
+public function validaclientexvaleactual(int $idcliente){
+
+
+    $condiciones = [
+        ['tblprestamos_valesenc.idcliente', '=',$idcliente],
+        ['tblprestamos_valesenc.status','=','A']
+    ];
+
+    $validaclienteprestamo = prestamos_valesenc::select('tblprestamos_valesenc.id','tblprestamos_valesenc.idcliente','tblprestamos_valesenc.folio_vale')
+    ->where($condiciones)
+    ->get();
+    return $validaclienteprestamo;
+    
 }
 
-
-
+public function datosdelclientexprestamo(int $idcliente){
+    $clientesvales = cliente_vales::select(
+        'tblclientes_vales.id',
+        'tblclientes_vales.Nombre_completo',
+        'tblclientes_vales.fecha_nacimiento',
+        'tblclientes_vales.curp',
+        'tblclientes_vales.rfc',
+        'tblclientes_vales.direccion',
+        'tblclientes_vales.telefono',
+        'tblclientes_vales.lugar_trabajo',
+        'tblclientes_vales.telefono_trabajo',
+        'tblclientes_vales.nombre_referencia',
+        'tblclientes_vales.direccion_referencia',
+        'tblclientes_vales.telefono_referencia',
+        'tblclientes_vales.ruta_comprobante_identificacion',
+        'tblclientes_vales.status',
+        'tblclientes_vales.ruta_vale_escaneado',
+        'tblclientes_vales.status')
+    ->where('tblclientes_vales.id','=',$idcliente)
+    ->get();
+    return $clientesvales;
+}
+}
 

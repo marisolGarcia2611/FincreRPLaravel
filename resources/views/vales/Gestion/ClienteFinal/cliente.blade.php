@@ -22,7 +22,68 @@
           echo '</script>';  
   @endphp
 
+
+@elseif($mensaje = Session::get('warning'))
+  @php
+          echo '<script language="success">';
+          echo 'swal("¡No se a efectuado la acción!","Intente despues o pruebe con otra cosa","success", {buttons: false,timer: 3000});';
+          echo '</script>';  
+  @endphp
+
+@elseif($mensaje = Session::get('PDFwarning'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Recuerde llenar todos los campos y que formato permitido de archivos es .pdf","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
+  @elseif($mensaje = Session::get('errorvale'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","El folio del vale no es valido","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
+
+  @elseif($mensaje = Session::get('errorvacio'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Completa los campos requeridos","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+  @elseif($mensaje = Session::get('erroryausado'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Ya existe un registro con este numero vale","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
+  @elseif($mensaje = Session::get('dimecionvale'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","El folio del vale no pertenece a la valera del distribuidor","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+  
+  @elseif($mensaje = Session::get('Erromonto'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","El Capital del distribuidor es menor al monto solicitado","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+  @elseif($mensaje = Session::get('errorvalidaprestamo'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡No se a efectuado la acción!","Existe un prestamo activo del cliente","warning", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
 @endif
+
+
+
+
+
 {{-- ALERTAS --}}
 
 
@@ -55,7 +116,7 @@
               <div class="row mt-3 text-center">
                     <div class="col-md-5">
                       <form action="/gestionCreditos/nuevoCliente">
-                         <button type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat fs-8"><i class="fa-solid fa-dollar-sign"></i>&nbsp; Desembolso cliete nuevo</button>
+                         <button type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat fs-8"><i class="fa-solid fa-dollar-sign"></i>&nbsp; Desembolso cliente nuevo</button>
                       </form>
                     </div>
                     <div class="col-md-3">
@@ -97,20 +158,21 @@
             <table class="table table-hover " id="tblempleados">
                 <thead class="table">
                     <tr class="tr-table"> 
+                    <th class="text-center fw-light">Numero de cliente</th>
                         <th  class="text-center fw-light">Documentos</th>
                         <th  class="text-center fw-light">Editar</th>
-                        <th class="text-center fw-light">Tipo</th>
+                        <th class="text-center fw-light">Status</th>
                         <th class="text-center fw-light">Acción</th>
-                        <th class="text-center fw-light">Crédito</th>
-                        <th class="text-center fw-light">NombreCompleto</th>
-                        <th class="text-center fw-light">Folio</th>
-                        <th class="text-center fw-light">Fecha</th>
+                        <th class="text-center fw-light">Nombre Completo</th>
+                        <th class="text-center fw-light">Telefono</th>
+                        <th class="text-center fw-light">Dirección</th>
                     </tr>
                 </thead>
-                
+                @foreach($varlistacliente as $cliente)
                 <tbody>
-                
+               
                     <tr>
+                    <td class="table-light text-secondary">{{$cliente->id}}</td>
                         <!-----Herramientas de la tabla---->
                         <td class="bg-0">
                             <form action="">
@@ -126,23 +188,20 @@
 
                         <td class="bg-0 text-center">
                             <center>
-                                <div class="col-md-4 cs5"></div>
+                                <div class="col-md-4 cs5">{{$cliente->status}}</div>
                             </center>
                         </td>
 
                         <td class="bg-0">
-                                <form action="/gestionCreditos/nuevoCanje">
+                                <form action="/gestionCreditos/nuevoCanje/{{$cliente->id}}/{{$cliente->Nombre_completo}}">
                                       <button class="btn push2 bt__flat fs-9"><i class="fa-solid fa-dollar"></i>&nbsp;Canjear vale</button>
                                 </form>
                         </td>
-
-
-                        <td class="table-light text-secondary"></td>
-                        <td class="table-light text-secondary"></td>
-                        <td class="table-light text-secondary"></td>
-                        <td class="table-light text-secondary"></td> 
+                        <td class="table-light text-secondary">{{$cliente->Nombre_completo}}</td>
+                        <td class="table-light text-secondary">{{$cliente->telefono}}</td>
+                        <td class="table-light text-secondary">{{$cliente->direccion}}</td>
                     </tr>
-        
+                @endforeach
                 </tbody>
             </table>
 

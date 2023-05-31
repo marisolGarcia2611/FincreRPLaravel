@@ -79,14 +79,14 @@
                   <div class="card-img-overlay translateY">
                       <figure class="animate__animated animate__backInDown">
                           <blockquote class="blockquote">
-                            <a href="#" class="link-light">
-                                <h2 class="fw-bold shadow-text">Plazos</h2>
+                            <a href="/pagos/gestionpagos" class="link-light">
+                                <h2 class="fw-bold shadow-text">Gestion de pagos</h2>
                                 <h1 class="fw-light shadow-text"><i class="fa-solid fa-cubes"></i></h1>
                             </a>
                            
                           </blockquote>
                           <figcaption class="blockquote-footer shadow-text fs-8 text-light">
-                            Gestón de <cite title="Título fuente"> plazos para los clientes.</cite>
+                            Gestón de <cite title="Título fuente">Reporte de pago por Distribuidores.</cite>
                           </figcaption>
                       </figure>
                   </div>

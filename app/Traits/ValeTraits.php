@@ -14,6 +14,8 @@ use App\Models\mensajes;
 use App\Models\prestamos_valesdet;
 use App\Models\prestamos_valesenc;
 use App\Models\tipo_distribuidor;
+use App\Models\odpxusuario;
+use App\Models\tipo_odp;
 use App\Models\distribuidores_valeras;
 use Illuminate\Support\Facades\Request;
 use DB;
@@ -618,6 +620,23 @@ public function datosdelclientexprestamo(int $idcliente){
     ->where('tblclientes_vales.id','=',$idcliente)
     ->get();
     return $clientesvales;
+}
+
+public function obtenerodpxusuariologueado(int $idusuario){
+
+$odpsxusuario = odpxusuario::join('tbltipo_odp','tblodpxusuario.id_odp','tbltipo_odp.tipo_odp')
+->select('tblodpxusuario.id_odp','tbltipo_odp.descripcion','tbltipo_odp.convenio')
+->where('tblodpxusuario.idusuario','=',$idusuario)
+->get();
+return $odpsxusuario;
+
+}
+
+public function obtenerodpxid(int $id){
+    $odpsxid = tipo_odp::select('tbltipo_odp.tipo_odp','tbltipo_odp.descripcion','tbltipo_odp.convenio')
+    ->where('tbltipo_odp.tipo_odp','=',$id)
+    ->get();
+return $odpsxid;
 }
 }
 

@@ -50,7 +50,7 @@
                 <div class="row text-center">
                     <h3 class="fw-light">Información del cliente</h3>
                 </div>
-                <form action="/paginaprueba" method="" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
+                <form action="/obtenerdesglosedeplazos" method="" enctype="multipart/form-data" class="g-3 form needs-validation" novalidate>
                 @foreach($varinfocli as $infocli)
                 <div class="mb-5">
                         <div class="row">
@@ -314,6 +314,19 @@
                                     <input type="file" id="file1" name="ruta_vale_escaneado" value="{{$infocli->ruta_vale_escaneado}}" required>
                                 </label>
                             </div> 
+
+
+
+                            <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form8Example4">Selecciona el banco</label>
+                                                  <select name="tipo_odp" id="" class="form">
+                                                  @foreach($odps as $odp)
+                                                  <option value="{{$odp->id_odp}}">{{$odp->descripcion}}</option>
+                                                  @endforeach
+                                                  </select>
+                                            </div>
+                                        </div>
                      @endforeach
                         </div>
                     </div>

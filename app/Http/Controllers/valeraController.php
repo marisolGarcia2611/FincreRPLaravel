@@ -189,8 +189,9 @@ class valeraController extends Controller
 
 
     public function validadistribuidor(Request $request, string $tipo){
-
-      $vartipo = $tipo;
+    $idusuario=auth()->user()->id;
+    $vartipo = $tipo;
+    $odps= $this->obtenerodpxusuariologueado($idusuario);
 
       if($vartipo == "nuevo"){
         $varpantallas =  $this->Traermenuenc();
@@ -238,7 +239,7 @@ class valeraController extends Controller
         if($boleanovale ==1){
           if($boleano == 1 )
           {
-          return view('Vales.Gestion.ClienteFinal.guardar_canje',compact('varpantallas','varsubmenus','foliovale','capital','iddis','plazos','montovale'));
+          return view('Vales.Gestion.ClienteFinal.guardar_canje',compact('varpantallas','varsubmenus','foliovale','capital','iddis','plazos','montovale','odps'));
         }
         else{
           return redirect()->route('getnuevoCliente')->with("dimecionvale","¡error");
@@ -315,7 +316,7 @@ foreach($datosvalida as $dato){
       if($boleano == 1 )
       {
         
-        return view('Vales.Gestion.ClienteFinal.guardar_canjeclireg',compact('varpantallas','varsubmenus','foliovale','capital','iddis','plazos','varinfocli','montovale'));
+        return view('Vales.Gestion.ClienteFinal.guardar_canjeclireg',compact('varpantallas','varsubmenus','foliovale','capital','iddis','plazos','varinfocli','montovale','odps'));
     
     }
     else{
@@ -346,7 +347,7 @@ foreach($datosvalida as $dato){
 public function clienteinfoact(){
   $varpantallas =  $this->Traermenuenc();
   $varsubmenus =   $this->Traermenudet();
-    return view('Vales.Gestion.ClienteFinal.cliregistado_guardar_canje.blade',compact('varpantallas','varsubmenus'));
+    return view('Vales.Gestion.ClienteFinal.cliregistado_guardar_canje',compact('varpantallas','varsubmenus'));
 }
 
 
@@ -357,6 +358,10 @@ public function clienteinfo(){
 }
 
 public function obtenerdesglosedeplazos(Request $request){
+  $idusuario=auth()->user()->id;
+ 
+
+  $numeroprestamo = 3;
   $coberturaxplazo = 15;
   $pago_quincenal=0;
   $pago_total=0;
@@ -371,20 +376,24 @@ public function obtenerdesglosedeplazos(Request $request){
   $pago_quincenal_total=0;
   $resta_saldo=0;
   $interes=0;
+  $tipo_de_prestamo = 3;
+  $total_entregacliente=0;
   $date = Carbon::now();
   $fecha = $date->format('Y-m-d');
   $capital=$request->get('capital');
   $monto=$request->get('monto_vale');
   $plazos = $request->get('plazos');
   $folio_vale = $request->get('folio');
+  $tipo_odp=$request->get('tipo_odp');
+  $iddistribuidor = $request->get('distribuidor');
+  $odpunido='null';
   $date = Carbon::now();
   $fecha = $date->format('Y-m-d');
   $añoactual = $date->format('Y');
   $mesactual = $date->format('m');
   $diaactual =  $date->format('d');
-  $idusuario=auth()->user()->id;
   $varinteres =$this->obtenerinteresmensualxcapital($monto);
- 
+  $nombrecliente = $request->get('nombre');
 foreach($varinteres as $intere){
   $interes = $intere->porciento_interes;
 }
@@ -392,7 +401,7 @@ foreach($varinteres as $intere){
 $varclientevales = new cliente_vales();
 $varclientevales->iddistribuidor = $request->get('distribuidor');
 $varclientevales->idusuario_sistema = $idusuario;
-$varclientevales->Nombre_completo = $request->get('nombre');
+$varclientevales->Nombre_completo = $nombrecliente;
 $varclientevales->fecha_nacimiento = $request->get('fecha_nacimiento');
 $varclientevales->curp = $request->get('curp');
 $varclientevales->rfc = $request->get('rfc');
@@ -407,13 +416,15 @@ $varclientevales->ruta_comprobante_identificacion = "sads";
 $varclientevales->ruta_vale_escaneado = "cdfds";
 $varclientevales->status="A";
 $varclientevales->created_at=$fecha;
+$cliente =0;
 
 
         if($varclientevales->save()){
 
           $idcliente = $this->idultimocliente();
+
           foreach($idcliente as $clienteid){
-            $idcliente= $clienteid->id;
+            $cliente= $clienteid->id;
           }
           $sql ="CALL obtenercantidadescanjevale($monto,$plazos,$interes,$coberturaxplazo);";
           $datoscalculo = DB::select($sql);
@@ -426,9 +437,10 @@ $varclientevales->created_at=$fecha;
           $totalcentavos=$info->redondeocentavosxplazo;
           $pago_quincenal_total=$info->pagoxplazototalredondeado;
           $capitalxplazo =$info->capitalxplazo;
+          $total_entregacliente=$monto;
     
         $tprestamovalesenc = new prestamos_valesenc();
-        $tprestamovalesenc->idcliente=$idcliente;
+        $tprestamovalesenc->idcliente=$cliente;
         $tprestamovalesenc->idusuario_sistema=$idusuario;
         $tprestamovalesenc->capitalxplazo=$capitalxplazo;
         $tprestamovalesenc->interesxquincenasiniva=$info->interesxquincenasiniva;
@@ -449,7 +461,11 @@ $varclientevales->created_at=$fecha;
         $tprestamovalesenc->otrosconceptos2=0;
         $tprestamovalesenc->otrosconceptos3=0;
         $tprestamovalesenc->status="A";
+        $tprestamovalesenc->idtipo_prestamo = $tipo_de_prestamo;
         $tprestamovalesenc->folio_vale =$folio_vale;
+        $tprestamovalesenc->id_odp=$tipo_odp;
+        $tprestamovalesenc->referencia_odp="null";
+        $tprestamovalesenc->monto_vale=$monto;
         $tprestamovalesenc->created_at=$fecha;
         
     
@@ -465,7 +481,7 @@ $varclientevales->created_at=$fecha;
                 
                 $resta_saldo=$resta_saldo-$pago_quincenal_total;
               
-                if($diaactual > 1 && $diaactual <= 14){
+                if($diaactual >=7 && 22 <=$diaactual  ){
               
                     if($mesactual==13){
                 
@@ -478,8 +494,18 @@ $varclientevales->created_at=$fecha;
                       $mesactual = $mesactual;
                     }
                   
+                    $mesactual =$mesactual+1;
+                    if($mesactual == 1  or$mesactual == 2  or $mesactual == 3  or $mesactual == 4  or $mesactual == 5  or $mesactual == 6  or $mesactual == 7  or $mesactual == 8 or $mesactual == 9 ){
+                      $mesactual = '0'.$mesactual;
+                    }
+                    if($mesactual==13){
                 
-                  
+                      $date = Carbon::now(); //2015-01-01 00:00:00
+                      $añoactual= $endDate = $date->addYear()->format('Y');
+                      $mesactual=1;
+                      $mesactual = '0'.$mesactual;
+                      
+                    }
                 $plazofecha = $añoactual.'-'.$mesactual.'-'.'15';
               
               
@@ -491,6 +517,7 @@ $varclientevales->created_at=$fecha;
                     $date = Carbon::now(); //2015-01-01 00:00:00
                     $añoactual= $endDate = $date->addYear()->format('Y');
                     $mesactual=1;
+                    $mesactual = '0'.$mesactual;
                     
                   }
                   $numerodeplazo=$numerodeplazo+1;
@@ -507,12 +534,9 @@ $varclientevales->created_at=$fecha;
                   $tprestamovalesdet->created_at=$fecha;
                   $tprestamovalesdet->save();
       
-            
-                  //echo $plazofecha;
-                  
+          
                   }
                   else{
-                    
                   $cantidadDias = cal_days_in_month(CAL_GREGORIAN, $mesactual, $añoactual);
                   $diasdelmes =0;
                   if($cantidadDias == 31){
@@ -531,7 +555,6 @@ $varclientevales->created_at=$fecha;
                       
                         $plazofecha =$añoactual.'-'.$mesactual.'-'.$diasdelmes;
                       
-                        $mesactual =$mesactual+1;
                         if($mesactual == 1  or$mesactual == 2  or $mesactual == 3  or $mesactual == 4  or $mesactual == 5  or $mesactual == 6  or $mesactual == 7  or $mesactual == 8 or $mesactual == 9 ){
                           $mesactual = '0'.$mesactual;
                         }
@@ -546,7 +569,7 @@ $varclientevales->created_at=$fecha;
             $totalplazoredondeado = $prestamd->pagoxplazototalredondeado;
           }
                         
-                        $diaactual = 14;
+                        $diaactual = 31;
                         $numerodeplazo=$numerodeplazo+1;
                         $tprestamovalesdet = new prestamos_valesdet();
                         $tprestamovalesdet->idprestamo_vales=$idultpre;
@@ -566,12 +589,65 @@ $varclientevales->created_at=$fecha;
             }
       
       
-            $datoclienteenc =$this->obtenerclientetablaamortizacion($idcliente);
+            $datoclienteenc =$this->obtenerclientetablaamortizacion($cliente);
             $datosprestamodet =$this-> obtenereclienteamortizaciondet($idultpre);
-      
-           
-            $pdf = \PDF::loadView('paginaprueba',compact('datoclienteenc','datosprestamodet','totalplazoredondeado','pago_total','total_plazantes_redodeo','totalcentavos','pago_quincenal_total','pago_quincenalredondeado'));
-            return $pdf->download("Tabla de amortizacion #prestamo $idultpre.pdf");
+
+            if($tipo_odp=="Efectivo"){
+             
+            
+              $prestamoenc = prestamos_valesenc::find($idultpre);
+              $prestamoenc->referencia_odp=$odpunido;
+
+              if($prestamoenc->save()){
+                $tipoodp=$this->obtenerodpxid($tipo_odp);
+  
+                $restacapital = distribuidores::find($iddistribuidor);
+                $restacapital->capital=$capital-$monto;
+  
+                if($restacapital->save())
+                {
+                  $var = $this->obtenerdatosusuariologueado($idusuario);
+                  $pdf = \PDF::loadView('Vales.Gestion.ClienteFinal.vistadoc',compact('datoclienteenc','datosprestamodet','totalplazoredondeado','pago_total','total_plazantes_redodeo','totalcentavos','pago_quincenal_total','pago_quincenalredondeado','fecha','tipoodp','total_entregacliente','monto','var'));
+                  
+                  return $pdf->download("Tabla de amortizacion #prestamo $idultpre.pdf");
+                }
+                else{
+                  return redirect()->route('getnuevoCliente')->with("erroryausado","¡error");
+                }
+          }
+      }
+            else{
+
+              $sql ="CALL obtenerodp($idultpre,$cliente,$numeroprestamo,$tipo_odp);";
+              $datoscalculo = DB::select($sql);
+              foreach($datoscalculo as $odp){
+               $odpunido=$odp->odplinea1.$odp->odplinea2;
+              }
+              $prestamoenc = prestamos_valesenc::find($idultpre);
+              $prestamoenc->referencia_odp=$odpunido;
+              if($prestamoenc->save()){
+                $tipoodp=$this->obtenerodpxid($tipo_odp);
+  
+                $restacapital = distribuidores::find($iddistribuidor);
+                $restacapital->capital=$capital-$monto;
+  
+                if($restacapital->save())
+                {
+                  $var = $this->obtenerdatosusuariologueado($idusuario);
+                  $pdf = \PDF::loadView('Vales.Gestion.ClienteFinal.vistadoc',compact('datoclienteenc','datosprestamodet','totalplazoredondeado','pago_total','total_plazantes_redodeo','totalcentavos','pago_quincenal_total','pago_quincenalredondeado','odpunido','fecha','tipoodp','total_entregacliente','monto','var'));
+                  return $pdf->download("Tabla de amortizacion #prestamo $idultpre.pdf");
+                }
+                else{
+                  return redirect()->route('getnuevoCliente')->with("erroryausado","¡error");
+                }
+             
+              }
+              else{
+                return redirect()->route('getnuevoCliente')->with("erroryausado","¡error");
+              }
+            }
+
+     
         }
         else{
           return redirect()->route('getnuevoCliente')->with("erroryausado","¡error");

@@ -18,7 +18,10 @@ class Select extends Component
 
     public function mount(){
         
+    //TRAEMOS EL ID DEL USUARIO LOGUEADO
     $idusuario=auth()->user()->id;
+
+    //TRAEMOS CON UN TRAIT LA INFORMACIÓN
     $distribuidores= $this->obtenerdisxsucursal($idusuario);
         
       $this->distribuidor =$distribuidores;
@@ -29,7 +32,6 @@ class Select extends Component
         
              $this->capital = distribuidores::where('id',$value)->get();
              $this->capitales = $this->capital->first()->id ?? null;
-             
     }
 
     public function render()

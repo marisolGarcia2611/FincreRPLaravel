@@ -985,7 +985,7 @@
 
 <!-- Eliminar Modal-->
 @foreach($permisos as $permisobaja)
-@if(@permisobaja =="eliminar_empleado")
+@if($permisobaja =="eliminar_empleado")
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel" style="height:70vh">
 
   <div class="offcanvas-header">

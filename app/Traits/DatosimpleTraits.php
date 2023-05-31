@@ -421,5 +421,12 @@ public function obtenerplazos(){
     ->get();
     return $varplazos;
 }
+public function obtenerdatosusuariologueado(int $idusuario){
+    $datosusuario = user::join('tblempleados', 'users.idempleado','tblempleados.id')
+    ->select('tblempleados.primer_nombre','tblempleados.segundo_nombre','tblempleados.apellido_paterno','apellido_materno')
+    ->where('users.id','=',$idusuario)
+    ->get();
+    return $datosusuario;
+}
 
 }

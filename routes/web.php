@@ -134,15 +134,16 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/guardar_valeras', 'App\Http\Controllers\valeraController@guardar_valeras')->name('guardar_valeras');
     Route::get('/asignarvaleraxdistribuidor', 'App\Http\Controllers\valeraController@asignarvaleraxdistribuidor')->name('asignarvaleraxdistribuidor');
-
     Route::get('/validadistribuidor/{tipo}', 'App\Http\Controllers\valeraController@validadistribuidor')->name('validadistribuidor');
-
     Route::get('/clienteinfo', 'App\Http\Controllers\valeraController@clienteinfo')->name('clienteinfo');
     Route::get('/clienteinfoact', 'App\Http\Controllers\valeraController@clienteinfoact')->name('clienteinfoact');
+    Route::get('/obtenerdesglosedeplazos', 'App\Http\Controllers\valeraController@obtenerdesglosedeplazos')->name('obtenerdesglosedeplazos');
+  
 
 
-    
+    Route::get('/pagos/gestionpagos', 'App\Http\Controllers\pagoscontroller@index')->name('gestionpagos');
 
-    Route::get('/paginaprueba', 'App\Http\Controllers\valeraController@obtenerdesglosedeplazos')->name('paginaprueba');
+    //Route::get('/paginaprueba', 'App\Http\Controllers\valeraController@obtenerdesglosedeplazos')->name('paginaprueba');
+   
     
   });

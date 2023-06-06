@@ -31,212 +31,186 @@
 @endphp
 @endif
 
-{{-- ALERTAS --}}
-
-<!--INICIO BUTON AREA-->
-<div class="pos__btnBack">
-  <div class="wrapper"> 
-     <a href="/Nominas"><h5 class="btnBack"><i class="fas fa-solid fa-arrow-left"></i></h5></a>
-  </div>
-      <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <defs>
-              <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-                  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-              </filter>
-          </defs>
-      </svg>
-  </div>
-<!--FIN BUTON AREA--> 
-
-{{-- ALERTAS --}}
-
-<div class="mt-4 p__little">
+<div id="btnBack"></div>  
+<div class="pos__ico">
+    <img class="ico__image2" src="{{ asset('ico/logo.png') }}" alt="fincreLaguna">
+</div>
 
 
+<div class="p__little">
+  <br/>
+  <br/>
+  {{--------------------------- Encabezado de la pagina----------------------}}
   <div class="container">
-    <div class="row">
-      <center class="col-md-12 mt-4 mb-4">
-          <div>
-            <h2 class="mt-3 mb-3 fw-light animate_animated">Nómina de Empleados</h2> 
-          </div>
-          <div >
-          <div class="row mt-2 text-end">
-              <div class="col-md-3 d-md-block d-none"></div>
+    <div  class="row mb-5 bg-p">
+        <div class="col-md-4 center">
+          <h2 class="mt-3 mb-1 fw-light animate_animated animate_backInLeft">Nómina por empleados</h2> 
+            <cite title="Título fuente">Edición de nómina por empleados</cite>
+        </div>
 
-              <div class="col-md-2">
-                <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom"><i class="fas fa-file-upload"></i>&nbsp;Importar extras</button>
+        <div class="col-md-5">
+          <div class="row mt-3 text-center">
+              
+              <div class="col-md-4">
+                <button  type="button" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat fs-8" data-bs-toggle="offcanvas" data-bs-target="#offcanvaBottomUpload" aria-controls="offcanvasBottom"><i class="fas fa-file-upload"></i>&nbsp;Importar extras</button>
               </div>
 
-              <div class="col-md-2 mar-l">
+              <div class="col-md-4">
                   @foreach($varnominas as $nomina)
                     <form action="/Nominas/calcularnomina/{{$nomina->idpagonomina}}/{{$nomina->idtiponomina}}">
                         @csrf
-                      <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat"><i class="fas fa-calculator"></i>&nbsp; Calcular Nomina</button> 
+                      <button  type="submit" class="mb-3 animate__animated animate__backInLeft btn push2 bt__flat fs-8"><i class="fas fa-calculator"></i>&nbsp; Calcular Nomina</button> 
                     </form>
                     @break
                   @endforeach  
               </div>
 
-              <div class="col-md-2">
-                @foreach($varnominas as $nomina)
-                    <form action="/Nominas/cerrarnomina/{{$nomina->idpagonomina}}/{{$nomina->idtiponomina}}">
-                      @csrf
-                      <button class=" animate__animated animate__backInLeft btn push2 bt__flat" type="submit"><i class="fas fa-times-circle"></i>&nbsp; Cerrar Nomina </button> 
-                    </form>
-                    @break
-                @endforeach           
-            </div>
-
-              <div class="col-md-3 d-md-block d-none"></div>
-              
+              <div class="col-md-4">
+                  @foreach($varnominas as $nomina)
+                      <form action="/Nominas/cerrarnomina/{{$nomina->idpagonomina}}/{{$nomina->idtiponomina}}">
+                        @csrf
+                        <button class=" animate__animated animate__backInLeft btn push2 bt__flat fs-8" type="submit"><i class="fas fa-times-circle"></i>&nbsp; Cerrar Nomina </button> 
+                      </form>
+                      @break
+                  @endforeach           
+              </div>
           </div>
-      </center> 
+        </div>
+
+          
     </div>
   </div>
   
  
-<div class="container mt-3">
-  <div class="row">
-    <div>
-      <div class="shadow-lg mb-5 bg-body rounded border-0" style="">
+  <center class="mb-5 bg-body border-0">
         <div class="table-responsive pad-table" id="mydatatable-container">     
             <table class="table table-hover" id="tblempleados">
-            <thead class="table">
-                  <tr class="tr-table"> 
-                  <th class="text-center fw-light">Tipo de Nómina</th>
-                  <th class="text-center fw-light">No. Corrida Nómina</th>
-                  <th class="text-center fw-light">No. Nómina</th>
-                  <th class="text-center fw-light">No. Empleado</th>
-                  <th class="text-center fw-light">Nombre Empleado</th>
-                  <th class="text-center fw-light">Puesto</th>
-                  <th class="text-center fw-light">Sucursal</th>
-                  <th class="text-center fw-light">Faltas/ret/aus</th>
-                  <th class="text-center fw-light">Dias Laborados</th>
-                  <th class="text-center fw-light">Sueldo Fiscal</th>
-                  <th class="text-center fw-light">Sueldo Excedente</th>
-                  <th class="text-center fw-light">Sueldo Efectivo</th>
-                  <th class="text-center fw-light">Sueldo Total</th>
-                  <th class="text-center fw-light">Deudores Fiscal</th>
-                  <th class="text-center fw-light">Deudores No Fiscal</th>
-                  <th class="text-center fw-light">Total Deudores</th>
-                  <th class="text-center fw-light">Pago Infonavit</th>
-                  <th class="text-center fw-light">Pago Imss</th>
-                  <th class="text-center fw-light">Pago ISR</th>
-                  <th class="text-center fw-light">Pago Subsidio</th>
-                  <th class="text-center fw-light">Pago Prima Vacacional</th>
-                  <th class="text-center fw-light">Pago Dias Pendientes</th>
-                  <th class="text-center fw-light">Bono</th>
-                  <th class="text-center fw-light">Transporte</th>
-                  <th class="text-center fw-light">Total Nómina Fiscal</th>
-                  <th class="text-center fw-light">Total Excedente</th>
-                  <th class="text-center fw-light">Total Efectivo</th>
-                  <th class="text-center fw-light">Pago Nómina Fiscal Global</th>
-                  <th class="text-center fw-light">Pago Nómina Excedente Global</th>
-                  <th class="text-center fw-light">Pago Efectivo Cajas</th>
-                  <th class="text-center fw-light">Total a pagar</th>
-                  <th class="text-center fw-light">Banco</th>
-                  <th class="text-center fw-light">Numero de Tarjeta</th>
-                  <th class="text-center fw-light">Numero de Cuenta</th>
-                  
-                
-                </tr>
+              <thead class="table">
+                    <tr class="tr-table"> 
+                    <th class="text-center fw-light">Tipo de Nómina</th>
+                    <th class="text-center fw-light">No. Corrida Nómina</th>
+                    <th class="text-center fw-light">No. Nómina</th>
+                    <th class="text-center fw-light">No. Empleado</th>
+                    <th class="text-center fw-light">Nombre Empleado</th>
+                    <th class="text-center fw-light">Puesto</th>
+                    <th class="text-center fw-light">Sucursal</th>
+                    <th class="text-center fw-light">Faltas/ret/aus</th>
+                    <th class="text-center fw-light">Dias Laborados</th>
+                    <th class="text-center fw-light">Sueldo Fiscal</th>
+                    <th class="text-center fw-light">Sueldo Excedente</th>
+                    <th class="text-center fw-light">Sueldo Efectivo</th>
+                    <th class="text-center fw-light">Sueldo Total</th>
+                    <th class="text-center fw-light">Deudores Fiscal</th>
+                    <th class="text-center fw-light">Deudores No Fiscal</th>
+                    <th class="text-center fw-light">Total Deudores</th>
+                    <th class="text-center fw-light">Pago Infonavit</th>
+                    <th class="text-center fw-light">Pago Imss</th>
+                    <th class="text-center fw-light">Pago ISR</th>
+                    <th class="text-center fw-light">Pago Subsidio</th>
+                    <th class="text-center fw-light">Pago Prima Vacacional</th>
+                    <th class="text-center fw-light">Pago Dias Pendientes</th>
+                    <th class="text-center fw-light">Bono</th>
+                    <th class="text-center fw-light">Transporte</th>
+                    <th class="text-center fw-light">Total Nómina Fiscal</th>
+                    <th class="text-center fw-light">Total Excedente</th>
+                    <th class="text-center fw-light">Total Efectivo</th>
+                    <th class="text-center fw-light">Pago Nómina Fiscal Global</th>
+                    <th class="text-center fw-light">Pago Nómina Excedente Global</th>
+                    <th class="text-center fw-light">Pago Efectivo Cajas</th>
+                    <th class="text-center fw-light">Total a pagar</th>
+                    <th class="text-center fw-light">Banco</th>
+                    <th class="text-center fw-light">Numero de Tarjeta</th>
+                    <th class="text-center fw-light">Numero de Cuenta</th>
+                  </tr>
               </thead>
-              
+             @foreach($varnominas as $nomina)
               <tbody>
-              
                   <tr>
-                    @foreach($varnominas as $nomina)
-                  
-                    <td class="bg-3">
+                    <td class="bg-0">
                       @if($nomina->idtiponomina == 1)
                       Semanal
                       @elseif($nomina->idtiponomina == 2)
                       Quincenal
                       @elseif($nomina->idtiponomina == 3)
                       Mensual
-                    @endif
+                      @endif
                     </td>
-                    <td class="bg-1">{{$nomina->idpagonomina}}</td>
-                    <td name="nominaid" class="bg-1">{{$nomina->id}}</td>
-                    <td class="bg-1">{{$nomina->idempleado}}</td>
-                    <td class="bg-2">{{$nomina->primer_nombre.' '.$nomina->segundo_nombre.' '.$nomina->apellido_paterno.' '.$nomina->apellido_materno}}</td>
-                    <td class="bg-2">{{$nomina->puesto}}</td>
-                    <td class="bg-2">{{$nomina->sucursal}}</td>
-                    <td class="table-warning border-0">{{$nomina->faltas_reta_aus}}</td>
-                    <td class="table-success border-0">{{$nomina->dias_laborados}}</td>
-                    <td class="bg-1">{{$nomina->sueldo_fiscal}}</td>
-                    <td class="bg-1">{{$nomina->excedente}}</td>
-                    <td class="bg-1">{{$nomina->efectivo}}</td>
-                    <td class="table-danger border-0">{{$nomina->total_sueldo}}</td>
-                    <td class="bg-1">{{$nomina->deudores_fiscal}}</td>
-                    <td class="bg-1">{{$nomina->deudores_no_fiscal}}</td>
-                    <td class="bg-1">{{$nomina->total_deudores}}</td> 
-                    <td class="bg-1">{{$nomina->pago_infonavit}}</td>
-                    <td class="bg-1">{{$nomina->pago_imss}}</td>  
-                    <td class="table-warning border-0">{{$nomina->pago_isr}}</td>
-                    <td class="bg-1">{{$nomina->pago_subsidio}}</td>
-                    <td class="bg-1">{{$nomina->pago_prima_vacacional}}</td>
-                    <td class="bg-1">{{$nomina->dias_pendiente}}</td>
-                    <td class="bg-1">{{$nomina->bono}}</td>
-                    <td class="bg-1">{{$nomina->transporte}}</td>
-                    <td class="bg-3">{{$nomina->total_nomina_fiscal}}</td>
-                    <td class="bg-3">{{$nomina->total_apagar_excedente}}</td>
-                    <td class="bg-3">{{$nomina->total_efectivo}}</td>
-                    <td class="bg-1">{{$nomina->pago_nomina_fiscal_global}}</td>
-                    <td class="bg-1">{{$nomina->pago_nomina_excedente_global}}</td>
-                    <td class="bg-1">{{$nomina->pago_efectivo_cajas}}</td>
-                    <td class="bg-1">{{$nomina->total_apagar}}</td>
-                    <td class="bg-3">{{$nomina->banco}}</td>
-                    <td class="bg-3">{{$nomina->numero_tarjeta}}</td>
-                    <td class="bg-3">{{$nomina->numero_cuenta}}</td>  
+                    <td class="table-light text-secondary">{{$nomina->idpagonomina}}</td>
+                    <td name="nominaid" class="table-light text-secondary">{{$nomina->id}}</td>
+                    <td class="table-primary text-secondary">{{$nomina->idempleado}}</td>
+                    <td class="table-light text-secondary">{{$nomina->primer_nombre.' '.$nomina->segundo_nombre.' '.$nomina->apellido_paterno.' '.$nomina->apellido_materno}}</td>
+                    <td class="table-light text-secondary">{{$nomina->puesto}}</td>
+                    <td class="table-light text-secondary">{{$nomina->sucursal}}</td>
+                    <td class="table-danger text-secondary">{{$nomina->faltas_reta_aus}}</td>
+                    <td class="table-success text-secondary">{{$nomina->dias_laborados}}</td>
+                    <td class="table-light text-secondary">{{$nomina->sueldo_fiscal}}</td>
+                    <td class="table-light text-secondary">{{$nomina->excedente}}</td>
+                    <td class="table-light text-secondary">{{$nomina->efectivo}}</td>
+                    <td class="table-light text-secondary">{{$nomina->total_sueldo}}</td>
+                    <td class="table-light text-secondary">{{$nomina->deudores_fiscal}}</td>
+                    <td class="table-light text-secondary">{{$nomina->deudores_no_fiscal}}</td>
+                    <td class="table-light text-secondary">{{$nomina->total_deudores}}</td> 
+                    <td class="table-light text-secondary">{{$nomina->pago_infonavit}}</td>
+                    <td class="table-light text-secondary">{{$nomina->pago_imss}}</td>  
+                    <td class="table-light text-secondary">{{$nomina->pago_isr}}</td>
+                    <td class="table-light text-secondary">{{$nomina->pago_subsidio}}</td>
+                    <td class="table-light text-secondary">{{$nomina->pago_prima_vacacional}}</td>
+                    <td class="table-light text-secondary">{{$nomina->dias_pendiente}}</td>
+                    <td class="table-primary text-secondary">{{$nomina->bono}}</td>
+                    <td class="table-primary text-secondary">{{$nomina->transporte}}</td>
+                    <td class="table-secondary text-secondary">{{$nomina->total_nomina_fiscal}}</td>
+                    <td class="table-secondary text-secondary">{{$nomina->total_apagar_excedente}}</td>
+                    <td class="table-secondary text-secondary">{{$nomina->total_efectivo}}</td>
+                    <td class="table-secondary text-secondary">{{$nomina->pago_nomina_fiscal_global}}</td>
+                    <td class="table-secondary text-secondary">{{$nomina->pago_nomina_excedente_global}}</td>
+                    <td class="table-secondary text-secondary">{{$nomina->pago_efectivo_cajas}}</td>
+                    <td class="table-secondary text-secondary">{{$nomina->total_apagar}}</td>
+                    <td class="table-light text-secondary">{{$nomina->banco}}</td>
+                    <td class="table-light text-secondary">{{$nomina->numero_tarjeta}}</td>
+                    <td class="table-light text-secondary">{{$nomina->numero_cuenta}}</td>  
                   </tr>
-          @endforeach
               </tbody>
+              @endforeach
             </table>
         </div>  
-      </div>   
-    </div>
-  </div>
-</div>
+  </center>
 
 
 <!-- ................................................................................................................................................-->
 
 <!-- Subir archivo Modal-->
-<div class="offcanvas offcanvas-bottom sudmit" tabindex="-1" id="offcanvaBottomUpload" aria-labelledby="offcanvasBottomLabel" style="height:65vh">
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvaBottomUpload" aria-labelledby="offcanvasBottomLabel" style="height:60vh">
   <div class="offcanvas-header">
+    <nav id="navbar-example2" class="navbar navbar-light px-3">
+      <a class="navbar-brand">Importar Extras(Bonos,Transporte y Prestamos)</a>
+    </nav>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-  <div class="offcanvas-body small">
-    <h1>Importar Extras(Bonos,Transporte y Prestamos)</h1>
-    <h2>Favor de subir el archivo con formato</h2>
-    
+  <div class="offcanvas-body">
       <form action="/Nominas/importBoTrans" method="POST" enctype="multipart/form-data" class="g-3 needs-validation" novalidate>
         @csrf
-    
-          <div class="mb-2">                              
-              <div class=" text-center">
-                <div class="input-file-container">  
-                  <input class="input-file" id="my-file" type="file" name="urlxlsx" required/>
-                  <div class="valid-feedback fs-8">
-                    ¡Se ve bien!
-                  </div>
-                  <div class="invalid-feedback fs-8">
-                    ¡Por favor, sube el archivo de importación!
-                  </div>
-                    <label for="my-file"name="my-file" style="border-radius:100px;width:98%!important;" class="input-file-trigger"><h1 class="text-light"><i class="fas fa-file-upload"></i></h1></label>
-                    <p class="file-return"></p> 
-                    <br/>
-                    <hr/>
-                    <button class="btn btn-send" type="submit" value="subir"><h3><i class="fas fa-paper-plane"></i> Enviar</h3></button>
-                </div>
+        <div class="container">
+          <label for="file1" class="drop-container1">
+              <span class="drop-title">Suelte archivo aquí</span>
+              ó
+              <input type="file" id="my-file" type="file" name="urlxlsx" required>
+              <div class="valid-feedback fs-8">
+                ¡Se ve bien!
               </div>
+              <div class="invalid-feedback fs-8">
+                ¡Por favor, sube el archivo de la baja firmada!
+              </div>
+          </label>
+
+          <spam class="fs-8 text-secondary">Recuerde que solo se admite el formato ".pdf"</spam>
+          <div  class="text-center">
+            <button type="submit" class="btn btn-p col-md-2 col fw-light rounded-5 fs-8"><i class="fas fa-upload"></i>&nbsp;&nbsp; Subir</button></br></br>
           </div>
+        </div>
       </form>
-    <p class="txtcenter">Recuerde que solo se admite el formato ".pdf"</p>
+    
     <div class="text-center">
-          <a class="link-secondary " style="font-size:15px;" href="{{ asset('Importaciones/ImportarExtras.xlsx') }}" download="ImportarExtras"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>&nbsp; Descargar Formato</a>
+          <a class="link-secondary fs-8"  href="{{ asset('Importaciones/ImportarExtras.xlsx') }}" download="ImportarExtras"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>&nbsp; Descargar Formato</a>
     </div>
   </div>
 </div>
@@ -244,16 +218,9 @@
 
 <!-- ................................................................................................................................................-->
 
-
-
-
-
 <script>
-    $(document).ready(function() {
-  
-  
-  
-    $("table tbody tr").click(function() {
+  $(document).ready(function() {
+  $("table tbody tr").click(function() {
   var id = $(this).find("td:eq(2)").text();
   $("#idpadodet").val(id);
   
@@ -272,50 +239,12 @@
   $("#deudores_fiscal").val(deud_fiscal);
   
   var deud_nofiscal = $(this).find("td:eq(15)").text();
-  $("#deudores_no_fiscal").val(deud_nofiscal);
-  
-  
-  
-    
-    });
-  
-  
-    var table = $('#tblempleados').DataTable( {
-            "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
-            responsive: true,
-            scrollY: 500,
-            scrollX: true,
-            "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-            },
-            
-        } );
-        new $.fn.dataTable.FixedHeader( table );
-    });
-  
-  
-  
+  $("#deudores_no_fiscal").val(deud_nofiscal);});
+ });
 </script>
-
-<script>
-  document.querySelector("html").classList.add('js');
-
-    var fileInput  = document.querySelector( ".input-file" ),  
-        button     = document.querySelector( ".input-file-trigger" ),
-        the_return = document.querySelector(".file-return");
-          
-    button.addEventListener( "keydown", function( event ) {  
-        if ( event.keyCode == 13 || event.keyCode == 32 ) {  
-            fileInput.focus();  
-        }  
-    });
-    button.addEventListener( "click", function( event ) {
-      fileInput.focus();
-      return false;
-    });  
-    fileInput.addEventListener( "change", function( event ) {  
-        the_return.innerHTML = this.value;  
-    });  
-</script>
+<script src="{{ asset('js/btnBack1.js') }}"></script>
+<script src="{{ asset('js/validation.js') }}"></script>
+<script src="{{ asset('js/simpleTabla2.js') }}"></script>
+<script src="{{ asset('js/validaXLSX.js') }}"></script>
 
 @endsection

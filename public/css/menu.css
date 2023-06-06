@@ -541,12 +541,14 @@ background-image: linear-gradient(45deg,#2E3192,#0095D9);
 
     /*----------------------------------------------------------------- button icon--------------------------------------------------- */
     .pos__ico{
-      z-index: 1;margin-top:30px;top: 1.8vh;position: absolute;right: 0;margin-right: 15px;
+      z-index: 3;margin-top:30px;top: 1.8vh;position: absolute;right: 0;margin-right: 15px;
     }
     .ico__image{width: 90px;height:50px;}
+    .ico__image2{width: 75px;height:60px;}
 
     @media screen and (max-width:600px) { 
       .ico__image{width: 55px;height:30px;}
+      .ico__image2{width: 40px;height:30px;}
     }
 
 

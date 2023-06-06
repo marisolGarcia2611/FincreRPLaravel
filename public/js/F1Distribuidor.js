@@ -6,6 +6,9 @@ distribuidor.innerHTML = `
       <h5 class="btnBack1" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
     </div>
 </div>
+<div class="pos__ico">
+  <img class="ico__image" src="../ico/valeMil.png" alt="valeMil">
+</div>
 
 <div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">
     <div class="mt-2">

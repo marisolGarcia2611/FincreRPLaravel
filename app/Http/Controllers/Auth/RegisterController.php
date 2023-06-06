@@ -46,19 +46,19 @@ class RegisterController extends Controller
     public function Index()
     {
 
-        $permisos = $this->forpermisos('calcular_nominas'); 
-        if($permisos=="registrar_usuarios")
-        {
+        // $permisos = $this->forpermisos('calcular_nominas'); 
+        // if($permisos=="registrar_usuarios")
+        // {
         $varpantallas =  $this->Traermenuenc();
         $varsubmenus =   $this->Traermenudet();
         $varlistaempleados=  $this-> obtenerlistaempleados();
         $date = Carbon::now();
         $date = $date->format('Y-m-d');
         return view('sistemas.registro',compact('varpantallas','varsubmenus','varlistaempleados'));
-        }
-        else{
-            return redirect()->route('panel')->with("Errorpermisos","No se logro");  
-        }
+        // }
+        // else{
+        //     return redirect()->route('panel')->with("Errorpermisos","No se logro");  
+        // }
 
 
     }
@@ -125,7 +125,7 @@ class RegisterController extends Controller
             $nombre = "$idempleado".".".$file->guessExtension();
             $ruta = public_path("Images/Perfil/".$nombre);
 
-            if($file->guessExtension()=="jpg"){
+            if($file->guessExtension()=="png"){
                 copy($file, $ruta);
                 return redirect()->route('registro')->with("success","¡Se guardaron los cambios correctamente!");
             }else{

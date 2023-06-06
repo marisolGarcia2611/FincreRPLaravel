@@ -8,7 +8,7 @@
         <div class="form rounded__basic">
             <div class="login">
             <div class="login-header animate__animated animate__flip">
-                <img src="{{ asset('images/logo.png') }}" class="size__icon animate__animated animate__flip" alt="icon login">
+                <img src="{{ asset('Images/logo.png') }}" class="size__icon animate__animated animate__flip" alt="icon login">
             </div>
             </div>
             <form method="POST" action="{{ route('login') }}" class="login-form">

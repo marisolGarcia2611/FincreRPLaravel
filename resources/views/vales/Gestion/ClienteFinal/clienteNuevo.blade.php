@@ -104,7 +104,7 @@
 
                                         <div class="col">
                                           
-                                            <livewire:select></livewire:select>
+                                            <livewire:capitalxdistribuidores-list></livewire:capitalxdistribuidores-list>
                                         </div>
                                         
                                     </div>

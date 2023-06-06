@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ config('app.name') }}</title>
-        <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('Images/logo.png') }}">
 
             <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
@@ -23,7 +23,7 @@
     </head>
     <body class="">
         <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
-        <p id='head1' class='header'><img  width="410px" height="320px" src="{{ asset('images/logo.png') }}" alt="login__body image"/></p>
+        <p id='head1' class='header'><img  width="410px" height="320px" src="{{ asset('Images/logo.png') }}" alt="login__body image"/></p>
         <p id='head2' class='header'>Bienvenido</p>
         <p id='head3' style="font-size:18px" class='header'>
            <b  style="font-size: 35px">Misión</b></br>
@@ -37,7 +37,7 @@
             nuestros colaboradores y socios otorgando servicios financieros basados en </br>
             la calidad y valores siendo la mejor opción en el país".
         </p>
-        <p id='head5' class='header'><img   width="410px" height="320px" src="{{ asset('images/logo.png') }}" alt="login__body image"/></p>
+        <p id='head5' class='header'><img   width="410px" height="320px" src="{{ asset('Images/logo.png') }}" alt="login__body image"/></p>
 
         @if (Route::has('login'))
             <div class="position-relative">

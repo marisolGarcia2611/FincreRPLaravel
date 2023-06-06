@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita2bf99afbdf4e064a888df36029c3c11
+class ComposerStaticInit1a9f627e360611b12b2bf066f6531c85
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -610,6 +610,7 @@ class ComposerStaticInita2bf99afbdf4e064a888df36029c3c11
         'App\\Http\\Controllers\\NominasController' => __DIR__ . '/../..' . '/app/Http/Controllers/NominasController.php',
         'App\\Http\\Controllers\\RecursosController' => __DIR__ . '/../..' . '/app/Http/Controllers/RecursosController.php',
         'App\\Http\\Controllers\\SistemasController' => __DIR__ . '/../..' . '/app/Http/Controllers/SistemasController.php',
+        'App\\Http\\Controllers\\pagoscontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/pagoscontroller.php',
         'App\\Http\\Controllers\\valeraController' => __DIR__ . '/../..' . '/app/Http/Controllers/valeraController.php',
         'App\\Http\\Controllers\\valesController' => __DIR__ . '/../..' . '/app/Http/Controllers/valesController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -672,6 +673,7 @@ class ComposerStaticInita2bf99afbdf4e064a888df36029c3c11
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Traits\\DatosimpleTraits' => __DIR__ . '/../..' . '/app/Traits/DatosimpleTraits.php',
+        'App\\Traits\\PagosTrait' => __DIR__ . '/../..' . '/app/Traits/PagosTrait.php',
         'App\\Traits\\SistemasTraits' => __DIR__ . '/../..' . '/app/Traits/SistemasTraits.php',
         'App\\Traits\\ValeTraits' => __DIR__ . '/../..' . '/app/Traits/ValeTraits.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
@@ -6863,10 +6865,10 @@ class ComposerStaticInita2bf99afbdf4e064a888df36029c3c11
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita2bf99afbdf4e064a888df36029c3c11::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1a9f627e360611b12b2bf066f6531c85::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1a9f627e360611b12b2bf066f6531c85::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit1a9f627e360611b12b2bf066f6531c85::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit1a9f627e360611b12b2bf066f6531c85::$classMap;
 
         }, null, ClassLoader::class);
     }

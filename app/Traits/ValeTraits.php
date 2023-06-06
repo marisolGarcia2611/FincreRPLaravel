@@ -22,99 +22,82 @@ use DB;
 
 trait ValeTraits{
  
-    public  function obtenerpromotores(){
-        $varpromotor = promotores::join('tblempleados','tblpromotores.idempleado','=','tblempleados.id')
-        ->join("users", "tblpromotores.idusuario", "=", "users.id")
-        ->select('tblpromotores.id',
-            'tblempleados.id as idempleado',
-            'users.id as idempleados',
-            DB::raw('CONCAT(tblempleados.primer_nombre," ",tblempleados.segundo_nombre," ",tblempleados.apellido_paterno," ",tblempleados.apellido_materno) AS Nombre'),
-            'users.name as usuario')
-        ->get();
-        return $varpromotor;
+        public  function obtenerpromotores(){
+            $varpromotor = promotores::join('tblempleados','tblpromotores.idempleado','=','tblempleados.id')
+            ->join("users", "tblpromotores.idusuario", "=", "users.id")
+            ->select('tblpromotores.id',
+                'tblempleados.id as idempleado',
+                'users.id as idempleados',
+                DB::raw('CONCAT(tblempleados.primer_nombre," ",tblempleados.segundo_nombre," ",tblempleados.apellido_paterno," ",tblempleados.apellido_materno) AS Nombre'),
+                'users.name as usuario')
+            ->get();
+            return $varpromotor;
         }
-
 
         public  function obtenerestados(){
             $varestado = estados::select('tblestados.id','tblestados.nombre')
             ->get();
             return $varestado;
-            }
-            public  function iddistribuidor(){
-                $vardistribuidor = distribuidores::latest('id')->first();
-                return $vardistribuidor;
-            }
+        }
+        public  function iddistribuidor(){
+            $vardistribuidor = distribuidores::latest('id')->first();
+            return $vardistribuidor;
+        }
 
 
-            public  function idultimoaval(){
-                $varavales = avales::latest('id')->first();
-                return $varavales;
-            }
+        public  function idultimoaval(){
+            $varavales = avales::latest('id')->first();
+            return $varavales;
+        }
 
-            public function obtenerdistribuidores(){
-                $vardistribuidores = distribuidores::join('tbltipo_distribuidor','tbldistribuidores.tipo_distribuidor','=','tbltipo_distribuidor.id')
-                ->select(
-                'tbldistribuidores.id', 
-                'tbldistribuidores.primer_nombre',
-                'tbldistribuidores.segundo_nombre',
-                'tbldistribuidores.apellido_paterno', 
-                'tbldistribuidores.apellido_materno', 
-                'tbldistribuidores.fecha_nacimiento', 
-                'tbldistribuidores.curp', 
-                'tbldistribuidores.rfc', 
-                'tbldistribuidores.sexo', 
-                'tbldistribuidores.estado_civil', 
-                'tbldistribuidores.telefono', 
-                'tbldistribuidores.idsucursal', 
-                'tbldistribuidores.idpromotor', 
-                'tbldistribuidores.calle', 
-                'tbldistribuidores.colonia', 
-                'tbldistribuidores.numero_interior', 
-                'tbldistribuidores.numero_exterior', 
-                'tbldistribuidores.codigo_postal', 
-                'tbldistribuidores.idciudad', 
-                'tbldistribuidores.lugar_empleo', 
-                'tbldistribuidores.puesto_empleo', 
-                'tbldistribuidores.salario_mensual', 
-                'tbldistribuidores.antiguedad', 
-                'tbldistribuidores.telefono_empresa', 
-                'tbldistribuidores.direccion_empresa', 
-                'tbldistribuidores.egreso_fijomensual', 
-                'tbldistribuidores.idestado',
-                'tbldistribuidores.estado_captura',
-                'tbldistribuidores.tipo_distribuidor',
-                'tbltipo_distribuidor.nombre',
-                'tbldistribuidores.status')
-                ->get();
-                return $vardistribuidores;
-            }
+        public function obtenerdistribuidores(){
+            $vardistribuidores = distribuidores::join('tbltipo_distribuidor','tbldistribuidores.tipo_distribuidor','=','tbltipo_distribuidor.id')
+            ->select(
+            'tbldistribuidores.id', 
+            'tbldistribuidores.primer_nombre',
+            'tbldistribuidores.segundo_nombre',
+            'tbldistribuidores.apellido_paterno', 
+            'tbldistribuidores.apellido_materno', 
+            'tbldistribuidores.fecha_nacimiento', 
+            'tbldistribuidores.curp', 
+            'tbldistribuidores.rfc', 
+            'tbldistribuidores.sexo', 
+            'tbldistribuidores.estado_civil', 
+            'tbldistribuidores.telefono', 
+            'tbldistribuidores.idsucursal', 
+            'tbldistribuidores.idpromotor', 
+            'tbldistribuidores.calle', 
+            'tbldistribuidores.colonia', 
+            'tbldistribuidores.numero_interior', 
+            'tbldistribuidores.numero_exterior', 
+            'tbldistribuidores.codigo_postal', 
+            'tbldistribuidores.idciudad', 
+            'tbldistribuidores.lugar_empleo', 
+            'tbldistribuidores.puesto_empleo', 
+            'tbldistribuidores.salario_mensual', 
+            'tbldistribuidores.antiguedad', 
+            'tbldistribuidores.telefono_empresa', 
+            'tbldistribuidores.direccion_empresa', 
+            'tbldistribuidores.egreso_fijomensual', 
+            'tbldistribuidores.idestado',
+            'tbldistribuidores.estado_captura',
+            'tbldistribuidores.tipo_distribuidor',
+            'tbltipo_distribuidor.nombre',
+            'tbldistribuidores.status')
+            ->where('tbldistribuidores.status','=','pro')
+            ->get();
+            return $vardistribuidores;
+        }
 
-            public function docAval(int $iddistribuidor){
-                $idavalterminaproceso =avales::join('tbldocumentacion','tblavales.id','=','tbldocumentacion.id_tipo')
-                ->select(          
-                    'tbldocumentacion.id as idreferenciaaval',
-                    'tbldocumentacion.id_tipo as idaval', 
-                    'tbldocumentacion.identificacion_oficial as identificacion_oficial',
-                    'tbldocumentacion.comprobante_domicilio as comprobante_domicilio',
-                    'tbldocumentacion.comprobante_ingresos as comprobante_ingresos',
-                    'tbldocumentacion.solicitud_credito as solicitud_credito',
-                    'tbldocumentacion.autorizacion_buro as autorizacion_buro',
-                    'tbldocumentacion.verificacion_domicilio as verificacion_domicilio')
-                ->where('tblavales.iddistribuidor','=',$iddistribuidor)
-                ->get();
-                return $idavalterminaproceso;
-            }
-
-            public function obteneravala_termina_proceso(int $iddistribuidor){
-                $docuAval =avales::select('tblavales.id' )
-                ->where('tblavales.iddistribuidor','=',$iddistribuidor)
-                ->get();
-                return $docuAval;
-            }
+        public function obteneravala_termina_proceso(int $iddistribuidor){
+            $docuAval =avales::select('tblavales.id' )
+            ->where('tblavales.iddistribuidor','=',$iddistribuidor)
+            ->get();
+            return $docuAval;
+        }
 
         public function obtenerdatosfase1(int $id) {
-            $vardistribuidores = distribuidores::join('tblconyuges','tbldistribuidores.id','=','tblconyuges.iddistribuidor')
-                ->join('tblreferencias','tbldistribuidores.id','=','tblreferencias.iddistribuidor')
+            $vardistribuidores = distribuidores::join('tblreferencias','tbldistribuidores.id','=','tblreferencias.iddistribuidor')
                 ->select(
                 'tbldistribuidores.id as id_distribuidor', 
                 'tbldistribuidores.primer_nombre as distribuidor_primer_nombre',
@@ -122,6 +105,8 @@ trait ValeTraits{
                 'tbldistribuidores.apellido_paterno as distribuidor_apellido_paterno', 
                 'tbldistribuidores.apellido_materno as distribuidor_apellido_materno', 
                 'tbldistribuidores.fecha_nacimiento as distribuidor_fecha', 
+                'tbldistribuidores.nacionalidad',
+                'tbldistribuidores.lugar_nacimiento',
                 'tbldistribuidores.curp as distribuidor_curp', 
                 'tbldistribuidores.rfc as distribuidor_rfc', 
                 'tbldistribuidores.sexo as distribuidor_sexo', 
@@ -147,24 +132,7 @@ trait ValeTraits{
                 'tbldistribuidores.tipo_distribuidor as tipodis',
                 'tbldistribuidores.capital',
                 'tbldistribuidores.capital_autorizado',
-
-                'tblconyuges.id as conyuid',
-                'tblconyuges.primer_nombre as conyu_primer_nombre',
-                'tblconyuges.segundo_nombre as conyu_segundo_nombre',
-                'tblconyuges.apellido_paterno as conyu_apellido_paterno',
-                'tblconyuges.apellido_materno as conyu_apellido_materno',
-                'tblconyuges.fecha_nacimiento as conyu_fecha_nacimiento',
-                'tblconyuges.curp as conyu_curp',
-                'tblconyuges.rfc as conyu_rfc',
-                'tblconyuges.sexo as coyu_sexo',
-                'tblconyuges.telefono as conyu_telefono',
-                'tblconyuges.lugar_empleo as conyu_lugar_empleo',
-                'tblconyuges.puesto_empleo as conyu_puesto_empleo',
-                'tblconyuges.salario_mensual as conyu_salario_mensual',
-                'tblconyuges.telefono_empresa as conyu_telefono_empresa',
-                'tblconyuges.direccion_empresa as conyu_direccion_empresa',
-                'tblconyuges.egreso_fijomensual as conyu_egreso_fijo_mensual',
-                'tblconyuges.antiguedad as conyu_antiguedad',
+                'tbldistribuidores.status',
 
                 'tblreferencias.id as idrefe',
                 'tblreferencias.primer_nombre as refe_primer_nombre',
@@ -189,7 +157,8 @@ trait ValeTraits{
         }
 
         public function obteneravalactualiza(int $iddistribuidor){
-            $idavalterminaproceso =avales::select(
+            $idavalterminaproceso =avales::join('tbldistribuidores','tbldistribuidores.id','=','tblavales.iddistribuidor')
+            ->select(
             'tblavales.id',
             'tblavales.iddistribuidor',
             'tblavales.primer_nombre',
@@ -197,6 +166,8 @@ trait ValeTraits{
             'tblavales.apellido_paterno',
             'tblavales.apellido_materno',
             'tblavales.fecha_nacimiento',
+            'tblavales.nacionalidad',
+            'tblavales.lugar_nacimiento',
             'tblavales.curp', 
             'tblavales.rfc', 
             'tblavales.sexo',
@@ -214,22 +185,41 @@ trait ValeTraits{
             'tblavales.antiguedad',
             'tblavales.telefono_empresa',
             'tblavales.direccion_empresa', 
-            'tblavales.egreso_fijomensual')
+            'tblavales.egreso_fijomensual',
+            'tbldistribuidores.status')
             ->where('tblavales.iddistribuidor','=',$iddistribuidor)
             ->get();
             return $idavalterminaproceso;
         }
 
         public function obtenerDocumentosDis(int $iddistribuidor){
-            $disDoc =documentos::select(
-            'tbldocumentacion.id')
-            ->where('tbldocumentacion.id_tipo','=',$iddistribuidor)
+            $condiciones = [
+                ['tbldocumentacion.Tipo','=','Distribuidor'],
+                ['tbldocumentacion.id_tipo','=',$iddistribuidor]
+            ];
+            $disDoc =documentos::join('tbldistribuidores','tbldistribuidores.id','=','tbldocumentacion.id_tipo')
+            ->select(
+            'tbldocumentacion.id',
+            'tbldocumentacion.Tipo',
+            'tbldocumentacion.id_tipo',
+            'tbldistribuidores.status')
+            ->where($condiciones)
+            ->get();
+            return $disDoc;
+        }
+
+        public function estadoCivilDis(int $iddistribuidor){
+            $disDoc =distribuidores::select(
+            'tbldistribuidores.id',
+            'tbldistribuidores.estado_civil')
+            ->where('tbldistribuidores.id','=',$iddistribuidor)
             ->get();
             return $disDoc;
         }
 
         public function obtenerDocumentosAval(int $idaval){
-            $avalDoc =documentos::select(
+            $avalDoc =documentos::join('tblavales','tblavales.id','=','tbldocumentacion.id_tipo')
+            ->select(
             'tbldocumentacion.id')
             ->where('tbldocumentacion.id_tipo','=',$idaval)
             ->get();
@@ -246,17 +236,70 @@ trait ValeTraits{
 
 
         public function mostrardocumentacion(int $id){
-            $idavalterminaproceso =documentos::select(
+            $condiciones = [
+                ['tbldocumentacion.Tipo','=','Distribuidor'],
+                ['tbldocumentacion.id_tipo','=',$id]
+            ];
+            $idavalterminaproceso =documentos::join('tbldistribuidores','tbldistribuidores.id','=','tbldocumentacion.id_tipo')
+            ->select(
             'tbldocumentacion.id',
             'tbldocumentacion.Tipo',
-            'tbldocumentacion.id_tipo',
+            'tbldistribuidores.id as id_tipo',
+            'tbldistribuidores.status as status',
+            'tbldistribuidores.capital_autorizado',
+            'tbldistribuidores.capital',
+            'tbldistribuidores.estado_civil',
+            'tbldocumentacion.status_ide_ofi',
+            'tbldocumentacion.status_com_dom',
+            'tbldocumentacion.status_com_ingre',
+            'tbldocumentacion.status_sol_cre',
+            'tbldocumentacion.status_aut_buro',
+            'tbldocumentacion.status_ver_dom',
+            'tbldocumentacion.status_contra',
+            'tbldocumentacion.status_pagare',
+            'tbldocumentacion.status_act_matri',
+            'tbldocumentacion.status_compro_prop',
             'tbldocumentacion.identificacion_oficial',
             'tbldocumentacion.comprobante_domicilio',
             'tbldocumentacion.comprobante_ingresos',
             'tbldocumentacion.solicitud_credito',
             'tbldocumentacion.autorizacion_buro',
-            'tbldocumentacion.verificacion_domicilio')
-            ->where('tbldocumentacion.id_tipo','=',$id)
+            'tbldocumentacion.verificacion_domicilio',
+            'tbldocumentacion.contrato',
+            'tbldocumentacion.pagare',
+            'tbldocumentacion.acta_matrimonio',
+            'tbldocumentacion.comprobante_propiedad')
+            ->where($condiciones)
+            ->get();
+            return $idavalterminaproceso;
+        }
+
+        public function docAval(int $iddistribuidor){
+            $condiciones = [
+                ['tbldocumentacion.Tipo','=','Aval_1'],
+                ['tblavales.iddistribuidor','=',$iddistribuidor]
+            ];
+            $idavalterminaproceso =avales::join('tbldocumentacion','tblavales.id','=','tbldocumentacion.id_tipo')
+            ->select(          
+                'tbldocumentacion.id as idreferenciaaval',
+                'tblavales.id as  idaval',
+                'tblavales.iddistribuidor as iddis',
+                'tbldocumentacion.Tipo as Tipo',
+                'tbldocumentacion.status_ide_ofi',
+                'tbldocumentacion.status_com_dom',
+                'tbldocumentacion.status_com_ingre',
+                'tbldocumentacion.status_sol_cre',
+                'tbldocumentacion.status_aut_buro',
+                'tbldocumentacion.status_ver_dom',
+                'tbldocumentacion.status_compro_prop',
+                'tbldocumentacion.identificacion_oficial as identificacion_oficial',
+                'tbldocumentacion.comprobante_domicilio as comprobante_domicilio',
+                'tbldocumentacion.comprobante_ingresos as comprobante_ingresos',
+                'tbldocumentacion.solicitud_credito as solicitud_credito',
+                'tbldocumentacion.autorizacion_buro as autorizacion_buro',
+                'tbldocumentacion.verificacion_domicilio as verificacion_domicilio',
+                'tbldocumentacion.comprobante_propiedad')
+            ->where($condiciones)
             ->get();
             return $idavalterminaproceso;
         }
@@ -273,35 +316,25 @@ trait ValeTraits{
         }
 
         public function obtenermesacred(){
-           $sql = 'select tbldistribuidores.id ,tbldistribuidores.status, CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) AS nombre, tbldistribuidores.capital, tbldistribuidores.idsucursal, tblsucursales.nombre as nombresuc  from tbldistribuidores inner join tblsucursales  on tbldistribuidores.idsucursal = tblsucursales.id  where status in("pro_rev","pro_dic");';
+           $sql = 'select tbldistribuidores.id ,tbldistribuidores.status, tbldistribuidores.estado_captura ,CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) AS nombre, tbldistribuidores.capital,tbldistribuidores.capital_autorizado, tbldistribuidores.idsucursal, tblsucursales.nombre as nombresuc  from tbldistribuidores inner join tblsucursales  on tbldistribuidores.idsucursal = tblsucursales.id  where status in("pro_rev","pro_dic","pro_aut","pro_rec","val","pro_val","pro_valDic","pro_valRev","pro_Apro","pro_Den");';
            $varmesadecred = DB::select($sql);
            return collect($varmesadecred);
         }
 
         public function obtenercfredvalidado(){
-            $varmesadecred = distribuidores::join('tblsucursales','tbldistribuidores.idsucursal','tblsucursales.id')
-            ->select(
-             'tbldistribuidores.id',
-             'tbldistribuidores.status',
-             DB::raw('CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) AS nombre'),
-             'tbldistribuidores.capital',
-             'tbldistribuidores.idsucursal',
-             'tbldistribuidores.capital_autorizado',
-             'tblsucursales.nombre as nombresuc')
-            ->where('tbldistribuidores.status','=','pro_val')
-            ->get();
-            return $varmesadecred;
+            $sql = 'select tbldistribuidores.id ,tbldistribuidores.status,CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) AS nombre, tbldistribuidores.capital, tbldistribuidores.capital_autorizado, tbldistribuidores.idsucursal, tblsucursales.nombre as nombre_suc  from tbldistribuidores inner join tblsucursales  on tbldistribuidores.idsucursal = tblsucursales.id  where status in("pro_valDic","pro_valRev");';
+            $varmesadecred = DB::select($sql);
+            return collect($varmesadecred);
         }
 
         public function obtener_cred_rev_dic(){
-            $sql = 'select distri.id, CONCAT(distri.primer_nombre," ",distri.segundo_nombre," ",distri.apellido_paterno," ",distri.apellido_materno) as nombre, suc.nombre as nombre_suc, distri.capital,distri.status  from tbldistribuidores distri inner join tblsucursales suc on suc.id = distri.idsucursal where status in("pro_rev","pro_dic");';
+            $sql = 'select distri.id, CONCAT(distri.primer_nombre," ",distri.segundo_nombre," ",distri.apellido_paterno," ",distri.apellido_materno) as nombre, suc.nombre as nombre_suc, distri.capital, distri.capital_autorizado, distri.status  from tbldistribuidores distri inner join tblsucursales suc on suc.id = distri.idsucursal where status in("pro_rev","pro_dic");';
             $varmesacred = DB::select($sql);
              return collect($varmesacred);
         }
 
         public function obtenersolicitud(int $id) {
-            $vardistribuidores = distribuidores::join('tblconyuges','tbldistribuidores.id','=','tblconyuges.iddistribuidor')
-                ->join('tblreferencias','tbldistribuidores.id','=','tblreferencias.iddistribuidor')
+            $vardistribuidores = distribuidores::join('tblreferencias','tbldistribuidores.id','=','tblreferencias.iddistribuidor')
                 ->join('tblsucursales','tbldistribuidores.idsucursal','=','tblsucursales.id')
                 ->join('tblpromotores','tbldistribuidores.idpromotor','=','tblpromotores.id')
                 ->join('tblempleados','tblpromotores.idempleado','=','tblempleados.id')
@@ -310,6 +343,11 @@ trait ValeTraits{
                 'tbldistribuidores.id as id_distribuidor', 
                 DB::raw('CONCAT(tbldistribuidores.primer_nombre," ",tbldistribuidores.segundo_nombre," ",tbldistribuidores.apellido_paterno," ",tbldistribuidores.apellido_materno) as nombre'),
                 'tbldistribuidores.fecha_nacimiento as distribuidor_fecha', 
+                'tbldistribuidores.lugar_nacimiento as distribuidor_lugar_nacimiento', 
+                'tbldistribuidores.nacionalidad as distribuidor_nacionalidad', 
+                'tbldistribuidores.status as status',
+                'tbldistribuidores.capital_autorizado as capital_autorizado',
+                'tbldistribuidores.capital as capital',
                 'tbldistribuidores.curp as distribuidor_curp', 
                 'tbldistribuidores.rfc as distribuidor_rfc', 
                 'tbldistribuidores.sexo as distribuidor_sexo', 
@@ -327,7 +365,7 @@ trait ValeTraits{
                 'tbldistribuidores.puesto_empleo as distribuidor_puesto_empleo', 
                 'tbldistribuidores.salario_mensual as distribuidor_salario_mensual', 
                 'tbldistribuidores.antiguedad as distribuidor_antiguedad', 
-                'tbldistribuidores.telefono_empresa as distribuidor_telefono', 
+                'tbldistribuidores.telefono_empresa as empreraDis_telefono', 
                 'tbldistribuidores.direccion_empresa as distribuidor_direccion_empresa', 
                 'tbldistribuidores.egreso_fijomensual as distribuidor_egreso_mensual', 
                 'tbldistribuidores.idestado as distribuidor_idestado',
@@ -336,21 +374,6 @@ trait ValeTraits{
                 'tbldistribuidores.tipo_distribuidor as tipodis',
                 DB::raw('CONCAT(tblempleados.primer_nombre," ",tblempleados.segundo_nombre," ",tblempleados.apellido_paterno," ",tblempleados.apellido_materno) promotor'),
                 'tblciudades.nombre as ciudaddistribuidor',
-
-                'tblconyuges.id as conyuid',
-                DB::raw('CONCAT(tblconyuges.primer_nombre," ",tblconyuges.segundo_nombre," ",tblconyuges.apellido_paterno," ",tblconyuges.apellido_materno) as nombrec'),
-                'tblconyuges.fecha_nacimiento as conyu_fecha_nacimiento',
-                'tblconyuges.curp as conyu_curp',
-                'tblconyuges.rfc as conyu_rfc',
-                'tblconyuges.sexo as coyu_sexo',
-                'tblconyuges.telefono as conyu_telefono',
-                'tblconyuges.lugar_empleo as conyu_lugar_empleo',
-                'tblconyuges.puesto_empleo as conyu_puesto_empleo',
-                'tblconyuges.salario_mensual as conyu_salario_mensual',
-                'tblconyuges.telefono_empresa as conyu_telefono_empresa',
-                'tblconyuges.direccion_empresa as conyu_direccion_empresa',
-                'tblconyuges.egreso_fijomensual as conyu_egreso_fijo_mensual',
-                'tblconyuges.antiguedad as conyu_antiguedad',
 
                 'tblreferencias.id as idrefe',
                 DB::raw('CONCAT(tblreferencias.primer_nombre," ",tblreferencias.segundo_nombre," ",tblreferencias.apellido_paterno," ",tblreferencias.apellido_materno) as nombrer'),
@@ -371,12 +394,63 @@ trait ValeTraits{
                 return $vardistribuidores;
         }
 
+        public function obtenerConyuge(int $id){
+            $varConyu = distribuidores::join('tblconyuges','tbldistribuidores.id','=','tblconyuges.iddistribuidor')
+            ->select(
+            'tblconyuges.id as conyuid',
+            DB::raw('CONCAT(tblconyuges.primer_nombre," ",tblconyuges.segundo_nombre," ",tblconyuges.apellido_paterno," ",tblconyuges.apellido_materno) as nombrec'),
+            'tblconyuges.fecha_nacimiento as conyu_fecha_nacimiento',
+            'tblconyuges.curp as conyu_curp',
+            'tblconyuges.rfc as conyu_rfc',
+            'tblconyuges.sexo as coyu_sexo',
+            'tblconyuges.telefono as conyu_telefono',
+            'tblconyuges.lugar_empleo as conyu_lugar_empleo',
+            'tblconyuges.puesto_empleo as conyu_puesto_empleo',
+            'tblconyuges.salario_mensual as conyu_salario_mensual',
+            'tblconyuges.telefono_empresa as conyu_telefono_empresa',
+            'tblconyuges.direccion_empresa as conyu_direccion_empresa',
+            'tblconyuges.egreso_fijomensual as conyu_egreso_fijo_mensual',
+            'tblconyuges.antiguedad as conyu_antiguedad')
+            ->where('tbldistribuidores.id','=',$id)
+            ->get();
+            return $varConyu;
+        }
+
+
+        public function obtenerConyugeActualizar(int $id){
+            $varConyu = distribuidores::join('tblconyuges','tbldistribuidores.id','=','tblconyuges.iddistribuidor')
+            ->select(
+                'tblconyuges.id as conyuid',
+                'tblconyuges.primer_nombre as conyu_primer_nombre',
+                'tblconyuges.segundo_nombre as conyu_segundo_nombre',
+                'tblconyuges.apellido_paterno as conyu_apellido_paterno',
+                'tblconyuges.apellido_materno as conyu_apellido_materno',
+                'tblconyuges.fecha_nacimiento as conyu_fecha_nacimiento',
+                'tblconyuges.curp as conyu_curp',
+                'tblconyuges.rfc as conyu_rfc',
+                'tblconyuges.sexo as coyu_sexo',
+                'tblconyuges.telefono as conyu_telefono',
+                'tblconyuges.lugar_empleo as conyu_lugar_empleo',
+                'tblconyuges.puesto_empleo as conyu_puesto_empleo',
+                'tblconyuges.salario_mensual as conyu_salario_mensual',
+                'tblconyuges.telefono_empresa as conyu_telefono_empresa',
+                'tblconyuges.direccion_empresa as conyu_direccion_empresa',
+                'tblconyuges.egreso_fijomensual as conyu_egreso_fijo_mensual',
+                'tblconyuges.antiguedad as conyu_antiguedad')
+            ->where('tbldistribuidores.id','=',$id)
+            ->get();
+            return $varConyu;
+        }
+        
+
         public function solicitudaval(int $iddistribuidor){
             $idavalterminaproceso =avales::select(
             'tblavales.id',
             'tblavales.iddistribuidor',
              DB::raw('CONCAT(tblavales.primer_nombre," ",tblavales.segundo_nombre," ",tblavales.apellido_paterno," ",tblavales.apellido_materno) as nombrea'),
             'tblavales.fecha_nacimiento',
+            'tblavales.nacionalidad',
+            'tblavales.lugar_nacimiento',
             'tblavales.curp', 
             'tblavales.rfc', 
             'tblavales.sexo',
@@ -416,10 +490,10 @@ trait ValeTraits{
 
         public function obtener_mensajes(int $iddistribuidor){
 
-        $varobtenermensajes = mensajes::select('tblmensajes_interacciones.id', 'tblmensajes_interacciones.iddistribuidor','tblmensajes_interacciones.texto','tblmensajes_interacciones.tipo_usuario','tblmensajes_interacciones.turno')
-        ->where('tblmensajes_interacciones.iddistribuidor','=',$iddistribuidor)
-        ->get();
-        return $varobtenermensajes;
+            $varobtenermensajes = mensajes::select('tblmensajes_interacciones.id', 'tblmensajes_interacciones.iddistribuidor','tblmensajes_interacciones.texto','tblmensajes_interacciones.tipo_usuario','tblmensajes_interacciones.turno')
+            ->where('tblmensajes_interacciones.iddistribuidor','=',$iddistribuidor)
+            ->get();
+            return $varobtenermensajes;
 
         }
 
@@ -448,6 +522,27 @@ trait ValeTraits{
            ->orderby('tblmensajes_interacciones.id','desc')
            ->get();
            return $varnoti;
+
+
+        //    $condiciones = [
+        //     ['tblmensajes_interacciones.idusuario','!=',$idusuario],
+        //     ['tblempleados.idsucursal','=','tbldistribuidores.idsucursal']
+        // ];
+        // $varnoti = mensajes::join('tbldistribuidores','tbldistribuidores.id','=','tblmensajes_interacciones.iddistribuidor')
+        // ->join('users','tblmensajes_interacciones.idusuario','=','users.id')
+        // ->join('tblempleados','tblempleados.id','=','users.idempleado')
+        // ->select(
+        //    'tblmensajes_interacciones.id',   
+        //    'tblmensajes_interacciones.tipo_usuario',
+        //    'tblmensajes_interacciones.turno',
+        //    'tblmensajes_interacciones.status',
+        //    'tblmensajes_interacciones.texto',
+        //    'tblmensajes_interacciones.iddistribuidor',
+        //    'tblmensajes_interacciones.created_at')
+        //    ->where($condiciones)
+        //    ->orderby('tblmensajes_interacciones.id','desc')
+        //    ->get();
+        //    return $varnoti;
     }
 
     public  function obtenerusuariosxname(string $usuario){
@@ -456,6 +551,7 @@ trait ValeTraits{
         ->get();
         return $varuser;
     }
+
 
    public function obtenerstockvaleras(){
     $sql ="select distinct(v.idsucursal) ,s.nombre, count(case v.status_valera  = 'I'  when 'Error' THEN 1 else NULL end)
@@ -496,147 +592,148 @@ trait ValeTraits{
     ->where($condiciones)
     ->get();
     return  $varvalerasxsuc;
-
    }
 
+    public function validavalexdistribudor(int $iddistribuidor)
+    {
+        $condiciones = [
+            ['tbldistribuidor_valeras.iddistribuidor','=',$iddistribuidor],
+            ['tblvaleras.status_valera','=','A']
+        ];
 
-public function validavalexdistribudor(int $iddistribuidor)
-{
-    $condiciones = [
-        ['tbldistribuidor_valeras.iddistribuidor','=',$iddistribuidor],
-        ['tblvaleras.status_valera','=','A']
-    ];
+        $vardatosvalidafolio = distribuidores_valeras::join('tblvaleras', 'tbldistribuidor_valeras.idvalera','tblvaleras.id')
+        ->join('tbldistribuidores','tbldistribuidor_valeras.iddistribuidor','tbldistribuidores.id')
+        ->select('tblvaleras.id as folio_valera','tblvaleras.folio_inicio','tblvaleras.folio_fin','tbldistribuidores.capital')
+        ->where($condiciones)
+        ->get();
+        return $vardatosvalidafolio;
+    }
 
-    $vardatosvalidafolio = distribuidores_valeras::join('tblvaleras', 'tbldistribuidor_valeras.idvalera','tblvaleras.id')
-    ->join('tbldistribuidores','tbldistribuidor_valeras.iddistribuidor','tbldistribuidores.id')
-    ->select('tblvaleras.id as folio_valera','tblvaleras.folio_inicio','tblvaleras.folio_fin','tbldistribuidores.capital')
-    ->where($condiciones)
+
+
+    public  function idultimocliente(){
+    $sql="select id from tblclientes_vales order by id desc limit 1 ";
+    $stokvales = DB::select($sql);
+    return collect($stokvales);
+    }
+
+    public  function idultimoprestamoenc(){
+        $sql="select id,pagoxplazototalredondeado from tblprestamos_valesenc order by id desc limit 1  ";
+    $stokvales = DB::select($sql);
+    return collect($stokvales);
+    }
+
+    public function obtenerinteresmensualxcapital(int $capital){
+    $interes = monto_capital::select('tblmontos_capital.id','tblmontos_capital.porciento_interes')
+    ->where('tblmontos_capital.cantidad', '=',$capital)
     ->get();
-    return $vardatosvalidafolio;
-}
+    return $interes;
+    }
 
 
-
-public  function idultimocliente(){
-   $sql="select id from tblclientes_vales order by id desc limit 1 ";
-   $stokvales = DB::select($sql);
-   return collect($stokvales);
-}
-
-public  function idultimoprestamoenc(){
-    $sql="select id,pagoxplazototalredondeado from tblprestamos_valesenc order by id desc limit 1  ";
-   $stokvales = DB::select($sql);
-   return collect($stokvales);
-}
-
-public function obtenerinteresmensualxcapital(int $capital){
-$interes = monto_capital::select('tblmontos_capital.id','tblmontos_capital.porciento_interes')
-->where('tblmontos_capital.cantidad', '=',$capital)
-->get();
-return $interes;
-}
-
-
-public function obtenerclientetablaamortizacion(int $idcliente){
-    $clienteamortizacion = cliente_vales::select(
-    'tblclientes_vales.id',
-    'tblclientes_vales.iddistribuidor',
-    'tblclientes_vales.Nombre_completo',
-    'tblclientes_vales.telefono',
-    'tblclientes_vales.direccion')
-    ->where('tblclientes_vales.id', '=',$idcliente)
-    ->get();
-    return  $clienteamortizacion;
-}
-
-
-public function obtenereclienteamortizaciondet(int $idprestamovale){
-    $prestamovaleenc = prestamos_valesdet::select('tblprestamos_valesdet.idprestamo_vales',
-    'tblprestamos_valesdet.plazos',
-    'tblprestamos_valesdet.fecha_pago',
-    'tblprestamos_valesdet.pago_quincenal',
-    'tblprestamos_valesdet.coberturax_plazo',
-    'tblprestamos_valesdet.pago_total',
-    'tblprestamos_valesdet.saldo_nuevo')
-    ->where('tblprestamos_valesdet.idprestamo_vales', '=',$idprestamovale)
-    ->get();
-    return $prestamovaleenc;
-
-}
-
-public function validarfoliovale(int $foliovale){
-    $prestamovaleenc = prestamos_valesenc::select('tblprestamos_valesenc.id','tblprestamos_valesenc.folio_vale')
-    ->where('tblprestamos_valesenc.folio_vale', '=',$foliovale)
-    ->get();
-    return $prestamovaleenc;
-}
-
-public function obtenermontos_capital(){
-    $montosvales = monto_capital::select('tblmontos_capital.id','tblmontos_capital.cantidad')
-    ->get();
-return $montosvales;
-}
-
-
-public function obtenerclientesvales(){
-    $clientesvales = cliente_vales::select('tblclientes_vales.id','tblclientes_vales.status','tblclientes_vales.Nombre_completo','tblclientes_vales.telefono','tblclientes_vales.direccion')
-    ->get();
-    return $clientesvales;
-
-}
-public function validaclientexvaleactual(int $idcliente){
-
-
-    $condiciones = [
-        ['tblprestamos_valesenc.idcliente', '=',$idcliente],
-        ['tblprestamos_valesenc.status','=','A']
-    ];
-
-    $validaclienteprestamo = prestamos_valesenc::select('tblprestamos_valesenc.id','tblprestamos_valesenc.idcliente','tblprestamos_valesenc.folio_vale')
-    ->where($condiciones)
-    ->get();
-    return $validaclienteprestamo;
-    
-}
-
-public function datosdelclientexprestamo(int $idcliente){
-    $clientesvales = cliente_vales::select(
+    public function obtenerclientetablaamortizacion(int $idcliente){
+        $clienteamortizacion = cliente_vales::select(
         'tblclientes_vales.id',
+        'tblclientes_vales.iddistribuidor',
         'tblclientes_vales.Nombre_completo',
-        'tblclientes_vales.fecha_nacimiento',
-        'tblclientes_vales.curp',
-        'tblclientes_vales.rfc',
-        'tblclientes_vales.direccion',
         'tblclientes_vales.telefono',
-        'tblclientes_vales.lugar_trabajo',
-        'tblclientes_vales.telefono_trabajo',
-        'tblclientes_vales.nombre_referencia',
-        'tblclientes_vales.direccion_referencia',
-        'tblclientes_vales.telefono_referencia',
-        'tblclientes_vales.ruta_comprobante_identificacion',
-        'tblclientes_vales.status',
-        'tblclientes_vales.ruta_vale_escaneado',
-        'tblclientes_vales.status')
-    ->where('tblclientes_vales.id','=',$idcliente)
+        'tblclientes_vales.direccion')
+        ->where('tblclientes_vales.id', '=',$idcliente)
+        ->get();
+        return  $clienteamortizacion;
+    }
+
+
+    public function obtenereclienteamortizaciondet(int $idprestamovale){
+        $prestamovaleenc = prestamos_valesdet::select('tblprestamos_valesdet.idprestamo_vales',
+        'tblprestamos_valesdet.plazos',
+        'tblprestamos_valesdet.fecha_pago',
+        'tblprestamos_valesdet.pago_quincenal',
+        'tblprestamos_valesdet.coberturax_plazo',
+        'tblprestamos_valesdet.pago_total',
+        'tblprestamos_valesdet.saldo_nuevo')
+        ->where('tblprestamos_valesdet.idprestamo_vales', '=',$idprestamovale)
+        ->get();
+        return $prestamovaleenc;
+
+    }
+
+    public function validarfoliovale(int $foliovale){
+        $prestamovaleenc = prestamos_valesenc::select('tblprestamos_valesenc.id','tblprestamos_valesenc.folio_vale')
+        ->where('tblprestamos_valesenc.folio_vale', '=',$foliovale)
+        ->get();
+        return $prestamovaleenc;
+    }
+
+    public function obtenermontos_capital(){
+        $montosvales = monto_capital::select('tblmontos_capital.id','tblmontos_capital.cantidad')
+        ->get();
+    return $montosvales;
+    }
+
+
+    public function obtenerclientesvales(){
+        $clientesvales = cliente_vales::select('tblclientes_vales.id','tblclientes_vales.status','tblclientes_vales.Nombre_completo','tblclientes_vales.telefono','tblclientes_vales.direccion')
+        ->get();
+        return $clientesvales;
+
+    }
+    public function validaclientexvaleactual(int $idcliente){
+
+
+        $condiciones = [
+            ['tblprestamos_valesenc.idcliente', '=',$idcliente],
+            ['tblprestamos_valesenc.status','=','A']
+        ];
+
+        $validaclienteprestamo = prestamos_valesenc::select('tblprestamos_valesenc.id','tblprestamos_valesenc.idcliente','tblprestamos_valesenc.folio_vale')
+        ->where($condiciones)
+        ->get();
+        return $validaclienteprestamo;
+        
+    }
+
+    public function datosdelclientexprestamo(int $idcliente){
+        $clientesvales = cliente_vales::select(
+            'tblclientes_vales.id',
+            'tblclientes_vales.Nombre_completo',
+            'tblclientes_vales.fecha_nacimiento',
+            'tblclientes_vales.curp',
+            'tblclientes_vales.rfc',
+            'tblclientes_vales.direccion',
+            'tblclientes_vales.telefono',
+            'tblclientes_vales.lugar_trabajo',
+            'tblclientes_vales.telefono_trabajo',
+            'tblclientes_vales.nombre_referencia',
+            'tblclientes_vales.direccion_referencia',
+            'tblclientes_vales.telefono_referencia',
+            'tblclientes_vales.ruta_comprobante_identificacion',
+            'tblclientes_vales.status',
+            'tblclientes_vales.ruta_vale_escaneado',
+            'tblclientes_vales.status')
+        ->where('tblclientes_vales.id','=',$idcliente)
+        ->get();
+        return $clientesvales;
+    }
+
+    public function obtenerodpxusuariologueado(int $idusuario){
+
+    $odpsxusuario = odpxusuario::join('tbltipo_odp','tblodpxusuario.id_odp','tbltipo_odp.tipo_odp')
+    ->select('tblodpxusuario.id_odp','tbltipo_odp.descripcion','tbltipo_odp.convenio')
+    ->where('tblodpxusuario.idusuario','=',$idusuario)
     ->get();
-    return $clientesvales;
+    return $odpsxusuario;
+
+    }
+
+    public function obtenerodpxid(int $id){
+        $odpsxid = tipo_odp::select('tbltipo_odp.tipo_odp','tbltipo_odp.descripcion','tbltipo_odp.convenio')
+        ->where('tbltipo_odp.tipo_odp','=',$id)
+        ->get();
+    return $odpsxid;
+    }
 }
 
-public function obtenerodpxusuariologueado(int $idusuario){
 
-$odpsxusuario = odpxusuario::join('tbltipo_odp','tblodpxusuario.id_odp','tbltipo_odp.tipo_odp')
-->select('tblodpxusuario.id_odp','tbltipo_odp.descripcion','tbltipo_odp.convenio')
-->where('tblodpxusuario.idusuario','=',$idusuario)
-->get();
-return $odpsxusuario;
 
-}
-
-public function obtenerodpxid(int $id){
-    $odpsxid = tipo_odp::select('tbltipo_odp.tipo_odp','tbltipo_odp.descripcion','tbltipo_odp.convenio')
-    ->where('tbltipo_odp.tipo_odp','=',$id)
-    ->get();
-return $odpsxid;
-}
-}
 

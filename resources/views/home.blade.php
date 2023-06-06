@@ -12,7 +12,7 @@
         <img src="{{ asset('Images/sliderportada.png') }}" class="d-block w-100 carrusel__site" alt="...">
         <div class="carousel-caption text-start  animate__animated animate__backInLeft">
           <div  class="animate__animated animate__flip d-none d-md-block">
-              <img src="{{ asset('images/logo.png') }}" class="size__icon animate__animated animate__flip" width="400px" alt="icon login">
+              <img src="{{ asset('Images/logo.png') }}" class="size__icon animate__animated animate__flip" width="400px" alt="icon login">
           </div>
           <br/>
           <br/>
@@ -49,7 +49,7 @@
 
 
   <div class="text-center img__site animate__animated animate__flipInY">
-    <img src="images/logo2.png" width="350px" class="rounded" alt="...">
+    <img src="Images/logo2.png" width="350px" class="rounded" alt="...">
   </div>
  
 

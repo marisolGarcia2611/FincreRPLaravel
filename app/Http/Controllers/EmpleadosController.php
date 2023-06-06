@@ -70,7 +70,7 @@ class EmpleadosController extends Controller
     public function store(Request $request)
     {
        
-        $ultimoemple =$this->obtenerultimoempleado();
+        
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
 
@@ -115,13 +115,13 @@ class EmpleadosController extends Controller
                 $empleados->estado_civil = $request->get('estado_civil');
                 $empleados->created_at = $fecha;
                 $empleados->fecha_ingreso = $request->get('fecha_alta');
-                $empleados->save();
-        
-        
+               
                 //insertamos en la tabla empleados
+                if($empleados->save()){
+                $ultimoemple =$this->obtenerultimoempleado();
                 $nominas = new nominas();
                 $nominas->idempresa=$request->get('cmbempresas');
-                $nominas->idempleado=$ultimoemple->id+1;
+                $nominas->idempleado=$ultimoemple->id;
                 $nominas->idbancos=$request->get('banco');
                 $nominas->salario_bruto=$request->get('salario_bruto');
                 $nominas->salario_neto=$request->get('salario_neto');
@@ -141,7 +141,7 @@ class EmpleadosController extends Controller
                 $nominas->save();
                 copy($file, $ruta);
                 return redirect()->route('verempleados')->with("success","¡Se guardaron los cambios correctamente!");
-                
+                }
             }else{
                 return redirect()->route('verempleados')->with("PDFwarning","¡Se guardaron los cambios correctamente!");
             }

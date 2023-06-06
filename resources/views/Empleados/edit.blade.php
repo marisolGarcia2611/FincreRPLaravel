@@ -1,20 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<!--INICIO BUTON AREA-->
-<div class="pos__btnBack">
-  <div class="wrapper"> 
-    <h5 class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
-  </div>
-      <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <defs>
-              <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-                  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-              </filter>
-          </defs>
-      </svg>
-  </div>
-  <!--FIN BUTON AREA-->  
+<div id="btnBack"></div>  
+<div class="pos__ico">
+    <img class="ico__image2" src="{{ asset('ico/logo.png') }}" alt="fincreLaguna">
+</div>
+
 
 
 @foreach($obtenerempleado as $empleado)
@@ -728,26 +718,9 @@
 @endforeach
 
 
-<script>
-  // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
-  (function () {
-    'use strict'
-
-    // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
-    var forms = document.querySelectorAll('.needs-validation')
-    // Bucle sobre ellos y evitar el envío
-    Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-          form.classList.add('was-validated')
-        }, false)
-      })
-  })()
-</script>
+<script src="{{ asset('js/btnBack1.js') }}"></script>
+<script src="{{ asset('js/validation.js') }}"></script>
+<script src="{{ asset('js/validaPDF.js')}}"></script>
 
 
 @endsection

@@ -41,8 +41,7 @@
                             <div class="col">
                                 <div class="form-outline">
                                 <div class="input-group">
-                                    <div class="input-group-text labelInv">No. Distribuidor</div>
-                                    <input type="text" name="id" class="form-control inputInv" value="{{$iddis}}"  required>
+                                    <input type="text" name="id" hidden class="form-control inputInv" value="{{$iddis}}"  required>
                                     <div class="valid-feedback">
                                     ¡Se ve bien!
                                     </div>
@@ -71,7 +70,7 @@
                         <div class="col">
                             <div class="form-outline">
                             <label class="form-label" for="form8Example4">Segundo Nombre</label>
-                                <input type="text"  class="form-control" name="segundo_nombre" id="segundo_nombre"  value=""  maxlength="15" required />
+                                <input type="text"  class="form-control" name="segundo_nombre" id="segundo_nombre"  maxlength="15" />
                                 <div class="valid-feedback">
                                 ¡Se ve bien!
                                 </div>
@@ -109,36 +108,6 @@
                     </div>
   
                     <div class="row mt-3">
-                    
-                    <div class="col">
-                        <div class="form-outline">
-                        <label class="form-label" for="form8Example4">Fecha de Nacimiento</label>
-                            <input type="date"  class="form-control" name="fecha_nac" id="fecha_nac"  minlength="" maxlength="" required />
-                            <div class="valid-feedback">
-                            ¡Se ve bien!
-                            </div>
-                            <div class="invalid-feedback">
-                            Por favor, completa la información requerida.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                            <div class="form-outline">
-                            <label class="form-label" for="form8Example4">Sexo</label>
-                                <select class="form-select" name="sexo" id="sex" required>
-                                    <option value="">Seleccionar...</option>
-                                    <option value="F">F</option>
-                                    <option value="M">M</option>
-                                </select>
-                                <div class="valid-feedback">
-                                ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                                </div>
-                            </div>
-                    </div>
 
                     <div class="col">
                         <div class="form-outline">
@@ -157,6 +126,64 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Sexo</label>
+                            <select class="form-select" name="sexo" id="sex" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="F">F</option>
+                                <option value="M">M</option>
+                            </select>
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Fecha de Nacimiento</label>
+                            <input type="date"  class="form-control" name="fecha_nac" id="fecha_nac"  minlength="" maxlength="" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Lugar de Nacimiento</label>
+                            <input type="text"  class="form-control" name="lugar_nacimiento" id="" maxlength="50" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Nacionalidad</label>
+                            <input type="text"  class="form-control" name="nacionalidad" id="" maxlength="50" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="col">
                             <div class="form-outline">
@@ -288,7 +315,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-outline">
-                            <label class="form-label" for="form8Example4">Empleo</label>
+                            <label class="form-label" for="form8Example4">Lugar de Empleo</label>
                                 <input type="text"  class="form-control" name="lugar_empleo" id="lugar_empleo" maxlength="30" required />
                                 <div class="valid-feedback">
                                 ¡Se ve bien!

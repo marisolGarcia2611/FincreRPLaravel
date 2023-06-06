@@ -1,22 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
-<!--INICIO BUTON AREA-->
-<div class="pos__btnBack">
-    <div class="wrapper"> 
-        <h5 class="btnBack" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
-    </div>
-        <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <defs>
-                <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
-                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-                </filter>
-            </defs>
-        </svg>
-    </div>
-<!--FIN BUTON AREA-->  
+<div id="btnBack"></div>  
 
 
 <style> *{Font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif; }</style>
@@ -30,6 +15,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="{{ asset('js/btnBack2.js') }}"></script>
 <script>
   
     Highcharts.chart('grafica', {

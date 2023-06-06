@@ -4,7 +4,7 @@ use App\Models\Puestos;
 use App\Models\Sucursales;
 use App\Models\Ciudades;
 use App\Models\Empresas;
-use App\Models\empleados;
+use App\Models\Empleados;
 use App\Models\bancos;
 use App\Models\tipo_descuento_infonavit;
 use App\Models\Nominas_pagosenc;

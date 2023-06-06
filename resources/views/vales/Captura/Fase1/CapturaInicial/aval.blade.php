@@ -58,7 +58,7 @@
                           <div class="col">
                               <div class="form-outline">
                                <label class="form-label" for="form8Example4">Segundo Nombre</label>
-                                  <input type="text"  class="form-control" name="segundo_nombre" id="segundo_nombre"  value=""  maxlength="15" required />
+                                  <input type="text"  class="form-control" name="segundo_nombre" id="segundo_nombre"  maxlength="15"/>
                                   <div class="valid-feedback">
                                   ¡Se ve bien!
                                   </div>
@@ -96,38 +96,7 @@
                       </div>
   
                       <div class="row mt-3">
-                        
-                        <div class="col">
-                            <div class="form-outline">
-                            <label class="form-label" for="form8Example4">Fecha de Nacimiento</label>
-                                <input type="date"  class="form-control" name="fecha_nac" id="fecha_nac"  minlength="" maxlength="" required />
-                                <div class="valid-feedback">
-                                ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Sexo</label>
-                                  <select class="form-select" name="sexo" id="sex" required>
-                                    <option value="">Seleccionar...</option>
-                                      <option value="F">F</option>
-                                      <option value="M">M</option>
-                                  </select>
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                        </div>
-
-                        <div class="col">
+                        <div class="col-md-2">
                             <div class="form-outline">
                             <label class="form-label" for="form8Example4">Estado Civil</label>
                                 <select class="form-select" name="estado_civil" id="estado_civil" required>
@@ -144,7 +113,65 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Sexo</label>
+                                <select class="form-select" name="sexo" id="sex" required>
+                                  <option value="">Seleccionar...</option>
+                                    <option value="F">F</option>
+                                    <option value="M">M</option>
+                                </select>
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Fecha de Nacimiento</label>
+                                <input type="date"  class="form-control" name="fecha_nac" id="fecha_nac"  minlength="" maxlength="" required />
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Lugar de Nacimiento</label>
+                                <input type="text"  class="form-control" name="lugar_nacimiento" id="" maxlength="50" required />
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Nacionalidad</label>
+                                <input type="text"  class="form-control" name="nacionalidad" id="" maxlength="50" required />
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                        </div>
+
+                      
                         <div class="col">
                                 <div class="form-outline">
                                 <label class="form-label" for="form8Example4">Telefono</label>
@@ -188,8 +215,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                     
+                    </div>           
                             
                       <div class="row mt-3">
 
@@ -205,6 +231,19 @@
                                     </div>
                                 </div>
                         </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                             <label class="form-label" for="form8Example4">Colonia</label>
+                                <input type="text"  class="form-control" name="colonia" id="colonia"  maxlength="60" required />
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="col">
                             <div class="form-outline">
@@ -218,24 +257,11 @@
                                 </div>
                             </div>
                         </div>
-       
-                        <div class="col">
-                            <div class="form-outline">
-                             <label class="form-label" for="form8Example4">Colonia</label>
-                                <input type="text"  class="form-control" name="colonia" id="colonia"  maxlength="60" required />
-                                <div class="valid-feedback">
-                                ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                                </div>
-                            </div>
-                        </div>
                   
                         <div class="col">
                             <div class="form-outline">
                             <label class="form-label" for="form8Example4">Numero Interior</label>
-                                <input type="text"  class="form-control" name="numero_interior" id="numero_interior" placeholder="#00" maxlength="10" />
+                                <input type="text"  class="form-control" name="numero_interior" id="numero_interior" placeholder="#00"  maxlength="10"/>
                                 <div class="valid-feedback">
                                 ¡Se ve bien!
                                 </div>

@@ -22,6 +22,13 @@
           echo '</script>';  
   @endphp
 
+@elseif($mensaje = Session::get('successMesaCredito'))
+  @php
+          echo '<script language="JavaScript">';
+          echo 'swal("¡Acción exitosa!","Ahora sigue el proceso en el apartado "Creditos en Dictamen"","success", {buttons: false,timer: 5000});';
+          echo '</script>';  
+  @endphp
+
 @endif
 {{-- ALERTAS --}}
 
@@ -105,7 +112,6 @@
             <thead class="table">
                   <tr class="tr-table"> 
                     <th class="text-center fw-light">Herramienta</th>
-                    <th class="text-center fw-light">Documentos</th>
                     <th class="text-center fw-light">Progreso</th>                
                     <th class="text-center fw-light">Acción</th>
                     <th class="text-center fw-light">No. Distribuidor </th>
@@ -123,28 +129,24 @@
                     @if($dis->estado_captura==3)
                     <td class="bg-0">
                     <form action="/vales/getactualizardistribuidor/{{$dis->id}}">
-                      <button class="text-s btn fas fa-edit bor"  type="submit"></button>
+                      <button class="text-s btn fas fa-edit bor" title="Editar" type="submit"></button>
                       </form>
                       </td>
                     @elseif($dis->estado_captura==1)
                     <td class="bg-0">
                       <form action="/vales/Termina_Proceso_aval/{{$dis->id}}">
-                        <button class="text-s btn fa-solid fa-list-ol bor" type="submit"></button>
+                        <button class="text-s btn fa-solid fa-list-ol bor" title="Terminar Proceso" type="submit"></button>
                       </form>
                       </td>
                     @elseif($dis->estado_captura==2)
                     <td class="bg-0">
                       <form action="/vales/Termina_Proceso_documentos/{{$dis->id}}">
-                        <button class="text-s btn fa-solid fa-list-ol bor" type="submit"></button>
+                        <button class="text-s btn fa-solid fa-list-ol bor" title="Terminar Proceso" type="submit"></button>
                       </form>
                       </td>
                     @endif
                   </td>
-                  <td class="bg-0">
-                    <form action="{{route('vales.getverdoc', $dis->id) }}">
-                          <button class="text-s btn fa-solid fa-eye bor" type="submit"></button>
-                    </form>
-                  </td>
+                  
 
                   <td class="bg-0">
                     <div class="progress">
@@ -164,20 +166,15 @@
                   </td>
 
                   <td class="bg-0">
-                    @if($dis->estado_captura==3 && $dis->status =="pro_rev")
+                    @if($dis->estado_captura==3 && $dis->status =="pro")
                       <center>
                             <form action="/vales/enviaramesa_credito/{{$dis->id}}">
-                                  <button class="btn btn-warning fs-9 rounded-5" type="submit"><i class="fa-solid fa-gavel"></i> Dictamen</button>
+                                  <button class="btn btn-warning fs-9 rounded-5 text-secondary" type="submit"><i class="fa-solid fa-gavel"></i> Enviar</button>
                             </form>
                       </center>
-                    @endif
-                    @if($dis->estado_captura==3 && $dis->status =='pro_obs')
-                      <center>
-                            <form action="/vales/enviaramesa_credito_act/{{$dis->id}}">
-                                    <button class="btn btn-warning fs-9 rounded-5" type="submit"><i class="fa-brands fa-slack"></i> Enviar Mesa Crédito</button>
-                            </form>
-                      </center>
-                    @endif
+                    @else
+                      <p class="fs-8 text-secondary fw-light fst-italic"><i class="fa-solid fa-circle-exclamation"></i> Termine Proceso</p>
+                    @endif       
                   </td>
 
                   <td class="table-light text-secondary">{{$dis->id}}</td>

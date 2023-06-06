@@ -47,13 +47,8 @@
 <h4>Monto a financiar con intereses ${{$pago_total}}</h4>
 <h4>Monto a financiar sin intereses ${{$monto}}</h4>
 @endforeach
-
-
-
 <br>
 <br>
-
-
 
 <center class="mb-4">
       <div class="shadow-lg mb-5 bg-body rounded border-0" style="margin:20px;width:95%;">

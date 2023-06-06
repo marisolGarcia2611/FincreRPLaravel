@@ -23,11 +23,14 @@
         <h5 class="btnBack1" onClick="history.go(-1);"><i class="fas fa-solid fa-arrow-left"></i></h5>
         </div>
 </div>
+<div class="pos__ico">
+    <img class="ico__image" src="{{ asset('ico/valeMil.png') }}" alt="valeMil">
+</div>
 
 <!-- Menu de progreso-->
 <div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">
     <div class="mt-2">
-        <h5 class="fw-light">Fase 1: Actualización de Crédito  <button class="btn border-0 text-secondary" id="show2" onclick="divshow2()"><i class="fa-solid fa-minus"></i></button></h5>
+        <h5 class="fw-light">Fase 1: Actualización de Captura Inicial   <button class="btn border-0 text-secondary" id="show2" onclick="divshow2()"><i class="fa-solid fa-minus"></i></button></h5>
         <div>
             <nav id="navbar">
                 <div class="row p-3">
@@ -95,103 +98,58 @@
             </div>
            
 
-              <div id="caja1">
+            <div id="caja1">
             
        
-              @foreach($varobtenerdatosaval as $datos) 
-              
-              <div class="row mt-3">
-                          <div class="col-md-2">
-                              <div class="form-outline">
-                                <div class="input-group">
-                                    <div class="input-group-text labelInv">Numero de aval</div>
-                                    <input type="text" name="numero_aval" id="numero_aval" class="form-control inputInv" value="{{$datos->id}}"  required>
-                                    <div class="valid-feedback">
-                                    ¡Se ve bien!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                    Por favor, completa la información requerida.
-                                    </div>
-                                </div>
-                              </div>
-                          </div>
-
-                          <div class="col-md-2">
+              @foreach($varobtenerdatosaval as $datos)   
+                <div class="row mt-3">
+                        <div class="col-md-2">
                             <div class="form-outline">
-                                <div class="input-group">
-                                    <div class="input-group-text labelInv">No. Distribuidor</div>
-                                    <input type="text" name="numero_dis" class="form-control inputInv" value="{{$iddis}}"  required>
-                                    <div class="valid-feedback">
-                                    ¡Se ve bien!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                    Por favor, completa la información requerida.
-                                    </div>
-                                </div> 
+                            <div class="input-group">
+                                <input type="text" name="numero_aval" hidden id="numero_aval" class="form-control inputInv" value="{{$datos->id}}"  required>
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                        <div class="form-outline">
+                            <div class="input-group">
+                                <input type="text" name="numero_dis" hidden class="form-control inputInv" value="{{$iddis}}"  required>
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div> 
+                        </div>
+                    </div> 
+                    <div class="col-md-3">
+                        <div class="form-outline">
+                        <div class="input-group">
+                            <input type="text" class="form-control inputInv" hidden name="status" value="{{$datos->status}}" required>
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
                             </div>
                         </div> 
+                        </div>
+                    </div>  
                 </div>  
 
-                 <div class="row mt-3">
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Primer Nombre</label>
-                                  <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"  value="{{$datos->primer_nombre}}" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-  
-                          <div class="col">
-                              <div class="form-outline">
-                               <label class="form-label" for="form8Example4">Segundo Nombre</label>
-                                  <input type="text"  class="form-control" name="segundo_nombre" id="segundo_nombre" value="{{$datos->segundo_nombre}}" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-  
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Apellido Parterno</label>
-                                  <input type="text"  class="form-control" name="apellido_paterno" id="apellido_paterno" value="{{$datos->apellido_paterno}}"  required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-  
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Apellido Materno</label>
-                                  <input type="text"  class="form-control" name="apellido_materno" id="apellido_materno"   value="{{$datos->apellido_materno}}" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-  
-                      <div class="row mt-3">
-                        
+                <div class="row mt-3">
                         <div class="col">
                             <div class="form-outline">
-                            <label class="form-label" for="form8Example4">Fecha de Nacimiento</label>
-                                <input type="date"  class="form-control" name="fecha_nac" id="fecha_nac"  value="{{$datos->fecha_nacimiento}}" required />
+                            <label class="form-label" for="form8Example4">Primer Nombre</label>
+                                <input type="text"  class="form-control" name="primer_nombre" id="primer_nombre"  value="{{$datos->primer_nombre}}" required />
                                 <div class="valid-feedback">
                                 ¡Se ve bien!
                                 </div>
@@ -202,31 +160,9 @@
                         </div>
 
                         <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Sexo</label>
-                                  <select class="form-select" name="sexo" id="sex" required>
-                                      <option  value="{{$datos->sexo}}" >{{$datos->sexo}}</option>
-                                      <option value="F">F</option>
-                                      <option value="M">M</option>
-                                  </select>
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                        </div>
-
-                        <div class="col">
                             <div class="form-outline">
-                            <label class="form-label" for="form8Example4">Estado Civil</label>
-                                <select class="form-select" name="estado_civil" id="estado_civil" required>
-                                    <option value="{{$datos->estado_civil}}">{{$datos->estado_civil}}</option>
-                                    <option value="SOLTERO">Soltero</option>
-                                    <option value="CASADO">Casado</option>
-                                    <option value="UNION_LIBRE">Unión Libre</option>
-                                </select>
+                            <label class="form-label" for="form8Example4">Segundo Nombre</label>
+                                <input type="text"  class="form-control" name="segundo_nombre" id="segundo_nombre" value="{{$datos->segundo_nombre}}"  required/>
                                 <div class="valid-feedback">
                                 ¡Se ve bien!
                                 </div>
@@ -237,229 +173,331 @@
                         </div>
 
                         <div class="col">
-                                <div class="form-outline">
-                                <label class="form-label" for="form8Example4">Telefono</label>
-                                    <input type="text"  class="form-control" name="telefono" id="telefono" value="{{$datos->telefono}}" maxlength="10" required />
-                                    <div class="valid-feedback">
-                                    ¡Se ve bien!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                    Por favor, completa la información requerida.
-                                    </div>
-                                </div>
-                        </div>
-
-                        
-                     </div>
-
-                    <div class="row mt-3">
-
-                        <div class="col">
-                                <div class="form-outline">
-                                <label class="form-label" for="form8Example4">CURP</label>
-                                <input type="text" name="curp" id="curp" class="form-control"  value="{{$datos->telefono}}" required />
-                                    <div class="valid-feedback">
-                                    ¡Se ve bien!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                    Por favor, completa la información requerida.
-                                    </div>
-                                </div>
-                        </div>
-
-                        <div class="col">
                             <div class="form-outline">
-                                <label class="form-label" for="form8Example4">RFC</label>
-                                <input type="text" name="rfc" id="rfc" class="form-control" value="{{$datos->rfc}}" maxlength="13" required/>
+                            <label class="form-label" for="form8Example4">Apellido Parterno</label>
+                                <input type="text"  class="form-control" name="apellido_paterno" id="apellido_paterno" value="{{$datos->apellido_paterno}}"  required />
                                 <div class="valid-feedback">
                                 ¡Se ve bien!
                                 </div>
                                 <div class="invalid-feedback">
                                 Por favor, completa la información requerida.
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Apellido Materno</label>
+                                <input type="text"  class="form-control" name="apellido_materno" id="apellido_materno"   value="{{$datos->apellido_materno}}" required />
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                        </div>
+                </div>
+  
+                <div class="row mt-3">
+                <div class="col">
+                    <div class="form-outline">
+                    <label class="form-label" for="form8Example4">Estado Civil</label>
+                        <select class="form-select" name="estado_civil" id="estado_civil" required>
+                            <option value="{{$datos->estado_civil}}">{{$datos->estado_civil}}</option>
+                            <option value="SOLTERO">Soltero</option>
+                            <option value="CASADO">Casado</option>
+                            <option value="UNION_LIBRE">Unión Libre</option>
+                        </select>
+                        <div class="valid-feedback">
+                        ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                        Por favor, completa la información requerida.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-outline">
+                    <label class="form-label" for="form8Example4">Sexo</label>
+                        <select class="form-select" name="sexo" id="sex" required>
+                            <option  value="{{$datos->sexo}}" >{{$datos->sexo}}</option>
+                            <option value="F">F</option>
+                            <option value="M">M</option>
+                        </select>
+                        <div class="valid-feedback">
+                        ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                        Por favor, completa la información requerida.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="form-outline">
+                    <label class="form-label" for="form8Example4">Fecha de Nacimiento</label>
+                        <input type="date"  class="form-control" name="fecha_nac" id="fecha_nac"  value="{{$datos->fecha_nacimiento}}" required />
+                        <div class="valid-feedback">
+                        ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                        Por favor, completa la información requerida.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-outline">
+                    <label class="form-label" for="form8Example4">Lugar de Nacimiento</label>
+                        <input type="text"  class="form-control" name="lugar_nacimiento" value="{{$datos->lugar_nacimiento}}" maxlength="50" required />
+                        <div class="valid-feedback">
+                        ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                        Por favor, completa la información requerida.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-outline">
+                    <label class="form-label" for="form8Example4">Nacionalidad</label>
+                        <input type="text"  class="form-control" name="nacionalidad" value="{{$datos->nacionalidad}}" maxlength="50" required />
+                        <div class="valid-feedback">
+                        ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback">
+                        Por favor, completa la información requerida.
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" for="form8Example4">CURP</label>
+                            <input type="text" name="curp" id="curp" class="form-control"  value="{{$datos->telefono}}" required />
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label" for="form8Example4">RFC</label>
+                            <input type="text" name="rfc" id="rfc" class="form-control" value="{{$datos->rfc}}" maxlength="13" required/>
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
                             </div>
                         </div>
                     </div>
+                </div>
+                                
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Telefono</label>
+                            <input type="text"  class="form-control" name="telefono" id="telefono" value="{{$datos->telefono}}" maxlength="10" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Ciudad</label>
+                            <select class="form-select" name="ciudad" id="ciudad" required>
+                            @foreach($varciudades as $ciudad)
+                            @if($ciudad->id ==$datos->ciudad)
+                            <option selected value="{{$ciudad->id}}">{{$ciudad->nombre}}</option>
+                            @else
+                            <option value="{{$ciudad->id}}">{{$ciudad->nombre}}</option>
+                            @endif
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                            <div class="form-outline">
+                            <label class="form-label" for="form8Example4">CP</label>
+                                <input type="text"  class="form-control" name="codigo_postal" id="codigo_postal"  value="{{$datos->codigo_postal}}" maxlength="6" required />
+                                <div class="valid-feedback">
+                                ¡Se ve bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                Por favor, completa la información requerida.
+                                </div>
+                            </div>
+                    </div>
+                </div>
                      
                             
-                      <div class="row mt-3">
-
-                        <div class="col">
-                                <div class="form-outline">
-                                <label class="form-label" for="form8Example4">CP</label>
-                                    <input type="text"  class="form-control" name="codigo_postal" id="codigo_postal"  value="{{$datos->codigo_postal}}" maxlength="6" required />
-                                    <div class="valid-feedback">
-                                    ¡Se ve bien!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                    Por favor, completa la información requerida.
-                                    </div>
-                                </div>
-                        </div>
-                        
-                        <div class="col">
-                            <div class="form-outline">
-                                <label class="form-label" for="form8Example4">Calle</label>
-                                <input type="text"  class="form-control" name="calle" id="calle" value="{{$datos->calle}}" required />
-                                <div class="valid-feedback">
-                                ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Calle</label>
+                            <input type="text"  class="form-control" name="calle" id="calle" value="{{$datos->calle}}" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
                             </div>
                         </div>
-       
-                        <div class="col">
-                            <div class="form-outline">
-                             <label class="form-label" for="form8Example4">Colonia</label>
-                                <input type="text"  class="form-control" name="colonia" id="colonia" value="{{$datos->colonia}}" required />
-                                <div class="valid-feedback">
-                                ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                                </div>
+                    </div>
+    
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label" for="form8Example4">Colonia</label>
+                            <input type="text"  class="form-control" name="colonia" id="colonia" value="{{$datos->colonia}}" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
                             </div>
                         </div>
-                  
-                        <div class="col">
-                            <div class="form-outline">
-                            <label class="form-label" for="form8Example4">Numero Interior</label>
-                                <input type="text"  class="form-control" name="numero_interior" id="numero_interior" value="{{$datos->numero_interior}}" />
-                                <div class="valid-feedback">
-                                ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="form-outline">
-                            <label class="form-label" for="form8Example4">Numero Exterior</label>
-                                <input type="text"  class="form-control" name="numero_exterior" id="numero_exterior" value="{{$datos->numero_exterior}}" required />
-                                <div class="valid-feedback">
-                                ¡Se ve bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                Por favor, completa la información requerida.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Ciudad</label>
-                              <select class="form-select" name="ciudad" id="ciudad" required>
-                              @foreach($varciudades as $ciudad)
-                              @if($ciudad->id ==$datos->ciudad)
-                              <option selected value="{{$ciudad->id}}">{{$ciudad->nombre}}</option>
-                              @else
-                              <option value="{{$ciudad->id}}">{{$ciudad->nombre}}</option>
-                              @endif
-                              @endforeach
-                              </select>
-                          </div>
-                        </div>
-                      </div>
+                    </div>
                 
-                      <div class="row mt-3">
-                          <div class="col">
-                              <div class="form-outline">
-                               <label class="form-label" for="form8Example4">Empleo</label>
-                                  <input type="text"  class="form-control" name="lugar_empleo" id="lugar_empleo" value="{{$datos->lugar_empleo}}"" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-  
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Puesto de Empleo</label>
-                                  <input type="text"  class="form-control" name="puesto_empleo" id="puesto_empleo" maxlength="30" value="{{$datos->puesto_empleo}}" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>  
-  
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Salario Mensual</label>
-                                  <input type="text"  class="form-control" name="salario_mensual" id="salarioMensual" maxlength="20" value="{{$datos->salario_mensual}}" maxlength="10" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-                          
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Egreso Fijo Mensual</label>
-                                  <input type="text"  class="form-control" name="egreso_mensual" id="egresoFijoMensual" maxlength="20" value="{{$datos->egreso_fijomensual}}" maxlength="10" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-  
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Antiguedad</label>
-                                  <input type="text"  class="form-control" name="antiguedad" id="antiguedad"  maxlength="20" value="{{$datos->antiguedad}}" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-  
-                      <div class="row mt-3">
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Telefono de Empleo</label>
-                                  <input type="text"  class="form-control" name="telefono_empleo" id="telefono_empleo"  maxlength="10" value="{{$datos->telefono_empresa}}" maxlength="10" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>
-  
-                          <div class="col">
-                              <div class="form-outline">
-                              <label class="form-label" for="form8Example4">Dirección de Empleo</label>
-                                  <input type="text"  class="form-control" name="direccion_empleo" id="direccion_empleo"  maxlength="50" value="{{$datos->direccion_empresa}}" required />
-                                  <div class="valid-feedback">
-                                  ¡Se ve bien!
-                                  </div>
-                                  <div class="invalid-feedback">
-                                  Por favor, completa la información requerida.
-                                  </div>
-                              </div>
-                          </div>     
-                      </div>
-              </div>
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Numero Interior</label>
+                            <input type="text"  class="form-control" name="numero_interior" id="numero_interior" value="{{$datos->numero_interior}}" required/>
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Numero Exterior</label>
+                            <input type="text"  class="form-control" name="numero_exterior" id="numero_exterior" value="{{$datos->numero_exterior}}" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Lugar de Empleo</label>
+                            <input type="text"  class="form-control" name="lugar_empleo" id="lugar_empleo" value="{{$datos->lugar_empleo}}"" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Puesto de Empleo</label>
+                            <input type="text"  class="form-control" name="puesto_empleo" id="puesto_empleo" maxlength="30" value="{{$datos->puesto_empleo}}" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Salario Mensual</label>
+                            <input type="text"  class="form-control" name="salario_mensual" id="salarioMensual" maxlength="20" value="{{$datos->salario_mensual}}" maxlength="10" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Egreso Fijo Mensual</label>
+                            <input type="text"  class="form-control" name="egreso_mensual" id="egresoFijoMensual" maxlength="20" value="{{$datos->egreso_fijomensual}}" maxlength="10" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Antiguedad</label>
+                            <input type="text"  class="form-control" name="antiguedad" id="antiguedad"  maxlength="20" value="{{$datos->antiguedad}}" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Telefono de Empleo</label>
+                            <input type="text"  class="form-control" name="telefono_empleo" id="telefono_empleo"  maxlength="10" value="{{$datos->telefono_empresa}}" maxlength="10" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+                        <label class="form-label" for="form8Example4">Dirección de Empleo</label>
+                            <input type="text"  class="form-control" name="direccion_empleo" id="direccion_empleo"  maxlength="50" value="{{$datos->direccion_empresa}}" required />
+                            <div class="valid-feedback">
+                            ¡Se ve bien!
+                            </div>
+                            <div class="invalid-feedback">
+                            Por favor, completa la información requerida.
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+            </div>
         </div>
 
         @endforeach 

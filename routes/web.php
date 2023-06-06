@@ -31,9 +31,9 @@ use Illuminate\Support\Facades\Route;
    Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos');
    Route::get('/Empleados',[App\Http\Controllers\EmpleadosController::class, 'index'])->name('verempleados');
    Route::get('/Empleados/create',[App\Http\Controllers\EmpleadosController::class, 'create'])->name('create');
-   Route::post('Empleados/store', 'App\Http\Controllers\EmpleadosController@store')->name('Empleados.store');  
-   Route::post('Empleados/contratoSubir', 'App\Http\Controllers\EmpleadosController@contratoSubir')->name('Empleados.contratoSubir'); 
-   Route::post('Empleados/bajas', 'App\Http\Controllers\EmpleadosController@bajas')->name('Empleados.bajas');
+   Route::post('/Empleados/store', 'App\Http\Controllers\EmpleadosController@store')->name('Empleados.store');  
+   Route::post('/Empleados/contratoSubir', 'App\Http\Controllers\EmpleadosController@contratoSubir')->name('Empleados.contratoSubir'); 
+   Route::post('/Empleados/bajas', 'App\Http\Controllers\EmpleadosController@bajas')->name('Empleados.bajas');
    Route::get('/Empleados/{id}/edit','App\Http\Controllers\EmpleadosController@edit')->name('Empleados.edit');
    Route::put('/Empleados/Update/{id}','App\Http\Controllers\EmpleadosController@cambiar')->name('cambiar');
    Route::get('/Empleados/editBaja/{id}','App\Http\Controllers\EmpleadosController@editarBaja');
@@ -98,27 +98,38 @@ use Illuminate\Support\Facades\Route;
     Route::get('/vales/actualizar_avalup/{id}', 'App\Http\Controllers\valesController@actualizar_avalup')->name('vales.actualizar_avalup');
     Route::post('/vales/actualizar_documentos/', 'App\Http\Controllers\valesController@actualizar_documentos')->name('vales.actualizar_documentos');
     Route::get('/vales/actualizar_docup/{iddistribuidor}/{idava}', 'App\Http\Controllers\valesController@actualizar_docup')->name('vales.actualizar_docup');
-    
     Route::get('/vales/getactualizardistribuidor/{id}', 'App\Http\Controllers\valesController@getactualizardistribuidor')->name('vales.getactualizardistribuidor');
-    Route::get('/vales/enviaramesa_credito/{id}', 'App\Http\Controllers\ValesController@enviaramesa_credito')->name('vales.enviaramesa_credito');
-    Route::get('/vales/enviaramesa_credito_act/{id}', 'App\Http\Controllers\ValesController@enviaramesa_credito_act')->name('vales.enviaramesa_credito_act');
+    Route::get('/vales/enviaramesa_credito/{id}', 'App\Http\Controllers\valesController@enviaramesa_credito')->name('vales.enviaramesa_credito');
+    Route::get('/vales/enviaramesa_credito_act/{id}', 'App\Http\Controllers\valesController@enviaramesa_credito_act')->name('vales.enviaramesa_credito_act');
+
+
+    Route::get('/vales/iniciarValidacion/{id}', 'App\Http\Controllers\valesController@iniciarValidacion')->name('vales.iniciarValidacion');
+    Route::post('/vales/GuardarDocVal','App\Http\Controllers\valesController@guardar_docVal')->name('vales.guardar_docVal');
+    Route::get('/vales/enviaramesa_credito_val/{id}', 'App\Http\Controllers\valesController@enviaramesa_credito_val')->name('vales.enviaramesa_credito_val');
+    Route::get('/validacion/guardar_observacionesVal', 'App\Http\Controllers\valesController@guardar_observacionesVal')->name('guardar_observacionesVal');
+    Route::get('/denegar_validacion/{iddis}', 'App\Http\Controllers\valesController@denegar_validacion')->name('denegar_validacion');
+    Route::get('/aprobar_validacion/{iddis}', 'App\Http\Controllers\valesController@aprobar_validacion')->name('aprobar_validacion');
+    Route::get('/vales/getactualizarValidacion/{id}', 'App\Http\Controllers\valesController@getactualizarValidacion')->name('vales.getactualizarValidacion');
+    Route::get('/vales/getSubirDocVal/{id}', 'App\Http\Controllers\valesController@getSubirDocVal')->name('vales.getSubirDocVal');
+    Route::post('/vales/validacioActualizarDocumentos/', 'App\Http\Controllers\valesController@validacion_actualizarDocumentos')->name('vales.validacion_actualizarDocumentos');
 
     // Area de creditos--------------------------------------------------------------------------------------------------
-    Route::get('/vales/GestionFase2', 'App\Http\Controllers\ValesController@getGestionFase2')->name('getGestionFase2');
-    Route::get('/vales/GestionFase2/EditarDistribuidor', 'App\Http\Controllers\ValesController@getEditDistribuidor')->name('getEditDistribuidor');
-    Route::get('/vales/GestionFase2/SolicitudMesaCredito/{id}', 'App\Http\Controllers\ValesController@getSolicitudMesaCredito')->name('getSolicitudMesaCredito');
-    Route::get('/vales/GestionFase2/CreditosDictamen', 'App\Http\Controllers\ValesController@getCreditosDictamen')->name('getCreditosDictamen');
+    Route::get('/vales/GestionFase2', 'App\Http\Controllers\valesController@getGestionFase2')->name('getGestionFase2');
+    Route::get('/vales/GestionFase2/EditarDistribuidor', 'App\Http\Controllers\valesController@getEditDistribuidor')->name('getEditDistribuidor');
+    Route::get('/vales/GestionFase2/SolicitudMesaCredito/{id}', 'App\Http\Controllers\valesController@getSolicitudMesaCredito')->name('getSolicitudMesaCredito');
+    Route::get('/vales/GestionFase2/CreditosDictamen', 'App\Http\Controllers\valesController@getCreditosDictamen')->name('getCreditosDictamen');
 
 
-    Route::get('/Guardar_observaciones', 'App\Http\Controllers\ValesController@Guardar_observaciones')->name('Guardar_observaciones');
-    Route::get('/rechazar_distribuidor/{id}', 'App\Http\Controllers\ValesController@rechazar_distribuidor')->name('rechazar_distribuidor');
-    Route::get('/aprobar_distribuidor/{id}', 'App\Http\Controllers\ValesController@aprobar_distribuidor')->name('aprobar_distribuidor');
+    Route::get('/Guardar_observaciones', 'App\Http\Controllers\valesController@Guardar_observaciones')->name('Guardar_observaciones');
+    Route::get('/rechazar_distribuidor/{iddis}/{idaval}', 'App\Http\Controllers\valesController@rechazar_distribuidor')->name('rechazar_distribuidor');
+    Route::get('/autorizar_distribuidor/{iddis}/{idaval}', 'App\Http\Controllers\valesController@autorizar_distribuidor')->name('autorizar_distribuidor');
+    Route::get('/enviar_mensaje/{tipo}/{ididstribuidor}', 'App\Http\Controllers\valesController@enviar_mensaje')->name('enviar_mensaje');
 
-    Route::get('/enviar_mensaje/{tipo}/{ididstribuidor}', 'App\Http\Controllers\ValesController@enviar_mensaje')->name('enviar_mensaje');
+    
 
     // Area de sistemas--------------------------------------------------------------------------------------------------
     Route::get('/Sistemas/guardar_permisos', 'App\Http\Controllers\SistemasController@guardar_permisos')->name('guardar_permisos');
-    Route::get('/vales/actualizarnotificaciones', 'App\Http\Controllers\ValesController@actualizarnotificaciones')->name('actualizarnotificaciones');
+    Route::get('/vales/actualizarnotificaciones', 'App\Http\Controllers\valesController@actualizarnotificaciones')->name('actualizarnotificaciones');
 
     // Area entrega de vales y cliente final--------------------------------------------------------------------------------------------------
     Route::get('/gestionCreditos',[App\Http\Controllers\ValeraController::class, 'indexGestionCreditos'])->name('gestionCreditos');
@@ -142,8 +153,7 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::get('/pagos/gestionpagos', 'App\Http\Controllers\pagoscontroller@index')->name('gestionpagos');
-
+    Route::get('/generareportepagosdistribuidor/{id}', 'App\Http\Controllers\pagoscontroller@generareportepagosdistribuidor')->name('generareportepagosdistribuidor');
     //Route::get('/paginaprueba', 'App\Http\Controllers\valeraController@obtenerdesglosedeplazos')->name('paginaprueba');
-   
-    
+
   });

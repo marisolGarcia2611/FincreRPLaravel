@@ -27,6 +27,9 @@ trait SistemasTraits{
     }
 
 
+    public function obtenerpermisosxusuario(){
+
+    }
 
     public function obtenerdepartamentoXvista(int $iddistribuidor){
     $vardeparatamento = vistas::select('tblvistas.iddepartamento')
@@ -60,6 +63,3 @@ trait SistemasTraits{
     return $permisoa;
 }
 }
-
-
-

@@ -95,7 +95,7 @@
 
                   <td class="bg-0">
                       <center>
-                            <form action="">
+                            <form action="/generareportepagosdistribuidor/{{$dis->id}}">
                                   <button class="btn btn-success fs-9 rounded-5" type="submit"><i class="fa-solid fa-gavel"></i>Generar Reporte de pagos</button>
                             </form>
                       </center>

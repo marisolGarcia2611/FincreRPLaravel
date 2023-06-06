@@ -71,7 +71,7 @@
                                 <div class="col-md-6">
                                     <div class="form-outline">
                                     <label class="form-label">Nombre de Usuario</label>
-                                    <input type="text" id="name"  name="name" class="form-control" minlength="3" maxlength="20" placeholder="user123"  required />
+                                    <input type="text" id="name"  name="name" class="form-control" minlength="3" maxlength="100" placeholder="user123"  required />
                                     <div class="valid-feedback">
                                         ¡Se ve bien!
                                     </div>
@@ -159,7 +159,7 @@
                                             <p class="file-return"></p>
                                         </div>
                                     </div>
-                                    <p class="txtcenter">Recuerde que solo se admite el formato ".jpg"</p> 
+                                    <p class="txtcenter">Recuerde que solo se admite el formato ".png"</p> 
                                 </div>
                                 <div class="col-md-4 d-md-block d-none"></div>
                             </div>

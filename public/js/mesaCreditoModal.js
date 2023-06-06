@@ -66,8 +66,7 @@ $(document).ready(function() {
         }   
     }
 
-$(document).ready(function() {
-    
+
 
     var table = $('#dic').DataTable( {
         "dom": 'B<"float-left"l><"float-right"f>t<"float-left"i><"float-right"p><"clearfix">',
@@ -79,5 +78,4 @@ $(document).ready(function() {
         },
         
     } );
-    new $.fn.dataTable.FixedHeader( table );
-});
+

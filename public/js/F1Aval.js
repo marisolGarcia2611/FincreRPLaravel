@@ -6,9 +6,12 @@ avalF1.innerHTML = `
 <div class="pos__btnBack1 d-none d-md-block" style="z-index:3!important;">
     <div class="wrapper"> 
         <form action="/vales/GestionFase1">
-            <button class="btn btnBack1 btn-light border-0" type="submit"><h4><i class="fa-solid fa-layer-group"></i></h4></button>
+            <button class="btn btnBack1 btn-light border-0" type="submit"><h4><i class="fa-solid fa-house"></i></h4></button>
         </form>
     </div>
+</div>
+<div class="pos__ico">
+  <img class="ico__image" src="../ico/valeMil.png" alt="valeMil">
 </div>
 
 <div class="mt-4 text-center shadow p-3 mb-5 bg-body rounded spaceNavPas ">

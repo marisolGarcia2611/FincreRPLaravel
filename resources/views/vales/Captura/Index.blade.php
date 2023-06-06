@@ -45,6 +45,7 @@
 
         <div class="pCollage">
             <div class="card-group text-center">
+              @if(Auth::user()->tipo == "sucursal"|| Auth::user()->tipo == "master")
                 <div class="card text-light bgCollage borderleft">
                   <img src="{{ asset('Images/13.png') }}" class="card-img responsiveCollage borderleft" alt="...">
                   <div class="card-img-overlay translateY">
@@ -63,7 +64,26 @@
                       </figure>
                   </div>
                 </div>
-          
+              @else
+              <div class="card text-light bgCollage borderleft" disabled>
+                <img src="{{ asset('Images/13.png') }}" class="card-img responsiveCollage borderleft" alt="...">
+                <div class="card-img-overlay translateY">
+        
+                  <figure class="animate_animated animate_backInDown">
+                      <blockquote class="blockquote">
+                      <a href="#" class="link-light" onclick="NoPermitidoAdmin()">
+                        <h2 class="fw-bold shadow-text mb-3">Captura de Distribuidoras</h2>
+                        <figcaption class="blockquote-footer shadow-text fs-8 text-light">
+                          Control de la primera fase del credito <cite title="Título fuente">Distribuidor, Aval y Documentos importados</cite>
+                        </figcaption>
+                        <h1 class="fw-light shadow-text"><i class="fa-solid fa-cubes"></i></h1>
+                      </a> 
+                      </blockquote>
+                      
+                    </figure>
+                </div>
+              </div>
+              @endif
                 <div class="card text-light bgCollage borderRight">
                   <img src="{{ asset('Images/12.png') }}" class="card-img responsiveCollage borderRight" alt="...">
                   <div class="card-img-overlay translateY">
@@ -91,6 +111,14 @@
 </div>
 
 
+<script>
+  function NoPermitidoAdmin(){
+    swal("¡No tienes el perfil adecuado!","Tu perfil administrtivo no te permite acceder","warning", {buttons: false,timer: 3000});
+  }
 
+  function NoPermitidoSucursal(){
+    swal("¡No tienes el perfil adecuado!","Tu perfil de sucursal no te permite acceder","warning", {buttons: false,timer: 3000});
+  }
+</script>
 
 @endsection
